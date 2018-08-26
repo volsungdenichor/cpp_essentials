@@ -30,6 +30,8 @@ struct is_iterator_constructible<
 
 } /* namespace detail */
 
+
+
 template <class Iter, CONCEPT_IF(concepts::InputIterator<Iter>)>
 class iterator_range
 {
@@ -39,11 +41,10 @@ private:
 
 public:
     using iterator = Iter;
-    using traits = std::iterator_traits<iterator>;
-    using iterator_category = typename traits::iterator_category;
-    using value_type = typename traits::value_type;
-    using reference = typename traits::reference;
-    using difference_type = typename traits::difference_type;
+    using iterator_category = typename std::iterator_traits<iterator>::iterator_category;
+    using value_type = typename std::iterator_traits<iterator>::value_type;
+    using reference = typename std::iterator_traits<iterator>::reference;
+    using difference_type = typename std::iterator_traits<iterator>::difference_type;
     using size_type = std::make_unsigned_t<difference_type>;
 
     iterator_range()
@@ -69,6 +70,7 @@ public:
     }
 
 
+
     auto begin() const -> iterator
     {
         return _begin;
@@ -78,6 +80,7 @@ public:
     {
         return _end;
     }
+
 
 
     auto size() const -> size_type
@@ -90,41 +93,38 @@ public:
         return begin() == end();
     }
 
-
-    auto front() const -> reference
-    {
-        EXPECTS(!empty());
-        return *begin();
-    }    
-
-    auto operator [](size_type index) const -> reference
-    {
-        return *std::next(begin(), index);
-    }
-
-    auto at(size_type index) const -> reference
-    {
-        auto it = begin();
-        while (it != end() && index > 0)
-        {
-            --index;
-            ++it;
-        }
-        EXPECTS(it != end());
-        return *it;
-    }
-
-
-    auto operator *() const -> reference
-    {
-        return front();
-    }
-
     explicit operator bool() const
     {
         return !empty();
     }
 
+
+
+    auto front() const -> reference
+    {
+        return *begin();
+    }
+
+    auto back() const -> reference
+    {
+        return *std::prev(end());
+    }
+
+    auto operator [](difference_type index) const -> reference
+    {
+        return *std::next(begin(), index);
+    }
+
+    auto at(difference_type index) const -> reference
+    {
+        return (*this)[index];
+    }
+
+    auto operator *() const -> reference
+    {
+        EXPECTS(!empty());
+        return front();
+    }
 
     template <class Container, CONCEPT_IF(is_iterator_constructible<Container>::value)>
     operator Container() const

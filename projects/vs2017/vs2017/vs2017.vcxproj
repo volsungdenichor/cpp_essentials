@@ -167,6 +167,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\math_functors.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\optional.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\return_policy.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\serialization.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\views.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />

@@ -37,5 +37,8 @@
     <ClCompile Include="..\..\..\tests\core\math_functors.test.cpp">
       <Filter>tests\core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\tests\core\serialization.test.cpp">
+      <Filter>tests\core</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -18,10 +18,16 @@
     <Filter Include="tests\core">
       <UniqueIdentifier>{d1dbb470-2760-4f23-a55c-d670539c6869}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tests\sq">
+      <UniqueIdentifier>{3fd2bbb2-7acb-4378-b98b-a6fa8a42b9ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\3rd_party\catch.hpp">
       <Filter>3rd_party</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\tests\test_helpers.hpp">
+      <Filter>tests</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -45,6 +51,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\tests\core\ptr_vector.test.cpp">
       <Filter>tests\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\tests\sq\map.test.cpp">
+      <Filter>tests\sq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\tests\filter.test.cpp">
+      <Filter>tests\sq</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -25,6 +25,9 @@
     <Filter Include="Header Files\cpp_essentials\sq">
       <UniqueIdentifier>{ceab8fdb-6f00-491b-b57b-8ea312197c8b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\cpp_essentials\sq\detail">
+      <UniqueIdentifier>{4f4f4ea7-59e6-4770-8a1a-63e4334d8efe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -83,6 +86,27 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\ptr_vector.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\function_defs.hpp">
+      <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\adaptor.hpp">
+      <Filter>Header Files\cpp_essentials\sq</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\filter.hpp">
+      <Filter>Header Files\cpp_essentials\sq</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\map.hpp">
+      <Filter>Header Files\cpp_essentials\sq</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\map_iterator.hpp">
+      <Filter>Header Files\cpp_essentials\sq\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\iterator_func_helper.hpp">
+      <Filter>Header Files\cpp_essentials\sq\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\filter_iterator.hpp">
+      <Filter>Header Files\cpp_essentials\sq\detail</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

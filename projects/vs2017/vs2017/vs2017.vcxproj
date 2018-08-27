@@ -160,6 +160,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\algorithm.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\arithmetic_functors.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\assertions.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\function_defs.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\exceptions.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\functors.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\iterator_facade.hpp" />
@@ -172,6 +173,12 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\return_policy.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\serialization.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\views.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\adaptor.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\filter_iterator.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\iterator_func_helper.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\map_iterator.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\filter.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\map.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>

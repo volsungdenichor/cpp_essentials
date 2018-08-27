@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\3rd_party\catch.hpp" />
+    <ClInclude Include="..\..\..\tests\test_helpers.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\tests\core\algorithm.test.cpp" />
@@ -164,6 +165,8 @@
     <ClCompile Include="..\..\..\tests\core\ptr_vector.test.cpp" />
     <ClCompile Include="..\..\..\tests\core\ref_vector.test.cpp" />
     <ClCompile Include="..\..\..\tests\core\serialization.test.cpp" />
+    <ClCompile Include="..\..\..\tests\filter.test.cpp" />
+    <ClCompile Include="..\..\..\tests\sq\map.test.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -55,10 +55,10 @@ struct approx_equal_to_t
 
 struct clamp_t
 {
-    template <class V, class T>
-    decltype(auto) operator ()(const V& value, const T& lower, const T& upper) const
+    template <class T>
+    const T& operator ()(const T& value, const T& lower, const T& upper) const
     {
-        return std::max(lower, std::min(upper, value));
+        return std::clamp(value, lower, upper);
     }
 
     template <class T>

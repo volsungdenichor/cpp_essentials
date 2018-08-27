@@ -103,7 +103,13 @@ template
     , CONCEPT_IF(concepts::OutputIterator<OutputIter>)>
 auto copy_while(Range&& range, OutputIter output, UnaryPred&& pred) -> OutputIter
 {
-    return detail::copy_while(std::begin(range), std::end(range), output, std::move(pred));
+    auto end = std::end(range);
+    for (auto it = std::begin(range); it != end && pred(*it); ++it)
+    {
+        *output = *it;
+        ++output;
+    }
+    return output;
 }
 
 template
@@ -114,7 +120,13 @@ template
     , CONCEPT_IF(concepts::OutputIterator<OutputIter>)>
 auto copy_until(Range&& range, OutputIter output, UnaryPred&& pred) -> OutputIter
 {
-    return detail::copy_until(std::begin(range), std::end(range), output, std::move(pred));
+    auto end = std::end(range);
+    for (auto it = std::begin(range); it != end && !pred(*it); ++it)
+    {
+        *output = *it;
+        ++output;
+    }
+    return output;
 }
 
 template
@@ -163,7 +175,7 @@ template
     , CONCEPT_IF(concepts::InputRange<Range2>)>
 auto equal(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) -> bool
 {
-    return std::equal(std::begin(range1), std::end(range1), std::begin(range2), std::move(pred));
+    return std::equal(std::begin(range1), std::end(range1), std::begin(range2), std::end(range2), std::move(pred));
 }
 
 template

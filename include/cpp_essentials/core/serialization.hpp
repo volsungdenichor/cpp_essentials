@@ -1,6 +1,8 @@
 #ifndef CPP_ESSENTIALS_CORE_SERIALIZATION_HPP_
 #define CPP_ESSENTIALS_CORE_SERIALIZATION_HPP_
 
+#pragma once
+
 #include <sstream>
 #include <stdexcept>
 

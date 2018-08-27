@@ -1,6 +1,8 @@
 #ifndef CPP_ESSENTIALS_CORE_VIEW_HPP_
 #define CPP_ESSENTIALS_CORE_VIEW_HPP_
 
+#pragma once
+
 #include <string>
 #include <algorithm>
 #include <cpp_essentials/core/iterator_range.hpp>

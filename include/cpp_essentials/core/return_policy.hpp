@@ -1,6 +1,8 @@
 #ifndef CPP_ESSENTIALS_CORE_RETURN_POLICY_HPP_
 #define CPP_ESSENTIALS_CORE_RETURN_POLICY_HPP_
 
+#pragma once
+
 #include <cpp_essentials/concepts/concepts.hpp>
 #include <cpp_essentials/core/optional.hpp>
 #include <cpp_essentials/core/iterator_range.hpp>

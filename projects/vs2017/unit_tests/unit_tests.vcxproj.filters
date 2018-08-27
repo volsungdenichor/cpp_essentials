@@ -40,5 +40,11 @@
     <ClCompile Include="..\..\..\tests\core\serialization.test.cpp">
       <Filter>tests\core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\tests\core\ref_vector.test.cpp">
+      <Filter>tests\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\tests\core\ptr_vector.test.cpp">
+      <Filter>tests\core</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

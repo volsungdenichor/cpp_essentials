@@ -1,6 +1,8 @@
 #ifndef CPP_ESSENTIALS_CORE_EXCEPTIONS_HPP_
 #define CPP_ESSENTIALS_CORE_EXCEPTIONS_HPP_
 
+#pragma once
+
 #include <stdexcept>
 #include <sstream>
 

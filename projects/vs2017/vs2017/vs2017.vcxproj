@@ -162,10 +162,13 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\assertions.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\exceptions.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\functors.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\iterator_facade.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\iterator_range.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\math_constants.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\math_functors.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\optional.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\ptr_vector.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\ref_vector.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\return_policy.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\serialization.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\views.hpp" />

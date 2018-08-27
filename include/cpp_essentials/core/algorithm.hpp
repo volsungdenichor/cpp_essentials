@@ -1,6 +1,8 @@
 #ifndef CPP_ESSENTIALS_CORE_ALGORITHM_HPP_
 #define CPP_ESSENTIALS_CORE_ALGORITHM_HPP_
 
+#pragma once
+
 #include <algorithm>
 #include <numeric>
 

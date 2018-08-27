@@ -22,7 +22,7 @@ auto make_filtered_range(Iter begin, Iter end, UnaryPred pred)
         filter_iterator{ end, pred, end });
 }
 
-struct take_if : adaptable<take_if>
+struct take_if_t : adaptable<take_if_t>
 {
     using adaptable::operator();
 
@@ -33,7 +33,7 @@ struct take_if : adaptable<take_if>
     }
 };
 
-struct drop_if : adaptable<drop_if>
+struct drop_if_t : adaptable<drop_if_t>
 {
     using adaptable::operator();
 
@@ -46,8 +46,8 @@ struct drop_if : adaptable<drop_if>
 
 } /* namespace detail */
 
-static constexpr detail::take_if take_if = {};
-static constexpr detail::drop_if drop_if = {};
+static constexpr detail::take_if_t take_if = {};
+static constexpr detail::drop_if_t drop_if = {};
 
 } /* namespace cpp_essentials::sq */
 

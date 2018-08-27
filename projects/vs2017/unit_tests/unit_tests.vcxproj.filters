@@ -55,7 +55,7 @@
     <ClCompile Include="..\..\..\tests\sq\map.test.cpp">
       <Filter>tests\sq</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\tests\filter.test.cpp">
+    <ClCompile Include="..\..\..\tests\sq\filter.test.cpp">
       <Filter>tests\sq</Filter>
     </ClCompile>
   </ItemGroup>

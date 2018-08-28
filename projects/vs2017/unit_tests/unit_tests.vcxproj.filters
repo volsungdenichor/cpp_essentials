@@ -61,5 +61,8 @@
     <ClCompile Include="..\..\..\tests\sq\zip.test.cpp">
       <Filter>tests\sq</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\tests\sq\slice.cpp">
+      <Filter>tests\sq</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

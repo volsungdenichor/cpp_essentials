@@ -20,7 +20,7 @@ struct map_t : core::adaptable<map_t>
     template <class Range, class UnaryFunc>
     auto operator ()(Range&& range, UnaryFunc func) const
     {
-        return make_range(
+        return core::make_range(
             map_iterator{ std::begin(range), func },
             map_iterator{ std::end(range), func });
     }

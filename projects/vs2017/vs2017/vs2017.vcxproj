@@ -176,8 +176,10 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\filter_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\iterator_func_helper.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\map_iterator.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\zip_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\filter.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\map.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\zip.hpp" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>

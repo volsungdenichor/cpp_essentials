@@ -167,6 +167,7 @@
     <ClCompile Include="..\..\..\tests\core\serialization.test.cpp" />
     <ClCompile Include="..\..\..\tests\sq\filter.test.cpp" />
     <ClCompile Include="..\..\..\tests\sq\map.test.cpp" />
+    <ClCompile Include="..\..\..\tests\sq\zip.test.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -42,9 +42,9 @@ struct adaptable
     template <class... Args>
     auto operator ()(Args&&... args) const
     {
-        return make_adaptor([=](auto&& range) -> decltype(auto)
+        return make_adaptor([=](auto&& item) -> decltype(auto)
         {
-            return self()(std::move(range), std::move(args)...);
+            return self()(std::forward<decltype(item)>(item), std::move(args)...);
         });
     }
 

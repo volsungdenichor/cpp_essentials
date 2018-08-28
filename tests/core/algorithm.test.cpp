@@ -25,11 +25,6 @@ TEST_CASE("any_of")
     REQUIRE(core::any_of(vec(1, 2, 3, 7), [](auto&& x) { return x < 5; }) == true);
 }
 
-TEST_CASE("contains")
-{
-    REQUIRE(core::contains(vec(1, 2, 3, 4, 5, 5, 6), vec(3, 4, 5)) == true);
-}
-
 TEST_CASE("copy")
 {
     REQUIRE(core::copy(vec(1, 2, 3, 4), vector_builder<int>{}) == vec(1, 2, 3, 4));
@@ -45,16 +40,6 @@ TEST_CASE("copy_n")
     REQUIRE(core::copy_n(vec(1, 2, 3, 4, 5), 2, vector_builder<int>{}) == vec(1, 2));
 }
 
-TEST_CASE("copy_while")
-{
-    REQUIRE(core::copy_while(vec(1, 2, 3, 4, 5), vector_builder<int>{}, [](auto&& x) { return x < 3; }) == vec(1, 2));
-}
-
-TEST_CASE("copy_until")
-{
-    REQUIRE(core::copy_until(vec(1, 2, 3, 4, 5), vector_builder<int>{}, [](auto&& x) { return x == 4; }) == vec(1, 2, 3));
-}
-
 TEST_CASE("count")
 {
     REQUIRE(core::count(vec(1, 1, 2, 3, 1, 4), 1) == 3);
@@ -63,11 +48,6 @@ TEST_CASE("count")
 TEST_CASE("count_if")
 {
     REQUIRE(core::count_if(vec(1, 1, 2, 3, 1, 4), [](auto&& x) { return x != 1; }) == 3);
-}
-
-TEST_CASE("ends_with")
-{
-    REQUIRE(core::ends_with(vec(1, 2, 3, 4, 5, 5, 6), vec(5, 6)) == true);
 }
 
 TEST_CASE("equal")
@@ -97,4 +77,14 @@ TEST_CASE("find")
     
     REQUIRE(core::find(core::return_optional, vect, 3) == 3);
     REQUIRE(core::find(core::return_optional, vect, 5) == core::none);
+}
+
+TEST_CASE("find_if")
+{
+    auto vect = vec(1, 2, 3, 3, 4);
+    REQUIRE(core::find_if(vect, [](auto x) { return x > 2; }) == vec(3, 3, 4));
+    REQUIRE(core::find_if(vect, [](auto) { return false; }) == vector_builder<int>::empty());
+
+    REQUIRE(core::find_if(core::return_optional, vect, [](auto x) { return x > 2; }) == 3);
+    REQUIRE(core::find_if(core::return_optional, vect, [](auto) { return false; }) == core::none);
 }

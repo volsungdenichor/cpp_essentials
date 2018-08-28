@@ -100,7 +100,7 @@ public:
     template <class Container, CONCEPT_IF(std::is_reference<concepts::range_reference<Container>>::value)>
     ref_vector(Container&& container)
     {
-        transform(container, std::back_inserter(_vect), [](auto&& item) { return pointer(&item); });
+        std::transform(std::begin(container), std::end(container), std::back_inserter(_vect), [](auto&& item) { return pointer(&item); });
     }
 
     template <class Container, CONCEPT_IF(is_iterator_constructible<Container>::value)>

@@ -158,7 +158,7 @@ static constexpr detail::lerp_t lerp = {};
 
 static constexpr detail::logical_negation_t logical_negation = {};
 
-} /* cpp_essentials::core */
+} /* namespace cpp_essentials::core */
 
 #endif /* CPP_ESSENTIALS_CORE_FUNCTORS_HPP_ */
 

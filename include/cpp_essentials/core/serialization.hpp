@@ -116,6 +116,6 @@ static constexpr detail::parse_t<T> parse = {};
 static constexpr detail::serialize_t serialize = {};
 static constexpr detail::to_string_t to_string = {};
 
-} /* cpp_essentials::core */
+} /* namespace cpp_essentials::core */
 
 #endif /* CPP_ESSENTIALS_CORE_SERIALIZATION_HPP_ */

@@ -48,7 +48,7 @@ void throw_exception(const Exception& ex, const char* file, int line, const char
 
 } /* namespace detail */
 
-} /* cpp_essentials::core */
+} /* namespace cpp_essentials::core */
 
 #if defined(__MINGW32__)
 #  define THROW(...) ::cpp_essentials::core::detail::throw_exception(__VA_ARGS__, __FILE__, __LINE__, __FUNCTION__)

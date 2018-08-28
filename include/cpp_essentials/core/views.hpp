@@ -62,6 +62,6 @@ inline std::ostream& operator <<(std::ostream& os, const cstring_view& item)
 }
 
 
-} /* cpp_essentials::core */
+} /* namespace cpp_essentials::core */
 
 #endif /* CPP_ESSENTIALS_CORE_VIEW_HPP_ */

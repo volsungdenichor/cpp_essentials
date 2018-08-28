@@ -88,7 +88,7 @@ constexpr detail::binary_operator<std::greater_equal<>> greater_equal = {};
 constexpr detail::binary_operator<std::logical_and<>> logical_and = {};
 constexpr detail::binary_operator<std::logical_or<>> logical_or = {};
 
-} /* cpp_essentials::core */
+} /* namespace cpp_essentials::core */
 
 #endif /* CPP_ESSENTIALS_CORE_ARITHMETIC_FUNCTORS_HPP_ */
 

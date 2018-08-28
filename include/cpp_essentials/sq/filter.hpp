@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include <cpp_essentials/sq/adaptor.hpp>
+#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/iterator_range.hpp>
 #include <cpp_essentials/core/functors.hpp>
 #include <cpp_essentials/sq/detail/filter_iterator.hpp>
@@ -22,7 +22,7 @@ auto make_filtered_range(Iter begin, Iter end, UnaryPred pred)
         filter_iterator{ end, pred, end });
 }
 
-struct take_if_t : adaptable<take_if_t>
+struct take_if_t : core::adaptable<take_if_t>
 {
     using adaptable::operator();
 
@@ -33,7 +33,7 @@ struct take_if_t : adaptable<take_if_t>
     }
 };
 
-struct drop_if_t : adaptable<drop_if_t>
+struct drop_if_t : core::adaptable<drop_if_t>
 {
     using adaptable::operator();
 

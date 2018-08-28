@@ -90,9 +90,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\function_defs.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\sq\adaptor.hpp">
-      <Filter>Header Files\cpp_essentials\sq</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\filter.hpp">
       <Filter>Header Files\cpp_essentials\sq</Filter>
     </ClInclude>

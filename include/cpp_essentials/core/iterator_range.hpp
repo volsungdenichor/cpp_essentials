@@ -216,6 +216,6 @@ auto make_range(Range&& range)
     return make_range(std::begin(range), std::end(range));
 }
 
-} /* cpp_essentials::core */
+} /* namespace cpp_essentials::core */
 
 #endif /* CPP_ESSENTIALS_CORE_ITERATOR_RANGE_HPP_ */

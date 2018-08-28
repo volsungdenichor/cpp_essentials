@@ -178,7 +178,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\map_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\filter.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\map.hpp" />
-    <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>

@@ -167,6 +167,8 @@
     <ClCompile Include="..\..\..\tests\core\ref_vector.test.cpp" />
     <ClCompile Include="..\..\..\tests\core\serialization.test.cpp" />
     <ClCompile Include="..\..\..\tests\sq\filter.test.cpp" />
+    <ClCompile Include="..\..\..\tests\sq\front.test.cpp" />
+    <ClCompile Include="..\..\..\tests\sq\iterate.test.cpp" />
     <ClCompile Include="..\..\..\tests\sq\map.test.cpp" />
     <ClCompile Include="..\..\..\tests\sq\numeric.test.cpp" />
     <ClCompile Include="..\..\..\tests\sq\reverse.test.cpp" />

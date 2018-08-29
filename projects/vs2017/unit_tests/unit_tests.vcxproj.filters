@@ -73,5 +73,11 @@
     <ClCompile Include="..\..\..\tests\core\container_helpers.test.cpp">
       <Filter>tests\core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\tests\sq\iterate.test.cpp">
+      <Filter>tests\sq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\tests\sq\front.test.cpp">
+      <Filter>tests\sq</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

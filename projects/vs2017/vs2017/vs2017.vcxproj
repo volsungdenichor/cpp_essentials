@@ -179,6 +179,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\zip_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\filter.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\map.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\reverse.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\slice.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\zip.hpp" />
     <ClInclude Include="targetver.h" />

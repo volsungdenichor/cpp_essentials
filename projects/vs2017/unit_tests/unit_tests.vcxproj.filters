@@ -64,5 +64,8 @@
     <ClCompile Include="..\..\..\tests\sq\slice.cpp">
       <Filter>tests\sq</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\tests\sq\reverse.test.cpp">
+      <Filter>tests\sq</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

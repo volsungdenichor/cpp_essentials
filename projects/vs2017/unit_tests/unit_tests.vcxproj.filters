@@ -67,5 +67,11 @@
     <ClCompile Include="..\..\..\tests\sq\reverse.test.cpp">
       <Filter>tests\sq</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\tests\sq\numeric.test.cpp">
+      <Filter>tests\sq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\tests\core\container_helpers.test.cpp">
+      <Filter>tests\core</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

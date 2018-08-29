@@ -8,6 +8,5 @@ using namespace cpp_essentials;
 TEST_CASE("reverse")
 {
     std::vector<int> vect{ 2, 4, 5 };
-    std::vector<int> result = vect | sq::reverse();
-    REQUIRE(result == vec(5, 4, 2));
+    REQUIRE((vect | sq::reverse()) == vec(5, 4, 2));
 }

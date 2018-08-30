@@ -158,6 +158,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\concepts\concepts.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\adaptor.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\algorithm.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\algorithm_ext.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\arithmetic_functors.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\assertions.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\container_helpers.hpp" />
@@ -181,7 +182,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\numeric_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\zip_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\filter.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\sq\front.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\iterate.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\map.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\numeric.hpp" />

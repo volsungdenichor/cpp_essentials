@@ -160,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\tests\core\algorithm.test.cpp" />
+    <ClCompile Include="..\..\..\tests\core\algorithm_ext.test.cpp" />
     <ClCompile Include="..\..\..\tests\core\container_helpers.test.cpp" />
     <ClCompile Include="..\..\..\tests\core\functors.test.cpp" />
     <ClCompile Include="..\..\..\tests\core\math_functors.test.cpp" />
@@ -167,7 +168,6 @@
     <ClCompile Include="..\..\..\tests\core\ref_vector.test.cpp" />
     <ClCompile Include="..\..\..\tests\core\serialization.test.cpp" />
     <ClCompile Include="..\..\..\tests\sq\filter.test.cpp" />
-    <ClCompile Include="..\..\..\tests\sq\front.test.cpp" />
     <ClCompile Include="..\..\..\tests\sq\iterate.test.cpp" />
     <ClCompile Include="..\..\..\tests\sq\map.test.cpp" />
     <ClCompile Include="..\..\..\tests\sq\numeric.test.cpp" />

@@ -88,7 +88,7 @@ public:
     
     using iterator = detail::dereferenced_iterator<inner_iter, reference>;
     using const_iterator = detail::dereferenced_iterator<inner_const_iter, reference>;
-    using size_type = size_t;
+    using size_type = std::size_t;
 
     template <class Container>
     using is_iterator_constructible = detail::is_iterator_constructible<Container, const_iterator>;

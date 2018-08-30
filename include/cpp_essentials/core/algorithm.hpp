@@ -7,6 +7,7 @@
 #include <numeric>
 
 #include <cpp_essentials/concepts/concepts.hpp>
+#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/return_policy.hpp>
 
 namespace cpp_essentials::core
@@ -15,8 +16,10 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-struct accumulate_t
+struct accumulate_t : adaptable<accumulate_t>
 {
+    using adaptable::operator();
+
     template
         < class Range
         , class T
@@ -42,8 +45,10 @@ struct adjacent_difference_t
     }
 };
 
-struct all_of_t
+struct all_of_t : adaptable<all_of_t>
 {
+    using adaptable::operator();
+
     template
         < class Range
         , class UnaryPred
@@ -54,8 +59,10 @@ struct all_of_t
     }
 };
 
-struct any_of_t
+struct any_of_t : adaptable<any_of_t>
 {
+    using adaptable::operator();
+
     template
         < class Range
         , class UnaryPred
@@ -66,21 +73,25 @@ struct any_of_t
     }
 };
 
-struct copy_t
+struct copy_t : adaptable<copy_t>
 {
+    using adaptable::operator();
+
     template
-    < class Range
-    , class OutputIter
-    , CONCEPT_IF(concepts::InputRange<Range>)
-    , CONCEPT_IF(concepts::OutputIterator<OutputIter>)>
+        < class Range
+        , class OutputIter
+        , CONCEPT_IF(concepts::InputRange<Range>)
+        , CONCEPT_IF(concepts::OutputIterator<OutputIter>)>
     auto operator ()(Range&& range, OutputIter output) const -> OutputIter
     {
         return std::copy(std::begin(range), std::end(range), output);
     }
 };
 
-struct copy_if_t
+struct copy_if_t : adaptable<copy_if_t>
 {
+    using adaptable::operator();
+
     template
         < class Range
         , class OutputIter
@@ -93,8 +104,10 @@ struct copy_if_t
     }
 };
 
-struct copy_n_t
+struct copy_n_t : adaptable<copy_n_t>
 {
+    using adaptable::operator();
+
     template
         < class Range
         , class Size
@@ -107,20 +120,24 @@ struct copy_n_t
     }
 };
 
-struct count_t
+struct count_t : adaptable<count_t>
 {
+    using adaptable::operator();
+
     template
         < class Range
         , class T
         , CONCEPT_IF(concepts::InputRange<Range>)>
-    auto operator ()(Range&& range, const T& value) const
+    auto operator ()(Range&& range, T value) const
     {
         return std::count(std::begin(range), std::end(range), value);
     }
 };
 
-struct count_if_t
+struct count_if_t : adaptable<count_if_t>
 {
+    using adaptable::operator();
+
     template
         < class Range
         , class UnaryPred
@@ -301,8 +318,10 @@ struct find_first_of_t
     }
 };
 
-struct for_each_t
+struct for_each_t : adaptable<for_each_t>
 {
+    using adaptable::operator();
+
     template
         < class Range
         , class UnaryFunc
@@ -689,8 +708,10 @@ struct mismatch_t
     }
 };
 
-struct move_t
+struct move_t : adaptable<move_t>
 {
+    using adaptable::operator();
+
     template
         < class Range
         , class OutputIter
@@ -714,8 +735,10 @@ struct next_permutation_t
     }
 };
 
-struct none_of_t
+struct none_of_t : adaptable<none_of_t>
 {
+    using adaptable::operator();
+
     template
         < class Range
         , class UnaryPred
@@ -1034,7 +1057,7 @@ struct reverse_copy_t
         , class OutputIter
         , CONCEPT_IF(concepts::BidirectionalRange<Range>)
         , CONCEPT_IF(concepts::OutputIterator<OutputIter>)>
-        auto operator()(Range&& range, OutputIter output) const -> OutputIter
+    auto operator()(Range&& range, OutputIter output) const -> OutputIter
     {
         return std::reverse_copy(std::begin(range), std::end(range), output);
     }

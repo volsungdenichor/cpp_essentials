@@ -10,12 +10,18 @@ template <class Func>
 struct adaptor_t
 {
     Func func;
+
+    template <class T>
+    auto operator ()(T&& item) const -> decltype(auto)
+    {
+        return func(std::forward<T>(item));
+    }
 };
 
 template <class T, class Func>
 auto operator |(T&& item, const adaptor_t<Func>& adaptor) -> decltype(auto)
 {
-    return adaptor.func(std::forward<T>(item));
+    return adaptor(std::forward<T>(item));
 }
 
 template <class Func>
@@ -44,7 +50,7 @@ struct adaptable
     {
         return make_adaptor([=](auto&& item) -> decltype(auto)
         {
-            return self()(std::forward<decltype(item)>(item), std::move(args)...);
+            return self()(std::forward<decltype(item)>(item), args...);
         });
     }
 

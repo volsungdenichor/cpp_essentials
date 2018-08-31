@@ -13,30 +13,9 @@
 namespace cpp_essentials::core
 {
 
-namespace detail
-{
-
-template <class Container, class Iter, class = void>
-struct is_iterator_constructible : std::false_type {};
-
-template <class Container, class Iter>
-struct is_iterator_constructible<
-    Container,
-    Iter,
-    concepts::void_t<
-    std::enable_if_t<concepts::iterator<Iter>::value>,
-    decltype(Container(std::declval<Iter>(), std::declval<Iter>()))>>
-    : std::true_type {};
-
-} /* namespace detail */
-
 template <class Iter, CONCEPT_IF(concepts::InputIterator<Iter>)>
 class iterator_range
 {
-private:
-    template <class Container>
-    using is_iterator_constructible = detail::is_iterator_constructible<Container, Iter>;
-
 public:
     using iterator = Iter;
     using traits = std::iterator_traits<iterator>;
@@ -126,7 +105,7 @@ public:
     }
 
 
-    template <class Container, CONCEPT_IF(is_iterator_constructible<Container>::value)>
+    template <class Container, CONCEPT_IF(std::is_constructible<Container, Iter, Iter>::value)>
     operator Container() const
     {
         return { begin(), end() };

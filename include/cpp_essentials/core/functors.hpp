@@ -146,6 +146,15 @@ struct lerp_t
     }
 };
 
+struct make_pair_t
+{
+    template <class L, class R>
+    auto operator ()(L&& lhs, R&& rhs) const
+    {
+        return std::make_pair(std::forward<L>(lhs), std::forward<R>(rhs));
+    }
+};
+
 struct make_tuple_t
 {
     template <class... Args>
@@ -198,6 +207,7 @@ static constexpr detail::logical_negation_t logical_negation = {};
 
 static constexpr detail::dereference_t dereference = {};
 
+static constexpr detail::make_pair_t make_pair = {};
 static constexpr detail::make_tuple_t make_tuple = {};
 static constexpr detail::tie_t tie = {};
 

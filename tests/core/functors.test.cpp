@@ -68,6 +68,11 @@ TEST_CASE("lerp")
     REQUIRE(lerp(5, 2) == 3.5);
 }
 
+TEST_CASE("make_pair")
+{
+    REQUIRE(core::make_pair(2, 3.14) == std::pair{ 2, 3.14 });
+}
+
 TEST_CASE("make_tuple")
 {
     REQUIRE(core::make_tuple(2, 3.14) == std::tuple{ 2, 3.14 });

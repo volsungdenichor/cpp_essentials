@@ -46,9 +46,15 @@ public:
         Func _func;
 
         template <class T>
-        void operator =(const T& item)
+        void operator ()(const T& item) const
         {
             _func(item);
+        }
+
+        template <class T>
+        void operator =(const T& item) const
+        {
+            (*this)(item);
         }
     };
 
@@ -75,6 +81,12 @@ public:
     proxy_t& operator *()
     {
         return _proxy;
+    }
+
+    template <class T>
+    void operator ()(const T& item) const
+    {
+        _proxy(item);
     }
 
 private:

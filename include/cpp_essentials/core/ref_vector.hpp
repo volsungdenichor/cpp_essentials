@@ -90,9 +90,6 @@ public:
     using const_iterator = detail::dereferenced_iterator<inner_const_iter, reference>;
     using size_type = std::size_t;
 
-    template <class Container>
-    using is_iterator_constructible = detail::is_iterator_constructible<Container, const_iterator>;
-
     ref_vector() = default;        
     ref_vector(const ref_vector&) = default;
     ref_vector(ref_vector&&) = default;
@@ -103,7 +100,7 @@ public:
         std::transform(std::begin(container), std::end(container), std::back_inserter(_vect), [](auto&& item) { return pointer(&item); });
     }
 
-    template <class Container, CONCEPT_IF(is_iterator_constructible<Container>::value)>
+    template <class Container, CONCEPT_IF(std::is_constructible<Container, const_iterator, const_iterator>::value)>
     operator Container() const
     {
         return { begin(), end() };

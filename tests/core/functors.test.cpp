@@ -67,3 +67,29 @@ TEST_CASE("lerp")
     REQUIRE(lerp(2, 5) == 3.5);
     REQUIRE(lerp(5, 2) == 3.5);
 }
+
+TEST_CASE("make_tuple")
+{
+    REQUIRE(core::make_tuple(2, 3.14) == std::tuple{ 2, 3.14 });
+}
+
+TEST_CASE("tie")
+{
+    int x = 3;
+    double y = 3.14;
+    auto tuple = core::tie(x, y);
+    REQUIRE(&core::get<0>(tuple) == &x);
+    REQUIRE(&core::get<1>(tuple) == &y);
+}
+
+TEST_CASE("get")
+{
+    auto tuple = core::make_tuple(2, 3, 'x');
+    REQUIRE(core::get<0>(tuple) == 2);
+}
+
+TEST_CASE("dereference")
+{
+    int x = 3;
+    REQUIRE(core::dereference(&x) == 3);
+}

@@ -61,9 +61,6 @@
     <ClCompile Include="..\..\..\tests\sq\zip.test.cpp">
       <Filter>tests\sq</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\tests\sq\slice.cpp">
-      <Filter>tests\sq</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\tests\sq\reverse.test.cpp">
       <Filter>tests\sq</Filter>
     </ClCompile>
@@ -78,6 +75,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\tests\core\algorithm_ext.test.cpp">
       <Filter>tests\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\tests\sq\slice.test.cpp">
+      <Filter>tests\sq</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

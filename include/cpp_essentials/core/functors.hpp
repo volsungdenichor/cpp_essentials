@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <functional>
+#include <tuple>
 
 #include <cpp_essentials/core/math_constants.hpp>
 
@@ -145,6 +146,43 @@ struct lerp_t
     }
 };
 
+struct make_tuple_t
+{
+    template <class... Args>
+    auto operator ()(Args&&... args) const
+    {
+        return std::make_tuple(std::forward<Args>(args)...);
+    }
+};
+
+struct tie_t
+{
+    template <class... Args>
+    auto operator ()(Args&&... args) const
+    {
+        return std::tie(std::forward<Args>(args)...);
+    }
+};
+
+template <std::size_t Index>
+struct get_t
+{
+    template <class T>
+    decltype(auto) operator ()(T&& arg) const
+    {
+        return std::get<Index>(std::forward<T>(arg));
+    }
+};
+
+struct dereference_t
+{
+    template <class T>
+    decltype(auto) operator ()(T&& arg) const
+    {
+        return *arg;
+    }
+};
+
 } /* namespace detail */
 
 static constexpr detail::identity_t identity = {};
@@ -158,8 +196,14 @@ static constexpr detail::lerp_t lerp = {};
 
 static constexpr detail::logical_negation_t logical_negation = {};
 
+static constexpr detail::dereference_t dereference = {};
+
+static constexpr detail::make_tuple_t make_tuple = {};
+static constexpr detail::tie_t tie = {};
+
+template <std::size_t Index>
+static constexpr detail::get_t<Index> get = {};
+
 } /* namespace cpp_essentials::core */
 
 #endif /* CPP_ESSENTIALS_CORE_FUNCTORS_HPP_ */
-
-

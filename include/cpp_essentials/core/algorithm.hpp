@@ -1324,7 +1324,7 @@ struct transform_t
         , CONCEPT_IF(concepts::OutputIterator<OutputIter>)>
     auto operator ()(Range1&& range1, Range2&& range2, OutputIter output, BinaryFunc&& func) const -> OutputIter
     {
-        return (*this)(std::begin(range1), std::end(range1), std::begin(range2), output, std::move(func));
+        return std::transform(std::begin(range1), std::end(range1), std::begin(range2), output, std::move(func));
     }
 };
 

@@ -112,6 +112,19 @@ struct drop_until_t : core::adaptable<drop_until_t>
     }
 };
 
+struct partition_t : core::adaptable<partition_t>
+{
+    using adaptable::operator();
+
+    template <class Range, class UnaryPred>
+    auto operator ()(Range&& range, UnaryPred pred) const
+    {
+        auto take_if = take_if_t{}(range, pred);
+        auto drop_if = drop_if_t{}(range, pred);
+        return std::make_tuple(take_if, drop_if);
+    }
+};
+
 } /* namespace detail */
 
 static constexpr detail::take_if_t take_if = {};
@@ -120,6 +133,7 @@ static constexpr detail::take_while_t take_while = {};
 static constexpr detail::drop_while_t drop_while = {};
 static constexpr detail::take_until_t take_until = {};
 static constexpr detail::drop_until_t drop_until = {};
+static constexpr detail::partition_t partition = {};
 
 } /* namespace cpp_essentials::sq */
 

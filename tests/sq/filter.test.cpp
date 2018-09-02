@@ -42,3 +42,11 @@ TEST_CASE("drop_until")
     std::vector<int> vect{ 1, 2, 3, 4, 5, 6 };
     REQUIRE((vect | sq::drop_until([](auto&& x) { return x == 4; })) == vec(4, 5, 6));
 }
+
+TEST_CASE("partition")
+{
+    std::vector<int> vect{ 1, 2, 3, 4, 5, 6 };
+    auto[taken, dropped] = vect | sq::partition([](auto&& x) { return x % 3 == 0; });
+    REQUIRE(taken == vec(3, 6));
+    REQUIRE(dropped == vec(1, 2, 4, 5));
+}

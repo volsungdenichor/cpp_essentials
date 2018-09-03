@@ -187,9 +187,11 @@ struct fill_t
     }
 };
 
-template <class Policy = default_return_policy_t, CONCEPT_IF(is_return_policy<Policy>::value)>
-struct find_t
+template <class Policy = default_return_policy_t>
+struct find_t : adaptable<find_t<Policy>>
 {
+    using adaptable<find_t<Policy>>::operator();
+
     static constexpr Policy policy = {};
     
     template <class P>
@@ -207,9 +209,11 @@ struct find_t
     }
 };
 
-template <class Policy = default_return_policy_t, CONCEPT_IF(is_return_policy<Policy>::value)>
-struct find_if_t
+template <class Policy = default_return_policy_t>
+struct find_if_t : adaptable<find_if_t<Policy>>
 {
+    using adaptable<find_if_t<Policy>>::operator();
+
     static constexpr Policy policy = {};
 
     template <class P>
@@ -227,9 +231,11 @@ struct find_if_t
     }
 };
 
-template <class Policy = default_return_policy_t, CONCEPT_IF(is_return_policy<Policy>::value)>
-struct find_if_not_t
+template <class Policy = default_return_policy_t>
+struct find_if_not_t : adaptable<find_if_not_t<Policy>>
 {
+    using adaptable<find_if_not_t<Policy>>::operator();
+
     static constexpr Policy policy = {};
 
     template <class P>
@@ -247,9 +253,11 @@ struct find_if_not_t
     }
 };
 
-template <class Policy = default_return_policy_t, CONCEPT_IF(is_return_policy<Policy>::value)>
-struct find_end_t
+template <class Policy = default_return_policy_t>
+struct find_end_t : adaptable<find_end_t<Policy>>
 {
+    using adaptable<find_end_t<Policy>>::operator();
+
     static constexpr Policy policy = {};
 
     template <class P>
@@ -268,9 +276,11 @@ struct find_end_t
     }
 };
 
-template <class Policy = default_return_policy_t, CONCEPT_IF(is_return_policy<Policy>::value)>
-struct find_first_of_t
+template <class Policy = default_return_policy_t>
+struct find_first_of_t : adaptable<find_first_of_t<Policy>>
 {
+    using adaptable<find_first_of_t<Policy>>::operator();
+
     static constexpr Policy policy = {};
 
     template <class P>
@@ -376,8 +386,10 @@ struct iota_t
     }
 };
 
-struct is_heap_t
+struct is_heap_t : adaptable<is_heap_t>
 {
+    using adaptable::operator();
+
     template
         < class Range
         , class Compare = std::less<>
@@ -388,7 +400,7 @@ struct is_heap_t
     }
 };
 
-template <class Policy = default_return_policy_t, CONCEPT_IF(is_return_policy<Policy>::value)>
+template <class Policy = default_return_policy_t>
 struct is_heap_until_t
 {
     static constexpr Policy policy = {};
@@ -408,8 +420,10 @@ struct is_heap_until_t
     }
 };
 
-struct is_partitioned_t
+struct is_partitioned_t : adaptable<is_partitioned_t>
 {
+    using adaptable::operator();
+
     template
         < class Range
         , class UnaryFunc
@@ -420,8 +434,10 @@ struct is_partitioned_t
     }
 };
 
-struct is_permutation_t
+struct is_permutation_t : adaptable<is_permutation_t>
 {
+    using adaptable::operator();
+
     template
         < class Range1
         , class Range2
@@ -433,8 +449,10 @@ struct is_permutation_t
     }
 };
 
-struct is_sorted_t
+struct is_sorted_t : adaptable<is_sorted_t>
 {
+    using adaptable::operator();
+
     template
         < class Range
         , class Compare = std::less<>
@@ -445,7 +463,7 @@ struct is_sorted_t
     }
 };
 
-template <class Policy = default_return_policy_t, CONCEPT_IF(is_return_policy<Policy>::value)>
+template <class Policy = default_return_policy_t>
 struct is_sorted_until_t
 {
     static constexpr Policy policy = {};
@@ -484,7 +502,7 @@ struct lexicographical_compare_t
     }
 };
 
-template <class Policy = default_return_policy_t, CONCEPT_IF(is_return_policy<Policy>::value)>
+template <class Policy = default_return_policy_t>
 struct lower_bound_t
 {
     static constexpr Policy policy = {};
@@ -517,9 +535,11 @@ struct make_heap_t
     }
 };
 
-template <class Policy = default_return_policy_t, CONCEPT_IF(is_return_policy<Policy>::value)>
-struct max_element_t
+template <class Policy = default_return_policy_t>
+struct max_element_t : adaptable<max_element_t<Policy>>
 {
+    using adaptable<max_element_t<Policy>>::operator();
+
     static constexpr Policy policy = {};
 
     template <class P>
@@ -571,9 +591,11 @@ struct inplace_merge_t
     }
 };
 
-template <class Policy = default_return_policy_t, CONCEPT_IF(is_return_policy<Policy>::value)>
-struct minmax_element_t
+template <class Policy = default_return_policy_t>
+struct minmax_element_t : adaptable<minmax_element_t<Policy>>
 {
+    using adaptable<minmax_element_t<Policy>>::operator();
+
     static constexpr Policy policy = {};
 
     template <class P>
@@ -594,9 +616,11 @@ struct minmax_element_t
     }
 };
 
-template <class Policy = default_return_policy_t, CONCEPT_IF(is_return_policy<Policy>::value)>
-struct min_element_t
+template <class Policy = default_return_policy_t>
+struct min_element_t : adaptable<min_element_t<Policy>>
 {
+    using adaptable<min_element_t<Policy>>::operator();
+
     static constexpr Policy policy = {};
 
     template <class P>
@@ -614,7 +638,7 @@ struct min_element_t
     }
 };
 
-template <class Policy = default_return_policy_t, CONCEPT_IF(is_return_policy<Policy>::value)>
+template <class Policy = default_return_policy_t>
 struct mismatch_t
 {
     static constexpr Policy policy = {};
@@ -708,7 +732,7 @@ struct partial_sort_t
     }
 };
 
-template <class Policy = default_return_policy_t, CONCEPT_IF(is_return_policy<Policy>::value)>
+template <class Policy = default_return_policy_t>
 struct partial_sort_copy_t
 {
     static constexpr Policy policy = {};
@@ -744,7 +768,7 @@ struct partial_sum_t
     }
 };
 
-template <class Policy = default_return_policy_t, CONCEPT_IF(is_return_policy<Policy>::value)>
+template <class Policy = default_return_policy_t>
 struct partition_t
 {
     static constexpr Policy policy = {};
@@ -780,7 +804,7 @@ struct partition_copy_t
     }
 };
 
-template <class Policy = default_return_policy_t, CONCEPT_IF(is_return_policy<Policy>::value)>
+template <class Policy = default_return_policy_t>
 struct stable_partition_t
 {
     static constexpr Policy policy = {};
@@ -824,7 +848,7 @@ struct push_heap_t
     }
 };
 
-template <class Policy = default_return_policy_t, CONCEPT_IF(is_return_policy<Policy>::value)>
+template <class Policy = default_return_policy_t>
 struct remove_t
 {
     static constexpr Policy policy = {};
@@ -844,7 +868,7 @@ struct remove_t
     }
 };
 
-template <class Policy = default_return_policy_t, CONCEPT_IF(is_return_policy<Policy>::value)>
+template <class Policy = default_return_policy_t>
 struct remove_if_t
 {
     static constexpr Policy policy = {};
@@ -970,7 +994,7 @@ struct reverse_copy_t
     }
 };
 
-template <class Policy = default_return_policy_t, CONCEPT_IF(is_return_policy<Policy>::value)>
+template <class Policy = default_return_policy_t>
 struct rotate_t
 {
     static constexpr Policy policy = {};

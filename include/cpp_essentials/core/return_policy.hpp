@@ -102,18 +102,16 @@ using is_return_policy = std::is_base_of<return_policy_base_t, T>;
 
 } /* detail */
 
+using return_found = detail::return_found_t;
+using return_found_end = detail::return_found_end_t;
+using return_found_next = detail::return_found_next_t;
+using return_begin_found = detail::return_begin_found_t;
+using return_begin_next = detail::return_begin_next_t;
+using return_next_end = detail::return_next_end_t;
+using return_value = detail::return_value_t;
+using return_optional = detail::return_optional_t;
+
 using default_return_policy_t = detail::return_found_end_t;
-
-static constexpr detail::return_found_t return_found = {};
-static constexpr detail::return_found_end_t return_found_end = {};
-static constexpr detail::return_found_next_t return_found_next = {};
-static constexpr detail::return_begin_found_t return_begin_found = {};
-static constexpr detail::return_begin_next_t return_begin_next = {};
-static constexpr detail::return_next_end_t return_next_end = {};
-static constexpr detail::return_value_t return_value = {};
-static constexpr detail::return_optional_t return_optional = {};
-
-static constexpr default_return_policy_t return_default = {};
 
 } /* namespace cpp_essentials::core */
 

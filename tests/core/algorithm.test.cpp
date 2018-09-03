@@ -83,8 +83,8 @@ TEST_CASE("find")
     REQUIRE(core::find(vect, 3) == vec(3, 3, 4));
     REQUIRE(core::find(vect, 5) == vector_builder<int>::empty());
     
-    REQUIRE(core::find(core::return_optional, vect, 3) == 3);
-    REQUIRE(core::find(core::return_optional, vect, 5) == core::none);
+    REQUIRE(core::find.as<core::return_optional>(vect, 3) == 3);
+    REQUIRE(core::find.as<core::return_optional>(vect, 5) == core::none);
 }
 
 TEST_CASE("find_if")
@@ -93,16 +93,16 @@ TEST_CASE("find_if")
     REQUIRE(core::find_if(vect, [](auto x) { return x > 2; }) == vec(3, 3, 4));
     REQUIRE(core::find_if(vect, [](auto) { return false; }) == vector_builder<int>::empty());
 
-    REQUIRE(core::find_if(core::return_optional, vect, [](auto x) { return x > 2; }) == 3);
-    REQUIRE(core::find_if(core::return_optional, vect, [](auto) { return false; }) == core::none);
+    REQUIRE(core::find_if.as<core::return_optional>(vect, [](auto x) { return x > 2; }) == 3);
+    REQUIRE(core::find_if.as<core::return_optional>(vect, [](auto) { return false; }) == core::none);
 }
 
 TEST_CASE("find_if_not")
 {
     auto vect = vec(1, 2, 3, 3, 4);
     REQUIRE(core::find_if_not(vect, [](auto x) { return x < 3; }) == vec(3, 3, 4));
-    REQUIRE(core::find_if_not(core::return_optional, vect, [](auto x) { return x < 2; }) == 2);
-    REQUIRE(core::find_if_not(core::return_optional, vect, [](auto) { return true; }) == core::none);
+    REQUIRE(core::find_if_not.as<core::return_optional>(vect, [](auto x) { return x < 2; }) == 2);
+    REQUIRE(core::find_if_not.as<core::return_optional>(vect, [](auto) { return true; }) == core::none);
 }
 
 TEST_CASE("find_end")

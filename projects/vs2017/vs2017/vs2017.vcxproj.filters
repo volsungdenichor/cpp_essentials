@@ -144,6 +144,12 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\index.hpp">
       <Filter>Header Files\cpp_essentials\sq</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\chain.hpp">
+      <Filter>Header Files\cpp_essentials\sq</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\chain_iterator.hpp">
+      <Filter>Header Files\cpp_essentials\sq\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

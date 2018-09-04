@@ -61,6 +61,21 @@ struct front_or_t : core::adaptable<front_or_t>
     }
 };
 
+struct front_or_default_t : core::adaptable<front_or_default_t>
+{
+    using adaptable::operator();
+
+    template
+        < class Range
+        , CONCEPT_IF(concepts::InputRange<Range>)>
+    auto operator ()(Range&& range) const
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+        return b != e ? *b : concepts::range_value<Range>{};
+    }
+};
+
 struct front_or_eval_t : core::adaptable<front_or_eval_t>
 {
     using adaptable::operator();
@@ -217,6 +232,7 @@ struct contains_t : adaptable<contains_t>
 
 static constexpr detail::front_t front = {};
 static constexpr detail::front_or_t front_or = {};
+static constexpr detail::front_or_default_t front_or_default = {};
 static constexpr detail::front_or_eval_t front_or_eval = {};
 static constexpr detail::front_or_none_t front_or_none = {};
 static constexpr detail::size_t size = {};

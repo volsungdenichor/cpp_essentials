@@ -17,6 +17,12 @@ TEST_CASE("front_or")
     REQUIRE((vect | core::front_or(-1)) == -1);
 }
 
+TEST_CASE("front_or_default")
+{
+    std::vector<int> vect{};
+    REQUIRE((vect | core::front_or_default()) == 0);
+}
+
 TEST_CASE("front_or_eval")
 {
     std::vector<int> vect{};

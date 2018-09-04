@@ -27,7 +27,9 @@ struct slice_t : core::adaptable<slice_t>
 {
     using adaptable::operator();
 
-    template <class Range>
+    template
+        < class Range
+        , CONCEPT_IF(concepts::InputRange<Range>)>
     auto operator ()(Range&& range, int begin_index, int end_index) const
     {
         auto b = std::begin(range);
@@ -42,7 +44,9 @@ struct take_t : core::adaptable<take_t>
 {
     using adaptable::operator();
 
-    template <class Range>
+    template
+        < class Range
+        , CONCEPT_IF(concepts::InputRange<Range>)>
     auto operator ()(Range&& range, int count) const
     {
         auto b = std::begin(range);
@@ -55,7 +59,9 @@ struct drop_t : core::adaptable<drop_t>
 {
     using adaptable::operator();
 
-    template <class Range>
+    template
+        < class Range
+        , CONCEPT_IF(concepts::InputRange<Range>)>
     auto operator ()(Range&& range, int count) const
     {
         auto b = std::begin(range);

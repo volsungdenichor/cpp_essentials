@@ -29,7 +29,9 @@ struct reverse_t : core::adaptable<reverse_t>
         return iter.base();
     }
 
-    template <class Range>
+    template
+        < class Range
+        , CONCEPT_IF(concepts::BidirectionalRange<Range>)>
     auto operator ()(Range&& range) const
     {
         return core::make_range(

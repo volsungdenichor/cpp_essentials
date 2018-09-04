@@ -17,7 +17,10 @@ struct map_t : core::adaptable<map_t>
 {
     using adaptable::operator();
 
-    template <class Range, class UnaryFunc>
+    template
+        < class Range
+        , class UnaryFunc
+        , CONCEPT_IF(concepts::InputRange<Range>)>
     auto operator ()(Range&& range, UnaryFunc func) const
     {
         return core::make_range(

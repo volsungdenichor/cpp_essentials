@@ -141,6 +141,9 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\containers.hpp">
       <Filter>Header Files\cpp_essentials\sq</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\index.hpp">
+      <Filter>Header Files\cpp_essentials\sq</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

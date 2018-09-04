@@ -17,7 +17,9 @@ struct iterate_t : core::adaptable<iterate_t>
 {
     using adaptable::operator();
 
-    template <class Range>
+    template
+        < class Range
+        , CONCEPT_IF(concepts::InputRange<Range>)>
     auto operator ()(Range&& range) const
     {
         return core::make_range(

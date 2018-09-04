@@ -30,7 +30,9 @@ struct to_t : core::adaptable<to_t<Container>>
 {
     using core::adaptable<to_t<Container>>::operator();
 
-    template <class Range>
+    template
+        < class Range
+        , CONCEPT_IF(concepts::InputRange<Range>)>
     auto operator ()(Range&& range) const -> Container<concepts::range_value<Range>>
     {
         return { std::begin(range), std::end(range) };
@@ -42,7 +44,9 @@ struct to_string_t : core::adaptable<to_string_t<C>>
 {
     using core::adaptable<to_string_t<C>>::operator();  
 
-    template <class Range>
+    template
+        < class Range
+        , CONCEPT_IF(concepts::InputRange<Range>)>
     auto operator ()(Range&& range) const -> basic_string<C>
     {
         return { std::begin(range), std::end(range) };

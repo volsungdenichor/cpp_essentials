@@ -50,7 +50,10 @@ struct take_if_t : core::adaptable<take_if_t>
 {
     using adaptable::operator();
 
-    template <class Range, class UnaryPred>
+    template
+        < class Range
+        , class UnaryPred
+        , CONCEPT_IF(concepts::InputRange<Range>)>
     auto operator ()(Range&& range, UnaryPred pred) const
     {
         return make_filtered_range(std::begin(range), std::end(range), std::move(pred));
@@ -61,7 +64,10 @@ struct drop_if_t : core::adaptable<drop_if_t>
 {
     using adaptable::operator();
 
-    template <class Range, class UnaryPred>
+    template
+        < class Range
+        , class UnaryPred
+        , CONCEPT_IF(concepts::InputRange<Range>)>
     auto operator ()(Range&& range, UnaryPred pred) const
     {
         return make_filtered_range(std::begin(range), std::end(range), core::logical_negation(std::move(pred)));
@@ -72,7 +78,10 @@ struct take_while_t : core::adaptable<take_while_t>
 {
     using adaptable::operator();
 
-    template <class Range, class UnaryPred>
+    template
+        < class Range
+        , class UnaryPred
+        , CONCEPT_IF(concepts::InputRange<Range>)>
     auto operator ()(Range&& range, UnaryPred pred) const
     {
         return take_while(std::begin(range), std::end(range), pred);
@@ -83,7 +92,10 @@ struct drop_while_t : core::adaptable<drop_while_t>
 {
     using adaptable::operator();
 
-    template <class Range, class UnaryPred>
+    template
+        < class Range
+        , class UnaryPred
+        , CONCEPT_IF(concepts::InputRange<Range>)>
     auto operator ()(Range&& range, UnaryPred pred) const
     {
         return drop_while(std::begin(range), std::end(range), pred);
@@ -94,7 +106,10 @@ struct take_until_t : core::adaptable<take_until_t>
 {
     using adaptable::operator();
 
-    template <class Range, class UnaryPred>
+    template
+        < class Range
+        , class UnaryPred
+        , CONCEPT_IF(concepts::InputRange<Range>)>
     auto operator ()(Range&& range, UnaryPred pred) const
     {
         return take_while(std::begin(range), std::end(range), core::logical_negation(pred));
@@ -105,7 +120,10 @@ struct drop_until_t : core::adaptable<drop_until_t>
 {
     using adaptable::operator();
 
-    template <class Range, class UnaryPred>
+    template
+        < class Range
+        , class UnaryPred
+        , CONCEPT_IF(concepts::InputRange<Range>)>
     auto operator ()(Range&& range, UnaryPred pred) const
     {
         return drop_while(std::begin(range), std::end(range), core::logical_negation(pred));
@@ -116,7 +134,10 @@ struct partition_t : core::adaptable<partition_t>
 {
     using adaptable::operator();
 
-    template <class Range, class UnaryPred>
+    template
+        < class Range
+        , class UnaryPred
+        , CONCEPT_IF(concepts::InputRange<Range>)>
     auto operator ()(Range&& range, UnaryPred pred) const
     {
         auto take_if = take_if_t{}(range, pred);

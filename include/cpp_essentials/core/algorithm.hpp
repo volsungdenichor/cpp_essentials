@@ -201,7 +201,7 @@ struct find_t : adaptable<find_t<Policy>>
         < class Range
         , class T
         , CONCEPT_IF(concepts::InputRange<Range>)>
-    decltype(auto) operator ()(Range&& range, const T& value) const
+    decltype(auto) operator ()(Range&& range, T&& value) const
     {
         auto b = std::begin(range);
         auto e = std::end(range);

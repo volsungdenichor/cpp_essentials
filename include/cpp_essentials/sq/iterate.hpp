@@ -1,11 +1,11 @@
 #ifndef CPP_ESSENTIALS_SQ_ITERATE_HPP_
 #define CPP_ESSENTIALS_SQ_ITERATE_HPP_
 
+#pragma once
+
 #include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/iterator_range.hpp>
 #include <cpp_essentials/sq/detail/iterate_iterator.hpp>
-
-#pragma once
 
 namespace cpp_essentials::sq
 {

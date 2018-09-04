@@ -1,10 +1,10 @@
 #ifndef CPP_ESSENTIALS_SQ_SLICE_HPP_
 #define CPP_ESSENTIALS_SQ_SLICE_HPP_
 
+#pragma once
+
 #include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/iterator_range.hpp>
-
-#pragma once
 
 namespace cpp_essentials::sq
 {

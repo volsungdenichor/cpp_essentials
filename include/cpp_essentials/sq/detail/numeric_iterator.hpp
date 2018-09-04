@@ -13,16 +13,16 @@ namespace cpp_essentials::sq
 namespace detail
 {
 
-template <class T>
+template <class T, class U>
 class numeric_iterator
     : public core::iterator_facade
-        < numeric_iterator<T>
+        < numeric_iterator<T, U>
         , std::random_access_iterator_tag
         , T>
 {
 public:
     using base_type = core::iterator_facade
-        < numeric_iterator<T>
+        < numeric_iterator<T, U>
         , std::random_access_iterator_tag
         , T>;
 
@@ -30,7 +30,7 @@ public:
 
     numeric_iterator() = default;
 
-    numeric_iterator(T value, T step)
+    numeric_iterator(T value, U step)
         : _value{ value }
         , _step{ step }
     {
@@ -73,7 +73,51 @@ public:
 
 private:
     T _value;
-    T _step;
+    U _step;
+};
+
+template <class T>
+class iota_iterator
+    : public core::iterator_facade
+    < iota_iterator<T>
+    , std::forward_iterator_tag
+    , T>
+{
+public:
+    using base_type = core::iterator_facade
+        < iota_iterator<T>
+        , std::forward_iterator_tag
+        , T>;
+
+    INHERIT_ITERATOR_FACADE_TYPES(base_type)
+
+    iota_iterator()
+        : _value{ std::numeric_limits<T>::min() }
+    {
+    }
+
+    iota_iterator(T value)
+        : _value{ value }
+    {
+    }
+
+    reference ref() const
+    {
+        return _value;
+    }
+
+    void inc()
+    {
+        ++_value;
+    }
+
+    bool is_equal(const iota_iterator& other) const
+    {
+        return _value == other._value;
+    }
+
+private:
+    T _value;
 };
 
 } /* namespace detail */

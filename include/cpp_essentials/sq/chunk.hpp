@@ -41,7 +41,7 @@ struct slide_t : core::adaptable<slide_t>
     template
         < class Range
         , CONCEPT_IF(concepts::InputRange<Range>)>
-        auto operator ()(Range&& range, int size) const
+    auto operator ()(Range&& range, int size) const
     {
         return chunk(std::begin(range), std::end(range), size, 1);
     }

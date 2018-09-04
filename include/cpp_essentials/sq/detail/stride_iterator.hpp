@@ -43,12 +43,7 @@ public:
 
     void inc()
     {
-        auto n = _step;
-        while (_iter != _last && n > 0)
-        {
-            ++_iter;
-            --n;
-        }
+        _iter = core::advance(_iter, _last, _step);
     }
 
     bool is_equal(const stride_iterator& other) const

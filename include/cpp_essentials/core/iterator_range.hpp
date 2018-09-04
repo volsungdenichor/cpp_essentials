@@ -13,6 +13,18 @@
 namespace cpp_essentials::core
 {
 
+template <class Iter, class Diff>
+auto advance(Iter it, Iter end, Diff n) -> Iter
+{
+    while (it != end && n > 0)
+    {
+        ++it;
+        --n;
+    }
+    return it;
+}
+
+
 template <class Iter, CONCEPT_IF(concepts::InputIterator<Iter>)>
 class iterator_range
 {
@@ -83,12 +95,7 @@ public:
 
     auto at(size_type index) const -> reference
     {
-        auto it = begin();
-        while (it != end() && index > 0)
-        {
-            --index;
-            ++it;
-        }
+        auto it = advance(begin(), end(), index);
         EXPECTS(it != end());
         return *it;
     }

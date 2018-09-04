@@ -12,17 +12,6 @@ namespace cpp_essentials::sq
 namespace detail
 {
 
-template <class Iter>
-auto advance(Iter it, Iter end, int n) -> Iter
-{
-    while (it != end && n > 0)
-    {
-        ++it;
-        --n;
-    }
-    return it;
-}
-
 struct slice_t : core::adaptable<slice_t>
 {
     using adaptable::operator();
@@ -34,8 +23,15 @@ struct slice_t : core::adaptable<slice_t>
     {
         auto b = std::begin(range);
         auto e = std::end(range);
-        auto begin = advance(b, e, begin_index);
-        auto end = advance(begin, e, end_index - begin_index);
+
+        auto count = end_index - begin_index;
+        if (count <= 0)
+        {
+            return core::make_range(e, e);
+        }
+
+        auto begin = core::advance(b, e, begin_index);
+        auto end = core::advance(begin, e, count);
         return core::make_range(begin, end);
     }
 };
@@ -51,7 +47,7 @@ struct take_t : core::adaptable<take_t>
     {
         auto b = std::begin(range);
         auto e = std::end(range);
-        return core::make_range(b, advance(b, e, count));
+        return core::make_range(b, core::advance(b, e, count));
     }
 };
 
@@ -66,7 +62,7 @@ struct drop_t : core::adaptable<drop_t>
     {
         auto b = std::begin(range);
         auto e = std::end(range);
-        return core::make_range(advance(b, e, count), e);
+        return core::make_range(core::advance(b, e, count), e);
     }
 };
 

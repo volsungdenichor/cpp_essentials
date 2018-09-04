@@ -150,6 +150,12 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\chain_iterator.hpp">
       <Filter>Header Files\cpp_essentials\sq\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\stride_iterator.hpp">
+      <Filter>Header Files\cpp_essentials\sq\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\stride.hpp">
+      <Filter>Header Files\cpp_essentials\sq</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

@@ -61,7 +61,68 @@ inline std::ostream& operator <<(std::ostream& os, const cstring_view& item)
     return os;
 }
 
+template <class Iter>
+std::size_t string_hash(Iter begin, Iter end)
+{
+    std::_Fnv1a_hasher hasher;
+    auto b = &(*begin);
+    auto e = &(*end);
+    return hasher._Add_bytes((const unsigned char*)b, (const unsigned char*)e);
+}
 
 } /* namespace cpp_essentials::core */
+
+namespace std
+{
+
+template <>
+struct hash<::cpp_essentials::core::cstring_view>
+{
+    using argument_type = ::cpp_essentials::core::cstring_view;
+    using result_type = size_t;
+
+    result_type operator ()(const argument_type& item) const
+    {
+        return ::cpp_essentials::core::string_hash(item.begin(), item.end());
+    }
+};
+
+template <>
+struct hash<::cpp_essentials::core::cstring_mut_view>
+{
+    using argument_type = ::cpp_essentials::core::cstring_mut_view;
+    using result_type = size_t;
+
+    result_type operator ()(const argument_type& item) const
+    {
+        return ::cpp_essentials::core::string_hash(item.begin(), item.end());
+    }
+};
+
+template <>
+struct hash<::cpp_essentials::core::string_view>
+{
+    using argument_type = ::cpp_essentials::core::string_view;
+    using result_type = size_t;
+
+    result_type operator ()(const argument_type& item) const
+    {
+        return ::cpp_essentials::core::string_hash(item.begin(), item.end());
+    }
+};
+
+template <>
+struct hash<::cpp_essentials::core::string_mut_view>
+{
+    using argument_type = ::cpp_essentials::core::string_mut_view;
+    using result_type = size_t;
+
+    result_type operator ()(const argument_type& item) const
+    {
+        return ::cpp_essentials::core::string_hash(item.begin(), item.end());
+    }
+};
+
+} /* namespace std */
 
 #endif /* CPP_ESSENTIALS_CORE_VIEW_HPP_ */

@@ -33,7 +33,9 @@ struct front_t : core::adaptable<front_t>
 {
     using adaptable::operator();
 
-    template <class Range>
+    template
+        < class Range
+        , CONCEPT_IF(concepts::InputRange<Range>)>
     auto operator ()(Range&& range) const
     {
         auto b = std::begin(range);
@@ -47,7 +49,10 @@ struct front_or_t : core::adaptable<front_or_t>
 {
     using adaptable::operator();
 
-    template <class Range, class T>
+    template
+        < class Range
+        , class T
+        , CONCEPT_IF(concepts::InputRange<Range>)>
     auto operator ()(Range&& range, T default_value) const
     {
         auto b = std::begin(range);
@@ -60,7 +65,10 @@ struct front_or_eval_t : core::adaptable<front_or_eval_t>
 {
     using adaptable::operator();
 
-    template <class Range, class Func>
+    template
+        < class Range
+        , class Func
+        , CONCEPT_IF(concepts::InputRange<Range>)>
     auto operator ()(Range&& range, Func func) const
     {
         auto b = std::begin(range);
@@ -73,7 +81,9 @@ struct front_or_none_t : core::adaptable<front_or_none_t>
 {
     using adaptable::operator();
 
-    template <class Range>
+    template
+        < class Range
+        , CONCEPT_IF(concepts::InputRange<Range>)>
     auto operator ()(Range&& range) const -> decltype(auto)
     {
         auto b = std::begin(range);

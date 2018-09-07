@@ -20,11 +20,12 @@ struct zip_t : core::adaptable<zip_t>
     template
         < class Range1
         , class Range2
-        , class BinaryFunc
-        , CONCEPT_IF(concepts::InputRange<Range1>)
-        , CONCEPT_IF(concepts::InputRange<Range2>)>
+        , class BinaryFunc>
     auto operator ()(Range1&& range1, Range2&& range2, BinaryFunc func) const
     {
+        static_assert(concepts::InputRange<Range1>, "stride: input range required");
+        static_assert(concepts::InputRange<Range2>, "stride: input range required");
+
         return core::make_range(
             zip_iterator{ func, std::begin(range1), std::begin(range2) },
             zip_iterator{ func, std::end(range1), std::end(range2) });

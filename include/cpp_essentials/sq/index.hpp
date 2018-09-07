@@ -42,11 +42,11 @@ struct index_t : core::adaptable<index_t>
 {
     using adaptable::operator();
 
-    template
-        < class Range
-        , CONCEPT_IF(concepts::InputRange<Range>)>
+    template <class Range>
     auto operator ()(Range&& range, int start = 0) const
     {
+        static_assert(concepts::InputRange<Range>, "partition: input range required");
+
         return ::cpp_essentials::sq::zip(range, ::cpp_essentials::sq::iota(start), make_indexed_item{});
     }
 };

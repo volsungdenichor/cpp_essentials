@@ -29,11 +29,11 @@ struct reverse_t : core::adaptable<reverse_t>
         return iter.base();
     }
 
-    template
-        < class Range
-        , CONCEPT_IF(concepts::BidirectionalRange<Range>)>
+    template <class Range>
     auto operator ()(Range&& range) const
     {
+        static_assert(concepts::BidirectionalRange<Range>, "reverse: bidirectional range required");
+        
         return core::make_range(
             make_iterator(std::end(range)),
             make_iterator(std::begin(range)));

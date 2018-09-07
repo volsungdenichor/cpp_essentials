@@ -27,11 +27,12 @@ struct append_t : core::adaptable<append_t>
 
     template
         < class Range1
-        , class Range2
-        , CONCEPT_IF(concepts::InputRange<Range1>)
-        , CONCEPT_IF(concepts::InputRange<Range2>)>
+        , class Range2>
     auto operator ()(Range1&& range1, Range2&& range2) const
     {
+        static_assert(concepts::InputRange<Range1>, "append: input range required");
+        static_assert(concepts::InputRange<Range2>, "append: input range required");
+        
         return chain(std::begin(range1), std::end(range1), std::begin(range2), std::end(range2));
     }
 };
@@ -42,11 +43,12 @@ struct prepend_t : core::adaptable<prepend_t>
 
     template
         < class Range1
-        , class Range2
-        , CONCEPT_IF(concepts::InputRange<Range1>)
-        , CONCEPT_IF(concepts::InputRange<Range2>)>
+        , class Range2>
     auto operator ()(Range1&& range1, Range2&& range2) const
     {
+        static_assert(concepts::InputRange<Range1>, "prepend: input range required");
+        static_assert(concepts::InputRange<Range2>, "prepend: input range required");
+
         return chain(std::begin(range2), std::end(range2), std::begin(range1), std::end(range1));
     }
 };

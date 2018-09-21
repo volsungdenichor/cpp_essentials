@@ -24,7 +24,8 @@ struct accumulate_t : adaptable<accumulate_t>
         < class Range
         , class T
         , class BinaryFunc = std::plus<>
-        , CONCEPT_IF(concepts::InputRange<Range>)>
+        , CONCEPT_IF(concepts::InputRange<Range>)
+        , CONCEPT_IF(concepts::BinaryFunction<BinaryFunc, T, concepts::range_reference<Range>>)>
     auto operator ()(Range&& range, T init, BinaryFunc&& func = {}) const -> T
     {
         return std::accumulate(std::begin(range), std::end(range), init, std::move(func));
@@ -38,7 +39,8 @@ struct adjacent_difference_t
         , class OutputIter
         , class BinaryFunc = std::minus<>
         , CONCEPT_IF(concepts::InputRange<Range>)
-        , CONCEPT_IF(concepts::OutputIterator<OutputIter>)>
+        , CONCEPT_IF(concepts::OutputIterator<OutputIter>)
+        , CONCEPT_IF(concepts::BinaryFunction<BinaryFunc, concepts::range_reference<Range>, concepts::range_reference<Range>>)>
     auto operator ()(Range&& range, OutputIter output, BinaryFunc&& func = {}) const -> OutputIter
     {
         return std::adjacent_difference(std::begin(range), std::end(range), output, std::move(func));
@@ -52,7 +54,8 @@ struct all_of_t : adaptable<all_of_t>
     template
         < class Range
         , class UnaryPred
-        , CONCEPT_IF(concepts::InputRange<Range>)>
+        , CONCEPT_IF(concepts::InputRange<Range>)
+        , CONCEPT_IF(concepts::UnaryPredicate<UnaryPred, concepts::range_reference<Range>>)>
     auto operator ()(Range&& range, UnaryPred&& pred) const -> bool
     {
         return std::all_of(std::begin(range), std::end(range), std::move(pred));
@@ -66,7 +69,8 @@ struct any_of_t : adaptable<any_of_t>
     template
         < class Range
         , class UnaryPred
-        , CONCEPT_IF(concepts::InputRange<Range>)>
+        , CONCEPT_IF(concepts::InputRange<Range>)
+        , CONCEPT_IF(concepts::UnaryPredicate<UnaryPred, concepts::range_reference<Range>>)>
     auto operator ()(Range&& range, UnaryPred&& pred) const -> bool
     {
         return std::any_of(std::begin(range), std::end(range), std::move(pred));
@@ -97,7 +101,8 @@ struct copy_if_t : adaptable<copy_if_t>
         , class OutputIter
         , class UnaryPred
         , CONCEPT_IF(concepts::InputRange<Range>)
-        , CONCEPT_IF(concepts::OutputIterator<OutputIter>)>
+        , CONCEPT_IF(concepts::OutputIterator<OutputIter>)
+        , CONCEPT_IF(concepts::UnaryPredicate<UnaryPred, concepts::range_reference<Range>>)>
     auto operator ()(Range&& range, OutputIter output, UnaryPred&& pred) const -> OutputIter
     {
         return std::copy_if(std::begin(range), std::end(range), output, std::move(pred));
@@ -128,7 +133,7 @@ struct count_t : adaptable<count_t>
         < class Range
         , class T
         , CONCEPT_IF(concepts::InputRange<Range>)>
-    auto operator ()(Range&& range, T value) const
+    auto operator ()(Range&& range, T&& value) const
     {
         return std::count(std::begin(range), std::end(range), value);
     }
@@ -141,7 +146,8 @@ struct count_if_t : adaptable<count_if_t>
     template
         < class Range
         , class UnaryPred
-        , CONCEPT_IF(concepts::InputRange<Range>)>
+        , CONCEPT_IF(concepts::InputRange<Range>)
+        , CONCEPT_IF(concepts::UnaryPredicate<UnaryPred, concepts::range_reference<Range>>)>
     auto operator ()(Range&& range, UnaryPred&& pred) const
     {
         return std::count_if(std::begin(range), std::end(range), std::move(pred));
@@ -155,7 +161,8 @@ struct equal_t
         , class Range2
         , class BinaryPred = std::equal_to<>
         , CONCEPT_IF(concepts::InputRange<Range1>)
-        , CONCEPT_IF(concepts::InputRange<Range2>)>
+        , CONCEPT_IF(concepts::InputRange<Range2>)
+        , CONCEPT_IF(concepts::BinaryPredicate<BinaryPred, concepts::range_reference<Range1>, concepts::range_reference<Range2>>)>
     auto operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const -> bool
     {
         return std::equal(std::begin(range1), std::end(range1), std::begin(range2), std::end(range2), std::move(pred));
@@ -168,7 +175,8 @@ struct equal_range_t
         < class Range
         , class T
         , class Compare = std::less<>
-        , CONCEPT_IF(concepts::ForwardRange<Range>)>
+        , CONCEPT_IF(concepts::ForwardRange<Range>)
+        , CONCEPT_IF(concepts::BinaryPredicate<Compare, concepts::range_reference<Range>, concepts::range_reference<Range>>)>
     auto operator ()(Range&& range, const T& value, Compare&& compare = {}) const
     {
         return make_range(std::equal_range(std::begin(range), std::end(range), value, std::move(compare)));

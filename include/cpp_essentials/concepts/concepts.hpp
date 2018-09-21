@@ -326,6 +326,38 @@ struct has_ostream_operator<T, void_t<decltype(std::declval<std::ostream&>() << 
 
 
 
+template <class T, class = void>
+struct is_nullary_function : std::false_type {};
+
+template <class T>
+struct is_nullary_function
+    < T
+    , std::void_t<decltype(std::declval<T&>()())>> :std::true_type{};
+
+
+
+template <class T, class A, class = void>
+struct is_unary_function : std::false_type {};
+
+template <class T, class A>
+struct is_unary_function
+    < T
+    , A
+    , std::void_t<decltype(std::declval<T&>()(std::declval<A&>()))>> :std::true_type{};
+
+
+
+template <class T, class A, class B, class = void>
+struct is_binary_function : std::false_type {};
+
+template <class T, class A, class B>
+struct is_binary_function
+    < T
+    , A
+    , B
+    , std::void_t<decltype(std::declval<T&>()(std::declval<A&>(), std::declval<B&>()))>> :std::true_type{};
+
+
 template <class T>
 constexpr bool Iterator = iterator<T, void>::value;
 
@@ -410,6 +442,22 @@ constexpr bool HasOstreamOperator = has_ostream_operator<T>::value;
 
 template <class T>
 constexpr bool Arithmetic = std::is_arithmetic<T>::value;
+
+
+template <class T>
+constexpr bool NullaryFunction = is_nullary_function<T>::value;
+
+template <class T, class A>
+constexpr bool UnaryFunction = is_unary_function<T, A>::value;
+
+template <class T, class A, class B>
+constexpr bool BinaryFunction = is_binary_function<T, A, B>::value;
+
+template <class T, class A>
+constexpr bool UnaryPredicate = is_unary_function<T, A>::value;
+
+template <class T, class A, class B>
+constexpr bool BinaryPredicate = is_binary_function<T, A, B>::value;
 
 
 

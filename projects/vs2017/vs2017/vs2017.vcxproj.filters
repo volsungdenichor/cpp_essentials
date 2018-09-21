@@ -28,6 +28,9 @@
     <Filter Include="Header Files\cpp_essentials\sq\detail">
       <UniqueIdentifier>{4f4f4ea7-59e6-4770-8a1a-63e4334d8efe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\cpp_essentials\cc">
+      <UniqueIdentifier>{f232849d-1a63-46b3-aa81-e83d2084ba35}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -161,6 +164,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\chunk.hpp">
       <Filter>Header Files\cpp_essentials\sq</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\cc\cc.hpp">
+      <Filter>Header Files\cpp_essentials\cc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

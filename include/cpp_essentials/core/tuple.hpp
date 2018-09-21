@@ -43,7 +43,7 @@ std::ostream& operator <<(std::ostream& os, const std::tuple<Args...>& value)
 {
     os << "(";
 
-    core::detail::tuple_printer<std::tuple<Args...>, 0, sizeof...(Args) - 1>::print(os, value, ";");
+    cpp_essentials::core::detail::tuple_printer<std::tuple<Args...>, 0, sizeof...(Args) - 1>::print(os, value, ";");
 
     os << ")";
 
@@ -55,7 +55,7 @@ std::ostream& operator <<(std::ostream& os, const std::pair<T1, T2>& value)
 {
     os << "(";
 
-    core::detail::tuple_printer<std::pair<T1, T2>, 0, 1>::print(os, value, ";");
+    cpp_essentials::core::detail::tuple_printer<std::pair<T1, T2>, 0, 1>::print(os, value, ";");
 
     os << ")";
 

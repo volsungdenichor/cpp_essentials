@@ -65,11 +65,9 @@ struct clamp_t
     template <class T>
     auto operator ()(const T& lower, const T& upper) const
     {
-        auto bounds = std::minmax(lower, upper);
-
-        return [this, bounds](const auto& value)
+        return [this, lower, upper](const auto& value)
         {
-            return (*this)(value, std::get<0>(bounds), std::get<1>(bounds));
+            return (*this)(value, lower, upper);
         };
     }
 };

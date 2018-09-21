@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\include\cpp_essentials\cc\cc.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\concepts\concepts.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\adaptor.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\algorithm.hpp" />

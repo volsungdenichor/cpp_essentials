@@ -34,6 +34,9 @@ using BaseOf = std::enable_if_t<std::is_base_of_v<T, U>>;
 template <class T, class U>
 using Assignable = std::enable_if_t<std::is_assignable_v<T, U>>;
 
+template <class T, class... Args>
+using Constructible = std::enable_if_t<std::is_constructible_v<T, Args...>>;
+
 
 namespace detail
 {
@@ -136,7 +139,7 @@ using range_iterator = decltype(std::begin(std::declval<T&>()));
 
 
 template <class Category, class T>
-using iterator_of_category = std::conjunction<Iterator<T>, std::enable_if_t<std::is_base_of_v<Category, typename std::iterator_traits<T>::iterator_category>>>;
+using iterator_of_category = std::enable_if_t<std::is_base_of_v<Category, typename std::iterator_traits<T>::iterator_category>>;
 
 template <class Category, class T>
 using range_of_category = iterator_of_category<Category, range_iterator<T>>;

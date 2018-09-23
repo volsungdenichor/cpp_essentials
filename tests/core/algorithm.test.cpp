@@ -1,5 +1,6 @@
 #include <catch.hpp>
 #include <cpp_essentials/core/algorithm.hpp>
+#include <random>
 
 #include <../tests/test_helpers.hpp>
 
@@ -110,5 +111,45 @@ TEST_CASE("find_end")
     auto vect = vec(3, 4, 1, 2, 3, 3, 4);
     auto o = vec(3, 4);
     REQUIRE(core::find_end(vect, o) == vec(3, 4));
+}
 
+TEST_CASE("inner_product")
+{
+    auto u = vec(3, 4, 1);
+    auto v = vec(2.5, 2.5, 2.5);
+    REQUIRE(core::inner_product(u, v, 0.0) == 20.0);
+}
+
+TEST_CASE("replace")
+{
+    auto vect = vec(0, 2, 3, 0, 5, 0);
+    core::replace(vect, 0, -1);
+    REQUIRE(vect == vec(-1, 2, 3, -1, 5, -1));
+}
+
+TEST_CASE("replace_if")
+{
+    auto vect = vec(1, 2, 3, 4, 5, 2);
+    core::replace_if(vect, [](auto&& x) { return x < 3; }, 0);
+    REQUIRE(vect == vec(0, 0, 3, 4, 5, 0));
+}
+
+TEST_CASE("search_n")
+{
+    auto vect = vec(1, 2, 3, 2, 4, 3, 3, 2, 3, 3, 3, 0);
+    auto result = core::search_n.as<core::return_found>(vect, 3, 3);
+    REQUIRE(result - vect.begin() == 8);
+}
+
+TEST_CASE("shuffle")
+{
+    auto vect = vec(0, 1, 2, 3, 4);
+    core::shuffle(vect, std::default_random_engine(0));
+}
+
+TEST_CASE("sort")
+{
+    auto vect = vec(3, 5, 1, 2, 4, 0);
+    core::sort(vect);
+    REQUIRE(vect == vec(0, 1, 2, 3, 4, 5));
 }

@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include <cpp_essentials/concepts/concepts.hpp>
+#include <cpp_essentials/cc/cc.hpp>
 #include <cpp_essentials/core/optional.hpp>
 #include <cpp_essentials/core/iterator_range.hpp>
 
@@ -72,7 +72,7 @@ struct return_next_end_t : return_policy_base_t
 struct return_value_t : return_policy_base_t
 {
     template <class Iter>
-    auto operator ()(Iter /*begin*/, Iter found, Iter end) const -> concepts::iterator_reference<Iter>
+    auto operator ()(Iter /*begin*/, Iter found, Iter end) const -> cc::iter_ref<Iter>
     {
         if (found == end)
         {
@@ -86,7 +86,7 @@ struct return_value_t : return_policy_base_t
 struct return_optional_t : return_policy_base_t
 {
     template <class Iter>
-    auto operator ()(Iter /*begin*/, Iter found, Iter end) const -> core::optional<concepts::iterator_reference<Iter>>
+    auto operator ()(Iter /*begin*/, Iter found, Iter end) const -> core::optional<cc::iter_ref<Iter>>
     {
         if (found == end)
         {
@@ -98,7 +98,7 @@ struct return_optional_t : return_policy_base_t
 };
 
 template <class T>
-using is_return_policy = std::is_base_of<return_policy_base_t, T>;
+using ReturnPolicy = cc::BaseOf<return_policy_base_t, T>;
 
 } /* detail */
 

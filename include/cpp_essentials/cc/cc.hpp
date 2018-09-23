@@ -31,6 +31,9 @@ using Enum = std::enable_if_t<std::is_enum_v<T>>;
 template <class T, class U>
 using BaseOf = std::enable_if_t<std::is_base_of_v<T, U>>;
 
+template <class T, class U>
+using Assignable = std::enable_if_t<std::is_assignable_v<T, U>>;
+
 
 namespace detail
 {
@@ -178,24 +181,37 @@ using NullaryFunction = decltype(std::declval<T&>()());
 template <class T, class A>
 using UnaryFunction = decltype(std::declval<T&>()(std::declval<A&>()));
 
-template <class T, class A, class B>
+template <class T, class A, class B = A>
 using BinaryFunction = decltype(std::declval<T&>()(std::declval<A&>(), std::declval<B&>()));
 
 template <class T, class A>
 using UnaryPredicate = std::enable_if_t<std::is_convertible_v<UnaryFunction<T, A>, bool>>;
 
-template <class T, class A, class B>
+template <class T, class A, class B = A>
 using BinaryPredicate = std::enable_if_t<std::is_convertible_v<BinaryFunction<T, A, B>, bool>>;
 
 
 template <class T>
-using range_val = typename std::iterator_traits<detail::range_iterator<T>>::value_type;
+using iter_val = typename std::iterator_traits<T>::value_type;
 
 template <class T>
-using range_ref = typename std::iterator_traits<detail::range_iterator<T>>::reference;
+using iter_ref = typename std::iterator_traits<T>::reference;
 
 template <class T>
-using range_cat = typename std::iterator_traits<detail::range_iterator<T>>::iterator_category;
+using iter_cat = typename std::iterator_traits<T>::iterator_category;
+
+
+template <class T>
+using range_iter = detail::range_iterator<T>;
+
+template <class T>
+using range_val = iter_val<range_iter<T>>;
+
+template <class T>
+using range_ref = iter_ref<range_iter<T>>;
+
+template <class T>
+using range_cat = iter_cat<range_iter<T>>;
 
 } /* namespace cc */
 

@@ -7,8 +7,13 @@
 
 #pragma once
 
+#define CONCEPT class
+
 namespace cc
 {
+
+template <class T>
+using Reference = std::enable_if_t<std::is_reference_v<T>>;
 
 template <class T, class U>
 using Same = std::enable_if_t<std::is_same_v<T, U>>;
@@ -202,6 +207,9 @@ using iter_ref = typename std::iterator_traits<T>::reference;
 
 template <class T>
 using iter_cat = typename std::iterator_traits<T>::iterator_category;
+
+template <class T>
+using iter_diff = typename std::iterator_traits<T>::difference_type;
 
 
 template <class T>

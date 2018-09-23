@@ -8,7 +8,6 @@
 
 #include <cpp_essentials/cc/cc.hpp>
 
-#include <cpp_essentials/concepts/concepts.hpp>
 #include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/return_policy.hpp>
 
@@ -26,8 +25,8 @@ struct accumulate_t : adaptable<accumulate_t>
         < class Range
         , class T
         , class BinaryFunc = std::plus<>
-        , class = cc::InputRange<Range>
-        , class = cc::BinaryFunction<BinaryFunc, T, cc::range_ref<Range>>>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::BinaryFunction<BinaryFunc, T, cc::range_ref<Range>>>
     auto operator ()(Range&& range, T init, BinaryFunc&& func = {}) const -> T
     {
         return std::accumulate(std::begin(range), std::end(range), init, std::move(func));
@@ -40,9 +39,9 @@ struct adjacent_difference_t
         < class Range
         , class OutputIter
         , class BinaryFunc = std::minus<>
-        , class = cc::InputRange<Range>
-        , class = cc::OutputIterator<OutputIter>
-        , class = cc::BinaryFunction<BinaryFunc, cc::range_ref<Range>, cc::range_ref<Range>>>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::OutputIterator<OutputIter>
+        , CONCEPT = cc::BinaryFunction<BinaryFunc, cc::range_ref<Range>, cc::range_ref<Range>>>
     auto operator ()(Range&& range, OutputIter output, BinaryFunc&& func = {}) const -> OutputIter
     {
         return std::adjacent_difference(std::begin(range), std::end(range), output, std::move(func));
@@ -56,8 +55,8 @@ struct all_of_t : adaptable<all_of_t>
     template
         < class Range
         , class UnaryPred
-        , class = cc::InputRange<Range>
-        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const -> bool
     {
         return std::all_of(std::begin(range), std::end(range), std::move(pred));
@@ -71,8 +70,8 @@ struct any_of_t : adaptable<any_of_t>
     template
         < class Range
         , class UnaryPred
-        , class = cc::InputRange<Range>
-        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const -> bool
     {
         return std::any_of(std::begin(range), std::end(range), std::move(pred));
@@ -86,8 +85,8 @@ struct copy_t : adaptable<copy_t>
     template
         < class Range
         , class OutputIter
-        , class = cc::InputRange<Range>
-        , class = cc::OutputIterator<OutputIter>>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::OutputIterator<OutputIter>>
     auto operator ()(Range&& range, OutputIter output) const -> OutputIter
     {
         return std::copy(std::begin(range), std::end(range), output);
@@ -102,9 +101,9 @@ struct copy_if_t : adaptable<copy_if_t>
         < class Range
         , class OutputIter
         , class UnaryPred
-        , class = cc::InputRange<Range>
-        , class = cc::OutputIterator<OutputIter>
-        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::OutputIterator<OutputIter>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, OutputIter output, UnaryPred&& pred) const -> OutputIter
     {
         return std::copy_if(std::begin(range), std::end(range), output, std::move(pred));
@@ -119,9 +118,9 @@ struct copy_n_t : adaptable<copy_n_t>
         < class Range
         , class Size
         , class OutputIter
-        , class = cc::InputRange<Range>
-        , class = cc::Integral<Size>
-        , class = cc::OutputIterator<OutputIter>>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::Integral<Size>
+        , CONCEPT = cc::OutputIterator<OutputIter>>
     auto operator ()(Range&& range, Size size, OutputIter output) const -> OutputIter
     {
         return std::copy_n(std::begin(range), size, output);
@@ -135,7 +134,7 @@ struct count_t : adaptable<count_t>
     template
         < class Range
         , class T
-        , class = cc::InputRange<Range>>
+        , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, T&& value) const
     {
         return std::count(std::begin(range), std::end(range), value);
@@ -149,8 +148,8 @@ struct count_if_t : adaptable<count_if_t>
     template
         < class Range
         , class UnaryPred
-        , class = cc::InputRange<Range>
-        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const
     {
         return std::count_if(std::begin(range), std::end(range), std::move(pred));
@@ -163,9 +162,9 @@ struct equal_t
         < class Range1
         , class Range2
         , class BinaryPred = std::equal_to<>
-        , class = cc::InputRange<Range1>
-        , class = cc::InputRange<Range2>
-        , class = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
+        , CONCEPT = cc::InputRange<Range1>
+        , CONCEPT = cc::InputRange<Range2>
+        , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     auto operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const -> bool
     {
         return std::equal(std::begin(range1), std::end(range1), std::begin(range2), std::end(range2), std::move(pred));
@@ -178,8 +177,8 @@ struct equal_range_t
         < class Range
         , class T
         , class Compare = std::less<>
-        , class = cc::ForwardRange<Range>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
+        , CONCEPT = cc::ForwardRange<Range>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     auto operator ()(Range&& range, const T& value, Compare&& compare = {}) const
     {
         return make_range(std::equal_range(std::begin(range), std::end(range), value, std::move(compare)));
@@ -191,15 +190,15 @@ struct fill_t
     template
         < class Range
         , class T
-        , class = cc::ForwardRange<Range>
-        , class = cc::Assignable<cc::range_ref<Range>, T>>
+        , CONCEPT = cc::ForwardRange<Range>
+        , CONCEPT = cc::Assignable<cc::range_ref<Range>, T>>
     void operator ()(Range&& range, const T& value) const
     {
         std::fill(std::begin(range), std::end(range), value);
     }
 };
 
-template <class Policy = default_return_policy_t, class = ReturnPolicy<Policy>>
+template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct find_t : adaptable<find_t<Policy>>
 {
     using adaptable<find_t<Policy>>::operator();
@@ -212,8 +211,8 @@ struct find_t : adaptable<find_t<Policy>>
     template
         < class Range
         , class T
-        , class = cc::InputRange<Range>
-        , class = cc::EqualityComparable<cc::range_ref<Range>, T>>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::EqualityComparable<cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, T&& value) const
     {
         auto b = std::begin(range);
@@ -222,7 +221,7 @@ struct find_t : adaptable<find_t<Policy>>
     }
 };
 
-template <class Policy = default_return_policy_t, class = ReturnPolicy<Policy>>
+template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct find_if_t : adaptable<find_if_t<Policy>>
 {
     using adaptable<find_if_t<Policy>>::operator();
@@ -235,8 +234,8 @@ struct find_if_t : adaptable<find_if_t<Policy>>
     template
         < class Range
         , class UnaryPred
-        , class = cc::InputRange<Range>
-        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
         auto b = std::begin(range);
@@ -245,7 +244,7 @@ struct find_if_t : adaptable<find_if_t<Policy>>
     }
 };
 
-template <class Policy = default_return_policy_t, class = ReturnPolicy<Policy>>
+template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct find_if_not_t : adaptable<find_if_not_t<Policy>>
 {
     using adaptable<find_if_not_t<Policy>>::operator();
@@ -258,8 +257,8 @@ struct find_if_not_t : adaptable<find_if_not_t<Policy>>
     template
         < class Range
         , class UnaryPred
-        , class = cc::InputRange<Range>
-        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
         auto b = std::begin(range);
@@ -268,7 +267,7 @@ struct find_if_not_t : adaptable<find_if_not_t<Policy>>
     }
 };
 
-template <class Policy = default_return_policy_t, class = ReturnPolicy<Policy>>
+template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct find_end_t : adaptable<find_end_t<Policy>>
 {
     using adaptable<find_end_t<Policy>>::operator();
@@ -281,8 +280,8 @@ struct find_end_t : adaptable<find_end_t<Policy>>
     template
         < class Range1
         , class Range2
-        , class = cc::ForwardRange<Range1>
-        , class = cc::ForwardRange<Range2>>
+        , CONCEPT = cc::ForwardRange<Range1>
+        , CONCEPT = cc::ForwardRange<Range2>>
     decltype(auto) operator ()(Range1&& range1, Range2&& range2) const
     {
         auto b = std::begin(range1);
@@ -291,7 +290,7 @@ struct find_end_t : adaptable<find_end_t<Policy>>
     }
 };
 
-template <class Policy = default_return_policy_t, class = ReturnPolicy<Policy>>
+template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct find_first_of_t : adaptable<find_first_of_t<Policy>>
 {
     using adaptable<find_first_of_t<Policy>>::operator();
@@ -305,9 +304,9 @@ struct find_first_of_t : adaptable<find_first_of_t<Policy>>
         < class Range1
         , class Range2
         , class BinaryPred = std::equal_to<>
-        , class = cc::InputRange<Range1>
-        , class = cc::ForwardRange<Range2>
-        , class = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
+        , CONCEPT = cc::InputRange<Range1>
+        , CONCEPT = cc::ForwardRange<Range2>
+        , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     decltype(auto) operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
         auto b = std::begin(range1);
@@ -323,8 +322,8 @@ struct for_each_t : adaptable<for_each_t>
     template
         < class Range
         , class UnaryFunc
-        , class = cc::InputRange<Range>
-        , class = cc::UnaryFunction<UnaryFunc, cc::range_ref<Range>>>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::UnaryFunction<UnaryFunc, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryFunc&& func) const
     {
         return std::for_each(std::begin(range), std::end(range), std::move(func));
@@ -336,8 +335,8 @@ struct generate_t
     template
         < class Range
         , class Generator
-        , class = cc::ForwardRange<Range>
-        , class = cc::NullaryFunction<Generator>>
+        , CONCEPT = cc::ForwardRange<Range>
+        , CONCEPT = cc::NullaryFunction<Generator>>
     void operator ()(Range&& range, Generator&& generator) const
     {
         std::generate(std::begin(range), std::end(range), std::move(generator));
@@ -350,9 +349,9 @@ struct generate_n_t
         < class OutputIter
         , class Size
         , class Generator
-        , class = cc::OutputIterator<OutputIter>
-        , class = cc::Integral<Size>
-        , class = cc::NullaryFunction<Generator>>
+        , CONCEPT = cc::OutputIterator<OutputIter>
+        , CONCEPT = cc::Integral<Size>
+        , CONCEPT = cc::NullaryFunction<Generator>>
     void operator ()(OutputIter output, Size size, Generator&& generator) const
     {
         std::generate_n(output, size, std::move(generator));
@@ -365,9 +364,9 @@ struct includes_t
         < class Range1
         , class Range2
         , class Compare = std::less<>
-        , class = cc::InputRange<Range1>
-        , class = cc::InputRange<Range2>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range1>, cc::range_ref<Range2>>>
+        , CONCEPT = cc::InputRange<Range1>
+        , CONCEPT = cc::InputRange<Range2>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     auto operator ()(Range1&& range1, Range2&& range2, Compare&& compare = {}) const -> bool
     {
         return std::includes(
@@ -387,10 +386,10 @@ struct inner_product_t
         , class T
         , class BinaryFunc1 = std::plus<>
         , class BinaryFunc2 = std::multiplies<>
-        , class = cc::InputRange<Range1>
-        , class = cc::InputRange<Range2>
-        , class = cc::BinaryFunction<BinaryFunc1, T, std::invoke_result_t<BinaryFunc2, cc::range_ref<Range1>, cc::range_ref<Range2>>>
-        , class = cc::BinaryFunction<BinaryFunc2, cc::range_ref<Range1>, cc::range_ref<Range2>>>
+        , CONCEPT = cc::InputRange<Range1>
+        , CONCEPT = cc::InputRange<Range2>
+        , CONCEPT = cc::BinaryFunction<BinaryFunc1, T, std::invoke_result_t<BinaryFunc2, cc::range_ref<Range1>, cc::range_ref<Range2>>>
+        , CONCEPT = cc::BinaryFunction<BinaryFunc2, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     auto operator ()(Range1&& range1, Range2&& range2, T init, BinaryFunc1&& func1 = {}, BinaryFunc2&& func2 = {}) const -> T
     {
         return std::inner_product(std::begin(range1), std::end(range1), std::begin(range2), init, std::move(func1), std::move(func2));
@@ -402,8 +401,8 @@ struct iota_t
     template
         < class Range
         , class T
-        , class = cc::ForwardRange<Range>
-        , class = cc::Arithmetic<T>>
+        , CONCEPT = cc::ForwardRange<Range>
+        , CONCEPT = cc::Arithmetic<T>>
     void operator ()(Range&& range, T value) const
     {
         std::iota(std::begin(range), std::end(range), value);
@@ -417,15 +416,15 @@ struct is_heap_t : adaptable<is_heap_t>
     template
         < class Range
         , class Compare = std::less<>
-        , class = cc::RandomAccessRange<Range>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
+        , CONCEPT = cc::RandomAccessRange<Range>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     auto operator ()(Range&& range, Compare&& compare = {}) const -> bool
     {
         return std::is_heap(std::begin(range), std::end(range), std::move(compare));
     }
 };
 
-template <class Policy = default_return_policy_t, class = ReturnPolicy<Policy>>
+template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct is_heap_until_t
 {
     static constexpr Policy policy = {};
@@ -436,8 +435,8 @@ struct is_heap_until_t
     template
         < class Range
         , class Compare = std::less<>
-        , class = cc::RandomAccessRange<Range>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
+        , CONCEPT = cc::RandomAccessRange<Range>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
         auto b = std::begin(range);
@@ -453,8 +452,8 @@ struct is_partitioned_t : adaptable<is_partitioned_t>
     template
         < class Range
         , class UnaryPred
-        , class = cc::InputRange<Range>
-        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const -> bool
     {
         return std::is_partitioned(std::begin(range), std::end(range), std::move(pred));
@@ -468,8 +467,8 @@ struct is_permutation_t : adaptable<is_permutation_t>
     template
         < class Range1
         , class Range2
-        , class = cc::ForwardRange<Range1>
-        , class = cc::ForwardRange<Range2>>
+        , CONCEPT = cc::ForwardRange<Range1>
+        , CONCEPT = cc::ForwardRange<Range2>>
     auto operator ()(Range1&& range1, Range2&& range2) const -> bool
     {
         return std::is_permutation(std::begin(range1), std::end(range1), std::begin(range2));
@@ -483,15 +482,15 @@ struct is_sorted_t : adaptable<is_sorted_t>
     template
         < class Range
         , class Compare = std::less<>
-        , class = cc::ForwardRange<Range>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
+        , CONCEPT = cc::ForwardRange<Range>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     auto operator ()(Range&& range, Compare&& compare = {}) const -> bool
     {
         return std::is_sorted(std::begin(range), std::end(range), std::move(compare));
     }
 };
 
-template <class Policy = default_return_policy_t, class = ReturnPolicy<Policy>>
+template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct is_sorted_until_t
 {
     static constexpr Policy policy = {};
@@ -502,8 +501,8 @@ struct is_sorted_until_t
     template
         < class Range
         , class Compare = std::less<>
-        , class = cc::ForwardRange<Range>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
+        , CONCEPT = cc::ForwardRange<Range>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
         auto b = std::begin(range);
@@ -518,9 +517,9 @@ struct lexicographical_compare_t
         < class Range1
         , class Range2
         , class Compare = std::less<>
-        , class = cc::InputRange<Range1>
-        , class = cc::InputRange<Range2>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range1>, cc::range_ref<Range2>>>
+        , CONCEPT = cc::InputRange<Range1>
+        , CONCEPT = cc::InputRange<Range2>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     auto operator ()(Range1&& range1, Range2&& range2, Compare&& compare = {}) const -> bool
     {
         return std::lexicographical_compare(
@@ -532,7 +531,7 @@ struct lexicographical_compare_t
     }
 };
 
-template <class Policy = default_return_policy_t, class = ReturnPolicy<Policy>>
+template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct lower_bound_t
 {
     static constexpr Policy policy = {};
@@ -544,8 +543,8 @@ struct lower_bound_t
         < class Range
         , class T
         , class Compare = std::plus<>
-        , class = cc::ForwardRange<Range>        
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range>, T>>
+        , CONCEPT = cc::ForwardRange<Range>        
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, const T& value, Compare&& compare = {}) const
     {
         auto b = std::begin(range);
@@ -559,15 +558,15 @@ struct make_heap_t
     template
         < class Range
         , class Compare = std::less<>
-        , class = cc::RandomAccessRange<Range>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
+        , CONCEPT = cc::RandomAccessRange<Range>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     void operator ()(Range&& range, Compare&& compare = {}) const
     {
         std::make_heap(std::begin(range), std::end(range), std::move(compare));
     }
 };
 
-template <class Policy = default_return_policy_t, class = ReturnPolicy<Policy>>
+template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct max_element_t : adaptable<max_element_t<Policy>>
 {
     using adaptable<max_element_t<Policy>>::operator();
@@ -580,8 +579,8 @@ struct max_element_t : adaptable<max_element_t<Policy>>
     template
         < class Range
         , class Compare = std::less<>
-        , class = cc::ForwardRange<Range>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
+        , CONCEPT = cc::ForwardRange<Range>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
         auto b = std::begin(range);
@@ -597,10 +596,10 @@ struct merge_t
         , class Range2
         , class OutputIter
         , class Compare = std::less<>
-        , class = cc::InputRange<Range1>
-        , class = cc::InputRange<Range2>
-        , class = cc::OutputIterator<OutputIter>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range1>, cc::range_ref<Range2>>>
+        , CONCEPT = cc::InputRange<Range1>
+        , CONCEPT = cc::InputRange<Range2>
+        , CONCEPT = cc::OutputIterator<OutputIter>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     auto operator ()(Range1&& range1, Range2&& range2, OutputIter output, Compare&& compare = {}) const -> OutputIter
     {
         return std::merge(
@@ -618,15 +617,15 @@ struct inplace_merge_t
     template
         < class Range
         , class Compare = std::less<>
-        , class = cc::BidirectionalRange<Range>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
+        , CONCEPT = cc::BidirectionalRange<Range>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     void operator ()(Range&& range, cc::range_iter<Range> middle, Compare&& compare = {}) const
     {
         std::inplace_merge(std::begin(range), middle, std::end(range), std::move(compare));
     }
 };
 
-template <class Policy = default_return_policy_t, class = ReturnPolicy<Policy>>
+template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct minmax_element_t : adaptable<minmax_element_t<Policy>>
 {
     using adaptable<minmax_element_t<Policy>>::operator();
@@ -639,8 +638,8 @@ struct minmax_element_t : adaptable<minmax_element_t<Policy>>
     template
         < class Range
         , class Compare = std::less<>
-        , class = cc::ForwardRange<Range>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
+        , CONCEPT = cc::ForwardRange<Range>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
         auto b = std::begin(range);
@@ -652,7 +651,7 @@ struct minmax_element_t : adaptable<minmax_element_t<Policy>>
     }
 };
 
-template <class Policy = default_return_policy_t, class = ReturnPolicy<Policy>>
+template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct min_element_t : adaptable<min_element_t<Policy>>
 {
     using adaptable<min_element_t<Policy>>::operator();
@@ -665,8 +664,8 @@ struct min_element_t : adaptable<min_element_t<Policy>>
     template
         < class Range
         , class Compare = std::less<>
-        , class = cc::ForwardRange<Range>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
+        , CONCEPT = cc::ForwardRange<Range>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
         auto b = std::begin(range);
@@ -675,7 +674,7 @@ struct min_element_t : adaptable<min_element_t<Policy>>
     }
 };
 
-template <class Policy = default_return_policy_t, class = ReturnPolicy<Policy>>
+template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct mismatch_t
 {
     static constexpr Policy policy = {};
@@ -687,9 +686,9 @@ struct mismatch_t
         < class Range1
         , class Range2
         , class BinaryPred = std::equal_to<>
-        , class = cc::InputRange<Range1>
-        , class = cc::InputRange<Range2>
-        , class = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
+        , CONCEPT = cc::InputRange<Range1>
+        , CONCEPT = cc::InputRange<Range2>
+        , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     auto operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
         auto b1 = std::begin(range1);
@@ -711,8 +710,8 @@ struct move_t : adaptable<move_t>
     template
         < class Range
         , class OutputIter
-        , class = cc::InputRange<Range>
-        , class = cc::OutputIterator<OutputIter>>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::OutputIterator<OutputIter>>
     auto operator ()(Range&& range, OutputIter output) const -> OutputIter
     {
         return std::move(std::begin(range), std::end(range), output);
@@ -724,8 +723,8 @@ struct next_permutation_t
     template
         < class Range
         , class Compare = std::less<>
-        , class = cc::BidirectionalRange<Range>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
+        , CONCEPT = cc::BidirectionalRange<Range>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     auto operator ()(Range&& range, Compare&& compare = {}) const -> bool
     {
         return std::next_permutation(std::begin(range), std::end(range), std::move(compare));
@@ -739,8 +738,8 @@ struct none_of_t : adaptable<none_of_t>
     template
         < class Range
         , class UnaryPred
-        , class = cc::InputRange<Range>
-        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const -> bool
     {
         return std::none_of(std::begin(range), std::end(range), std::move(pred));
@@ -752,8 +751,8 @@ struct nth_element_t
     template
         < class Range
         , class Compare = std::less<>
-        , class = cc::RandomAccessRange<Range>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
+        , CONCEPT = cc::RandomAccessRange<Range>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     void operator ()(Range&& range, cc::range_iter<Range> middle, Compare&& compare = {}) const
     {
         std::nth_element(std::begin(range), middle, std::end(range), std::move(compare));
@@ -765,15 +764,15 @@ struct partial_sort_t
     template
         < class Range
         , class Compare = std::less<>
-        , class = cc::RandomAccessRange<Range>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
+        , CONCEPT = cc::RandomAccessRange<Range>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     void operator ()(Range&& range, cc::range_iter<Range> middle, Compare&& compare = {}) const
     {
         std::partial_sort(std::begin(range), middle, std::end(range), std::move(compare));
     }
 };
 
-template <class Policy = default_return_policy_t, class = ReturnPolicy<Policy>>
+template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct partial_sort_copy_t
 {
     static constexpr Policy policy = {};
@@ -785,9 +784,9 @@ struct partial_sort_copy_t
         < class Range1
         , class Range2
         , class Compare = std::less<>
-        , class = cc::RandomAccessRange<Range1>
-        , class = cc::RandomAccessRange<Range2>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range1>, cc::range_ref<Range2>>>
+        , CONCEPT = cc::RandomAccessRange<Range1>
+        , CONCEPT = cc::RandomAccessRange<Range2>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     decltype(auto) operator ()(Range1&& range1, Range2&& range2, Compare&& compare = {}) const
     {
         auto b2 = std::begin(range2);
@@ -802,16 +801,16 @@ struct partial_sum_t
         < class Range
         , class OutputIter
         , class BinaryFunc = std::plus<>
-        , class = cc::InputRange<Range>
-        , class = cc::OutputIterator<OutputIter>
-        , class = cc::BinaryFunction<BinaryFunc, cc::range_val<Range>, cc::range_ref<Range>>>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::OutputIterator<OutputIter>
+        , CONCEPT = cc::BinaryFunction<BinaryFunc, cc::range_val<Range>, cc::range_ref<Range>>>
     auto operator ()(Range&& range, OutputIter output, BinaryFunc&& func = {}) const -> OutputIter
     {
         return std::partial_sum(std::begin(range), std::end(range), output, std::move(func));
     }
 };
 
-template <class Policy = default_return_policy_t, class = ReturnPolicy<Policy>>
+template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct partition_t
 {
     static constexpr Policy policy = {};
@@ -822,8 +821,8 @@ struct partition_t
     template
         < class Range
         , class UnaryPred
-        , class = cc::ForwardRange<Range>
-        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , CONCEPT = cc::ForwardRange<Range>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
         auto b = std::begin(range);
@@ -839,17 +838,17 @@ struct partition_copy_t
         , class OutputIter1
         , class OutputIter2
         , class UnaryPred
-        , class = cc::InputRange<Range>
-        , class = cc::OutputIterator<OutputIter1>
-        , class = cc::OutputIterator<OutputIter2>
-        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::OutputIterator<OutputIter1>
+        , CONCEPT = cc::OutputIterator<OutputIter2>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, OutputIter1 result_true, OutputIter2 result_false, UnaryPred&& pred) const
     {
         return std::partition_copy(std::begin(range), std::end(range), result_true, result_false, std::move(pred));
     }
 };
 
-template <class Policy = default_return_policy_t, class = ReturnPolicy<Policy>>
+template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct stable_partition_t
 {
     static constexpr Policy policy = {};
@@ -860,8 +859,8 @@ struct stable_partition_t
     template
         < class Range
         , class UnaryPred
-        , class = cc::BidirectionalRange<Range>
-        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , CONCEPT = cc::BidirectionalRange<Range>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
         auto b = std::begin(range);
@@ -875,8 +874,8 @@ struct prev_permutation_t
     template
         < class Range
         , class Compare = std::less<>
-        , class = cc::BidirectionalRange<Range>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
+        , CONCEPT = cc::BidirectionalRange<Range>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     auto operator ()(Range&& range, Compare&& compare = {}) const -> bool
     {
         return std::prev_permutation(std::begin(range), std::end(range), std::move(compare));
@@ -888,15 +887,15 @@ struct push_heap_t
     template
         < class Range
         , class Compare = std::less<>
-        , class = cc::RandomAccessRange<Range>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
+        , CONCEPT = cc::RandomAccessRange<Range>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     void operator ()(Range&& range, Compare&& compare = {}) const
     {
         std::push_heap(std::begin(range), std::end(range), std::move(compare));
     }
 };
 
-template <class Policy = default_return_policy_t, class = ReturnPolicy<Policy>>
+template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct remove_t
 {
     static constexpr Policy policy = {};
@@ -907,8 +906,8 @@ struct remove_t
     template
         < class Range
         , class T
-        , class = cc::ForwardRange<Range>
-        , class = cc::EqualityComparable<cc::range_ref<Range>, T>>
+        , CONCEPT = cc::ForwardRange<Range>
+        , CONCEPT = cc::EqualityComparable<cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, const T& value) const
     {
         auto b = std::begin(range);
@@ -917,7 +916,7 @@ struct remove_t
     }
 };
 
-template <class Policy = default_return_policy_t, class = ReturnPolicy<Policy>>
+template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct remove_if_t
 {
     static constexpr Policy policy = {};
@@ -928,8 +927,8 @@ struct remove_if_t
     template
         < class Range
         , class UnaryPred
-        , class = cc::ForwardRange<Range>
-        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , CONCEPT = cc::ForwardRange<Range>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
         auto b = std::begin(range);
@@ -944,9 +943,9 @@ struct remove_copy_t
         < class Range
         , class OutputIter
         , class T
-        , class = cc::InputRange<Range>
-        , class = cc::OutputIterator<OutputIter>
-        , class = cc::EqualityComparable<cc::range_ref<Range>, T>>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::OutputIterator<OutputIter>
+        , CONCEPT = cc::EqualityComparable<cc::range_ref<Range>, T>>
     auto operator ()(Range&& range, OutputIter output, const T& value) const -> OutputIter
     {
         return std::remove_copy(std::begin(range), std::end(range), output, value);
@@ -959,9 +958,9 @@ struct remove_copy_if_t
         < class Range
         , class OutputIter
         , class UnaryPred
-        , class = cc::InputRange<Range>
-        , class = cc::OutputIterator<OutputIter>
-        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::OutputIterator<OutputIter>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, OutputIter output, UnaryPred&& pred) const -> OutputIter
     {
         return std::remove_copy_if(std::begin(range), std::end(range), output, std::move(pred));
@@ -973,8 +972,8 @@ struct replace_t
     template
         < class Range
         , class T
-        , class = cc::ForwardRange<Range>
-        , class = cc::EqualityComparable<cc::range_ref<Range>, T>>
+        , CONCEPT = cc::ForwardRange<Range>
+        , CONCEPT = cc::EqualityComparable<cc::range_ref<Range>, T>>
     void operator ()(Range&& range, const T& old_value, const T& new_value) const
     {
         std::replace(std::begin(range), std::end(range), old_value, new_value);
@@ -987,9 +986,9 @@ struct replace_if_t
         < class Range
         , class UnaryPred
         , class T
-        , class = cc::ForwardRange<Range>
-        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>
-        , class = cc::Assignable<cc::range_ref<Range>, T>>
+        , CONCEPT = cc::ForwardRange<Range>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>
+        , CONCEPT = cc::Assignable<cc::range_ref<Range>, T>>
     void operator ()(Range&& range, UnaryPred pred, const T& new_value) const
     {
         std::replace_if(std::begin(range), std::end(range), pred, new_value);
@@ -1002,9 +1001,9 @@ struct replace_copy_t
         < class Range
         , class OutputIter
         , class T
-        , class = cc::InputRange<Range>
-        , class = cc::OutputIterator<OutputIter>
-        , class = cc::EqualityComparable<cc::range_ref<Range>, T>>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::OutputIterator<OutputIter>
+        , CONCEPT = cc::EqualityComparable<cc::range_ref<Range>, T>>
     auto operator ()(Range&& range, OutputIter output, const T& old_value, const T& new_value) const -> OutputIter
     {
         return std::replace_copy(std::begin(range), std::end(range), output, old_value, new_value);
@@ -1018,10 +1017,10 @@ struct replace_copy_if_t
         , class OutputIter
         , class UnaryPred
         , class T
-        , class = cc::InputRange<Range>
-        , class = cc::OutputIterator<OutputIter>
-        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>
-        , class = cc::EqualityComparable<cc::range_ref<Range>, T>>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::OutputIterator<OutputIter>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>
+        , CONCEPT = cc::EqualityComparable<cc::range_ref<Range>, T>>
     auto operator ()(Range&& range, OutputIter output, UnaryPred&& pred, const T& new_value) const -> OutputIter
     {
         return std::replace_copy_if(std::begin(range), std::end(range), output, std::move(pred), new_value);
@@ -1032,7 +1031,7 @@ struct reverse_t
 {
     template
         < class Range
-        , class = cc::BidirectionalRange<Range>>
+        , CONCEPT = cc::BidirectionalRange<Range>>
     void operator ()(Range&& range) const
     {
         std::reverse(std::begin(range), std::end(range));
@@ -1044,15 +1043,15 @@ struct reverse_copy_t
     template
         < class Range
         , class OutputIter
-        , class = cc::BidirectionalRange<Range>
-        , class = cc::OutputIterator<OutputIter>>
+        , CONCEPT = cc::BidirectionalRange<Range>
+        , CONCEPT = cc::OutputIterator<OutputIter>>
     auto operator()(Range&& range, OutputIter output) const -> OutputIter
     {
         return std::reverse_copy(std::begin(range), std::end(range), output);
     }
 };
 
-template <class Policy = default_return_policy_t, class = ReturnPolicy<Policy>>
+template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct rotate_t
 {
     static constexpr Policy policy = {};
@@ -1062,7 +1061,7 @@ struct rotate_t
 
     template
         < class Range
-        , class = cc::ForwardRange<Range>>
+        , CONCEPT = cc::ForwardRange<Range>>
     decltype(auto) operator ()(Range&& range, cc::range_iter<Range> middle) const
     {
         auto b = std::begin(range);
@@ -1076,15 +1075,15 @@ struct rotate_copy_t
     template
         < class Range
         , class OutputIter
-        , class = cc::ForwardRange<Range>
-        , class = cc::OutputIterator<OutputIter>>
+        , CONCEPT = cc::ForwardRange<Range>
+        , CONCEPT = cc::OutputIterator<OutputIter>>
     auto operator ()(Range&& range, cc::range_iter<Range> middle, OutputIter output) const -> OutputIter
     {
         return std::rotate_copy(std::begin(range), middle, std::end(range), output);
     }
 };
 
-template <class Policy = default_return_policy_t, class = ReturnPolicy<Policy>>
+template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct search_t
 {
     static constexpr Policy policy = {};
@@ -1096,9 +1095,9 @@ struct search_t
         < class Range1
         , class Range2
         , class BinaryPred = std::equal_to<>
-        , class = cc::ForwardRange<Range1>
-        , class = cc::ForwardRange<Range2>
-        , class = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
+        , CONCEPT = cc::ForwardRange<Range1>
+        , CONCEPT = cc::ForwardRange<Range2>
+        , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     decltype(auto) operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
         auto b = std::begin(range1);
@@ -1107,7 +1106,7 @@ struct search_t
     }
 };
 
-template <class Policy = default_return_policy_t, class = ReturnPolicy<Policy>>
+template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct search_n_t
 {
     static constexpr Policy policy = {};
@@ -1120,9 +1119,9 @@ struct search_n_t
         , class Size
         , class T
         , class BinaryPred = std::equal_to<>
-        , class = cc::ForwardRange<Range>
-        , class = cc::Integral<Size>
-        , class = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>, T>>
+        , CONCEPT = cc::ForwardRange<Range>
+        , CONCEPT = cc::Integral<Size>
+        , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, Size size, const T& value, BinaryPred&& pred = {}) const
     {
         auto b = std::begin(range);
@@ -1138,10 +1137,10 @@ struct set_difference_t
         , class Range2
         , class OutputIter
         , class Compare = std::less<>
-        , class = cc::InputRange<Range1>
-        , class = cc::InputRange<Range2>
-        , class = cc::OutputIterator<OutputIter>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range1>, cc::range_ref<Range2>>>
+        , CONCEPT = cc::InputRange<Range1>
+        , CONCEPT = cc::InputRange<Range2>
+        , CONCEPT = cc::OutputIterator<OutputIter>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     auto operator ()(Range1&& range1, Range2&& range2, OutputIter output, Compare&& compare = {}) const -> OutputIter
     {
         return std::set_difference(
@@ -1161,10 +1160,10 @@ struct set_intersection_t
         , class Range2
         , class OutputIter
         , class Compare = std::less<>
-        , class = cc::InputRange<Range1>
-        , class = cc::InputRange<Range2>
-        , class = cc::OutputIterator<OutputIter>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range1>, cc::range_ref<Range2>>>
+        , CONCEPT = cc::InputRange<Range1>
+        , CONCEPT = cc::InputRange<Range2>
+        , CONCEPT = cc::OutputIterator<OutputIter>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     auto operator ()(Range1&& range1, Range2&& range2, OutputIter output, Compare&& compare = {}) const -> OutputIter
     {
         return std::set_intersection(
@@ -1184,10 +1183,10 @@ struct set_symmetric_difference_t
         , class Range2
         , class OutputIter
         , class Compare = std::less<>
-        , class = cc::InputRange<Range1>
-        , class = cc::InputRange<Range2>
-        , class = cc::OutputIterator<OutputIter>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range1>, cc::range_ref<Range2>>>
+        , CONCEPT = cc::InputRange<Range1>
+        , CONCEPT = cc::InputRange<Range2>
+        , CONCEPT = cc::OutputIterator<OutputIter>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     auto operator ()(Range1&& range1, Range2&& range2, OutputIter output, Compare&& compare = {}) const -> OutputIter
     {
         return std::set_symmetric_difference(
@@ -1207,10 +1206,10 @@ struct set_union_t
         , class Range2
         , class OutputIter
         , class Compare = std::less<>
-        , class = cc::InputRange<Range1>
-        , class = cc::InputRange<Range2>
-        , class = cc::OutputIterator<OutputIter>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range1>, cc::range_ref<Range2>>>
+        , CONCEPT = cc::InputRange<Range1>
+        , CONCEPT = cc::InputRange<Range2>
+        , CONCEPT = cc::OutputIterator<OutputIter>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     auto operator ()(Range1&& range1, Range2&& range2, OutputIter output, Compare&& compare = {}) const -> OutputIter
     {
         return std::set_union(
@@ -1228,8 +1227,8 @@ struct shuffle_t
     template
         < class Range
         , class RandomNumberGenerator
-        , class = cc::RandomAccessRange<Range>
-        , class = cc::NullaryFunction<RandomNumberGenerator>>
+        , CONCEPT = cc::RandomAccessRange<Range>
+        , CONCEPT = cc::NullaryFunction<RandomNumberGenerator>>
     void operator ()(Range&& range, RandomNumberGenerator&& generator) const
     {
         std::shuffle(std::begin(range), std::end(range), std::move(generator));
@@ -1241,8 +1240,8 @@ struct sort_t
     template
         < class Range
         , class Compare = std::less<>
-        , class = cc::RandomAccessRange<Range>
-        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
+        , CONCEPT = cc::RandomAccessRange<Range>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     void operator ()(Range&& range, Compare&& compare = {}) const
     {
         std::sort(std::begin(range), std::end(range), std::move(compare));
@@ -1254,8 +1253,8 @@ struct stable_sort_t
     template
         < class Range
         , class Compare = std::less<>
-        , class = cc::RandomAccessRange<Range>
-        , class = cc::BinaryFunction<Compare, cc::range_ref<Range>>>
+        , CONCEPT = cc::RandomAccessRange<Range>
+        , CONCEPT = cc::BinaryFunction<Compare, cc::range_ref<Range>>>
     void operator ()(Range&& range, Compare&& compare = {}) const
     {
         std::stable_sort(std::begin(range), std::end(range), std::move(compare));
@@ -1268,9 +1267,9 @@ struct transform_t
         < class Range
         , class OutputIter
         , class UnaryFunc
-        , class = cc::InputRange<Range>
-        , class = cc::OutputIterator<OutputIter>
-        , class = cc::UnaryFunction<UnaryFunc, cc::range_ref<Range>>>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::OutputIterator<OutputIter>
+        , CONCEPT = cc::UnaryFunction<UnaryFunc, cc::range_ref<Range>>>
     auto operator ()(Range&& range, OutputIter output, UnaryFunc&& func) const -> OutputIter
     {
         return std::transform(std::begin(range), std::end(range), output, std::move(func));
@@ -1281,17 +1280,17 @@ struct transform_t
         , class Range2
         , class OutputIter
         , class BinaryFunc
-        , class = cc::InputRange<Range1>
-        , class = cc::InputRange<Range2>
-        , class = cc::OutputIterator<OutputIter>
-        , class = cc::BinaryFunction<BinaryFunc, cc::range_ref<Range1>, cc::range_ref<Range2>>>
+        , CONCEPT = cc::InputRange<Range1>
+        , CONCEPT = cc::InputRange<Range2>
+        , CONCEPT = cc::OutputIterator<OutputIter>
+        , CONCEPT = cc::BinaryFunction<BinaryFunc, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     auto operator ()(Range1&& range1, Range2&& range2, OutputIter output, BinaryFunc&& func) const -> OutputIter
     {
         return std::transform(std::begin(range1), std::end(range1), std::begin(range2), output, std::move(func));
     }
 };
 
-template <class Policy = default_return_policy_t, class = ReturnPolicy<Policy>>
+template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct unique_t
 {
     static constexpr Policy policy = {};
@@ -1302,8 +1301,8 @@ struct unique_t
     template
         < class Range
         , class BinaryPred = std::equal_to<>
-        , class = cc::ForwardRange<Range>
-        , class = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>>>
+        , CONCEPT = cc::ForwardRange<Range>
+        , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, BinaryPred&& pred = {}) const
     {
         auto b = std::begin(range);
@@ -1318,16 +1317,16 @@ struct unique_copy_t
         < class Range
         , class OutputIter
         , class BinaryPred = std::equal_to<>
-        , class = cc::InputRange<Range>
-        , class = cc::OutputIterator<OutputIter>
-        , class = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>>>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::OutputIterator<OutputIter>
+        , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, OutputIter output, BinaryPred&& pred = {}) const -> OutputIter
     {
         return std::unique_copy(std::begin(range), std::end(range), output, std::move(pred));
     }
 };
 
-template <class Policy = default_return_policy_t, class = ReturnPolicy<Policy>>
+template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct upper_bound_t
 {
     static constexpr Policy policy = {};
@@ -1339,8 +1338,8 @@ struct upper_bound_t
         < class Range
         , class T
         , class Compare = std::less<>
-        , class = cc::ForwardRange<Range>
-        , class = cc::BinaryFunction<cc::range_ref<Range>, T>>
+        , CONCEPT = cc::ForwardRange<Range>
+        , CONCEPT = cc::BinaryFunction<cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, const T& value, Compare&& compare = {}) const
     {
         auto b = std::begin(range);

@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <cpp_essentials/concepts/concepts.hpp>
+
 namespace cpp_essentials::core
 {
 

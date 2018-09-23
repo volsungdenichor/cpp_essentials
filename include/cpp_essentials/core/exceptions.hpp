@@ -6,7 +6,7 @@
 #include <stdexcept>
 #include <sstream>
 
-#include <cpp_essentials/concepts/concepts.hpp>
+#include <cpp_essentials/cc/cc.hpp>
 
 namespace cpp_essentials::core
 {
@@ -16,7 +16,7 @@ namespace detail
 
 template
     < class Exception
-    , CONCEPT_IF(std::is_base_of<std::exception, Exception>::value)>
+    , CONCEPT = cc::BaseOf<std::exception, Exception>>
 class exception_wrapper : public Exception
 {
 public:

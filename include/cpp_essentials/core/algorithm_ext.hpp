@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <numeric>
 
-#include <cpp_essentials/concepts/concepts.hpp>
+#include <cpp_essentials/cc/cc.hpp>
 #include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/optional.hpp>
 #include <cpp_essentials/core/return_policy.hpp>
@@ -35,7 +35,7 @@ struct front_t : core::adaptable<front_t>
 
     template
         < class Range
-        , CONCEPT_IF(concepts::InputRange<Range>)>
+        , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range) const
     {
         auto b = std::begin(range);
@@ -52,7 +52,7 @@ struct front_or_t : core::adaptable<front_or_t>
     template
         < class Range
         , class T
-        , CONCEPT_IF(concepts::InputRange<Range>)>
+        , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, T default_value) const
     {
         auto b = std::begin(range);
@@ -67,12 +67,12 @@ struct front_or_default_t : core::adaptable<front_or_default_t>
 
     template
         < class Range
-        , CONCEPT_IF(concepts::InputRange<Range>)>
+        , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range) const
     {
         auto b = std::begin(range);
         auto e = std::end(range);
-        return b != e ? *b : concepts::range_value<Range>{};
+        return b != e ? *b : cc::range_val<Range>{};
     }
 };
 
@@ -83,7 +83,8 @@ struct front_or_eval_t : core::adaptable<front_or_eval_t>
     template
         < class Range
         , class Func
-        , CONCEPT_IF(concepts::InputRange<Range>)>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::NullaryFunction<Func>>
     auto operator ()(Range&& range, Func func) const
     {
         auto b = std::begin(range);
@@ -98,7 +99,7 @@ struct front_or_none_t : core::adaptable<front_or_none_t>
 
     template
         < class Range
-        , CONCEPT_IF(concepts::InputRange<Range>)>
+        , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range) const -> decltype(auto)
     {
         auto b = std::begin(range);
@@ -113,7 +114,7 @@ struct size_t : adaptable<size_t>
 
     template
         < class Range
-        , CONCEPT_IF(concepts::InputRange<Range>)>
+        , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range) const
     {
         return std::distance(std::begin(range), std::end(range));
@@ -126,7 +127,7 @@ struct empty_t : adaptable<empty_t>
 
     template
         < class Range
-        , CONCEPT_IF(concepts::InputRange<Range>)>
+        , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range) const
     {
         return std::begin(range) == std::end(range);
@@ -141,8 +142,9 @@ struct copy_while_t : adaptable<copy_while_t>
         < class Range
         , class OutputIter
         , class UnaryPred
-        , CONCEPT_IF(concepts::InputRange<Range>)
-        , CONCEPT_IF(concepts::OutputIterator<OutputIter>)>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::OutputIterator<OutputIter>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, OutputIter output, UnaryPred&& pred) const
     {
         return copy_while(std::begin(range), std::end(range), output, std::move(pred));
@@ -157,8 +159,9 @@ struct copy_until_t : adaptable<copy_until_t>
         < class Range
         , class OutputIter
         , class UnaryPred
-        , CONCEPT_IF(concepts::InputRange<Range>)
-        , CONCEPT_IF(concepts::OutputIterator<OutputIter>)>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::OutputIterator<OutputIter>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, OutputIter output, UnaryPred&& pred) const
     {
         return copy_while(std::begin(range), std::end(range), output, logical_negation(pred));
@@ -173,8 +176,9 @@ struct starts_with_t : adaptable<starts_with_t>
         < class Range1
         , class Range2
         , class BinaryPred = std::equal_to<>
-        , CONCEPT_IF(concepts::InputRange<Range1>)
-        , CONCEPT_IF(concepts::InputRange<Range2>)>
+        , CONCEPT = cc::InputRange<Range1>
+        , CONCEPT = cc::InputRange<Range2>
+        , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     auto operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
         auto b1 = std::begin(range1);
@@ -192,8 +196,9 @@ struct ends_with_t : adaptable<ends_with_t>
         < class Range1
         , class Range2
         , class BinaryPred = std::equal_to<>
-        , CONCEPT_IF(concepts::ForwardRange<Range1>)
-        , CONCEPT_IF(concepts::ForwardRange<Range2>)>
+        , CONCEPT = cc::InputRange<Range1>
+        , CONCEPT = cc::InputRange<Range2>
+        , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     auto operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
         auto b1 = std::begin(range1);
@@ -217,8 +222,9 @@ struct contains_t : adaptable<contains_t>
         < class Range1
         , class Range2
         , class BinaryPred = std::equal_to<>
-        , CONCEPT_IF(concepts::InputRange<Range1>)
-        , CONCEPT_IF(concepts::InputRange<Range2>)>
+        , CONCEPT = cc::InputRange<Range1>
+        , CONCEPT = cc::InputRange<Range2>
+        , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     auto operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
         auto b1 = std::begin(range1);
@@ -242,7 +248,6 @@ static constexpr detail::copy_until_t copy_until = {};
 static constexpr detail::starts_with_t starts_with = {};
 static constexpr detail::ends_with_t ends_with = {};
 static constexpr detail::contains_t contains = {};
-
 
 } /* namespace cpp_essentials::core */
 

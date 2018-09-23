@@ -179,7 +179,7 @@ auto cerr(const char* separator = nullptr)
 template
     < class Range
     , class C
-    , CONCEPT_IF(concepts::InputRange<Range>)>
+    , CONCEPT = cc::InputRange<Range>>
 auto delimit(Range&& range, const C* separator)
 {
     return detail::delimit(std::begin(range), std::end(range), separator);

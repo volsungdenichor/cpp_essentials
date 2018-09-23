@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include <cpp_essentials/concepts/concepts.hpp>
+#include <cpp_essentials/cc/cc.hpp>
 #include <cpp_essentials/core/iterator_facade.hpp>
 #include <cpp_essentials/core/algorithm.hpp>
 
@@ -16,16 +16,16 @@ template <class Iter, class T>
 class dereferenced_iterator
     : public iterator_facade
     < dereferenced_iterator<Iter, T>
-    , concepts::iterator_category<Iter>
+    , cc::iter_cat<Iter>
     , T
-    , concepts::iterator_difference<Iter>>
+    , cc::iter_diff<Iter>>
 {
 public:
     using base_type = core::iterator_facade
         < dereferenced_iterator<Iter, T>
-        , concepts::iterator_category<Iter>
+        , cc::iter_cat<Iter>
         , T
-        , concepts::iterator_difference<Iter>>;
+        , cc::iter_diff<Iter>>;
 
     INHERIT_ITERATOR_FACADE_TYPES(base_type)
 
@@ -94,13 +94,13 @@ public:
     ref_vector(const ref_vector&) = default;
     ref_vector(ref_vector&&) = default;
 
-    template <class Container, CONCEPT_IF(std::is_reference<concepts::range_reference<Container>>::value)>
+    template <class Container, CONCEPT = cc::Reference<cc::range_ref<Container>>>
     ref_vector(Container&& container)
     {
         std::transform(std::begin(container), std::end(container), std::back_inserter(_vect), [](auto&& item) { return pointer(&item); });
     }
 
-    template <class Container, CONCEPT_IF(std::is_constructible<Container, const_iterator, const_iterator>::value)>
+    template <class Container, CONCEPT = cc::Constructible<Container, const_iterator, const_iterator>>
     operator Container() const
     {
         return { begin(), end() };

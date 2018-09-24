@@ -25,11 +25,11 @@ struct chunk_t : core::adaptable<chunk_t>
 {
     using adaptable::operator();
 
-    template <class Range>
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, int size, int step) const
     {
-        static_assert(concepts::InputRange<Range>, "chunk: input range required");
-
         return chunk(std::begin(range), std::end(range), size, step);
     }
 };
@@ -38,11 +38,11 @@ struct slide_t : core::adaptable<slide_t>
 {
     using adaptable::operator();
 
-    template <class Range>
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, int size) const
     {
-        static_assert(concepts::InputRange<Range>, "slice: input range required");
-
         return chunk(std::begin(range), std::end(range), size, 1);
     }
 };
@@ -51,11 +51,11 @@ struct group_t : core::adaptable<group_t>
 {
     using adaptable::operator();
 
-    template <class Range>
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, int size) const
     {
-        static_assert(concepts::InputRange<Range>, "group: input range required");
-
         return chunk(std::begin(range), std::end(range), size, size);
     }
 };
@@ -64,11 +64,11 @@ struct pairwise_t : core::adaptable<pairwise_t>
 {
     using adaptable::operator();
 
-    template <class Range>
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range) const
     {
-        static_assert(concepts::InputRange<Range>, "pairwise: input range required");
-
         return chunk(std::begin(range), std::end(range), 2, 2);
     }
 };

@@ -17,11 +17,11 @@ struct iterate_t : core::adaptable<iterate_t>
 {
     using adaptable::operator();
 
-    template <class Range>
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range) const
     {
-        static_assert(concepts::InputRange<Range>, "iterate: input range required");
-
         return core::make_range(
             iterate_iterator{ std::begin(range) },
             iterate_iterator{ std::end(range) });

@@ -1,7 +1,7 @@
 #ifndef CPP_ESSENTIALS_SQ_DETAIL_CHUNK_ITERATOR_HPP_
 #define CPP_ESSENTIALS_SQ_DETAIL_CHUNK_ITERATOR_HPP_
 
-#include <cpp_essentials/concepts/concepts.hpp>
+#include <cpp_essentials/cc/cc.hpp>
 #include <cpp_essentials/core/iterator_facade.hpp>
 #include <cpp_essentials/core/iterator_range.hpp>
 
@@ -17,14 +17,14 @@ class chunk_iterator
         < chunk_iterator<Iter>
         , std::forward_iterator_tag
         , core::iterator_range<Iter>
-        , concepts::iterator_difference<Iter>>
+        , cc::iter_diff<Iter>>
 {
 public:
     using base_type = core::iterator_facade
         < chunk_iterator<Iter>
         , std::forward_iterator_tag
         , core::iterator_range<Iter>
-        , concepts::iterator_difference<Iter>>;
+        , cc::iter_diff<Iter>>;
 
     INHERIT_ITERATOR_FACADE_TYPES(base_type)
 

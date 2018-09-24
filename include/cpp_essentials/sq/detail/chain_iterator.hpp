@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include <cpp_essentials/concepts/concepts.hpp>
+#include <cpp_essentials/cc/cc.hpp>
 #include <cpp_essentials/core/iterator_facade.hpp>
 
 namespace cpp_essentials::sq
@@ -16,8 +16,8 @@ template <class Iter1, class Iter2>
 struct chain_iterator_helper
 {
 private:
-    using result1_type = concepts::iterator_reference<Iter1>;
-    using result2_type = concepts::iterator_reference<Iter2>;
+    using result1_type = cc::iter_ref<Iter1>;
+    using result2_type = cc::iter_ref<Iter2>;
 
     using value1_type = std::remove_const_t<std::remove_reference_t<result1_type>>;
     using value2_type = std::remove_const_t<std::remove_reference_t<result2_type>>;

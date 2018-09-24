@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include <cpp_essentials/concepts/concepts.hpp>
+#include <cpp_essentials/cc/cc.hpp>
 
 namespace cpp_essentials::core
 {
@@ -13,14 +13,21 @@ struct adaptor_t
 {
     Func func;
 
-    template <class T>
+    template
+        < class T
+        , CONCEPT = cc::InputRange<T>
+        , CONCEPT = cc::UnaryFunction<Func, T>>
     auto operator ()(T&& item) const -> decltype(auto)
     {
         return func(std::forward<T>(item));
     }
 };
 
-template <class T, class Func>
+template
+    < class T
+    , class Func
+    , CONCEPT = cc::InputRange<T>
+    , CONCEPT = cc::UnaryFunction<Func, T>>
 auto operator |(T&& item, const adaptor_t<Func>& adaptor) -> decltype(auto)
 {
     return adaptor(std::forward<T>(item));

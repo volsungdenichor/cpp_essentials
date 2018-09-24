@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include <cpp_essentials/concepts/concepts.hpp>
+#include <cpp_essentials/cc/cc.hpp>
 
 #include <cpp_essentials/core/iterator_facade.hpp>
 #include <cpp_essentials/core/iterator_range.hpp>
@@ -19,15 +19,15 @@ class filter_iterator
     : public core::iterator_facade
         < filter_iterator<Iter, Pred>
         , std::bidirectional_iterator_tag
-        , concepts::iterator_reference<Iter>
-        , concepts::iterator_difference<Iter>>
+        , cc::iter_ref<Iter>
+        , cc::iter_diff<Iter>>
 {
 public:
     using base_type = core::iterator_facade
         < filter_iterator<Iter, Pred>
         , std::bidirectional_iterator_tag
-        , concepts::iterator_reference<Iter>
-        , concepts::iterator_difference<Iter>>;
+        , cc::iter_ref<Iter>
+        , cc::iter_diff<Iter>>;
 
     INHERIT_ITERATOR_FACADE_TYPES(base_type)
 

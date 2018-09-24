@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include <cpp_essentials/concepts/concepts.hpp>
+#include <cpp_essentials/cc/cc.hpp>
 #include <cpp_essentials/core/iterator_facade.hpp>
 #include <cpp_essentials/sq/detail/iterator_func_helper.hpp>
 
@@ -17,16 +17,16 @@ template <class Iter, class Func>
 class map_iterator
     : public core::iterator_facade
         < map_iterator<Iter, Func>
-        , concepts::iterator_category<Iter>
+        , cc::iter_cat<Iter>
         , typename iterator_func_helper<Func, Iter>::type
-        , concepts::iterator_difference<Iter>>
+        , cc::iter_diff<Iter>>
 {
 public:
     using base_type = core::iterator_facade
         < map_iterator<Iter, Func>
-        , concepts::iterator_category<Iter>
+        , cc::iter_cat<Iter>
         , typename iterator_func_helper<Func, Iter>::type
-        , concepts::iterator_difference<Iter>>;
+        , cc::iter_diff<Iter>>;
 
     INHERIT_ITERATOR_FACADE_TYPES(base_type)
 

@@ -30,11 +30,11 @@ struct to_t : core::adaptable<to_t<Container>>
 {
     using core::adaptable<to_t<Container>>::operator();
 
-    template <class Range>
-    auto operator ()(Range&& range) const -> Container<concepts::range_value<Range>>
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range) const -> Container<cc::range_val<Range>>
     {        
-        static_assert(concepts::InputRange<Range>, "to_(container): input range required");
-
         return { std::begin(range), std::end(range) };
     }
 };
@@ -44,11 +44,11 @@ struct to_string_t : core::adaptable<to_string_t<C>>
 {
     using core::adaptable<to_string_t<C>>::operator();  
 
-    template <class Range>
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range) const -> basic_string<C>
     {
-        static_assert(concepts::InputRange<Range>, "to_string: input range required");
-
         return { std::begin(range), std::end(range) };
     }
 

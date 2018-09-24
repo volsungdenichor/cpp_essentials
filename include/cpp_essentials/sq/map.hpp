@@ -19,11 +19,11 @@ struct map_t : core::adaptable<map_t>
 
     template
         < class Range
-        , class UnaryFunc>
+        , class UnaryFunc
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::UnaryFunction<UnaryFunc, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryFunc func) const
     {
-        static_assert(concepts::InputRange<Range>, "map: input range required");
-
         return core::make_range(
             map_iterator{ std::begin(range), func },
             map_iterator{ std::end(range), func });

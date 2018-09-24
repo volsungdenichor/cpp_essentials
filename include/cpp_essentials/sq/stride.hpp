@@ -17,11 +17,11 @@ struct stride_t : core::adaptable<stride_t>
 {
     using adaptable::operator();
 
-    template <class Range>
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, int step) const
     {
-        static_assert(concepts::InputRange<Range>, "stride: input range required");
-
         auto b = std::begin(range);
         auto e = std::end(range);
         return core::make_range(

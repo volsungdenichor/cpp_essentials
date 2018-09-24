@@ -52,11 +52,11 @@ struct take_if_t : core::adaptable<take_if_t>
 
     template
         < class Range
-        , class UnaryPred>
+        , class UnaryPred
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred pred) const
     {
-        static_assert(concepts::InputRange<Range>, "take_if: input range required");
-
         return make_filtered_range(std::begin(range), std::end(range), std::move(pred));
     }
 };
@@ -67,11 +67,11 @@ struct drop_if_t : core::adaptable<drop_if_t>
 
     template
         < class Range
-        , class UnaryPred>
+        , class UnaryPred
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred pred) const
     {
-        static_assert(concepts::InputRange<Range>, "drop_if: input range required");
-
         return make_filtered_range(std::begin(range), std::end(range), core::logical_negation(std::move(pred)));
     }
 };
@@ -82,11 +82,11 @@ struct take_while_t : core::adaptable<take_while_t>
 
     template
         < class Range
-        , class UnaryPred>
+        , class UnaryPred
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred pred) const
     {
-        static_assert(concepts::InputRange<Range>, "take_while: input range required");
-
         return take_while(std::begin(range), std::end(range), pred);
     }
 };
@@ -97,11 +97,11 @@ struct drop_while_t : core::adaptable<drop_while_t>
 
     template
         < class Range
-        , class UnaryPred>
+        , class UnaryPred
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred pred) const
     {
-        static_assert(concepts::InputRange<Range>, "drop_while: input range required");
-
         return drop_while(std::begin(range), std::end(range), pred);
     }
 };
@@ -112,11 +112,11 @@ struct take_until_t : core::adaptable<take_until_t>
 
     template
         < class Range
-        , class UnaryPred>
+        , class UnaryPred
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred pred) const
     {
-        static_assert(concepts::InputRange<Range>, "take_until: input range required");
-
         return take_while(std::begin(range), std::end(range), core::logical_negation(pred));
     }
 };
@@ -127,11 +127,11 @@ struct drop_until_t : core::adaptable<drop_until_t>
 
     template
         < class Range
-        , class UnaryPred>
+        , class UnaryPred
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred pred) const
     {
-        static_assert(concepts::InputRange<Range>, "drop_until: input range required");
-
         return drop_while(std::begin(range), std::end(range), core::logical_negation(pred));
     }
 };
@@ -142,11 +142,11 @@ struct partition_t : core::adaptable<partition_t>
 
     template
         < class Range
-        , class UnaryPred>
+        , class UnaryPred
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred pred) const
     {
-        static_assert(concepts::InputRange<Range>, "partition: input range required");
-
         auto take_if = take_if_t{}(range, pred);
         auto drop_if = drop_if_t{}(range, pred);
         return std::make_tuple(take_if, drop_if);

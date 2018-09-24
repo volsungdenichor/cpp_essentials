@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include <cpp_essentials/concepts/concepts.hpp>
+#include <cpp_essentials/cc/cc.hpp>
 #include <cpp_essentials/core/iterator_facade.hpp>
 
 namespace cpp_essentials::sq
@@ -16,13 +16,13 @@ template <class Iter>
 class iterate_iterator
     : public core::iterator_facade
     < iterate_iterator<Iter>
-    , concepts::iterator_category<Iter>
+    , cc::iter_cat<Iter>
     , Iter>
 {
 public:
     using base_type = core::iterator_facade
         < iterate_iterator<Iter>
-        , concepts::iterator_category<Iter>
+        , cc::iter_cat<Iter>
         , Iter>;
 
     INHERIT_ITERATOR_FACADE_TYPES(base_type)

@@ -1,7 +1,7 @@
 #ifndef CPP_ESSENTIALS_SQ_DETAIL_STRIDE_ITERATOR_HPP_
 #define CPP_ESSENTIALS_SQ_DETAIL_STRIDE_ITERATOR_HPP_
 
-#include <cpp_essentials/concepts/concepts.hpp>
+#include <cpp_essentials/cc/cc.hpp>
 
 #include <cpp_essentials/core/iterator_facade.hpp>
 #include <cpp_essentials/core/iterator_range.hpp>
@@ -17,15 +17,15 @@ class stride_iterator
     : public core::iterator_facade
         < stride_iterator<Iter>
         , std::input_iterator_tag
-        , concepts::iterator_reference<Iter>
-        , concepts::iterator_difference<Iter>>
+        , cc::iter_ref<Iter>
+        , cc::iter_diff<Iter>>
 {
 public:
     using base_type = core::iterator_facade
         < stride_iterator<Iter>
         , std::input_iterator_tag
-        , concepts::iterator_reference<Iter>
-        , concepts::iterator_difference<Iter>>;
+        , cc::iter_ref<Iter>
+        , cc::iter_diff<Iter>>;
 
     INHERIT_ITERATOR_FACADE_TYPES(base_type)
 

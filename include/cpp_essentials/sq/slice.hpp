@@ -16,11 +16,11 @@ struct slice_t : core::adaptable<slice_t>
 {
     using adaptable::operator();
 
-    template <class Range>
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, int begin_index, int end_index) const
     {
-        static_assert(concepts::InputRange<Range>, "slice: input range required");
-
         auto b = std::begin(range);
         auto e = std::end(range);
 
@@ -40,11 +40,11 @@ struct take_t : core::adaptable<take_t>
 {
     using adaptable::operator();
 
-    template <class Range>
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, int count) const
     {
-        static_assert(concepts::InputRange<Range>, "take: input range required");
-
         auto b = std::begin(range);
         auto e = std::end(range);
         return core::make_range(b, core::advance(b, e, count));
@@ -55,11 +55,11 @@ struct drop_t : core::adaptable<drop_t>
 {
     using adaptable::operator();
 
-    template <class Range>
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, int count) const
     {
-        static_assert(concepts::InputRange<Range>, "drop: input range required");
-
         auto b = std::begin(range);
         auto e = std::end(range);
         return core::make_range(core::advance(b, e, count), e);

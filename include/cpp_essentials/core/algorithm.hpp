@@ -995,8 +995,10 @@ struct replace_if_t
     }
 };
 
-struct replace_copy_t
+struct replace_copy_t : adaptable<replace_copy_t>
 {
+    using adaptable::operator();
+
     template
         < class Range
         , class OutputIter
@@ -1010,8 +1012,10 @@ struct replace_copy_t
     }
 };
 
-struct replace_copy_if_t
+struct replace_copy_if_t : adaptable<replace_copy_if_t>
 {
+    using adaptable::operator();
+
     template
         < class Range
         , class OutputIter

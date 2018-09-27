@@ -46,12 +46,6 @@ using Constructible = std::enable_if_t<std::is_constructible_v<T, Args...>>;
 namespace detail
 {
 
-struct any_type
-{
-    template <class T>
-    operator T() const;
-};
-
 template <class...>
 struct void_impl
 {
@@ -149,6 +143,9 @@ using iterator_of_category = std::enable_if_t<std::is_base_of_v<Category, typena
 template <class Category, class T>
 using range_of_category = iterator_of_category<Category, range_iterator<T>>;
 
+template <typename T>
+constexpr bool _is_non_const_reference = std::is_lvalue_reference<T>::value && !std::is_const<std::remove_reference_t<T>>::value;
+
 } /* namespace detail */
 
 
@@ -167,7 +164,7 @@ using RandomAccessIterator = detail::iterator_of_category<std::random_access_ite
 template <class T>
 using OutputIterator = void_t
     < Iterator<T>
-    , decltype(*std::declval<T&>() = std::declval<detail::any_type&>())>;
+    , std::enable_if_t<detail::_is_non_const_reference<decltype(*std::declval<T&>())>>>;
 
 
 template <class T>

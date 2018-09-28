@@ -188,6 +188,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\iterate_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\iterator_func_helper.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\map_iterator.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\nil.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\numeric_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\stride_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\zip_iterator.hpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\iterate.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\map.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\numeric.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\py_slice.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\reverse.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\slice.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\sq.hpp" />

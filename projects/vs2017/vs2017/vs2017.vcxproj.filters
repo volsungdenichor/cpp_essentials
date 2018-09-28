@@ -180,6 +180,12 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\sq.hpp">
       <Filter>Header Files\cpp_essentials\sq</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\nil.hpp">
+      <Filter>Header Files\cpp_essentials\sq\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\py_slice.hpp">
+      <Filter>Header Files\cpp_essentials\sq</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

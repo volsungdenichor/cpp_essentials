@@ -4,6 +4,7 @@
 #include <ostream>
 #include <iomanip>
 #include <functional>
+#include <unordered_map>
 
 #include <cpp_essentials/core/string_views.hpp>
 #include <cpp_essentials/core/algorithm.hpp>
@@ -11,6 +12,7 @@
 #include <cpp_essentials/core/filter.hpp>
 #include <cpp_essentials/core/containers.hpp>
 #include <cpp_essentials/core/serialization.hpp>
+#include <cpp_essentials/core/function_defs.hpp>
 
 namespace cpp_essentials::core
 {
@@ -146,78 +148,34 @@ struct format_modifier_handler
     {
         using namespace sq;
 
-        if (key == "format"_str)
+        static const std::unordered_map<cstring_view, core::action<>> map =
         {
-            format(value);
-        }
-        else if (key == "width"_str)
-        {
-            os << std::setw(parse<int>(value));
-        }
-        else if (key == "fill"_str)
-        {
-            os << std::setfill(*value);
-        }
-        else if (key == "precision"_str)
-        {
-            os << std::setprecision(parse<int>(value));
-        }
-        else if (key == "left"_str)
-        {
-            os << std::left;
-        }
-        else if (key == "right"_str)
-        {
-            os << std::right;
-        }
-        else if (key == "internal"_str)
-        {
-            os << std::internal;
-        }
-        else if (key == "fixed"_str)
-        {
-            os << std::fixed;
-        }
-        else if (key == "scientific"_str)
-        {
-            os << std::scientific;
-        }
-        else if (key == "dec"_str)
-        {
-            os << std::dec;
-        }
-        else if (key == "hex"_str)
-        {
-            os << std::hex;
-        }
-        else if (key == "oct"_str)
-        {
-            os << std::oct;
-        }
-        else if (key == "boolalpha"_str)
-        {
-            os << std::boolalpha;
-        }
-        else if (key == "uppercase"_str)
-        {
-            os << std::uppercase;
-        }
-        else if (key == "showpoint"_str)
-        {
-            os << std::showpoint;
-        }
-        else if (key == "showpos"_str)
-        {
-            os << std::showpos;
-        }
-        else if (key == "showbase"_str)
-        {
-            os << std::showbase;
-        }
-        else
+            { "format"_str, [&]() { format(value); } },
+            { "width"_str, [&]() { os << std::setw(parse<int>(value)); } },
+            { "fill"_str, [&]() { os << std::setfill(*value); } },
+            { "precision"_str, [&]() { os << std::setprecision(parse<int>(value)); } },
+            { "left"_str, [&]() { os << std::left; } },
+            { "right"_str, [&]() { os << std::right; } },
+            { "internal"_str, [&]() { os << std::internal; } },
+            { "fixed"_str, [&]() { os << std::fixed; } },
+            { "scientific"_str, [&]() { os << std::scientific; } },
+            { "dec"_str, [&]() { os << std::dec; } },
+            { "hex"_str, [&]() { os << std::hex; } },
+            { "oct"_str, [&]() { os << std::oct; } },
+            { "boolalpha"_str, [&]() { os << std::boolalpha; } },
+            { "uppercase"_str, [&]() { os << std::uppercase; } },
+            { "showpoint"_str, [&]() { os << std::showpoint; } },
+            { "showpos"_str, [&]() { os << std::showpos; } },
+            { "showbase"_str, [&]() { os << std::showbase; } },
+        };
+
+        const auto map_entry = map.find(key);
+        if (map_entry == map.end())
         {
             THROW(format_error{ "unrecognized format modifier" });
         }
+
+        map_entry->second();
     }
 };
 

@@ -51,13 +51,13 @@ inline std::ostream& operator <<(std::ostream& os, const cstring_view& item)
 template <class Iter>
 std::size_t string_hash(Iter begin, Iter end)
 {
-#if 0
-    std::_Fnv1a_hasher hasher;
     auto b = &(*begin);
     auto e = &(*end);
+#if 1
+    std::_Fnv1a_hasher hasher;
     return hasher._Add_bytes((const unsigned char*)b, (const unsigned char*)e);
 #else
-    return 0;
+    return std::_Hash_impl::hash(b, e - b);
 #endif
 }
 

@@ -7,7 +7,7 @@ using namespace cpp_essentials;
 
 TEST_CASE("zip")
 {
-    std::vector<int> vect{ 2, 4, 5 };
-    std::vector<int> other = { 2, 5, 1, 3 };
+    auto vect = vec(2, 4, 5);
+    auto other = vec(2, 5, 1, 3);
     REQUIRE((vect | sq::zip(other, std::plus<>{})) == vec(4, 9, 6));
 }

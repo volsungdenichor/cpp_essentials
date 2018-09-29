@@ -7,25 +7,38 @@ using namespace cpp_essentials;
 
 TEST_CASE("slice")
 {
-    std::vector<int> vect{ 2, 4, 5, 7, 3, 1, 2 };
+    auto vect = vec(2, 4, 5, 7, 3, 1, 2);
     REQUIRE((vect | sq::slice(3, 5)) == vec(7, 3));
 }
 
 TEST_CASE("take")
 {
-    std::vector<int> vect{ 2, 4, 5, 7, 3, 1, 2 };
+    auto vect = vec(2, 4, 5, 7, 3, 1, 2);
     REQUIRE((vect | sq::take(3)) == vec(2, 4, 5));
 }
 
 TEST_CASE("drop")
 {
-    std::vector<int> vect{ 2, 4, 5, 7, 3, 1, 2 };
+    auto vect = vec(2, 4, 5, 7, 3, 1, 2);
     REQUIRE((vect | sq::drop(3)) == vec(7, 3, 1, 2));
+}
+
+TEST_CASE("take_back")
+{
+    auto vect = vec(2, 4, 5, 7, 3, 1, 2);
+    REQUIRE((vect | sq::take_back(3)) == vec(3, 1, 2));
+}
+
+TEST_CASE("drop_back")
+{
+    auto vect = vec(2, 4, 5, 7, 3, 1, 2);
+    REQUIRE((vect | sq::drop_back(3)) == vec(2, 4, 5, 7));
 }
 
 TEST_CASE("py_slice")
 {
-    std::vector<int> vect{ 2, 4, 5, 7, 3, 1, 2 };
+    auto vect = vec(2, 4, 5, 7, 3, 1, 2);
+    REQUIRE((vect | sq::py_slice(2, 4)) == vec(5, 7));
     REQUIRE((vect | sq::py_slice(3, nil)) == vec(7, 3, 1, 2));
     REQUIRE((vect | sq::py_slice(-3, nil)) == vec(3, 1, 2));
     REQUIRE((vect | sq::py_slice(nil, 3)) == vec(2, 4, 5));

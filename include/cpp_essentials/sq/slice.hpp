@@ -12,6 +12,9 @@ namespace cpp_essentials::sq
 using core::slice;
 using core::take;
 using core::drop;
+using core::take_back;
+using core::drop_back;
+
 using core::py_slice;
 
 } /* namespace cpp_essentials::sq */

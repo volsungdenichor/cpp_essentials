@@ -71,20 +71,8 @@ struct trim_t : adaptable<trim_t>
     template <class Range, CONCEPT = cc::BidirectionalRange<Range>>
     auto operator ()(Range&& range, const std::locale& locale = {}) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
-
-        while (b != e && std::isspace(*b, locale))
-        {
-            ++b;
-        }
-
-        while (e != b && std::isspace(*std::prev(e), locale))
-        {
-            --e;
-        }
-
-        return make_range(b, e);
+        const auto is_space = [&](auto ch) { return std::isspace(ch, locale); };
+        return range | core::drop_while(is_space) | core::drop_back_while(is_space);
     }
 };
 

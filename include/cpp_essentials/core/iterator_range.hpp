@@ -14,14 +14,25 @@ namespace cpp_essentials::core
 {
 
 template <class Iter, class Diff>
-auto advance(Iter it, Iter end, Diff n) -> Iter
+auto advance(Iter begin, Iter end, Diff n) -> Iter
 {
-    while (it != end && n > 0)
+    while (begin != end && n > 0)
     {
-        ++it;
+        ++begin;
         --n;
     }
-    return it;
+    return begin;
+}
+
+template <class Iter, class Diff>
+auto advance_back(Iter begin, Iter end, Diff n) -> Iter
+{
+    while (begin != end && n > 0)
+    {
+        --end;
+        --n;
+    }
+    return end;
 }
 
 

@@ -20,8 +20,10 @@ struct py_slice_t : adaptable<py_slice_t>
 
     template
         < class Range
-        , CONCEPT = cc::ForwardRange<Range>>
-    auto operator ()(Range&& range, int begin_index, int end_index) const
+        , class T
+        , CONCEPT = cc::ForwardRange<Range>
+        , CONCEPT = cc::Integral<T>>
+    auto operator ()(Range&& range, T begin_index, T end_index) const
     {
         const auto r = make_range(range);
         const auto size = static_cast<int>(r.size());
@@ -106,11 +108,48 @@ struct drop_t : adaptable<drop_t>
     }
 };
 
+struct take_back_t : adaptable<take_back_t>
+{
+    using adaptable::operator();
+
+    template
+        < class Range
+        , class T
+        , CONCEPT = cc::BidirectionalRange<Range>
+        , CONCEPT = cc::Integral<T>>
+    auto operator ()(Range&& range, T count) const
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+        return make_range(advance_back(b, e, count), e);
+    }
+};
+
+struct drop_back_t : adaptable<drop_back_t>
+{
+    using adaptable::operator();
+
+    template
+        < class Range
+        , class T
+        , CONCEPT = cc::BidirectionalRange<Range>
+        , CONCEPT = cc::Integral<T>>
+    auto operator ()(Range&& range, T count) const
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+        return make_range(b, advance_back(b, e, count));
+    }
+};
+
 } /* namespace detail */
 
 static constexpr detail::slice_t slice = {};
 static constexpr detail::take_t take = {};
 static constexpr detail::drop_t drop = {};
+static constexpr detail::take_back_t take_back = {};
+static constexpr detail::drop_back_t drop_back = {};
+
 static constexpr detail::py_slice_t py_slice = {};
 
 } /* namespace cpp_essentials::core */

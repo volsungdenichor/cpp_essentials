@@ -78,6 +78,11 @@ using core::drop_while;
 using core::take_until;
 using core::drop_until;
 
+using core::take_back_while;
+using core::drop_back_while;
+using core::take_back_until;
+using core::drop_back_until;
+
 } /* namespace cpp_essentials::sq */
 
 #endif /* CPP_ESSENTIALS_SQ_FILTER_HPP_ */

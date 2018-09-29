@@ -192,6 +192,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\numeric_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\stride_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\zip_iterator.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\elementwise.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\filter.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\flatten.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\index.hpp" />

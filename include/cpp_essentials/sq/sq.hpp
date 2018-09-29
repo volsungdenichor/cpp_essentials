@@ -6,6 +6,7 @@
 #include <cpp_essentials/sq/chain.hpp>
 #include <cpp_essentials/sq/chunk.hpp>
 #include <cpp_essentials/sq/containers.hpp>
+#include <cpp_essentials/sq/elementwise.hpp>
 #include <cpp_essentials/sq/filter.hpp>
 #include <cpp_essentials/sq/flatten.hpp>
 #include <cpp_essentials/sq/index.hpp>

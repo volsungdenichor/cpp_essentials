@@ -4,6 +4,7 @@
 #pragma once
 
 #include <string>
+#include <locale>
 #include <algorithm>
 #include <cpp_essentials/core/iterator_range.hpp>
 
@@ -69,6 +70,35 @@ std::size_t string_hash(Iter begin, Iter end)
     auto e = &(*end);
     return hasher._Add_bytes((const unsigned char*)b, (const unsigned char*)e);
 }
+
+namespace detail
+{
+
+struct trim_t
+{
+    template <class Range, CONCEPT = cc::BidirectionalRange<Range>>
+    auto operator ()(Range&& range, const std::locale& locale = {}) const
+    {       
+        auto b = std::begin(range);
+        auto e = std::end(range);
+
+        while (b != e && std::isspace(*b, locale))
+        {
+            ++b;
+        }
+
+        while (e != b && std::isspace(*std::prev(e), locale))
+        {
+            --e;
+        }
+
+        return make_range(b, e);
+    }
+};
+
+} /* namespace detail */
+
+static constexpr detail::trim_t trim = {};
 
 } /* namespace cpp_essentials::core */
 

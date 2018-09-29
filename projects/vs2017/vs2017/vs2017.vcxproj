@@ -163,6 +163,8 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\arithmetic_functors.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\assertions.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\container_helpers.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\nil.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\filter.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\function_defs.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\exceptions.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\functors.hpp" />
@@ -176,6 +178,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\ref_vector.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\return_policy.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\serialization.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\slice.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\tuple.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\views.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\chain.hpp" />
@@ -199,7 +202,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\iterate.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\map.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\numeric.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\sq\py_slice.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\reverse.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\slice.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\sq.hpp" />

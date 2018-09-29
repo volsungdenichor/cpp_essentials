@@ -15,7 +15,6 @@
 #include <cpp_essentials/sq/numeric.hpp>
 #include <cpp_essentials/sq/reverse.hpp>
 #include <cpp_essentials/sq/slice.hpp>
-#include <cpp_essentials/sq/py_slice.hpp>
 #include <cpp_essentials/sq/stride.hpp>
 #include <cpp_essentials/sq/terminals.hpp>
 #include <cpp_essentials/sq/zip.hpp>

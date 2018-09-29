@@ -1,6 +1,5 @@
 #include <catch.hpp>
 #include <cpp_essentials/sq/slice.hpp>
-#include <cpp_essentials/sq/py_slice.hpp>
 
 #include <../tests/test_helpers.hpp>
 
@@ -32,8 +31,8 @@ TEST_CASE("py_slice")
     REQUIRE((vect | sq::py_slice(nil, 3)) == vec(2, 4, 5));
     REQUIRE((vect | sq::py_slice(nil, -3)) == vec(2, 4, 5, 7));
     REQUIRE((vect | sq::py_slice(nil, nil)) == vec(2, 4, 5, 7, 3, 1, 2));
-    REQUIRE((vect | sq::py_slice(4, 1)) == std::vector<int>{});
-    REQUIRE((vect | sq::py_slice(4, 4)) == std::vector<int>{});
-    REQUIRE((vect | sq::py_slice(40, 50)) == std::vector<int>{});
+    REQUIRE((vect | sq::py_slice(4, 1)) == empty_vec<int>());
+    REQUIRE((vect | sq::py_slice(4, 4)) == empty_vec<int>());
+    REQUIRE((vect | sq::py_slice(40, 50)) == empty_vec<int>());
 
 }

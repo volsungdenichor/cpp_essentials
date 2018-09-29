@@ -18,7 +18,8 @@ namespace detail
 template <class T>
 struct try_parse_t
 {
-    core::optional<T> operator ()(const string_view& text) const
+    template <class Range>
+    core::optional<T> operator ()(const Range& text) const
     {
         std::istringstream is{ text };
         T result;
@@ -30,7 +31,8 @@ struct try_parse_t
 template <class T>
 struct parse_t
 {
-    T operator ()(const string_view& text) const
+    template <class Range>
+    T operator ()(const Range& text) const
     {
         auto result = try_parse_t<T>{}(text);
         if (!result)
@@ -82,15 +84,6 @@ struct serialize_t
         int dummy[] = { 0, (apply(args), 0)... };
         (void)dummy;
         return os;
-    }
-
-    template <class... Args>
-    auto operator ()(std::ostream& os) const
-    {
-        return [this, &os](const auto&... args)
-        {
-            (*this)(os, args...);
-        };
     }
 };
 

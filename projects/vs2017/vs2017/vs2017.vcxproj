@@ -162,9 +162,11 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\algorithm_ext.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\arithmetic_functors.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\assertions.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\containers.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\container_helpers.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\nil.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\filter.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\format.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\function_defs.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\exceptions.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\functors.hpp" />
@@ -179,6 +181,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\return_policy.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\serialization.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\slice.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\string_views.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\tuple.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\views.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\chain.hpp" />

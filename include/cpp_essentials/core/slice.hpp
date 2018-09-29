@@ -52,8 +52,10 @@ struct slice_t : adaptable<slice_t>
 
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
-    auto operator ()(Range&& range, int begin_index, int end_index) const
+        , class T
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::Integral<T>>
+    auto operator ()(Range&& range, T begin_index, T end_index) const
     {
         auto b = std::begin(range);
         auto e = std::end(range);
@@ -76,8 +78,10 @@ struct take_t : adaptable<take_t>
 
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
-    auto operator ()(Range&& range, int count) const
+        , class T
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::Integral<T>>
+    auto operator ()(Range&& range, T count) const
     {
         auto b = std::begin(range);
         auto e = std::end(range);
@@ -91,8 +95,10 @@ struct drop_t : adaptable<drop_t>
 
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
-    auto operator ()(Range&& range, int count) const
+        , class T
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::Integral<T>>
+    auto operator ()(Range&& range, T count) const
     {
         auto b = std::begin(range);
         auto e = std::end(range);

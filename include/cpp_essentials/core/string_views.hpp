@@ -4,6 +4,7 @@
 #pragma once
 
 #include <string>
+#include <cstring>
 #include <locale>
 #include <cpp_essentials/core/views.hpp>
 #include <cpp_essentials/core/filter.hpp>
@@ -53,7 +54,7 @@ std::size_t string_hash(Iter begin, Iter end)
 {
     auto b = &(*begin);
     auto e = &(*end);
-#if 1
+#if _MSC_VER
     std::_Fnv1a_hasher hasher;
     return hasher._Add_bytes((const unsigned char*)b, (const unsigned char*)e);
 #else

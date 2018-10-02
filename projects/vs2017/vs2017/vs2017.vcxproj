@@ -181,9 +181,13 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\string_views.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\tuple.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\views.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\matrix.access.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\matrix.arithmetics.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\matrix.base.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\matrix.operations.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\interval.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\matrix.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\spatial_relations.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\arithmetic_functors.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\constants.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\functors.hpp" />

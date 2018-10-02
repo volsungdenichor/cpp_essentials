@@ -214,93 +214,58 @@ template <class T>
 using vector_3d = vector<T, 3>;
 
 
-
-template <class T>
-vector<T, 1> make_vector(T x)
+struct make_vector_t
 {
-    return { x };
-}
+    template <class T>
+    auto operator ()(T x) const -> vector<T, 1>
+    {
+        return { x };
+    }
 
-template <class T>
-vector<T, 2> make_vector(T x, T y)
-{
-    return { x, y };
-}
+    template <class T>
+    auto operator ()(T x, T y) const -> vector<T, 2>
+    {
+        return { x, y };
+    }
 
-template <class T>
-vector<T, 3> make_vector(T x, T y, T z)
-{
-    return { x, y, z };
-}
+    template <class T>
+    auto operator ()(T x, T y, T z) const -> vector<T, 3>
+    {
+        return { x, y, z };
+    }
 
+    template <class T, class U = std::remove_reference_t<T>>
+    auto operator ()(const std::pair<T, T>& item) const -> vector<U, 2>
+    {
+        return { std::get<0>(item), std::get<1>(item) };
+    }
 
+    template <class T, class U = std::remove_reference_t<T>>
+    auto operator ()(const std::tuple<T>& item) const -> vector<U, 1>
+    {
+        return { std::get<0>(item) };
+    }
 
-template <class T, class U = std::remove_reference_t<T>>
-vector<U, 2> make_vector(const std::pair<T, T>& item)
-{
-    return { std::get<0>(item), std::get<1>(item) };
-}
+    template <class T, class U = std::remove_reference_t<T>>
+    auto operator ()(const std::tuple<T, T>& item) const -> vector<U, 2>
+    {
+        return { std::get<0>(item), std::get<1>(item) };
+    }
 
+    template <class T, class U = std::remove_reference_t<T>>
+    auto operator ()(const std::tuple<T, T, T>& item) const -> vector<U, 3>
+    {
+        return { std::get<0>(item), std::get<1>(item), std::get<2>(item) };
+    }
 
+    template <class T, class U = std::remove_reference_t<T>>
+    auto operator ()(const std::tuple<T, T, T, T>& item) const -> vector<U, 4>
+    {
+        return { std::get<0>(item), std::get<1>(item), std::get<2>(item), std::get<3>(item) };
+    }
+};
 
-template <class T, class U = std::remove_reference_t<T>>
-vector<U, 1> make_vector(const std::tuple<T>& item)
-{
-    return { std::get<0>(item) };
-}
-
-template <class T, class U = std::remove_reference_t<T>>
-vector<U, 2> make_vector(const std::tuple<T, T>& item)
-{
-    return { std::get<0>(item), std::get<1>(item) };
-}
-
-template <class T, class U = std::remove_reference_t<T>>
-vector<U, 3> make_vector(const std::tuple<T, T, T>& item)
-{
-    return { std::get<0>(item), std::get<1>(item), std::get<2>(item) };
-}
-
-template <class T, class U = std::remove_reference_t<T>>
-vector<U, 4> make_vector(const std::tuple<T, T, T, T>& item)
-{
-    return { std::get<0>(item), std::get<1>(item), std::get<2>(item), std::get<3>(item) };
-}
-
-
-
-template <class T>
-std::pair<T, T> as_pair(const vector<T, 2>& item)
-{
-    return { item[0], item[1] };
-}
-
-template <class T>
-std::tuple<T> as_tuple(const vector<T, 1>& item)
-{
-    return { item[0] };
-}
-
-template <class T>
-std::tuple<T, T> as_tuple(const vector<T, 2>& item)
-{
-    return { item[0], item[1] };
-}
-
-template <class T>
-std::tuple<T, T, T> as_tuple(const vector<T, 3>& item)
-{
-    return { item[0], item[1], item[2] };
-}
-
-template <class T>
-std::tuple<T, T, T, T> as_tuple(const vector<T, 4>& item)
-{
-    return { item[0], item[1], item[2], item[3] };
-}
-
-
-
+static constexpr make_vector_t make_vector = {};
 
 
 template <class T, size_t R, size_t C>

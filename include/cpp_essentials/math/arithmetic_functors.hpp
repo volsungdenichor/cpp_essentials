@@ -1,11 +1,11 @@
-#ifndef CPP_ESSENTIALS_CORE_ARITHMETIC_FUNCTORS_HPP_
-#define CPP_ESSENTIALS_CORE_ARITHMETIC_FUNCTORS_HPP_
+#ifndef CPP_ESSENTIALS_MATH_ARITHMETIC_FUNCTORS_HPP_
+#define CPP_ESSENTIALS_MATH_ARITHMETIC_FUNCTORS_HPP_
 
 #pragma once
 
 #include <functional>
 
-namespace cpp_essentials::core
+namespace cpp_essentials::math
 {
 
 namespace detail
@@ -88,8 +88,8 @@ constexpr detail::binary_operator<std::greater_equal<>> greater_equal = {};
 constexpr detail::binary_operator<std::logical_and<>> logical_and = {};
 constexpr detail::binary_operator<std::logical_or<>> logical_or = {};
 
-} /* namespace cpp_essentials::core */
+} /* namespace cpp_essentials::math */
 
-#endif /* CPP_ESSENTIALS_CORE_ARITHMETIC_FUNCTORS_HPP_ */
+#endif /* CPP_ESSENTIALS_MATH_ARITHMETIC_FUNCTORS_HPP_ */
 
 

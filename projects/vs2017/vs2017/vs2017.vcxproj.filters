@@ -34,24 +34,18 @@
     <Filter Include="Header Files\cpp_essentials\core\detail">
       <UniqueIdentifier>{ba71e44a-2f97-40dd-9fb1-9855ceb3d980}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\cpp_essentials\math">
+      <UniqueIdentifier>{c63fa85d-7b27-4183-a8b4-b06e292df07f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\arithmetic_functors.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\functors.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\iterator_range.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\math_constants.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\math_functors.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\optional.hpp">
@@ -206,6 +200,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\string_views.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\math\arithmetic_functors.hpp">
+      <Filter>Header Files\cpp_essentials\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\math\functors.hpp">
+      <Filter>Header Files\cpp_essentials\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\math\constants.hpp">
+      <Filter>Header Files\cpp_essentials\math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

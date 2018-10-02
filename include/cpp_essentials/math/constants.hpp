@@ -1,11 +1,11 @@
-#ifndef CPP_ESSENTIALS_CORE_MATH_CONSTANTS_HPP_
-#define CPP_ESSENTIALS_CORE_MATH_CONSTANTS_HPP_
+#ifndef CPP_ESSENTIALS_MATH_CONSTANTS_HPP_
+#define CPP_ESSENTIALS_MATH_CONSTANTS_HPP_
 
 #pragma once
 
 #include <cmath>
 
-namespace cpp_essentials::core
+namespace cpp_essentials::math
 {
 
 namespace detail
@@ -183,6 +183,6 @@ static constexpr detail::constant_value<detail::constant_type::half_pi> half_pi{
 
 static constexpr detail::constant_value<detail::constant_type::e> e{};
 
-} /* namespace cpp_essentials::core */
+} /* namespace cpp_essentials::math */
 
-#endif /* CPP_ESSENTIALS_CORE_MATH_CONSTANTS_HPP_ */
+#endif /* CPP_ESSENTIALS_MATH_CONSTANTS_HPP_ */

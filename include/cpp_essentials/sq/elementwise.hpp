@@ -3,7 +3,7 @@
 
 #include <functional>
 
-#include <cpp_essentials/core/arithmetic_functors.hpp>
+#include <cpp_essentials/math/arithmetic_functors.hpp>
 #include <cpp_essentials/cc/cc.hpp>
 
 #include <cpp_essentials/sq/zip.hpp>

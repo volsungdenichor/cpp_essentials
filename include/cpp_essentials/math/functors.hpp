@@ -1,14 +1,14 @@
-#ifndef CPP_ESSENTIALS_CORE_MATH_FUNCTORS_HPP_
-#define CPP_ESSENTIALS_CORE_MATH_FUNCTORS_HPP_
+#ifndef CPP_ESSENTIALS_MATH_FUNCTORS_HPP_
+#define CPP_ESSENTIALS_MATH_FUNCTORS_HPP_
 
 #pragma once
 
 #include <cmath>
 #include <functional>
 
-#include <cpp_essentials/core/math_constants.hpp>
+#include <cpp_essentials/math/constants.hpp>
 
-namespace cpp_essentials::core
+namespace cpp_essentials::math
 {
 
 namespace detail
@@ -148,8 +148,8 @@ static constexpr detail::atan2_t atan2 = {};
 static constexpr detail::rad_t rad = {};
 static constexpr detail::deg_t deg = {};
 
-} /* namespace cpp_essentials::core */
+} /* namespace cpp_essentials::math */
 
-#endif /* CPP_ESSENTIALS_CORE_MATH_FUNCTORS_HPP_ */
+#endif /* CPP_ESSENTIALS_MATH_FUNCTORS_HPP_ */
 
 

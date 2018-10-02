@@ -21,6 +21,9 @@
     <Filter Include="tests\sq">
       <UniqueIdentifier>{3fd2bbb2-7acb-4378-b98b-a6fa8a42b9ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tests\math">
+      <UniqueIdentifier>{10150ebf-127c-4866-aaad-9603505a6eca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\3rd_party\catch.hpp">
@@ -38,9 +41,6 @@
       <Filter>tests\core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\tests\core\algorithm.test.cpp">
-      <Filter>tests\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\tests\core\math_functors.test.cpp">
       <Filter>tests\core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\tests\core\serialization.test.cpp">
@@ -78,6 +78,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\tests\sq\slice.test.cpp">
       <Filter>tests\sq</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\tests\math\math_functors.test.cpp">
+      <Filter>tests\math</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

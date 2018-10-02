@@ -7,7 +7,7 @@
 #include <functional>
 #include <tuple>
 
-#include <cpp_essentials/core/math_constants.hpp>
+#include <cpp_essentials/math/constants.hpp>
 
 namespace cpp_essentials::core
 {
@@ -131,7 +131,7 @@ struct lerp_t
     template <class R, class T, class U>
     auto operator ()(const R& ratio, const T& a, const U& b) const
     {
-        return ((one.as<R>() - ratio) * a) + (ratio * b);
+        return ((R(1) - ratio) * a) + (ratio * b);
     }
 
     template <class R>

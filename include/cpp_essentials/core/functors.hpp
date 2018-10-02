@@ -190,6 +190,16 @@ struct dereference_t
     }
 };
 
+template <class Type>
+struct cast_t
+{
+    template <class T>
+    decltype(auto) operator ()(const T& arg) const
+    {
+        return static_cast<Type>(arg);
+    }
+};
+
 } /* namespace detail */
 
 static constexpr detail::identity_t identity = {};
@@ -211,6 +221,9 @@ static constexpr detail::tie_t tie = {};
 
 template <std::size_t Index>
 static constexpr detail::get_t<Index> get = {};
+
+template <class Type>
+static constexpr detail::cast_t<Type> cast = {};
 
 } /* namespace cpp_essentials::core */
 

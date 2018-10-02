@@ -37,6 +37,12 @@
     <Filter Include="Header Files\cpp_essentials\math">
       <UniqueIdentifier>{c63fa85d-7b27-4183-a8b4-b06e292df07f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\cpp_essentials\geo">
+      <UniqueIdentifier>{74b08fe7-d9d9-4fd4-b854-6fff3ba16e85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\cpp_essentials\geo\detail">
+      <UniqueIdentifier>{754e396c-f97f-4727-abaf-f4096b1b0475}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -209,6 +215,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\math\constants.hpp">
       <Filter>Header Files\cpp_essentials\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\matrix.base.hpp">
+      <Filter>Header Files\cpp_essentials\geo\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\matrix.hpp">
+      <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\matrix.arithmetics.hpp">
+      <Filter>Header Files\cpp_essentials\geo\detail</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -81,33 +81,33 @@ using is = typename detail::detector<void, Op, Args...>::value_t;
 
 
 template <class T>
-using Incrementable = decltype(++std::declval<T&>());
+using Increment = decltype(++std::declval<T&>());
 
 template <class T>
-using Decrementable = decltype(--std::declval<T&>());
+using Decrement = decltype(--std::declval<T&>());
 
 
 template <class T, class U>
-using Addable = decltype(std::declval<T&>() + std::declval<U&>());
+using Add = decltype(std::declval<T&>() + std::declval<U&>());
 
 template <class T, class U>
-using Subtractable = decltype(std::declval<T&>() - std::declval<U&>());
+using Subtract = decltype(std::declval<T&>() - std::declval<U&>());
 
 template <class T, class U>
-using Multipliable = decltype(std::declval<T&>() * std::declval<U&>());
+using Multiply = decltype(std::declval<T&>() * std::declval<U&>());
 
 template <class T, class U>
-using Dividable = decltype(std::declval<T&>() / std::declval<U&>());
+using Divide = decltype(std::declval<T&>() / std::declval<U&>());
 
 
 template <class T, class U = T>
-using EqualityComparable = decltype(std::declval<T&>() == std::declval<U&>());
+using EqualityCompare = decltype(std::declval<T&>() == std::declval<U&>());
 
 template <class T, class U = T>
-using LessThanComparable = decltype(std::declval<T&>() < std::declval<U&>());
+using LessThanCompare = decltype(std::declval<T&>() < std::declval<U&>());
 
 template <class T, class U = T>
-using Comparable = std::conjunction<EqualityComparable<T, U>, LessThanComparable<T, U>>;
+using Compare = std::conjunction<EqualityCompare<T, U>, LessThanCompare<T, U>>;
 
 
 template <class T>

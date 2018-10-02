@@ -212,7 +212,7 @@ struct find_t : adaptable<find_t<Policy>>
         < class Range
         , class T
         , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::EqualityComparable<cc::range_ref<Range>, T>>
+        , CONCEPT = cc::EqualityCompare<cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, T&& value) const
     {
         auto b = std::begin(range);
@@ -907,7 +907,7 @@ struct remove_t
         < class Range
         , class T
         , CONCEPT = cc::ForwardRange<Range>
-        , CONCEPT = cc::EqualityComparable<cc::range_ref<Range>, T>>
+        , CONCEPT = cc::EqualityCompare<cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, const T& value) const
     {
         auto b = std::begin(range);
@@ -945,7 +945,7 @@ struct remove_copy_t
         , class T
         , CONCEPT = cc::InputRange<Range>
         , CONCEPT = cc::OutputIterator<OutputIter>
-        , CONCEPT = cc::EqualityComparable<cc::range_ref<Range>, T>>
+        , CONCEPT = cc::EqualityCompare<cc::range_ref<Range>, T>>
     auto operator ()(Range&& range, OutputIter output, const T& value) const -> OutputIter
     {
         return std::remove_copy(std::begin(range), std::end(range), output, value);
@@ -973,7 +973,7 @@ struct replace_t
         < class Range
         , class T
         , CONCEPT = cc::ForwardRange<Range>
-        , CONCEPT = cc::EqualityComparable<cc::range_ref<Range>, T>>
+        , CONCEPT = cc::EqualityCompare<cc::range_ref<Range>, T>>
     void operator ()(Range&& range, const T& old_value, const T& new_value) const
     {
         std::replace(std::begin(range), std::end(range), old_value, new_value);
@@ -1005,7 +1005,7 @@ struct replace_copy_t : adaptable<replace_copy_t>
         , class T
         , CONCEPT = cc::InputRange<Range>
         , CONCEPT = cc::OutputIterator<OutputIter>
-        , CONCEPT = cc::EqualityComparable<cc::range_ref<Range>, T>>
+        , CONCEPT = cc::EqualityCompare<cc::range_ref<Range>, T>>
     auto operator ()(Range&& range, OutputIter output, const T& old_value, const T& new_value) const -> OutputIter
     {
         return std::replace_copy(std::begin(range), std::end(range), output, old_value, new_value);
@@ -1024,7 +1024,7 @@ struct replace_copy_if_t : adaptable<replace_copy_if_t>
         , CONCEPT = cc::InputRange<Range>
         , CONCEPT = cc::OutputIterator<OutputIter>
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>
-        , CONCEPT = cc::EqualityComparable<cc::range_ref<Range>, T>>
+        , CONCEPT = cc::EqualityCompare<cc::range_ref<Range>, T>>
     auto operator ()(Range&& range, OutputIter output, UnaryPred&& pred, const T& new_value) const -> OutputIter
     {
         return std::replace_copy_if(std::begin(range), std::end(range), output, std::move(pred), new_value);

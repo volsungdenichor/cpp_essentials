@@ -384,13 +384,13 @@ private:
 };
 
 
-template <class T, class U, class = cc::EqualityComparable<T, U>>
+template <class T, class U, class = cc::EqualityCompare<T, U>>
 bool operator ==(const optional<T>& lhs, const optional<U>& rhs)
 {
     return (!lhs && !rhs) || (lhs && rhs && *lhs == *rhs);
 }
 
-template <class T, class U, class = cc::EqualityComparable<T, U>>
+template <class T, class U, class = cc::EqualityCompare<T, U>>
 bool operator !=(const optional<T>& lhs, const optional<U>& rhs)
 {
     return !(lhs == rhs);
@@ -398,13 +398,13 @@ bool operator !=(const optional<T>& lhs, const optional<U>& rhs)
 
 
 
-template <class T, class U, class = cc::EqualityComparable<T, U>>
+template <class T, class U, class = cc::EqualityCompare<T, U>>
 bool operator ==(const optional<T>& lhs, const U& rhs)
 {
     return lhs && *lhs == rhs;
 }
 
-template <class T, class U, class = cc::EqualityComparable<T, U>>
+template <class T, class U, class = cc::EqualityCompare<T, U>>
 bool operator !=(const optional<T>& lhs, const U& rhs)
 {
     return !(lhs == rhs);
@@ -412,13 +412,13 @@ bool operator !=(const optional<T>& lhs, const U& rhs)
 
 
 
-template <class T, class U, class = cc::EqualityComparable<T, U>>
+template <class T, class U, class = cc::EqualityCompare<T, U>>
 bool operator ==(const T& lhs, const optional<U>& rhs)
 {
     return rhs == lhs;
 }
 
-template <class T, class U, class = cc::EqualityComparable<T, U>>
+template <class T, class U, class = cc::EqualityCompare<T, U>>
 bool operator !=(const T& lhs, const optional<U>& rhs)
 {
     return !(lhs == rhs);

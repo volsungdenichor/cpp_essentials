@@ -23,80 +23,80 @@ auto operator -(matrix<T, R, C> item) -> matrix<T, R, C>
 }
 
 
-template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::Addable<T, U>>
+template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::Add<T, U>>
 auto& operator +=(matrix<T, R, C>& lhs, const matrix<U, R, C>& rhs)
 {
     core::transform(lhs._data, rhs._data, lhs._data.begin(), math::plus);
     return lhs;
 }
 
-template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::Addable<T, U>>
-auto operator +(const matrix<T, R, C>& lhs, const matrix<U, R, C>& rhs) -> matrix<cc::Addable<T, U>, R, C>
+template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::Add<T, U>>
+auto operator +(const matrix<T, R, C>& lhs, const matrix<U, R, C>& rhs) -> matrix<cc::Add<T, U>, R, C>
 {
-    matrix<cc::Addable<T, U>, R, C> result;
+    matrix<cc::Add<T, U>, R, C> result;
     core::transform(lhs._data, rhs._data, result._data.begin(), math::plus);
     return result;
 }
 
 
-template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::Subtractable<T, U>>
+template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::Subtract<T, U>>
 auto& operator -=(matrix<T, R, C>& lhs, const matrix<U, R, C>& rhs)
 {
     core::transform(lhs._data, rhs._data, lhs._data.begin(), math::minus);
     return lhs;
 }
 
-template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::Subtractable<T, U>>
-auto operator -(const matrix<T, R, C>& lhs, const matrix<U, R, C>& rhs) -> matrix<cc::Subtractable<T, U>, R, C>
+template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::Subtract<T, U>>
+auto operator -(const matrix<T, R, C>& lhs, const matrix<U, R, C>& rhs) -> matrix<cc::Subtract<T, U>, R, C>
 {
-    matrix<cc::Subtractable<T, U>, R, C> result;
+    matrix<cc::Subtract<T, U>, R, C> result;
     core::transform(lhs._data, rhs._data, result._data.begin(), math::minus);
     return result;
 }
 
 
-template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::Multipliable<T, U>>
+template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::Multiply<T, U>>
 auto& operator *=(matrix<T, R, C>& lhs, U rhs)
 {
     core::transform(lhs._data, lhs._data.begin(), math::multiplies(rhs));
     return lhs;
 }
 
-template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::Multipliable<T, U>>
-auto operator *(const matrix<T, R, C>& lhs, U rhs) -> matrix<cc::Multipliable<T, U>, R, C>
+template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::Multiply<T, U>>
+auto operator *(const matrix<T, R, C>& lhs, U rhs) -> matrix<cc::Multiply<T, U>, R, C>
 {
-    matrix<cc::Multipliable<T, U>, R, C> result;
+    matrix<cc::Multiply<T, U>, R, C> result;
     core::transform(lhs._data, result._data.begin(), math::multiplies(rhs));
     return result;    
 }
 
-template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::Multipliable<T, U>>
-auto operator *(T lhs, const matrix<U, R, C>& rhs) -> matrix<cc::Multipliable<U, T>, R, C>
+template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::Multiply<T, U>>
+auto operator *(T lhs, const matrix<U, R, C>& rhs) -> matrix<cc::Multiply<U, T>, R, C>
 {
     return rhs * lhs;
 }
 
 
-template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::Dividable<T, U>>
+template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::Divide<T, U>>
 auto& operator /=(matrix<T, R, C>& lhs, U rhs)
 {
     core::transform(lhs._data, lhs._data.begin(), math::divides(rhs));
     return lhs;
 }
 
-template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::Dividable<T, U>>
-auto operator /(const matrix<T, R, C>& lhs, U rhs) -> matrix<cc::Dividable<T, U>, R, C>
+template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::Divide<T, U>>
+auto operator /(const matrix<T, R, C>& lhs, U rhs) -> matrix<cc::Divide<T, U>, R, C>
 {
-    matrix<cc::Dividable<T, U>, R, C> result;
+    matrix<cc::Divide<T, U>, R, C> result;
     core::transform(lhs._data, result._data.begin(), math::divides(rhs));
     return result;
 }
 
 
-template <class T, class U, std::size_t R, std::size_t D, std::size_t C, CONCEPT = cc::Multipliable<T, U>>
-auto operator *(const matrix<T, R, D>& lhs, const matrix<U, D, C>& rhs) -> matrix<cc::Multipliable<T, U>, R, C>
+template <class T, class U, std::size_t R, std::size_t D, std::size_t C, CONCEPT = cc::Multiply<T, U>>
+auto operator *(const matrix<T, R, D>& lhs, const matrix<U, D, C>& rhs) -> matrix<cc::Multiply<T, U>, R, C>
 {
-    using result_type = matrix<cc::Multipliable<T, U>, R, C>;
+    using result_type = matrix<cc::Multiply<T, U>, R, C>;
 
     result_type result;
 
@@ -118,10 +118,10 @@ auto operator *(const matrix<T, R, D>& lhs, const matrix<U, D, C>& rhs) -> matri
     return result;
 }
 
-template <class T, class U, std::size_t D, CONCEPT = cc::Multipliable<T, U>>
-auto operator *(const vector<T, D>& lhs, const square_matrix<U, D + 1>& rhs) -> vector<cc::Multipliable<T, U>, D>
+template <class T, class U, std::size_t D, CONCEPT = cc::Multiply<T, U>>
+auto operator *(const vector<T, D>& lhs, const square_matrix<U, D + 1>& rhs) -> vector<cc::Multiply<T, U>, D>
 {
-    using result_type = vector<cc::Multipliable<T, U>, D>;
+    using result_type = vector<cc::Multiply<T, U>, D>;
 
     result_type result;
 
@@ -140,26 +140,26 @@ auto operator *(const vector<T, D>& lhs, const square_matrix<U, D + 1>& rhs) -> 
     return result;
 }
 
-template <class T, class U, std::size_t D, CONCEPT = cc::Multipliable<T, U>>
-auto operator *(const square_matrix<T, D + 1>& lhs, const vector<U, D>& rhs) -> vector<cc::Multipliable<T, U>, D>
+template <class T, class U, std::size_t D, CONCEPT = cc::Multiply<T, U>>
+auto operator *(const square_matrix<T, D + 1>& lhs, const vector<U, D>& rhs) -> vector<cc::Multiply<T, U>, D>
 {
     return rhs * lhs;
 }
 
-template <class T, class U, std::size_t D, CONCEPT = cc::Multipliable<T, U>>
+template <class T, class U, std::size_t D, CONCEPT = cc::Multiply<T, U>>
 auto& operator *=(vector<T, D>& lhs, const square_matrix<U, D + 1>& rhs)
 {
     return lhs = lhs * rhs;   
 }
 
 
-template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::EqualityComparable<T, U>>
+template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::EqualityCompare<T, U>>
 bool operator ==(const matrix<T, R, C>& lhs, const matrix<U, R, C>& rhs)
 {
     return sq::equal(lhs, rhs);
 }
 
-template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::EqualityComparable<T, U>>
+template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::EqualityCompare<T, U>>
 bool operator !=(const matrix<T, R, C>& lhs, const matrix<U, R, C>& rhs)
 {
     return !(lhs == rhs);

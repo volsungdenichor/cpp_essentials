@@ -343,58 +343,67 @@ void format(std::ostream& os, cstring_view fmt, const Args&... args)
 
 } /* namespace detail */
 
-template <class... Args>
-std::ostream& format(std::ostream& os, const std::locale& locale, const char* fmt, const Args&... args)
+struct format_t
 {
-    const auto save_locale = detail::locale_guard{ os };
-    (void)save_locale;
 
-    const auto save_format = detail::format_guard{ os };
-    (void)save_format;
+    template <class... Args>
+    std::ostream& operator ()(std::ostream& os, const std::locale& locale, const char* fmt, const Args&... args) const
+    {
+        const auto save_locale = detail::locale_guard{ os };
+        (void)save_locale;
 
-    os.imbue(locale);
-    detail::format(os, c_str(fmt), args...);
-    return os;
-}
+        const auto save_format = detail::format_guard{ os };
+        (void)save_format;
 
-template <class... Args>
-std::ostream& format(std::ostream& os, const char* fmt, const Args&... args)
+        os.imbue(locale);
+        detail::format(os, c_str(fmt), args...);
+        return os;
+    }
+
+    template <class... Args>
+    std::ostream& operator ()(std::ostream& os, const char* fmt, const Args&... args) const
+    {
+        detail::format(os, c_str(fmt), args...);
+        return os;
+    }
+
+    template <class... Args>
+    std::string operator ()(const std::locale& locale, const char* fmt, const Args&... args) const
+    {
+        std::stringstream ss;
+        (*this)(ss, locale, fmt, args...);
+        return ss.str();
+    }
+
+    template <class... Args>
+    std::string operator ()(const char* fmt, const Args&... args) const
+    {
+        std::stringstream ss;
+        (*this)(ss, fmt, args...);
+        return ss.str();
+    }
+
+};
+
+static constexpr format_t format = {};
+
+
+struct print_t
 {
-    detail::format(os, c_str(fmt), args...);
-    return os;
-}
+    template <class... Args>
+    std::ostream& operator ()(const std::locale& locale, const char* fmt, const Args&... args) const
+    {
+        return format(std::cout, locale, fmt, args...);
+    }
 
+    template <class... Args>
+    std::ostream& operator ()(const char* fmt, const Args&... args) const
+    {
+        return format(std::cout, fmt, args...);
+    }
+};
 
-
-template <class... Args>
-std::string format(const std::locale& locale, const char* fmt, const Args&... args)
-{
-    std::stringstream ss;
-    format(ss, locale, fmt, args...);
-    return ss.str();
-}
-
-template <class... Args>
-std::string format(const char* fmt, const Args&... args)
-{
-    std::stringstream ss;
-    format(ss, fmt, args...);
-    return ss.str();
-}
-
-
-
-template <class... Args>
-std::ostream& print(const std::locale& locale, const char* fmt, const Args&... args)
-{
-    return format(std::cout, locale, fmt, args...);
-}
-
-template <class... Args>
-std::ostream& print(const char* fmt, const Args&... args)
-{
-    return format(std::cout, fmt, args...);
-}
+static constexpr print_t print = {};
 
 } /* namespace cpp_essentials::core */
 

@@ -28,6 +28,17 @@ struct map_t : core::adaptable<map_t>
             map_iterator{ std::begin(range), func },
             map_iterator{ std::end(range), func });
     }
+
+    template
+        < class Range
+        , class Type
+        , class T
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::BaseOf<T, cc::range_val<Range>>>
+    auto operator ()(Range&& range, Type T::*field) const
+    {
+        return (*this)(std::mem_fn(field));
+    }
 };
 
 } /* namespace detail */

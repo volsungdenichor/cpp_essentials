@@ -231,6 +231,9 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\matrix.creation.hpp">
       <Filter>Header Files\cpp_essentials\geo\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\vector.operations.hpp">
+      <Filter>Header Files\cpp_essentials\geo\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

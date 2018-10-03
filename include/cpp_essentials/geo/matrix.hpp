@@ -5,5 +5,6 @@
 #include <cpp_essentials/geo/detail/matrix.access.hpp>
 #include <cpp_essentials/geo/detail/matrix.arithmetics.hpp>
 #include <cpp_essentials/geo/detail/matrix.operations.hpp>
+#include <cpp_essentials/geo/detail/matrix.creation.hpp>
 
 #endif /* CPP_ESSENTIALS_GEO_MATRIX_HPP_ */

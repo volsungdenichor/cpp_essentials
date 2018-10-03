@@ -453,31 +453,36 @@ bool operator !=(none_t, const optional<T>& rhs)
 }
 
 
-
-template <class T>
-auto make_optional(T value)
+struct make_optional_t
 {
-    return optional<T> { std::move(value) };
-}
+    template <class T>
+    auto operator ()(T value) const
+    {
+        return optional<T> { std::move(value) };
+    }
+
+    template <class T>
+    auto operator ()(bool condition, T value) const
+    {
+        return condition ? optional<T> { std::move(value) } : optional<T>{};
+    }
+};
+
+static constexpr make_optional_t make_optional = {};
 
 
-
-
-template <class T>
-auto make_optional(bool condition, T value)
+struct eval_optional_t
 {
-    return condition ? optional<T> { std::move(value) } : optional<T>{};
-}
+    template <class Func>
+    auto operator ()(bool condition, Func func) const
+    {
+        using type = decltype(func());
 
+        return condition ? optional<type> { func() } : optional<type>{};
+    }
+};
 
-
-template <class Func>
-auto eval_optional(bool condition, Func func)
-{
-    using type = decltype(func());
-
-    return condition ? optional<type> { func() } : optional<type>{};
-}
+static constexpr eval_optional_t eval_optional = {};
 
 
 

@@ -20,10 +20,10 @@ using span = iterator_range<const T*>;
 
 
 template <class Container>
-using mut_view = iterator_range<typename Container::iterator>;
+using mut_view = iterator_range<cc::range_iter<Container>>;
 
 template <class Container>
-using view = iterator_range<typename Container::const_iterator>;
+using view = iterator_range<cc::range_iter<const Container>>;
 
 } /* namespace cpp_essentials/core */
 

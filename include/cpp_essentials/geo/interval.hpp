@@ -102,32 +102,43 @@ public:
 };
 
 
-template <class T>
-auto make_union(const interval<T>& lhs, const interval<T>& rhs) -> interval<T>
+struct make_union_t
 {
-    if (lhs.empty())
+    template <class T>
+    auto operator ()(const interval<T>& lhs, const interval<T>& rhs) const -> interval<T>
     {
-        return rhs;
+        if (lhs.empty())
+        {
+            return rhs;
+        }
+
+        if (rhs.empty())
+        {
+            return lhs;
+        }
+
+        return { std::min(lhs.lower(), rhs.lower()), std::max(lhs.upper(), rhs.upper()) };
     }
+};
 
-    if (rhs.empty())
-    {
-        return lhs;
-    }
+static constexpr make_union_t make_union = {};
 
-    return { std::min(lhs.lower(), rhs.lower()), std::max(lhs.upper(), rhs.upper()) };
-}
 
-template <class T>
-auto make_intersection(const interval<T>& lhs, const interval<T>& rhs) -> interval<T>
+struct make_intersection_t
 {
-    if (lhs.empty() || rhs.empty())
+    template <class T>
+    auto operator ()(const interval<T>& lhs, const interval<T>& rhs) const -> interval<T>
     {
-        return {};
-    }
+        if (lhs.empty() || rhs.empty())
+        {
+            return {};
+        }
 
-    return { std::max(lhs.lower(), rhs.lower()), std::min(lhs.upper(), rhs.upper()) };
-}
+        return { std::max(lhs.lower(), rhs.lower()), std::min(lhs.upper(), rhs.upper()) };
+    }
+};
+
+static constexpr make_intersection_t make_intersection = {};
 
 
 template <class T, class U, CONCEPT = cc::Add<T, U>>

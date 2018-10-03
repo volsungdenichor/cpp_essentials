@@ -19,9 +19,6 @@
     <Filter Include="Header Files\cpp_essentials\core">
       <UniqueIdentifier>{b43cea5c-3dae-4df7-8978-a55d89a08b92}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\cpp_essentials\concepts">
-      <UniqueIdentifier>{3f7fb754-5b8e-4c6b-b6b8-5a4da80e82ed}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\cpp_essentials\sq">
       <UniqueIdentifier>{ceab8fdb-6f00-491b-b57b-8ea312197c8b}</UniqueIdentifier>
     </Filter>
@@ -62,9 +59,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\exceptions.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\concepts\concepts.hpp">
-      <Filter>Header Files\cpp_essentials\concepts</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\adaptor.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
@@ -233,6 +227,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\spatial_relations.hpp">
       <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\matrix.creation.hpp">
+      <Filter>Header Files\cpp_essentials\geo\detail</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

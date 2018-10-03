@@ -158,32 +158,31 @@ auto delimit(Iter begin, Iter end, const C* separator)
 
 } /* namespace detail */
 
-template <class T = void, class C>
-auto output(std::basic_ostream<C>& os, const C* separator = nullptr)
+struct output_t
 {
-    return detail::make_output_iterator(detail::output_t<C, T>{ os, separator });
-}
+    template <class T = void, class C>
+    auto operator ()(std::basic_ostream<C>& os, const C* separator = nullptr) const
+    {
+        return detail::make_output_iterator(detail::output_t<C, T>{ os, separator });
+    }
+};
 
-template <class T = void>
-auto cout(const char* separator = nullptr)
-{
-    return output(std::cout, separator);
-}
+static constexpr output_t output = {};
 
-template <class T = void>
-auto cerr(const char* separator = nullptr)
-{
-    return output(std::cerr, separator);
-}
 
-template
-    < class Range
-    , class C
-    , CONCEPT = cc::InputRange<Range>>
-auto delimit(Range&& range, const C* separator)
+struct delimit_t
 {
-    return detail::delimit(std::begin(range), std::end(range), separator);
-}
+    template
+        < class Range
+        , class C
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range, const C* separator) const
+    {
+        return detail::delimit(std::begin(range), std::end(range), separator);
+    }
+};
+
+static constexpr delimit_t delimit = {};
 
 } /* namespace cpp_essentials::core */
 

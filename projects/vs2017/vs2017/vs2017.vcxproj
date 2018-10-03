@@ -156,7 +156,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\cpp_essentials\cc\cc.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\concepts\concepts.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\adaptor.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\algorithm.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\algorithm_ext.hpp" />
@@ -184,6 +183,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\matrix.access.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\matrix.arithmetics.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\matrix.base.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\matrix.creation.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\matrix.operations.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\interval.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\matrix.hpp" />

@@ -201,7 +201,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\iterate_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\iterator_func_helper.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\map_iterator.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\nil.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\numeric_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\stride_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\zip_iterator.hpp" />

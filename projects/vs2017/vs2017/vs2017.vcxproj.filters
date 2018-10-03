@@ -183,9 +183,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\sq.hpp">
       <Filter>Header Files\cpp_essentials\sq</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\sq\detail\nil.hpp">
-      <Filter>Header Files\cpp_essentials\sq\detail</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\elementwise.hpp">
       <Filter>Header Files\cpp_essentials\sq</Filter>
     </ClInclude>

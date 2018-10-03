@@ -18,7 +18,7 @@ template
     , CONCEPT = cc::Add<cc::iter_ref<Iter1>, cc::iter_ref<Iter2>>>
 auto operator +(const core::iterator_range<Iter1>& lhs, const core::iterator_range<Iter2>& rhs)
 {
-    return zip(lhs, rhs, core::plus());
+    return zip(lhs, rhs, math::plus());
 }
 
 template
@@ -27,7 +27,7 @@ template
     , CONCEPT = cc::Subtract<cc::iter_ref<Iter1>, cc::iter_ref<Iter2>>>
 auto operator -(const core::iterator_range<Iter1>& lhs, const core::iterator_range<Iter2>& rhs)
 {
-    return zip(lhs, rhs, core::minus());
+    return zip(lhs, rhs, math::minus());
 }
 
 template
@@ -36,7 +36,7 @@ template
     , CONCEPT = cc::Multiply<cc::iter_ref<Iter1>, cc::iter_ref<Iter2>>>
 auto operator *(const core::iterator_range<Iter1>& lhs, const core::iterator_range<Iter2>& rhs)
 {
-    return zip(lhs, rhs, core::multiplies());
+    return zip(lhs, rhs, math::multiplies());
 }
 
 template
@@ -45,7 +45,7 @@ template
     , CONCEPT = cc::Divide<cc::iter_ref<Iter1>, cc::iter_ref<Iter2>>>
 auto operator /(const core::iterator_range<Iter1>& lhs, const core::iterator_range<Iter2>& rhs)
 {
-    return zip(lhs, rhs, core::divides());
+    return zip(lhs, rhs, math::divides());
 }
 
 
@@ -55,7 +55,7 @@ template
     , CONCEPT = cc::Add<cc::iter_ref<Iter>, T>>
 auto operator +(const core::iterator_range<Iter>& lhs, T rhs)
 {
-    return map(lhs, core::plus(rhs));
+    return map(lhs, math::plus(rhs));
 }
 
 template
@@ -74,7 +74,7 @@ template
     , CONCEPT = cc::Subtract<cc::iter_ref<Iter>, T>>
 auto operator -(const core::iterator_range<Iter>& lhs, T rhs)
 {
-    return map(lhs, core::minus(rhs));
+    return map(lhs, math::minus(rhs));
 }
 
 template
@@ -83,7 +83,7 @@ template
     , CONCEPT = cc::Subtract<T, cc::iter_ref<Iter>>>
 auto operator -(T lhs, const core::iterator_range<Iter>& rhs)
 {
-    return map(rhs, core::minus.bind_left(lhs));
+    return map(rhs, math::minus.bind_left(lhs));
 }
 
 
@@ -93,7 +93,7 @@ template
     , CONCEPT = cc::Multiply<cc::iter_ref<Iter>, T>>
 auto operator *(const core::iterator_range<Iter>& lhs, T rhs)
 {
-    return map(lhs, core::multiplies(rhs));
+    return map(lhs, math::multiplies(rhs));
 }
 
 template
@@ -112,7 +112,7 @@ template
     , CONCEPT = cc::Divide<cc::iter_ref<Iter>, T>>
 auto operator /(const core::iterator_range<Iter>& lhs, T rhs)
 {
-    return map(lhs, core::divides(rhs));
+    return map(lhs, math::divides(rhs));
 }
 
 template
@@ -121,7 +121,7 @@ template
     , CONCEPT = cc::Divide<T, cc::iter_ref<Iter>>>
 auto operator /(T lhs, const core::iterator_range<Iter>& rhs)
 {
-    return map(rhs, core::divides.bind_left(lhs));
+    return map(rhs, math::divides.bind_left(lhs));
 }
 
 
@@ -134,7 +134,7 @@ auto operator +(const core::iterator_range<Iter>& item)
 template <class Iter>
 auto operator -(const core::iterator_range<Iter>& item)
 {
-    return map(item, core::negate());
+    return map(item, math::negate());
 }
 
 } /* namespace cpp_essentials::sq */

@@ -29,7 +29,7 @@ Iter copy_while(Iter first, Iter last, OutputIter output, UnaryPred pred)
     return first;
 }
 
-struct front_t : core::adaptable<front_t>
+struct front_t : adaptable<front_t>
 {
     using adaptable::operator();
 
@@ -45,7 +45,7 @@ struct front_t : core::adaptable<front_t>
     }
 };
 
-struct front_or_t : core::adaptable<front_or_t>
+struct front_or_t : adaptable<front_or_t>
 {
     using adaptable::operator();
 
@@ -61,7 +61,7 @@ struct front_or_t : core::adaptable<front_or_t>
     }
 };
 
-struct front_or_default_t : core::adaptable<front_or_default_t>
+struct front_or_default_t : adaptable<front_or_default_t>
 {
     using adaptable::operator();
 
@@ -76,7 +76,7 @@ struct front_or_default_t : core::adaptable<front_or_default_t>
     }
 };
 
-struct front_or_eval_t : core::adaptable<front_or_eval_t>
+struct front_or_eval_t : adaptable<front_or_eval_t>
 {
     using adaptable::operator();
 
@@ -93,7 +93,7 @@ struct front_or_eval_t : core::adaptable<front_or_eval_t>
     }
 };
 
-struct front_or_none_t : core::adaptable<front_or_none_t>
+struct front_or_none_t : adaptable<front_or_none_t>
 {
     using adaptable::operator();
 
@@ -104,7 +104,7 @@ struct front_or_none_t : core::adaptable<front_or_none_t>
     {
         auto b = std::begin(range);
         auto e = std::end(range);
-        return core::eval_optional(b != e, [&]() -> decltype(auto) { return *b; });
+        return eval_optional(b != e, [&]() -> decltype(auto) { return *b; });
     }
 };
 

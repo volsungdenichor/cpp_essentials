@@ -146,8 +146,6 @@ struct format_modifier_handler
 
     void operator ()(cstring_view key, cstring_view value) const
     {
-        using namespace sq;
-
         if (key == "format"_str)
         {
             format(value);

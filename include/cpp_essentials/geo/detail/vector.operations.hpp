@@ -73,7 +73,7 @@ auto distance(const vector<T, D>& lhs, const vector<U, D>& rhs)
 template <class T, class U, size_t D>
 auto manhattan(const vector<T, D>& lhs, const vector<U, D>& rhs)
 {
-    return sq::inner_product(
+    return core::inner_product(
         lhs,
         rhs,
         std::common_type_t<T, U> {},

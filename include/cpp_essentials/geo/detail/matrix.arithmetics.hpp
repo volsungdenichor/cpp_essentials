@@ -156,7 +156,7 @@ auto& operator *=(vector<T, D>& lhs, const square_matrix<U, D + 1>& rhs)
 template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::EqualityCompare<T, U>>
 bool operator ==(const matrix<T, R, C>& lhs, const matrix<U, R, C>& rhs)
 {
-    return sq::equal(lhs, rhs);
+    return core::equal(lhs, rhs);
 }
 
 template <class T, class U, std::size_t R, std::size_t C, CONCEPT = cc::EqualityCompare<T, U>>

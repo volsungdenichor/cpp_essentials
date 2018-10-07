@@ -159,6 +159,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\adaptor.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\algorithm.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\algorithm_ext.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\arithmetic_functors.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\assertions.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\chain.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\chunk.hpp" />
@@ -203,7 +204,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\tuple.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\views.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\zip.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\math\arithmetic_functors.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\constants.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\functors.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\polynomial.hpp" />

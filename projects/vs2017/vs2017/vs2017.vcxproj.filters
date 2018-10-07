@@ -111,9 +111,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\string_views.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\math\arithmetic_functors.hpp">
-      <Filter>Header Files\cpp_essentials\math</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\math\functors.hpp">
       <Filter>Header Files\cpp_essentials\math</Filter>
     </ClInclude>
@@ -194,6 +191,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\sq.hpp">
       <Filter>Header Files\cpp_essentials\sq</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\arithmetic_functors.hpp">
+      <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

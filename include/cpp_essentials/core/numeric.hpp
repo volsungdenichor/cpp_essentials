@@ -21,7 +21,7 @@ struct range_t
     {
         int step = first < last ? +1 : -1;
 
-        return core::make_range(
+        return make_range(
             numeric_iterator{ first, step },
             numeric_iterator{ last, step });
     }
@@ -40,7 +40,7 @@ struct inclusive_range_t
     {
         int step = first < last ? +1 : -1;
 
-        return core::make_range(
+        return make_range(
             numeric_iterator{ first, step },
             numeric_iterator{ T(last + step), step });
     }
@@ -52,10 +52,27 @@ struct inclusive_range_t
     }
 };
 
+struct infinite_t
+{
+    template <class T>
+    auto operator ()(T start) const
+    {
+        return make_range(
+            infinite_numeric_iterator<T>{ start },
+            infinite_numeric_iterator<T>{ });
+    }
+
+    auto operator ()() const
+    {
+        return (*this)(0);
+    }
+};
+
 } /* namespace detail */
 
 static constexpr detail::range_t range = {};
 static constexpr detail::inclusive_range_t inclusive_range = {};
+static constexpr detail::infinite_t infinite = {};
 
 } /* namespace cpp_essentials::core */
 

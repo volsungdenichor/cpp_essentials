@@ -44,7 +44,7 @@ struct index_t
         , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, int start = 0) const
     {
-        return ::cpp_essentials::core::zip(range, ::cpp_essentials::core::iota(start), make_indexed_item{});
+        return ::cpp_essentials::core::zip(range, ::cpp_essentials::core::infinite(start), make_indexed_item{});
     }
 };
 

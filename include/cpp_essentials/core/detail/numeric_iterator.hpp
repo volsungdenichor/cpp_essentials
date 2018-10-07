@@ -76,6 +76,50 @@ private:
     U _step;
 };
 
+template <class T>
+class infinite_numeric_iterator
+    : public core::iterator_facade
+    < infinite_numeric_iterator<T>
+    , std::forward_iterator_tag
+    , T>
+{
+public:
+    using base_type = core::iterator_facade
+        < infinite_numeric_iterator<T>
+        , std::forward_iterator_tag
+        , T>;
+
+    INHERIT_ITERATOR_FACADE_TYPES(base_type)
+
+    infinite_numeric_iterator()
+        : _value{ std::numeric_limits<T>::min() }
+    {
+    }
+
+    infinite_numeric_iterator(T value)
+        : _value{ value }
+    {
+    }
+
+    reference ref() const
+    {
+        return _value;
+    }
+
+    void inc()
+    {
+        ++_value;
+    }
+
+    bool is_equal(const infinite_numeric_iterator& other) const
+    {
+        return _value == other._value;
+    }
+
+private:
+    T _value;
+};
+
 } /* namespace detail */
 
 } /* namespace cpp_essentials::core */

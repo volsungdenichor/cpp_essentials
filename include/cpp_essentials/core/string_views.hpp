@@ -65,11 +65,11 @@ std::size_t string_hash(Iter begin, Iter end)
 namespace detail
 {
 
-struct trim_t : adaptable<trim_t>
+struct trim_t
 {
-    using adaptable::operator();
-
-    template <class Range, CONCEPT = cc::BidirectionalRange<Range>>
+    template
+        < class Range
+        , CONCEPT = cc::BidirectionalRange<Range>>
     auto operator ()(Range&& range, const std::locale& locale = {}) const
     {
         return core::trim_while(range, [&](auto ch) { return std::isspace(ch, locale); });

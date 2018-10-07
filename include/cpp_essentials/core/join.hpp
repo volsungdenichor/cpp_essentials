@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/output.hpp>
 #include <sstream>
 
@@ -13,10 +12,8 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-struct join_t : adaptable<join_t>
+struct join_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , CONCEPT = cc::InputRange<Range>>

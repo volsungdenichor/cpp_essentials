@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/iterator_range.hpp>
 #include <cpp_essentials/core/detail/zip_iterator.hpp>
 
@@ -13,10 +12,8 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-struct backwards_t : adaptable<backwards_t>
+struct backwards_t
 {
-    using adaptable::operator();
-
     template <class Iter>
     auto make_iterator(Iter iter) const
     {

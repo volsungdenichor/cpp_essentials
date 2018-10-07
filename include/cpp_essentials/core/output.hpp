@@ -4,6 +4,7 @@
 #pragma once
 
 #include <iostream>
+#include <cpp_essentials/cc/cc.hpp>
 
 namespace cpp_essentials::core
 {

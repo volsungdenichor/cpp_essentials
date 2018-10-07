@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/iterator_range.hpp>
 #include <cpp_essentials/core/functors.hpp>
 
@@ -65,10 +64,8 @@ auto trim_while(Iter begin, Iter end, UnaryPred&& pred)
     return make_range(b, e);
 }
 
-struct take_while_t : adaptable<take_while_t>
+struct take_while_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class UnaryPred
@@ -80,10 +77,8 @@ struct take_while_t : adaptable<take_while_t>
     }
 };
 
-struct drop_while_t : adaptable<drop_while_t>
+struct drop_while_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class UnaryPred
@@ -95,10 +90,8 @@ struct drop_while_t : adaptable<drop_while_t>
     }
 };
 
-struct take_until_t : adaptable<take_until_t>
+struct take_until_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class UnaryPred
@@ -110,10 +103,8 @@ struct take_until_t : adaptable<take_until_t>
     }
 };
 
-struct drop_until_t : adaptable<drop_until_t>
+struct drop_until_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class UnaryPred
@@ -125,10 +116,8 @@ struct drop_until_t : adaptable<drop_until_t>
     }
 };
 
-struct take_back_while_t : adaptable<take_back_while_t>
+struct take_back_while_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class UnaryPred
@@ -140,10 +129,8 @@ struct take_back_while_t : adaptable<take_back_while_t>
     }
 };
 
-struct drop_back_while_t : adaptable<drop_back_while_t>
+struct drop_back_while_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class UnaryPred
@@ -155,10 +142,8 @@ struct drop_back_while_t : adaptable<drop_back_while_t>
     }
 };
 
-struct take_back_until_t : adaptable<take_back_until_t>
+struct take_back_until_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class UnaryPred
@@ -170,10 +155,8 @@ struct take_back_until_t : adaptable<take_back_until_t>
     }
 };
 
-struct drop_back_until_t : adaptable<drop_back_until_t>
+struct drop_back_until_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class UnaryPred
@@ -185,10 +168,8 @@ struct drop_back_until_t : adaptable<drop_back_until_t>
     }
 };
 
-struct trim_while_t : adaptable<trim_while_t>
+struct trim_while_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class UnaryPred
@@ -200,10 +181,8 @@ struct trim_while_t : adaptable<trim_while_t>
     }
 };
 
-struct trim_until_t : adaptable<trim_until_t>
+struct trim_until_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class UnaryPred

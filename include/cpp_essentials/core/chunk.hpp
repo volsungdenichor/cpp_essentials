@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/iterator_range.hpp>
 #include <cpp_essentials/core/detail/chunk_iterator.hpp>
 
@@ -21,10 +20,8 @@ auto chunk(Iter b, Iter e, int size, int step)
         chunk_iterator{ e, e, step, e });
 }
 
-struct chunk_t : core::adaptable<chunk_t>
+struct chunk_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , CONCEPT = cc::InputRange<Range>>
@@ -34,10 +31,8 @@ struct chunk_t : core::adaptable<chunk_t>
     }
 };
 
-struct slide_t : core::adaptable<slide_t>
+struct slide_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , CONCEPT = cc::InputRange<Range>>
@@ -47,10 +42,8 @@ struct slide_t : core::adaptable<slide_t>
     }
 };
 
-struct group_t : core::adaptable<group_t>
+struct group_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , CONCEPT = cc::InputRange<Range>>
@@ -60,10 +53,8 @@ struct group_t : core::adaptable<group_t>
     }
 };
 
-struct pairwise_t : core::adaptable<pairwise_t>
+struct pairwise_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , CONCEPT = cc::InputRange<Range>>

@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/iterator_range.hpp>
 #include <cpp_essentials/core/detail/iterate_iterator.hpp>
 
@@ -13,16 +12,14 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-struct iterate_t : core::adaptable<iterate_t>
+struct iterate_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range) const
     {
-        return core::make_range(
+        return make_range(
             iterate_iterator{ std::begin(range) },
             iterate_iterator{ std::end(range) });
     }

@@ -7,7 +7,6 @@
 #include <numeric>
 
 #include <cpp_essentials/cc/cc.hpp>
-#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/optional.hpp>
 #include <cpp_essentials/core/return_policy.hpp>
 
@@ -29,10 +28,8 @@ Iter copy_while(Iter first, Iter last, OutputIter output, UnaryPred pred)
     return first;
 }
 
-struct front_t : adaptable<front_t>
+struct front_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , CONCEPT = cc::InputRange<Range>>
@@ -45,10 +42,8 @@ struct front_t : adaptable<front_t>
     }
 };
 
-struct front_or_t : adaptable<front_or_t>
+struct front_or_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class T
@@ -61,10 +56,8 @@ struct front_or_t : adaptable<front_or_t>
     }
 };
 
-struct front_or_default_t : adaptable<front_or_default_t>
+struct front_or_default_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , CONCEPT = cc::InputRange<Range>>
@@ -76,10 +69,8 @@ struct front_or_default_t : adaptable<front_or_default_t>
     }
 };
 
-struct front_or_eval_t : adaptable<front_or_eval_t>
+struct front_or_eval_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class Func
@@ -93,10 +84,8 @@ struct front_or_eval_t : adaptable<front_or_eval_t>
     }
 };
 
-struct front_or_none_t : adaptable<front_or_none_t>
+struct front_or_none_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , CONCEPT = cc::InputRange<Range>>
@@ -108,10 +97,8 @@ struct front_or_none_t : adaptable<front_or_none_t>
     }
 };
 
-struct size_t : adaptable<size_t>
+struct size_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , CONCEPT = cc::InputRange<Range>>
@@ -121,10 +108,8 @@ struct size_t : adaptable<size_t>
     }
 };
 
-struct empty_t : adaptable<empty_t>
+struct empty_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , CONCEPT = cc::InputRange<Range>>
@@ -134,10 +119,8 @@ struct empty_t : adaptable<empty_t>
     }
 };
 
-struct copy_while_t : adaptable<copy_while_t>
+struct copy_while_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class OutputIter
@@ -151,10 +134,8 @@ struct copy_while_t : adaptable<copy_while_t>
     }
 };
 
-struct copy_until_t : adaptable<copy_until_t>
+struct copy_until_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class OutputIter
@@ -168,10 +149,8 @@ struct copy_until_t : adaptable<copy_until_t>
     }
 };
 
-struct starts_with_t : adaptable<starts_with_t>
+struct starts_with_t
 {
-    using adaptable::operator();
-
     template
         < class Range1
         , class Range2
@@ -188,10 +167,8 @@ struct starts_with_t : adaptable<starts_with_t>
     }
 };
 
-struct ends_with_t : adaptable<ends_with_t>
+struct ends_with_t
 {
-    using adaptable::operator();
-
     template
         < class Range1
         , class Range2
@@ -214,10 +191,8 @@ struct ends_with_t : adaptable<ends_with_t>
     }
 };
 
-struct contains_t : adaptable<contains_t>
+struct contains_t
 {
-    using adaptable::operator();
-
     template
         < class Range1
         , class Range2

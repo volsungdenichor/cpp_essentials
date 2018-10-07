@@ -10,7 +10,7 @@ namespace cpp_essentials::core
 {
     
 template 
-    < class Self
+    < class Adaptee
     , class IteratorCategory
     , class Reference
     , class DifferenceType = std::ptrdiff_t
@@ -19,7 +19,7 @@ template
 class iterator_facade
 {
 private:
-    using self_type = Self;
+    using self_type = Adaptee;
 
 public:
     using iterator_category = IteratorCategory;

@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/iterator_range.hpp>
 #include <cpp_essentials/core/detail/stride_iterator.hpp>
 
@@ -13,10 +12,8 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-struct stride_t : core::adaptable<stride_t>
-{
-    using adaptable::operator();
-
+struct stride_t
+{    
     template
         < class Range
         , CONCEPT = cc::InputRange<Range>>

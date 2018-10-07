@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/functors.hpp>
 #include <cpp_essentials/core/detail/filter_iterator.hpp>
 
@@ -21,10 +20,8 @@ auto make_filtered_range(Iter begin, Iter end, UnaryPred pred)
         filter_iterator{ end, pred, end });
 }
 
-struct take_if_t : adaptable<take_if_t>
+struct take_if_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class UnaryPred
@@ -36,10 +33,8 @@ struct take_if_t : adaptable<take_if_t>
     }
 };
 
-struct drop_if_t : adaptable<drop_if_t>
+struct drop_if_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class UnaryPred

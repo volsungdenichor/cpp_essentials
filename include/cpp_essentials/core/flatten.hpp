@@ -1,7 +1,6 @@
 #ifndef CPP_ESSENTIALS_CORE_FLATTEN_HPP_
 #define CPP_ESSENTIALS_CORE_FLATTEN_HPP_
 
-#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/detail/flatten_iterator.hpp>
 
 namespace cpp_essentials::core
@@ -10,10 +9,8 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-struct flatten_t : adaptable<flatten_t>
+struct flatten_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , CONCEPT = cc::InputRange<Range>>

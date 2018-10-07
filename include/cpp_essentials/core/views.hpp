@@ -6,7 +6,6 @@
 #include <string>
 #include <locale>
 #include <algorithm>
-#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/iterator_range.hpp>
 
 namespace cpp_essentials::core

@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/iterator_range.hpp>
 #include <cpp_essentials/core/detail/zip_iterator.hpp>
 
@@ -13,10 +12,8 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-struct zip_t : core::adaptable<zip_t>
+struct zip_t
 {
-    using adaptable::operator();
-
     template
         < class Range1
         , class Range2

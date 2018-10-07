@@ -197,10 +197,8 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\backwards.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\serialization.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\slice.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\sq.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\stride.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\string_views.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\terminals.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\trim.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\tuple.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\views.hpp" />
@@ -209,6 +207,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\math\constants.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\functors.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\polynomial.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\sq.hpp" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>

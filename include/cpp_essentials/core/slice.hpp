@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/functors.hpp>
 #include <cpp_essentials/core/iterator_range.hpp>
 #include <cpp_essentials/core/detail/nil.hpp>
@@ -14,16 +13,12 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-struct py_slice_t : adaptable<py_slice_t>
+struct py_slice_t
 {
-    using adaptable::operator();
-
     template
         < class Range
-        , class T
-        , CONCEPT = cc::ForwardRange<Range>
-        , CONCEPT = cc::Integral<T>>
-    auto operator ()(Range&& range, T begin_index, T end_index) const
+        , CONCEPT = cc::ForwardRange<Range>>
+    auto operator ()(Range&& range, int begin_index, int end_index) const
     {
         const auto r = make_range(range);
         const auto size = static_cast<int>(r.size());
@@ -48,16 +43,12 @@ struct py_slice_t : adaptable<py_slice_t>
     }
 };
 
-struct slice_t : adaptable<slice_t>
+struct slice_t
 {
-    using adaptable::operator();
-
     template
         < class Range
-        , class T
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::Integral<T>>
-    auto operator ()(Range&& range, T begin_index, T end_index) const
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range, int begin_index, int end_index) const
     {
         auto b = std::begin(range);
         auto e = std::end(range);
@@ -74,16 +65,12 @@ struct slice_t : adaptable<slice_t>
     }
 };
 
-struct take_t : adaptable<take_t>
+struct take_t
 {
-    using adaptable::operator();
-
     template
         < class Range
-        , class T
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::Integral<T>>
-    auto operator ()(Range&& range, T count) const
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range, int count) const
     {
         auto b = std::begin(range);
         auto e = std::end(range);
@@ -91,16 +78,12 @@ struct take_t : adaptable<take_t>
     }
 };
 
-struct drop_t : adaptable<drop_t>
+struct drop_t
 {
-    using adaptable::operator();
-
     template
         < class Range
-        , class T
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::Integral<T>>
-    auto operator ()(Range&& range, T count) const
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range, int count) const
     {
         auto b = std::begin(range);
         auto e = std::end(range);
@@ -108,16 +91,12 @@ struct drop_t : adaptable<drop_t>
     }
 };
 
-struct take_back_t : adaptable<take_back_t>
+struct take_back_t
 {
-    using adaptable::operator();
-
     template
         < class Range
-        , class T
-        , CONCEPT = cc::BidirectionalRange<Range>
-        , CONCEPT = cc::Integral<T>>
-    auto operator ()(Range&& range, T count) const
+        , CONCEPT = cc::BidirectionalRange<Range>>
+    auto operator ()(Range&& range, int count) const
     {
         auto b = std::begin(range);
         auto e = std::end(range);
@@ -125,16 +104,12 @@ struct take_back_t : adaptable<take_back_t>
     }
 };
 
-struct drop_back_t : adaptable<drop_back_t>
+struct drop_back_t
 {
-    using adaptable::operator();
-
     template
         < class Range
-        , class T
-        , CONCEPT = cc::BidirectionalRange<Range>
-        , CONCEPT = cc::Integral<T>>
-    auto operator ()(Range&& range, T count) const
+        , CONCEPT = cc::BidirectionalRange<Range>>
+    auto operator ()(Range&& range, int count) const
     {
         auto b = std::begin(range);
         auto e = std::end(range);

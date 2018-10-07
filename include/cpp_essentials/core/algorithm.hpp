@@ -7,20 +7,14 @@
 #include <numeric>
 
 #include <cpp_essentials/cc/cc.hpp>
-
-#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/return_policy.hpp>
 
 namespace cpp_essentials::core
 {
-
 namespace detail
 {
-
-struct accumulate_t : adaptable<accumulate_t>
+struct accumulate_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class T
@@ -48,10 +42,8 @@ struct adjacent_difference_t
     }
 };
 
-struct all_of_t : adaptable<all_of_t>
+struct all_of_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class UnaryPred
@@ -63,10 +55,8 @@ struct all_of_t : adaptable<all_of_t>
     }
 };
 
-struct any_of_t : adaptable<any_of_t>
+struct any_of_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class UnaryPred
@@ -78,10 +68,8 @@ struct any_of_t : adaptable<any_of_t>
     }
 };
 
-struct copy_t : adaptable<copy_t>
+struct copy_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class OutputIter
@@ -93,10 +81,8 @@ struct copy_t : adaptable<copy_t>
     }
 };
 
-struct copy_if_t : adaptable<copy_if_t>
+struct copy_if_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class OutputIter
@@ -110,10 +96,8 @@ struct copy_if_t : adaptable<copy_if_t>
     }
 };
 
-struct copy_n_t : adaptable<copy_n_t>
+struct copy_n_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class Size
@@ -127,10 +111,8 @@ struct copy_n_t : adaptable<copy_n_t>
     }
 };
 
-struct count_t : adaptable<count_t>
+struct count_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class T
@@ -141,10 +123,8 @@ struct count_t : adaptable<count_t>
     }
 };
 
-struct count_if_t : adaptable<count_if_t>
+struct count_if_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class UnaryPred
@@ -199,10 +179,8 @@ struct fill_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct find_t : adaptable<find_t<Policy>>
+struct find_t
 {
-    using adaptable<find_t<Policy>>::operator();
-
     static constexpr Policy policy = {};
     
     template <class P>
@@ -222,10 +200,8 @@ struct find_t : adaptable<find_t<Policy>>
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct find_if_t : adaptable<find_if_t<Policy>>
+struct find_if_t
 {
-    using adaptable<find_if_t<Policy>>::operator();
-
     static constexpr Policy policy = {};
 
     template <class P>
@@ -245,10 +221,8 @@ struct find_if_t : adaptable<find_if_t<Policy>>
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct find_if_not_t : adaptable<find_if_not_t<Policy>>
+struct find_if_not_t
 {
-    using adaptable<find_if_not_t<Policy>>::operator();
-
     static constexpr Policy policy = {};
 
     template <class P>
@@ -268,10 +242,8 @@ struct find_if_not_t : adaptable<find_if_not_t<Policy>>
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct find_end_t : adaptable<find_end_t<Policy>>
+struct find_end_t
 {
-    using adaptable<find_end_t<Policy>>::operator();
-
     static constexpr Policy policy = {};
 
     template <class P>
@@ -291,10 +263,8 @@ struct find_end_t : adaptable<find_end_t<Policy>>
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct find_first_of_t : adaptable<find_first_of_t<Policy>>
+struct find_first_of_t
 {
-    using adaptable<find_first_of_t<Policy>>::operator();
-
     static constexpr Policy policy = {};
 
     template <class P>
@@ -315,10 +285,8 @@ struct find_first_of_t : adaptable<find_first_of_t<Policy>>
     }
 };
 
-struct for_each_t : adaptable<for_each_t>
+struct for_each_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class UnaryFunc
@@ -409,10 +377,8 @@ struct iota_t
     }
 };
 
-struct is_heap_t : adaptable<is_heap_t>
+struct is_heap_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class Compare = std::less<>
@@ -445,10 +411,8 @@ struct is_heap_until_t
     }
 };
 
-struct is_partitioned_t : adaptable<is_partitioned_t>
+struct is_partitioned_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class UnaryPred
@@ -460,10 +424,8 @@ struct is_partitioned_t : adaptable<is_partitioned_t>
     }
 };
 
-struct is_permutation_t : adaptable<is_permutation_t>
+struct is_permutation_t
 {
-    using adaptable::operator();
-
     template
         < class Range1
         , class Range2
@@ -475,10 +437,8 @@ struct is_permutation_t : adaptable<is_permutation_t>
     }
 };
 
-struct is_sorted_t : adaptable<is_sorted_t>
+struct is_sorted_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class Compare = std::less<>
@@ -542,13 +502,13 @@ struct lower_bound_t
     template
         < class Range
         , class T
-        , class Compare = std::plus<>
+        , class Compare = std::less<>
         , CONCEPT = cc::ForwardRange<Range>        
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, const T& value, Compare&& compare = {}) const
     {
         auto b = std::begin(range);
-        auto e = std::begin(range);
+        auto e = std::end(range);
         return policy(b, std::lower_bound(b, e, value, std::move(compare)), e);
     }
 };
@@ -567,10 +527,8 @@ struct make_heap_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct max_element_t : adaptable<max_element_t<Policy>>
+struct max_element_t
 {
-    using adaptable<max_element_t<Policy>>::operator();
-
     static constexpr Policy policy = {};
 
     template <class P>
@@ -626,10 +584,8 @@ struct inplace_merge_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct minmax_element_t : adaptable<minmax_element_t<Policy>>
+struct minmax_element_t
 {
-    using adaptable<minmax_element_t<Policy>>::operator();
-
     static constexpr Policy policy = {};
 
     template <class P>
@@ -652,10 +608,8 @@ struct minmax_element_t : adaptable<minmax_element_t<Policy>>
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct min_element_t : adaptable<min_element_t<Policy>>
+struct min_element_t
 {
-    using adaptable<min_element_t<Policy>>::operator();
-
     static constexpr Policy policy = {};
 
     template <class P>
@@ -703,10 +657,8 @@ struct mismatch_t
     }
 };
 
-struct move_t : adaptable<move_t>
+struct move_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class OutputIter
@@ -731,10 +683,8 @@ struct next_permutation_t
     }
 };
 
-struct none_of_t : adaptable<none_of_t>
+struct none_of_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class UnaryPred
@@ -995,10 +945,8 @@ struct replace_if_t
     }
 };
 
-struct replace_copy_t : adaptable<replace_copy_t>
+struct replace_copy_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class OutputIter
@@ -1012,10 +960,8 @@ struct replace_copy_t : adaptable<replace_copy_t>
     }
 };
 
-struct replace_copy_if_t : adaptable<replace_copy_if_t>
+struct replace_copy_if_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , class OutputIter

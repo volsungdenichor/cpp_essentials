@@ -49,23 +49,29 @@ auto operator >>(const adaptor_t<F1>& lhs, const adaptor_t<F2>& rhs)
 }
 
 
-template <class Self>
+template <class Adaptee>
 struct adaptable
 {
-    using self_type = Self;
+    using adaptee_type = Adaptee;
+
+    static_assert(std::is_default_constructible_v<adaptee_type>, "Adaptee must be default constructibe");
+
+    static constexpr adaptee_type _adaptee = {};
 
     template <class... Args>
     auto operator ()(Args&&... args) const
     {
-        return make_adaptor([&](auto&& item) -> decltype(auto)
+        if constexpr (std::is_invocable_v<adaptee_type, Args...>)
         {
-            return self()(std::forward<decltype(item)>(item), args...);
-        });
-    }
-
-    const self_type& self() const
-    {
-        return static_cast<const self_type&>(*this);
+            return _adaptee(std::forward<Args>(args)...);
+        }
+        else
+        {
+            return make_adaptor([&](auto&& item) -> decltype(auto)
+            {
+                return _adaptee(std::forward<decltype(item)>(item), args...);
+            });
+        }
     }
 };
 

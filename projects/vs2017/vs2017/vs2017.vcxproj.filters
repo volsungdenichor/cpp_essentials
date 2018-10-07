@@ -28,6 +28,9 @@
     <Filter Include="Header Files\cpp_essentials\math">
       <UniqueIdentifier>{c63fa85d-7b27-4183-a8b4-b06e292df07f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\cpp_essentials\sq">
+      <UniqueIdentifier>{b23cacd1-699d-45ed-8a6a-d2a3ef90c53f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -171,13 +174,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\numeric.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\sq.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\stride.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\terminals.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\trim.hpp">
@@ -194,6 +191,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\join.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\sq\sq.hpp">
+      <Filter>Header Files\cpp_essentials\sq</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

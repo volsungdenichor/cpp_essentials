@@ -44,11 +44,11 @@ struct is_optional : std::false_type {};
 template <class T>
 struct is_optional<optional<T>> : std::true_type {};
 
-template <class Self>
+template <class Adaptee>
 class optional_base
 {
 private:
-    using self_type = Self;
+    using self_type = Adaptee;
 
 public:
     template <class Func>

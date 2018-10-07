@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/iterator_range.hpp>
 #include <cpp_essentials/core/zip.hpp>
 #include <cpp_essentials/core/numeric.hpp>
@@ -38,10 +37,8 @@ struct make_indexed_item
 };
 
 
-struct index_t : adaptable<index_t>
+struct index_t
 {
-    using adaptable::operator();
-
     template
         < class Range
         , CONCEPT = cc::InputRange<Range>>

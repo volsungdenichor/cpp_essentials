@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/iterator_range.hpp>
 #include <cpp_essentials/core/detail/chain_iterator.hpp>
 
@@ -21,10 +20,8 @@ auto chain(Iter1 b1, Iter1 e1, Iter2 b2, Iter2 e2)
         chain_iterator{ e1, e2, e1, b2 });
 }
 
-struct append_t : adaptable<append_t>
+struct append_t
 {
-    using adaptable::operator();
-
     template
         < class Range1
         , class Range2
@@ -36,10 +33,8 @@ struct append_t : adaptable<append_t>
     }
 };
 
-struct prepend_t : adaptable<prepend_t>
+struct prepend_t
 {
-    using adaptable::operator();
-
     template
         < class Range1
         , class Range2

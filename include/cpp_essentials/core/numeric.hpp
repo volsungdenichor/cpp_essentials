@@ -52,19 +52,14 @@ struct inclusive_range_t
     }
 };
 
-struct infinite_t
+struct infinite_range_t
 {
-    template <class T>
-    auto operator ()(T start) const
+    template <class T = int>
+    auto operator ()(T start = {}) const
     {
         return make_range(
             infinite_numeric_iterator<T>{ start },
             infinite_numeric_iterator<T>{ });
-    }
-
-    auto operator ()() const
-    {
-        return (*this)(0);
     }
 };
 
@@ -72,7 +67,7 @@ struct infinite_t
 
 static constexpr detail::range_t range = {};
 static constexpr detail::inclusive_range_t inclusive_range = {};
-static constexpr detail::infinite_t infinite = {};
+static constexpr detail::infinite_range_t infinite_range = {};
 
 } /* namespace cpp_essentials::core */
 

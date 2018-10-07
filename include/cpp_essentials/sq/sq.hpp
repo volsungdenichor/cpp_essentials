@@ -34,6 +34,7 @@ namespace cpp_essentials::sq
 
 PULL_FUNCTOR(range);
 PULL_FUNCTOR(inclusive_range);
+PULL_FUNCTOR(infinite_range);
 
 PULL_ADAPTABLE(front);
 PULL_ADAPTABLE(front_or);

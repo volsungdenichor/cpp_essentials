@@ -181,6 +181,15 @@ struct get_t
     }
 };
 
+struct has_value_t
+{
+    template <class T>
+    bool operator ()(T&& arg) const
+    {
+        return static_cast<bool>(arg);
+    }
+};
+
 struct dereference_t
 {
     template <class T>
@@ -213,6 +222,7 @@ static constexpr detail::lerp_t lerp = {};
 
 static constexpr detail::logical_negation_t logical_negation = {};
 
+static constexpr detail::has_value_t has_value = {};
 static constexpr detail::dereference_t dereference = {};
 
 static constexpr detail::make_pair_t make_pair = {};

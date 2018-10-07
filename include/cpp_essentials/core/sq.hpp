@@ -12,6 +12,7 @@
 #include <cpp_essentials/core/flatten.hpp>
 #include <cpp_essentials/core/index.hpp>
 #include <cpp_essentials/core/iterate.hpp>
+#include <cpp_essentials/core/join.hpp>
 #include <cpp_essentials/core/map.hpp>
 #include <cpp_essentials/core/numeric.hpp>
 #include <cpp_essentials/core/slice.hpp>

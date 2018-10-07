@@ -192,6 +192,9 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\math\polynomial.hpp">
       <Filter>Header Files\cpp_essentials\math</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\join.hpp">
+      <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

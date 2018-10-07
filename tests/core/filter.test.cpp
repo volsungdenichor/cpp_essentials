@@ -67,3 +67,15 @@ TEST_CASE("drop_back_until")
     auto vect = vec(1, 2, 3, 4, 5, 6);
     REQUIRE((vect | core::drop_back_until([](auto&& x) { return x == 4; })) == vec(1, 2, 3, 4));
 }
+
+TEST_CASE("trim_while")
+{
+    auto vect = vec(1, 1, 1, 2, 3, 4, 5, 1, 1);
+    REQUIRE((vect | core::trim_while([](auto&& x) { return x < 2; })) == vec(2, 3, 4, 5));
+}
+
+TEST_CASE("trim_until")
+{
+    auto vect = vec(1, 1, 1, 2, 3, 4, 5, 2, 1, 1);
+    REQUIRE((vect | core::trim_until([](auto&& x) { return x == 2; })) == vec(2, 3, 4, 5, 2));
+}

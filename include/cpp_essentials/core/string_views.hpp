@@ -7,7 +7,7 @@
 #include <cstring>
 #include <locale>
 #include <cpp_essentials/core/views.hpp>
-#include <cpp_essentials/core/filter.hpp>
+#include <cpp_essentials/core/trim.hpp>
 
 namespace cpp_essentials::core
 {
@@ -72,8 +72,7 @@ struct trim_t : adaptable<trim_t>
     template <class Range, CONCEPT = cc::BidirectionalRange<Range>>
     auto operator ()(Range&& range, const std::locale& locale = {}) const
     {
-        const auto is_space = [&](auto ch) { return std::isspace(ch, locale); };
-        return range | core::drop_while(is_space) | core::drop_back_while(is_space);
+        return core::trim_while(range, [&](auto ch) { return std::isspace(ch, locale); });
     }
 };
 

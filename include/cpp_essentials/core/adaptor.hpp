@@ -13,21 +13,14 @@ struct adaptor_t
 {
     Func func;
 
-    template
-        < class T
-        , CONCEPT = cc::InputRange<T>
-        , CONCEPT = cc::UnaryFunction<Func, T>>
+    template <class T>
     auto operator ()(T&& item) const -> decltype(auto)
     {
         return func(std::forward<T>(item));
     }
 };
 
-template
-    < class T
-    , class Func
-    , CONCEPT = cc::InputRange<T>
-    , CONCEPT = cc::UnaryFunction<Func, T>>
+template <class T, class Func>
 auto operator |(T&& item, const adaptor_t<Func>& adaptor) -> decltype(auto)
 {
     return adaptor(std::forward<T>(item));
@@ -54,7 +47,9 @@ struct adaptable
 {
     using adaptee_type = Adaptee;
 
-    static_assert(std::is_default_constructible_v<adaptee_type>, "Adaptee must be default constructibe");
+    static_assert(
+        std::is_default_constructible_v<adaptee_type>,
+        "Adaptee must be default constructibe");
 
     static constexpr adaptee_type _adaptee = {};
 
@@ -69,6 +64,10 @@ struct adaptable
         {
             return make_adaptor([&](auto&& item) -> decltype(auto)
             {
+                static_assert(
+                    std::is_invocable_v<adaptee_type, decltype(item), Args...>,
+                    "Cannot create adaptor with given arguments");
+
                 return _adaptee(std::forward<decltype(item)>(item), args...);
             });
         }

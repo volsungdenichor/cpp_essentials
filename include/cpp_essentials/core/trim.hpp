@@ -188,7 +188,7 @@ struct trim_until_t
         , class UnaryPred
         , CONCEPT = cc::BidirectionalRange<Range>
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
-        auto operator ()(Range&& range, UnaryPred&& pred) const
+    auto operator ()(Range&& range, UnaryPred&& pred) const
     {
         return trim_while(std::begin(range), std::end(range), logical_negation(pred));
     }

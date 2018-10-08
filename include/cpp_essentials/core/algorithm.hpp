@@ -180,9 +180,7 @@ struct fill_t
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct find_t
-{
-    static constexpr Policy policy = {};
-    
+{   
     template <class P>
     static constexpr find_t<P> as = {};
 
@@ -193,6 +191,8 @@ struct find_t
         , CONCEPT = cc::EqualityCompare<cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, T&& value) const
     {
+        static constexpr Policy policy = {};
+
         auto b = std::begin(range);
         auto e = std::end(range);
         return policy(b, std::find(b, e, value), e);
@@ -202,8 +202,6 @@ struct find_t
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct find_if_t
 {
-    static constexpr Policy policy = {};
-
     template <class P>
     static constexpr find_if_t<P> as = {};
 
@@ -214,6 +212,8 @@ struct find_if_t
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
+        static constexpr Policy policy = {};
+
         auto b = std::begin(range);
         auto e = std::end(range);
         return policy(b, std::find_if(b, e, std::move(pred)), e);
@@ -223,8 +223,6 @@ struct find_if_t
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct find_if_not_t
 {
-    static constexpr Policy policy = {};
-
     template <class P>
     static constexpr find_if_not_t<P> as = {};
 
@@ -235,6 +233,8 @@ struct find_if_not_t
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
+        static constexpr Policy policy = {};
+
         auto b = std::begin(range);
         auto e = std::end(range);
         return policy(b, std::find_if_not(b, e, std::move(pred)), e);
@@ -244,8 +244,6 @@ struct find_if_not_t
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct find_end_t
 {
-    static constexpr Policy policy = {};
-
     template <class P>
     static constexpr find_end_t<P> as = {};
 
@@ -256,6 +254,8 @@ struct find_end_t
         , CONCEPT = cc::ForwardRange<Range2>>
     decltype(auto) operator ()(Range1&& range1, Range2&& range2) const
     {
+        static constexpr Policy policy = {};
+
         auto b = std::begin(range1);
         auto e = std::end(range1);
         return policy(b, std::find_end(b, e, std::begin(range2), std::end(range2)), e);
@@ -265,8 +265,6 @@ struct find_end_t
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct find_first_of_t
 {
-    static constexpr Policy policy = {};
-
     template <class P>
     static constexpr find_first_of_t<P> as = {};
 
@@ -279,6 +277,8 @@ struct find_first_of_t
         , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     decltype(auto) operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
+        static constexpr Policy policy = {};
+
         auto b = std::begin(range1);
         auto e = std::end(range1);
         return policy(b, std::find_first_of(b, e, std::begin(range2), std::end(range2), std::move(pred)), e);
@@ -393,8 +393,6 @@ struct is_heap_t
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct is_heap_until_t
 {
-    static constexpr Policy policy = {};
-
     template <class P>
     static constexpr is_heap_until_t<P> as = {};
 
@@ -405,6 +403,8 @@ struct is_heap_until_t
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
+        static constexpr Policy policy = {};
+
         auto b = std::begin(range);
         auto e = std::begin(range);
         return policy(b, std::is_heap_until(b, e, std::move(compare)), e);
@@ -453,8 +453,6 @@ struct is_sorted_t
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct is_sorted_until_t
 {
-    static constexpr Policy policy = {};
-
     template <class P>
     static constexpr is_sorted_until_t<P> as = {};
 
@@ -465,6 +463,8 @@ struct is_sorted_until_t
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
+        static constexpr Policy policy = {};
+
         auto b = std::begin(range);
         auto e = std::end(range);
         return policy(b, std::is_sorted_until(b, e, std::move(compare)), e);
@@ -494,8 +494,6 @@ struct lexicographical_compare_t
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct lower_bound_t
 {
-    static constexpr Policy policy = {};
-
     template <class P>
     static constexpr lower_bound_t<P> as = {};
 
@@ -507,6 +505,8 @@ struct lower_bound_t
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, const T& value, Compare&& compare = {}) const
     {
+        static constexpr Policy policy = {};
+
         auto b = std::begin(range);
         auto e = std::end(range);
         return policy(b, std::lower_bound(b, e, value, std::move(compare)), e);
@@ -529,8 +529,6 @@ struct make_heap_t
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct max_element_t
 {
-    static constexpr Policy policy = {};
-
     template <class P>
     static constexpr max_element_t<P> as = {};
 
@@ -541,6 +539,8 @@ struct max_element_t
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
+        static constexpr Policy policy = {};
+
         auto b = std::begin(range);
         auto e = std::end(range);
         return policy(b, std::max_element(b, e, std::move(compare)), e);
@@ -586,8 +586,6 @@ struct inplace_merge_t
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct minmax_element_t
 {
-    static constexpr Policy policy = {};
-
     template <class P>
     static constexpr minmax_element_t<P> as = {};
 
@@ -598,6 +596,8 @@ struct minmax_element_t
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
+        static constexpr Policy policy = {};
+
         auto b = std::begin(range);
         auto e = std::end(range);
 
@@ -610,8 +610,6 @@ struct minmax_element_t
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct min_element_t
 {
-    static constexpr Policy policy = {};
-
     template <class P>
     static constexpr min_element_t<P> as = {};
 
@@ -622,6 +620,8 @@ struct min_element_t
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
+        static constexpr Policy policy = {};
+
         auto b = std::begin(range);
         auto e = std::end(range);
         return policy(b, std::min_element(b, e, std::move(compare)), e);
@@ -631,8 +631,6 @@ struct min_element_t
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct mismatch_t
 {
-    static constexpr Policy policy = {};
-
     template <class P>
     static constexpr mismatch_t<P> as = {};
 
@@ -645,6 +643,8 @@ struct mismatch_t
         , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     auto operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
+        static constexpr Policy policy = {};
+
         auto b1 = std::begin(range1);
         auto e1 = std::end(range1);
 
@@ -725,8 +725,6 @@ struct partial_sort_t
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct partial_sort_copy_t
 {
-    static constexpr Policy policy = {};
-
     template <class P>
     static constexpr partial_sort_copy_t<P> as = {};
 
@@ -739,6 +737,8 @@ struct partial_sort_copy_t
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     decltype(auto) operator ()(Range1&& range1, Range2&& range2, Compare&& compare = {}) const
     {
+        static constexpr Policy policy = {};
+
         auto b2 = std::begin(range2);
         auto e2 = std::end(range2);
         return policy(b2, std::partial_sort_copy(std::begin(range1), std::end(range1), b2, e2, std::move(compare)), e2);
@@ -763,8 +763,6 @@ struct partial_sum_t
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct partition_t
 {
-    static constexpr Policy policy = {};
-
     template <class P>
     static constexpr partition_t<P> as = {};
 
@@ -775,6 +773,8 @@ struct partition_t
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
+        static constexpr Policy policy = {};
+
         auto b = std::begin(range);
         auto e = std::end(range);
         return policy(b, std::partition(b, e, std::move(pred)), e);
@@ -801,8 +801,6 @@ struct partition_copy_t
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct stable_partition_t
 {
-    static constexpr Policy policy = {};
-
     template <class P>
     static constexpr stable_partition_t<P> as = {};
 
@@ -813,6 +811,8 @@ struct stable_partition_t
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
+        static constexpr Policy policy = {};
+
         auto b = std::begin(range);
         auto e = std::end(range);
         return policy(b, std::stable_partition(b, e, std::move(pred)), e);
@@ -848,8 +848,6 @@ struct push_heap_t
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct remove_t
 {
-    static constexpr Policy policy = {};
-
     template <class P>
     static constexpr remove_t<P> as = {};
 
@@ -860,6 +858,8 @@ struct remove_t
         , CONCEPT = cc::EqualityCompare<cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, const T& value) const
     {
+        static constexpr Policy policy = {};
+
         auto b = std::begin(range);
         auto e = std::end(range);
         return policy(b, std::remove(b, e, value), e);
@@ -869,8 +869,6 @@ struct remove_t
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct remove_if_t
 {
-    static constexpr Policy policy = {};
-
     template <class P>
     static constexpr remove_if_t<P> as = {};
 
@@ -881,6 +879,8 @@ struct remove_if_t
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
+        static constexpr Policy policy = {};
+
         auto b = std::begin(range);
         auto e = std::end(range);
         return policy(b, std::remove_if(b, e, std::move(pred)), e);
@@ -1004,8 +1004,6 @@ struct reverse_copy_t
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct rotate_t
 {
-    static constexpr Policy policy = {};
-
     template <class P>
     static constexpr rotate_t<P> as = {};
 
@@ -1014,6 +1012,8 @@ struct rotate_t
         , CONCEPT = cc::ForwardRange<Range>>
     decltype(auto) operator ()(Range&& range, cc::range_iter<Range> middle) const
     {
+        static constexpr Policy policy = {};
+
         auto b = std::begin(range);
         auto e = std::end(range);
         return policy(b, std::rotate(b, middle, e), e);
@@ -1036,8 +1036,6 @@ struct rotate_copy_t
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct search_t
 {
-    static constexpr Policy policy = {};
-
     template <class P>
     static constexpr search_t<P> as = {};
 
@@ -1050,6 +1048,8 @@ struct search_t
         , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     decltype(auto) operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
+        static constexpr Policy policy = {};
+
         auto b = std::begin(range1);
         auto e = std::end(range1);
         return policy(b, std::search(b, e, std::begin(range2), std::end(range2), std::move(pred)), e);
@@ -1059,8 +1059,6 @@ struct search_t
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct search_n_t
 {
-    static constexpr Policy policy = {};
-
     template <class P>
     static constexpr search_n_t<P> as = {};
 
@@ -1074,6 +1072,8 @@ struct search_n_t
         , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, Size size, const T& value, BinaryPred&& pred = {}) const
     {
+        static constexpr Policy policy = {};
+
         auto b = std::begin(range);
         auto e = std::end(range);
         return policy(b, std::search_n(b, e, size, value, std::move(pred)), e);
@@ -1243,8 +1243,6 @@ struct transform_t
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct unique_t
 {
-    static constexpr Policy policy = {};
-
     template <class P>
     static constexpr unique_t<P> as = {};
 
@@ -1255,6 +1253,8 @@ struct unique_t
         , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, BinaryPred&& pred = {}) const
     {
+        static constexpr Policy policy = {};
+
         auto b = std::begin(range);
         auto e = std::end(range);
         return policy(b, std::unique(b, e, std::move(pred)), e);
@@ -1279,8 +1279,6 @@ struct unique_copy_t
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
 struct upper_bound_t
 {
-    static constexpr Policy policy = {};
-
     template <class P>
     static constexpr upper_bound_t<P> as = {};
 
@@ -1292,6 +1290,8 @@ struct upper_bound_t
         , CONCEPT = cc::BinaryFunction<cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, const T& value, Compare&& compare = {}) const
     {
+        static constexpr Policy policy = {};
+
         auto b = std::begin(range);
         auto e = std::begin(range);
         return policy(b, std::upper_bound(b, e, value, std::move(compare)), e);

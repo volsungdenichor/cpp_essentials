@@ -4,6 +4,7 @@
 #pragma once
 
 #include <cpp_essentials/core/output.hpp>
+#include <cpp_essentials/core/serialization.hpp>
 #include <sstream>
 
 namespace cpp_essentials::core
@@ -19,11 +20,7 @@ struct join_t
         , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, const char* separator) const -> std::string
     {
-        std::stringstream ss;
-
-        ss << core::delimit(range, separator);
-
-        return ss.str();
+        return to_string(core::delimit(range, separator));
     }
 };
 

@@ -23,7 +23,7 @@ struct zip_t
         , CONCEPT = cc::BinaryFunction<BinaryFunc, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     auto operator ()(Range1&& range1, Range2&& range2, BinaryFunc func) const
     {
-        return core::make_range(
+        return make_range(
             zip_iterator{ func, std::begin(range1), std::begin(range2) },
             zip_iterator{ func, std::end(range1), std::end(range2) });
     }

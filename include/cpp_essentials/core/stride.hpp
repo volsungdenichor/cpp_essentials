@@ -21,7 +21,7 @@ struct stride_t
     {
         auto b = std::begin(range);
         auto e = std::end(range);
-        return core::make_range(
+        return make_range(
             stride_iterator{ b, step, e },
             stride_iterator{ e, step, e });
     }

@@ -37,7 +37,7 @@ struct front_t
     {
         auto b = std::begin(range);
         auto e = std::end(range);
-        EXPECTS(b != e);
+        EXPECTS(b != e, "empty range");
         return *b;
     }
 };
@@ -48,7 +48,7 @@ struct front_or_t
         < class Range
         , class T
         , CONCEPT = cc::InputRange<Range>>
-    auto operator ()(Range&& range, T default_value) const
+    auto operator ()(Range&& range, const T& default_value) const
     {
         auto b = std::begin(range);
         auto e = std::end(range);
@@ -97,6 +97,76 @@ struct front_or_none_t
     }
 };
 
+struct single_t
+{
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range) const
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+        EXPECTS(b != e, "empty range");
+        EXPECTS(std::next(b) == e, "more than one elemnt");
+        return *b;
+    }
+};
+
+struct single_or_t
+{
+    template
+        < class Range
+        , class T
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range, const T& default_value) const
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+        return (b != e && std::next(b) == e) ? *b : default_value;
+    }
+};
+
+struct single_or_default_t
+{
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range) const
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+        return (b != e && std::next(b) == e) ? *b : cc::range_val<Range>{};
+    }
+};
+
+struct single_or_eval_t
+{
+    template
+        < class Range
+        , class Func
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::NullaryFunction<Func>>
+    auto operator ()(Range&& range, Func func) const
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+        return (b != e && std::next(b) == e) ? *b : func();
+    }
+};
+
+struct single_or_none_t
+{
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range) const -> decltype(auto)
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+        return eval_optional(b != e && std::next(b) == e, [&]() -> decltype(auto) { return *b; });
+    }
+};
+
 struct size_t
 {
     template
@@ -116,6 +186,17 @@ struct empty_t
     auto operator ()(Range&& range) const
     {
         return std::begin(range) == std::end(range);
+    }
+};
+
+struct non_empty_t
+{
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range) const
+    {
+        return std::begin(range) != std::end(range);
     }
 };
 
@@ -216,8 +297,14 @@ static constexpr detail::front_or_t front_or = {};
 static constexpr detail::front_or_default_t front_or_default = {};
 static constexpr detail::front_or_eval_t front_or_eval = {};
 static constexpr detail::front_or_none_t front_or_none = {};
+static constexpr detail::single_t single = {};
+static constexpr detail::single_or_t single_or = {};
+static constexpr detail::single_or_default_t single_or_default = {};
+static constexpr detail::single_or_eval_t single_or_eval = {};
+static constexpr detail::single_or_none_t single_or_none = {};
 static constexpr detail::size_t size = {};
 static constexpr detail::empty_t empty = {};
+static constexpr detail::non_empty_t non_empty = {};
 static constexpr detail::copy_while_t copy_while = {};
 static constexpr detail::copy_until_t copy_until = {};
 static constexpr detail::starts_with_t starts_with = {};

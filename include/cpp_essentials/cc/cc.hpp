@@ -76,8 +76,11 @@ struct detector<void_t<Op<Args...>>, Op, Args...>
 } /* namespace detail */
 
 
-template<template<class...> class Op, class... Args>
+template <template<class...> class Op, class... Args>
 using is = typename detail::detector<void, Op, Args...>::value_t;
+
+template <template<class...> class Op, class... Args>
+static constexpr bool is_v = is<Op, Args...>::value;
 
 
 template <class T>

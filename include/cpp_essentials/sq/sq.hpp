@@ -41,11 +41,13 @@ PULL_ADAPTABLE(front_or);
 PULL_ADAPTABLE(front_or_default);
 PULL_ADAPTABLE(front_or_eval);
 PULL_ADAPTABLE(front_or_none);
+
 PULL_ADAPTABLE(single);
 PULL_ADAPTABLE(single_or);
 PULL_ADAPTABLE(single_or_default);
 PULL_ADAPTABLE(single_or_eval);
 PULL_ADAPTABLE(single_or_none);
+
 PULL_ADAPTABLE(size);
 PULL_ADAPTABLE(empty);
 PULL_ADAPTABLE(non_empty);

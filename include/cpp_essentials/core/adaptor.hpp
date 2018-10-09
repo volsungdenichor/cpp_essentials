@@ -62,6 +62,10 @@ struct adaptable
         }
         else
         {
+            static_assert(
+                !std::is_invocable_v<adaptee_type, Args...>,
+                "Ambiguous adaptee arguments");
+
             return make_adaptor([&](auto&& item) -> decltype(auto)
             {
                 static_assert(

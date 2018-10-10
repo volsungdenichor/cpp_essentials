@@ -173,23 +173,28 @@ auto operator >=(const iterator_range<Iter>& lhs, Range&& rhs) -> bool
 }
 
 
-template <class Iter, CONCEPT = cc::InputIterator<Iter>>
-auto make_range(Iter begin, Iter end) -> iterator_range<Iter>
+struct make_range_t
 {
-    return iterator_range<Iter>{ begin, end };
-}
+    template <class Iter, CONCEPT = cc::InputIterator<Iter>>
+    auto operator ()(Iter begin, Iter end) const -> iterator_range<Iter>
+    {
+        return iterator_range<Iter>{ begin, end };
+    }
 
-template <class Iter, CONCEPT = cc::InputIterator<Iter>>
-auto make_range(const std::pair<Iter, Iter>& pair) -> iterator_range<Iter>
-{
-    return make_range(std::get<0>(pair), std::get<1>(pair));
-}
+    template <class Iter, CONCEPT = cc::InputIterator<Iter>>
+    auto operator ()(const std::pair<Iter, Iter>& pair) const -> iterator_range<Iter>
+    {
+        return (*this)(std::get<0>(pair), std::get<1>(pair));
+    }
 
-template <class Range, CONCEPT = cc::InputRange<Range>>
-auto make_range(Range&& range)
-{
-    return make_range(std::begin(range), std::end(range));
-}
+    template <class Range, CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range) const
+    {
+        return (*this)(std::begin(range), std::end(range));
+    }
+};
+
+static constexpr make_range_t make_range = {};
 
 } /* namespace cpp_essentials::core */
 

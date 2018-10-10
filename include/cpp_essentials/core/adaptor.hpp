@@ -47,14 +47,16 @@ struct adaptable
 {
     using adaptee_type = Adaptee;
 
-    static_assert(
-        std::is_default_constructible_v<adaptee_type>,
-        "Adaptee must be default constructibe");
+    const adaptee_type _adaptee;
 
-    static constexpr adaptee_type _adaptee = {};
+    constexpr adaptable(adaptee_type adaptee)
+        : _adaptee{ std::move(adaptee) }
+    {
+    }
+
 
     template <class... Args>
-    auto operator ()(Args&&... args) const
+    constexpr decltype(auto) operator ()(Args&&... args) const
     {
         if constexpr (std::is_invocable_v<adaptee_type, Args...>)
         {

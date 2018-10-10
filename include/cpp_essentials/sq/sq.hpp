@@ -27,10 +27,12 @@ namespace cpp_essentials::sq
 {
 
 #define PULL_ADAPTABLE(func) \
-    static constexpr core::adaptable<decltype(core::func)> func
+    static constexpr auto func = core::adaptable{ core::func }
 
 #define PULL_FUNCTOR(func) \
     static constexpr decltype(core::func) func
+
+PULL_FUNCTOR(make_range);
 
 PULL_FUNCTOR(range);
 PULL_FUNCTOR(inclusive_range);

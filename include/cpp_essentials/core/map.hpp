@@ -34,7 +34,7 @@ struct map_t
         , CONCEPT = cc::BaseOf<T, cc::range_val<Range>>>
     auto operator ()(Range&& range, Type T::*field) const
     {
-        return (*this)(std::mem_fn(field));
+        return (*this)(range, std::mem_fn(field));
     }
 };
 

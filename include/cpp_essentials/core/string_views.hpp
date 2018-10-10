@@ -31,6 +31,7 @@ inline std::ostream& operator <<(std::ostream& os, const string_mut_view& item)
     std::copy(item.begin(), item.end(), std::ostream_iterator<char>{ os });
     return os;
 }
+
 inline std::ostream& operator <<(std::ostream& os, const string_view& item)
 {
     std::copy(item.begin(), item.end(), std::ostream_iterator<char>{ os });

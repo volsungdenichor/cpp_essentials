@@ -1287,13 +1287,13 @@ struct upper_bound_t
         , class T
         , class Compare = std::less<>
         , CONCEPT = cc::ForwardRange<Range>
-        , CONCEPT = cc::BinaryFunction<cc::range_ref<Range>, T>>
+        , CONCEPT = cc::BinaryFunction<Compare, cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, const T& value, Compare&& compare = {}) const
     {
         static constexpr Policy policy = {};
 
         auto b = std::begin(range);
-        auto e = std::begin(range);
+        auto e = std::end(range);
         return policy(b, std::upper_bound(b, e, value, std::move(compare)), e);
     }
 };

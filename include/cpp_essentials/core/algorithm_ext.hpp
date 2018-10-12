@@ -33,11 +33,29 @@ struct front_t
     template
         < class Range
         , CONCEPT = cc::InputRange<Range>>
-    auto operator ()(Range&& range) const
+    decltype(auto) operator ()(Range&& range) const
     {
         auto b = std::begin(range);
         auto e = std::end(range);
         EXPECTS(b != e, "empty range");
+        return *b;
+    }
+};
+
+struct front_or_throw_t
+{
+    template
+        < class Range
+        , class Exception
+        , CONCEPT = cc::InputRange<Range>>
+    decltype(auto) operator ()(Range&& range, const Exception& exception) const
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+        if (b == e)
+        {
+            throw exception;
+        }
         return *b;
     }
 };
@@ -293,6 +311,7 @@ struct contains_t
 } /* namespace detail */
 
 static constexpr detail::front_t front = {};
+static constexpr detail::front_or_throw_t front_or_throw = {};
 static constexpr detail::front_or_t front_or = {};
 static constexpr detail::front_or_default_t front_or_default = {};
 static constexpr detail::front_or_eval_t front_or_eval = {};

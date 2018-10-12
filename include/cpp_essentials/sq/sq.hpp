@@ -39,6 +39,7 @@ PULL_FUNCTOR(inclusive_range);
 PULL_FUNCTOR(infinite_range);
 
 PULL_ADAPTABLE(front);
+PULL_ADAPTABLE(front_or_throw);
 PULL_ADAPTABLE(front_or);
 PULL_ADAPTABLE(front_or_default);
 PULL_ADAPTABLE(front_or_eval);

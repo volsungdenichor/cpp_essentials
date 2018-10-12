@@ -117,6 +117,58 @@ struct drop_back_t
     }
 };
 
+struct take_exactly_t
+{
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range, int count) const
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+        return make_range(b, advance_exactly(b, e, count));
+    }
+};
+
+struct drop_exactly_t
+{
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range, int count) const
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+        return make_range(advance_exactly(b, e, count), e);
+    }
+};
+
+struct take_back_exactly_t
+{
+    template
+        < class Range
+        , CONCEPT = cc::BidirectionalRange<Range>>
+    auto operator ()(Range&& range, int count) const
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+        return make_range(advance_back_exactly(b, e, count), e);
+    }
+};
+
+struct drop_back_exactly_t
+{
+    template
+        < class Range
+        , CONCEPT = cc::BidirectionalRange<Range>>
+    auto operator ()(Range&& range, int count) const
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+        return make_range(b, advance_back_exactly(b, e, count));
+    }
+};
+
 } /* namespace detail */
 
 static constexpr detail::slice_t slice = {};
@@ -124,6 +176,10 @@ static constexpr detail::take_t take = {};
 static constexpr detail::drop_t drop = {};
 static constexpr detail::take_back_t take_back = {};
 static constexpr detail::drop_back_t drop_back = {};
+static constexpr detail::take_exactly_t take_exactly = {};
+static constexpr detail::drop_exactly_t drop_exactly = {};
+static constexpr detail::take_back_exactly_t take_back_exactly = {};
+static constexpr detail::drop_back_exactly_t drop_back_exactly = {};
 
 static constexpr detail::py_slice_t py_slice = {};
 

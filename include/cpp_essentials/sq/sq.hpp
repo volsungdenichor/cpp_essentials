@@ -45,12 +45,6 @@ PULL_ADAPTABLE(front_or_default);
 PULL_ADAPTABLE(front_or_eval);
 PULL_ADAPTABLE(front_or_none);
 
-PULL_ADAPTABLE(single);
-PULL_ADAPTABLE(single_or);
-PULL_ADAPTABLE(single_or_default);
-PULL_ADAPTABLE(single_or_eval);
-PULL_ADAPTABLE(single_or_none);
-
 PULL_ADAPTABLE(size);
 PULL_ADAPTABLE(empty);
 PULL_ADAPTABLE(non_empty);
@@ -116,6 +110,10 @@ PULL_ADAPTABLE(take);
 PULL_ADAPTABLE(drop);
 PULL_ADAPTABLE(take_back);
 PULL_ADAPTABLE(drop_back);
+PULL_ADAPTABLE(take_exactly);
+PULL_ADAPTABLE(drop_exactly);
+PULL_ADAPTABLE(take_back_exactly);
+PULL_ADAPTABLE(drop_back_exactly);
 PULL_ADAPTABLE(py_slice);
 
 PULL_ADAPTABLE(stride);

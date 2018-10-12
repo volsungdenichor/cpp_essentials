@@ -25,6 +25,18 @@ auto advance(Iter begin, Iter end, Diff n) -> Iter
 }
 
 template <class Iter, class Diff>
+auto advance_exactly(Iter begin, Iter end, Diff n) -> Iter
+{
+    while (begin != end && n > 0)
+    {
+        ++begin;
+        --n;
+    }
+    EXPECTS(n == 0);
+    return begin;
+}
+
+template <class Iter, class Diff>
 auto advance_back(Iter begin, Iter end, Diff n) -> Iter
 {
     while (begin != end && n > 0)
@@ -32,6 +44,18 @@ auto advance_back(Iter begin, Iter end, Diff n) -> Iter
         --end;
         --n;
     }
+    return end;
+}
+
+template <class Iter, class Diff>
+auto advance_back_exactly(Iter begin, Iter end, Diff n) -> Iter
+{
+    while (begin != end && n > 0)
+    {
+        --end;
+        --n;
+    }
+    EXPECTS(n == 0);
     return end;
 }
 

@@ -13,7 +13,7 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-struct py_slice_t
+struct slice_t
 {
     int adjust_index(int index, int size) const
     {
@@ -34,6 +34,12 @@ struct py_slice_t
     auto operator ()(Range&& range, int begin_index, nil_t /* end_index */) const
     {
         const auto r = make_range(range);
+
+        if (begin_index >= 0)
+        {
+            return make_range(advance(r.begin(), r.end(), begin_index), r.end());
+        }
+        
         const auto size = static_cast<int>(r.size());
 
         begin_index = adjust_index(begin_index, size);
@@ -49,6 +55,12 @@ struct py_slice_t
     auto operator ()(Range&& range, nil_t /* begin_index */, int end_index) const
     {
         const auto r = make_range(range);
+
+        if (end_index >= 0)
+        {
+            return make_range(r.begin(), advance(r.begin(), r.end(), end_index));
+        }
+
         const auto size = static_cast<int>(r.size());
 
         end_index = adjust_index(end_index, size);
@@ -64,6 +76,14 @@ struct py_slice_t
     auto operator ()(Range&& range, int begin_index, int end_index) const
     {
         const auto r = make_range(range);
+
+        if (begin_index >= 0 && end_index >= 0 && begin_index <= end_index)
+        {
+            auto b = advance(r.begin(), r.end(), begin_index);
+            auto e = advance(b, r.end(), end_index - begin_index);
+            return make_range(b, e);
+        }
+
         const auto size = static_cast<int>(r.size());
 
         begin_index = adjust_index(begin_index, size);
@@ -77,28 +97,6 @@ struct py_slice_t
         }
 
         return make_range(r.end(), r.end());
-    }
-};
-
-struct slice_t
-{
-    template
-        < class Range
-        , CONCEPT = cc::InputRange<Range>>
-    auto operator ()(Range&& range, int begin_index, int end_index) const
-    {
-        auto b = std::begin(range);
-        auto e = std::end(range);
-
-        auto count = end_index - begin_index;
-        if (count <= 0)
-        {
-            return make_range(e, e);
-        }
-
-        auto begin = advance(b, e, begin_index);
-        auto end = advance(begin, e, count);
-        return make_range(begin, end);
     }
 };
 
@@ -217,8 +215,6 @@ static constexpr detail::take_exactly_t take_exactly = {};
 static constexpr detail::drop_exactly_t drop_exactly = {};
 static constexpr detail::take_back_exactly_t take_back_exactly = {};
 static constexpr detail::drop_back_exactly_t drop_back_exactly = {};
-
-static constexpr detail::py_slice_t py_slice = {};
 
 } /* namespace cpp_essentials::core */
 

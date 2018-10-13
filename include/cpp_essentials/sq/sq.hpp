@@ -121,7 +121,6 @@ PULL_ADAPTABLE(take_exactly);
 PULL_ADAPTABLE(drop_exactly);
 PULL_ADAPTABLE(take_back_exactly);
 PULL_ADAPTABLE(drop_back_exactly);
-PULL_ADAPTABLE(py_slice);
 
 PULL_ADAPTABLE(stride);
 

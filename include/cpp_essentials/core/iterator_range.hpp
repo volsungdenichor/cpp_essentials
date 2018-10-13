@@ -147,10 +147,23 @@ public:
     }
 
 
-    template <class Container, CONCEPT = cc::Constructible<Container, Iter, Iter>>
+    template <class Container, CONCEPT = cc::Constructible<Container, iterator, iterator>>
     operator Container() const
     {
         return { begin(), end() };
+    }
+
+    template <size_t Index>
+    auto get() const -> iterator
+    {
+        if constexpr (Index == 0)
+        {
+            return begin();
+        }
+        else if constexpr (Index == 1)
+        {
+            return end();
+        }
     }
 
 private:
@@ -221,5 +234,16 @@ struct make_range_t
 static constexpr make_range_t make_range = {};
 
 } /* namespace cpp_essentials::core */
+
+namespace std
+{
+
+template <class Iter>
+struct tuple_size<::cpp_essentials::core::iterator_range<Iter>> : std::integral_constant<size_t, 2> { };
+
+template <size_t Index, class Iter>
+struct tuple_element<Index, ::cpp_essentials::core::iterator_range<Iter>> { using type = Iter; };
+
+} /* namespace std */
 
 #endif /* CPP_ESSENTIALS_CORE_ITERATOR_RANGE_HPP_ */

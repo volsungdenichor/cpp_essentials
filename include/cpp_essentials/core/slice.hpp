@@ -107,8 +107,7 @@ struct take_t
         , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return make_range(b, advance(b, e, count));
     }
 };
@@ -120,8 +119,7 @@ struct drop_t
         , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return make_range(advance(b, e, count), e);
     }
 };
@@ -133,8 +131,7 @@ struct take_back_t
         , CONCEPT = cc::BidirectionalRange<Range>>
     auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return make_range(advance_back(b, e, count), e);
     }
 };
@@ -146,8 +143,7 @@ struct drop_back_t
         , CONCEPT = cc::BidirectionalRange<Range>>
     auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return make_range(b, advance_back(b, e, count));
     }
 };
@@ -159,8 +155,7 @@ struct take_exactly_t
         , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return make_range(b, advance_exactly(b, e, count));
     }
 };
@@ -172,8 +167,7 @@ struct drop_exactly_t
         , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return make_range(advance_exactly(b, e, count), e);
     }
 };
@@ -185,8 +179,7 @@ struct take_back_exactly_t
         , CONCEPT = cc::BidirectionalRange<Range>>
     auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return make_range(advance_back_exactly(b, e, count), e);
     }
 };
@@ -198,8 +191,7 @@ struct drop_back_exactly_t
         , CONCEPT = cc::BidirectionalRange<Range>>
     auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return make_range(b, advance_back_exactly(b, e, count));
     }
 };

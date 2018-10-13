@@ -19,8 +19,7 @@ struct stride_t
         , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, int step) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return make_range(
             stride_iterator{ b, step, e },
             stride_iterator{ e, step, e });

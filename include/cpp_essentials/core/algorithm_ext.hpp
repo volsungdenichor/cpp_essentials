@@ -28,6 +28,18 @@ Iter copy_while(Iter first, Iter last, OutputIter output, UnaryPred pred)
     return first;
 }
 
+template <class Iter>
+bool is_not_empty(Iter b, Iter e)
+{
+    return b != e;
+}
+
+template <class Iter>
+bool is_single(Iter b, Iter e)
+{
+    return b != e && std::next(b) == e;
+}
+
 struct front_t
 {
     template
@@ -37,7 +49,7 @@ struct front_t
     {
         auto b = std::begin(range);
         auto e = std::end(range);
-        EXPECTS(b != e, "empty range");
+        EXPECTS(is_not_empty(b, e), "empty range");
         return *b;
     }
 };
@@ -53,7 +65,7 @@ struct front_or_throw_t
     {
         auto b = std::begin(range);
         auto e = std::end(range);
-        if (b == e)
+        if (!is_not_empty(b, e));
         {
             throw exception;
         }
@@ -79,7 +91,7 @@ struct front_or_t
     {
         auto b = std::begin(range);
         auto e = std::end(range);
-        return b != e ? *b : default_value;
+        return is_not_empty(b, e) ? *b : default_value;
     }
 };
 
@@ -92,7 +104,7 @@ struct front_or_default_t
     {
         auto b = std::begin(range);
         auto e = std::end(range);
-        return b != e ? *b : cc::range_val<Range>{};
+        return is_not_empty(b, e) ? *b : cc::range_val<Range>{};
     }
 };
 
@@ -107,7 +119,7 @@ struct front_or_eval_t
     {
         auto b = std::begin(range);
         auto e = std::end(range);
-        return b != e ? *b : func();
+        return is_not_empty(b, e) ? *b : func();
     }
 };
 
@@ -120,7 +132,103 @@ struct front_or_none_t
     {
         auto b = std::begin(range);
         auto e = std::end(range);
-        return eval_optional(b != e, [&]() -> decltype(auto) { return *b; });
+        return eval_optional(is_not_empty(b, e), [&]() -> decltype(auto) { return *b; });
+    }
+};
+
+struct single_t
+{
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    decltype(auto) operator ()(Range&& range) const
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+        EXPECTS(is_single(b, e), "zero or more than one element");
+        return *b;
+    }
+};
+
+struct single_or_throw_t
+{
+    template
+        < class Range
+        , class Exception
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::BaseOf<std::exception, Exception>>
+    decltype(auto) operator ()(Range&& range, const Exception& exception) const
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+        if (!is_single(b, e))
+        {
+            throw exception;
+        }
+        return *b;
+    }
+
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    decltype(auto) operator ()(Range&& range, const std::string& message) const
+    {
+        return (*this)(range, std::runtime_error{ message });
+    }
+};
+
+struct single_or_t
+{
+    template
+        < class Range
+        , class T
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range, const T& default_value) const
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+        return is_single(b, e) ? *b : default_value;
+    }
+};
+
+struct single_or_default_t
+{
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range) const
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+        return is_single(b, e) ? *b : cc::range_val<Range>{};
+    }
+};
+
+struct single_or_eval_t
+{
+    template
+        < class Range
+        , class Func
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::NullaryFunction<Func>>
+    auto operator ()(Range&& range, Func func) const
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+        return is_single(b, e) ? *b : func();
+    }
+};
+
+struct single_or_none_t
+{
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range) const -> decltype(auto)
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+        return eval_optional(is_single(b, e), [&]() -> decltype(auto) { return *b; });
     }
 };
 
@@ -255,6 +363,12 @@ static constexpr detail::front_or_t front_or = {};
 static constexpr detail::front_or_default_t front_or_default = {};
 static constexpr detail::front_or_eval_t front_or_eval = {};
 static constexpr detail::front_or_none_t front_or_none = {};
+static constexpr detail::single_t single = {};
+static constexpr detail::single_or_throw_t single_or_throw = {};
+static constexpr detail::single_or_t single_or = {};
+static constexpr detail::single_or_default_t single_or_default = {};
+static constexpr detail::single_or_eval_t single_or_eval = {};
+static constexpr detail::single_or_none_t single_or_none = {};
 static constexpr detail::size_t size = {};
 static constexpr detail::empty_t empty = {};
 static constexpr detail::non_empty_t non_empty = {};

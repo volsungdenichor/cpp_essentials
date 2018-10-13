@@ -1,9 +1,13 @@
 #ifndef CPP_ESSENTIALS_CORE_DETAIL_NIL_HPP_
 #define CPP_ESSENTIALS_CORE_DETAIL_NIL_HPP_
 
-#include <cstddef>
-#include <limits>
+namespace cpp_essentials
+{
 
-static constexpr int nil = std::numeric_limits<int>::max();
+struct nil_t {};
+
+static constexpr nil_t nil = {};
+
+} /* namespace cpp_essentials */
 
 #endif /* CPP_ESSENTIALS_CORE_DETAIL_NIL_HPP_ */

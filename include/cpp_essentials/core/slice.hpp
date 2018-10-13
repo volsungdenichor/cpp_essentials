@@ -15,6 +15,49 @@ namespace detail
 
 struct py_slice_t
 {
+    int adjust_index(int index, int size) const
+    {
+        return clamp(index >= 0 ? index : index + size, 0, size);
+    }
+
+    template
+        < class Range
+        , CONCEPT = cc::ForwardRange<Range>>
+    auto operator ()(Range&& range, nil_t /* begin_index */, nil_t /* end_index */) const
+    {
+        return make_range(range);        
+    }
+
+    template
+        < class Range
+        , CONCEPT = cc::ForwardRange<Range>>
+    auto operator ()(Range&& range, int begin_index, nil_t /* end_index */) const
+    {
+        const auto r = make_range(range);
+        const auto size = static_cast<int>(r.size());
+
+        begin_index = adjust_index(begin_index, size);
+
+        return begin_index >= 0
+            ? make_range(std::next(r.begin(), begin_index), r.end())
+            : make_range(r.end(), r.end());
+    }
+
+    template
+        < class Range
+        , CONCEPT = cc::ForwardRange<Range>>
+    auto operator ()(Range&& range, nil_t /* begin_index */, int end_index) const
+    {
+        const auto r = make_range(range);
+        const auto size = static_cast<int>(r.size());
+
+        end_index = adjust_index(end_index, size);
+
+        return end_index >= 0
+            ? make_range(r.begin(), std::next(r.begin(), end_index))
+            : make_range(r.end(), r.end());
+    }
+
     template
         < class Range
         , CONCEPT = cc::ForwardRange<Range>>
@@ -23,13 +66,8 @@ struct py_slice_t
         const auto r = make_range(range);
         const auto size = static_cast<int>(r.size());
 
-        const auto adjust_index = [](auto index, auto size)
-        {
-            return clamp(index >= 0 ? index : index + size, 0, size);
-        };
-
-        begin_index = begin_index == nil ? 0 : adjust_index(begin_index, size);
-        end_index = end_index == nil ? size : adjust_index(end_index, size);
+        begin_index = adjust_index(begin_index, size);
+        end_index = adjust_index(end_index, size);
 
         if (begin_index >= 0 && end_index >= 0 && begin_index < end_index)
         {
@@ -39,7 +77,6 @@ struct py_slice_t
         }
 
         return make_range(r.end(), r.end());
-
     }
 };
 

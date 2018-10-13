@@ -70,7 +70,7 @@ public:
     using value_type = typename traits::value_type;
     using reference = typename traits::reference;
     using difference_type = typename traits::difference_type;
-    using size_type = std::make_unsigned_t<difference_type>;
+    using size_type = difference_type;
 
     iterator_range()
         : iterator_range{ iterator{}, iterator{} }

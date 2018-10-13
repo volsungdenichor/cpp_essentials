@@ -81,8 +81,7 @@ struct serialize_t
         (void)guard;
 
         const auto apply = [&](const auto& item) { os << item; };
-        int dummy[] = { 0, (apply(args), 0)... };
-        (void)dummy;
+        (void)(apply(args), ...);
         return os;
     }
 };

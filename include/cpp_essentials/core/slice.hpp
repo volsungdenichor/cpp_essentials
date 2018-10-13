@@ -15,9 +15,9 @@ namespace detail
 
 struct slice_t
 {
-    int adjust_index(int index, int size) const
+    std::ptrdiff_t adjust_index(std::ptrdiff_t index, std::ptrdiff_t size) const
     {
-        return clamp(index >= 0 ? index : index + size, 0, size);
+        return clamp(index >= 0 ? index : index + size, std::ptrdiff_t{ 0 }, size);
     }
 
     template
@@ -31,7 +31,7 @@ struct slice_t
     template
         < class Range
         , CONCEPT = cc::ForwardRange<Range>>
-    auto operator ()(Range&& range, int begin_index, nil_t /* end_index */) const
+    auto operator ()(Range&& range, std::ptrdiff_t begin_index, nil_t /* end_index */) const
     {
         const auto r = make_range(range);
 
@@ -40,7 +40,7 @@ struct slice_t
             return make_range(advance(r.begin(), r.end(), begin_index), r.end());
         }
         
-        const auto size = static_cast<int>(r.size());
+        const auto size = r.size();
 
         begin_index = adjust_index(begin_index, size);
 
@@ -52,7 +52,7 @@ struct slice_t
     template
         < class Range
         , CONCEPT = cc::ForwardRange<Range>>
-    auto operator ()(Range&& range, nil_t /* begin_index */, int end_index) const
+    auto operator ()(Range&& range, nil_t /* begin_index */, std::ptrdiff_t end_index) const
     {
         const auto r = make_range(range);
 
@@ -61,7 +61,7 @@ struct slice_t
             return make_range(r.begin(), advance(r.begin(), r.end(), end_index));
         }
 
-        const auto size = static_cast<int>(r.size());
+        const auto size = r.size();
 
         end_index = adjust_index(end_index, size);
 
@@ -73,7 +73,7 @@ struct slice_t
     template
         < class Range
         , CONCEPT = cc::ForwardRange<Range>>
-    auto operator ()(Range&& range, int begin_index, int end_index) const
+    auto operator ()(Range&& range, std::ptrdiff_t begin_index, std::ptrdiff_t end_index) const
     {
         const auto r = make_range(range);
 
@@ -84,7 +84,7 @@ struct slice_t
             return make_range(b, e);
         }
 
-        const auto size = static_cast<int>(r.size());
+        const auto size = r.size();
 
         begin_index = adjust_index(begin_index, size);
         end_index = adjust_index(end_index, size);
@@ -105,7 +105,7 @@ struct take_t
     template
         < class Range
         , CONCEPT = cc::InputRange<Range>>
-    auto operator ()(Range&& range, int count) const
+    auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
         auto b = std::begin(range);
         auto e = std::end(range);
@@ -118,7 +118,7 @@ struct drop_t
     template
         < class Range
         , CONCEPT = cc::InputRange<Range>>
-    auto operator ()(Range&& range, int count) const
+    auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
         auto b = std::begin(range);
         auto e = std::end(range);
@@ -131,7 +131,7 @@ struct take_back_t
     template
         < class Range
         , CONCEPT = cc::BidirectionalRange<Range>>
-    auto operator ()(Range&& range, int count) const
+    auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
         auto b = std::begin(range);
         auto e = std::end(range);
@@ -144,7 +144,7 @@ struct drop_back_t
     template
         < class Range
         , CONCEPT = cc::BidirectionalRange<Range>>
-    auto operator ()(Range&& range, int count) const
+    auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
         auto b = std::begin(range);
         auto e = std::end(range);
@@ -157,7 +157,7 @@ struct take_exactly_t
     template
         < class Range
         , CONCEPT = cc::InputRange<Range>>
-    auto operator ()(Range&& range, int count) const
+    auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
         auto b = std::begin(range);
         auto e = std::end(range);
@@ -170,7 +170,7 @@ struct drop_exactly_t
     template
         < class Range
         , CONCEPT = cc::InputRange<Range>>
-    auto operator ()(Range&& range, int count) const
+    auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
         auto b = std::begin(range);
         auto e = std::end(range);
@@ -183,7 +183,7 @@ struct take_back_exactly_t
     template
         < class Range
         , CONCEPT = cc::BidirectionalRange<Range>>
-    auto operator ()(Range&& range, int count) const
+    auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
         auto b = std::begin(range);
         auto e = std::end(range);
@@ -196,7 +196,7 @@ struct drop_back_exactly_t
     template
         < class Range
         , CONCEPT = cc::BidirectionalRange<Range>>
-    auto operator ()(Range&& range, int count) const
+    auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
         auto b = std::begin(range);
         auto e = std::end(range);

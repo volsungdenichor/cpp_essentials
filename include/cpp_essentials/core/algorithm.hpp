@@ -193,8 +193,7 @@ struct find_t
     {
         static constexpr Policy policy = {};
 
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return policy(b, std::find(b, e, value), e);
     }
 };
@@ -214,8 +213,7 @@ struct find_if_t
     {
         static constexpr Policy policy = {};
 
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return policy(b, std::find_if(b, e, std::move(pred)), e);
     }
 };
@@ -235,8 +233,7 @@ struct find_if_not_t
     {
         static constexpr Policy policy = {};
 
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return policy(b, std::find_if_not(b, e, std::move(pred)), e);
     }
 };
@@ -256,8 +253,7 @@ struct find_end_t
     {
         static constexpr Policy policy = {};
 
-        auto b = std::begin(range1);
-        auto e = std::end(range1);
+        auto[b, e] = make_range(range1);
         return policy(b, std::find_end(b, e, std::begin(range2), std::end(range2)), e);
     }
 };
@@ -279,8 +275,7 @@ struct find_first_of_t
     {
         static constexpr Policy policy = {};
 
-        auto b = std::begin(range1);
-        auto e = std::end(range1);
+        auto[b, e] = make_range(range1);
         return policy(b, std::find_first_of(b, e, std::begin(range2), std::end(range2), std::move(pred)), e);
     }
 };
@@ -405,8 +400,7 @@ struct is_heap_until_t
     {
         static constexpr Policy policy = {};
 
-        auto b = std::begin(range);
-        auto e = std::begin(range);
+        auto[b, e] = make_range(range);
         return policy(b, std::is_heap_until(b, e, std::move(compare)), e);
     }
 };
@@ -465,8 +459,7 @@ struct is_sorted_until_t
     {
         static constexpr Policy policy = {};
 
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return policy(b, std::is_sorted_until(b, e, std::move(compare)), e);
     }
 };
@@ -507,8 +500,7 @@ struct lower_bound_t
     {
         static constexpr Policy policy = {};
 
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return policy(b, std::lower_bound(b, e, value, std::move(compare)), e);
     }
 };
@@ -541,8 +533,7 @@ struct max_element_t
     {
         static constexpr Policy policy = {};
 
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return policy(b, std::max_element(b, e, std::move(compare)), e);
     }
 };
@@ -598,8 +589,7 @@ struct minmax_element_t
     {
         static constexpr Policy policy = {};
 
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
 
         auto result = std::minmax_element(b, e, std::move(compare));
 
@@ -622,8 +612,7 @@ struct min_element_t
     {
         static constexpr Policy policy = {};
 
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return policy(b, std::min_element(b, e, std::move(compare)), e);
     }
 };
@@ -645,11 +634,8 @@ struct mismatch_t
     {
         static constexpr Policy policy = {};
 
-        auto b1 = std::begin(range1);
-        auto e1 = std::end(range1);
-
-        auto b2 = std::begin(range2);
-        auto e2 = std::end(range2);
+        auto[b1, e1] = make_range(range1);
+        auto[b2, e2] = make_range(range2);
 
         auto result = std::mismatch(b1, e1, b2, std::move(pred));
 
@@ -739,8 +725,7 @@ struct partial_sort_copy_t
     {
         static constexpr Policy policy = {};
 
-        auto b2 = std::begin(range2);
-        auto e2 = std::end(range2);
+        auto[b2, e2] = make_range(range2);
         return policy(b2, std::partial_sort_copy(std::begin(range1), std::end(range1), b2, e2, std::move(compare)), e2);
     }
 };
@@ -775,8 +760,7 @@ struct partition_t
     {
         static constexpr Policy policy = {};
 
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return policy(b, std::partition(b, e, std::move(pred)), e);
     }
 };
@@ -813,8 +797,7 @@ struct stable_partition_t
     {
         static constexpr Policy policy = {};
 
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return policy(b, std::stable_partition(b, e, std::move(pred)), e);
     }
 };
@@ -860,8 +843,7 @@ struct remove_t
     {
         static constexpr Policy policy = {};
 
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return policy(b, std::remove(b, e, value), e);
     }
 };
@@ -881,8 +863,7 @@ struct remove_if_t
     {
         static constexpr Policy policy = {};
 
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return policy(b, std::remove_if(b, e, std::move(pred)), e);
     }
 };
@@ -1014,8 +995,7 @@ struct rotate_t
     {
         static constexpr Policy policy = {};
 
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return policy(b, std::rotate(b, middle, e), e);
     }
 };
@@ -1050,8 +1030,7 @@ struct search_t
     {
         static constexpr Policy policy = {};
 
-        auto b = std::begin(range1);
-        auto e = std::end(range1);
+        auto[b, e] = make_range(range1);
         return policy(b, std::search(b, e, std::begin(range2), std::end(range2), std::move(pred)), e);
     }
 };
@@ -1074,8 +1053,7 @@ struct search_n_t
     {
         static constexpr Policy policy = {};
 
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return policy(b, std::search_n(b, e, size, value, std::move(pred)), e);
     }
 };
@@ -1255,8 +1233,7 @@ struct unique_t
     {
         static constexpr Policy policy = {};
 
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return policy(b, std::unique(b, e, std::move(pred)), e);
     }
 };
@@ -1292,8 +1269,7 @@ struct upper_bound_t
     {
         static constexpr Policy policy = {};
 
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return policy(b, std::upper_bound(b, e, value, std::move(compare)), e);
     }
 };

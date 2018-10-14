@@ -68,7 +68,8 @@ TEST_CASE("equal")
 
 TEST_CASE("equal_range")
 {
-    // TODO
+    auto vect = vec(1, 2, 3, 4, 5, 6, 7);
+    REQUIRE(core::equal_range(vect, 4) == vec(4));
 }
 
 TEST_CASE("fill")
@@ -152,4 +153,16 @@ TEST_CASE("sort")
     auto vect = vec(3, 5, 1, 2, 4, 0);
     core::sort(vect);
     REQUIRE(vect == vec(0, 1, 2, 3, 4, 5));
+}
+
+TEST_CASE("lower_bound")
+{
+    auto vect = vec(1, 2, 3, 4, 5, 6, 7);
+    REQUIRE(core::lower_bound(vect, 4) == vec(4, 5, 6, 7));
+}
+
+TEST_CASE("upper_bound")
+{
+    auto vect = vec(1, 2, 3, 4, 5, 6, 7);
+    REQUIRE(core::upper_bound(vect, 4) == vec(5, 6, 7));
 }

@@ -179,6 +179,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\elementwise.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\filter.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\flatten.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\format.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\function_defs.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\exceptions.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\functors.hpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\serialization.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\slice.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\stride.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\string_functors.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\string_views.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\tagged_value.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\trim.hpp" />

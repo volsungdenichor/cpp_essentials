@@ -65,7 +65,7 @@ struct front_or_throw_t
     {
         auto b = std::begin(range);
         auto e = std::end(range);
-        if (!is_not_empty(b, e));
+        if (!is_not_empty(b, e))
         {
             throw exception;
         }

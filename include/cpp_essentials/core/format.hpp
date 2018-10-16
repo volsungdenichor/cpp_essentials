@@ -12,7 +12,7 @@
 #include <cpp_essentials/core/filter.hpp>
 #include <cpp_essentials/core/containers.hpp>
 #include <cpp_essentials/core/serialization.hpp>
-#include <cpp_essentials/core/function_defs.hpp>
+#include <cpp_essentials/core/string_functors.hpp>
 
 namespace cpp_essentials::core
 {
@@ -268,10 +268,8 @@ inline void write_argument(std::ostream& /*os*/, cstring_view /*fmt*/, int /*ind
 }
 
 inline std::tuple<int, cstring_view> parse_field(cstring_view fmt)
-{
-    static const auto is_blank = [](char ch) { return std::isblank(ch, std::locale{}); };
-    static const auto is_digit = [](char ch) { return std::isblank(ch, std::locale{}); };
-    auto digits_fmt = core::take_while(core::drop_while(fmt, is_blank), is_digit);
+{    
+    auto digits_fmt = core::take_while(core::drop_while(fmt, core::is_blank), core::is_digit);
         
     int index = !digits_fmt.empty()
         ? core::parse<int>(digits_fmt)

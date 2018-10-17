@@ -70,7 +70,7 @@ struct is_lower_t
 
 struct to_upper_t
 {
-    bool operator ()(char ch) const
+    char operator ()(char ch) const
     {
         return std::toupper(ch, std::locale{});
     }
@@ -78,7 +78,7 @@ struct to_upper_t
 
 struct to_lower_t
 {
-    bool operator ()(char ch) const
+    char operator ()(char ch) const
     {
         return std::toupper(ch, std::locale{});
     }

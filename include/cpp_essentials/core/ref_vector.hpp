@@ -161,10 +161,14 @@ public:
         _vect.push_back(&item);
     }
 
+    void push_back(value_type&&) = delete;
+
     void insert(iterator pos, reference item)
     {
         _vect.insert(to_inner_iter(pos), &item);
     }
+
+    void insert(iterator, value_type&&) = delete;
 
     void erase(iterator b, iterator e)
     {

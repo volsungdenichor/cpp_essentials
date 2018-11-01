@@ -133,7 +133,7 @@ template <class T, size_t D>
 auto operator -(const polynomial<T, D>& item) -> polynomial<T, D>
 {
     polynomial<T, D> result(item);
-    core::transform(result._data, result._data.begin(), negate);
+    core::transform(result._data, result._data.begin(), core::negate);
     return result;
 }
 
@@ -283,9 +283,7 @@ struct root_t
     template <class T>
     auto operator ()(const polynomial<T, 2>& polynomial) const -> core::optional<std::array<T, 2>>
     {
-        const auto a = polynomial[2];
-        const auto b = polynomial[1];
-        const auto c = polynomial[0];
+        const auto [a, b, c] = polynomial._data;        
 
         const auto delta = sqr(b) - 4 * a * c;
 

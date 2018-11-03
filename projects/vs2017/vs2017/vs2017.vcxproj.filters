@@ -228,6 +228,12 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\matrix.hpp">
       <Filter>Header Files\cpp_essentials\geo</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\math\detail\matrix.operations.hpp">
+      <Filter>Header Files\cpp_essentials\math\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\math\detail\vector.operations.hpp">
+      <Filter>Header Files\cpp_essentials\math\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

@@ -213,6 +213,8 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\math\detail\matrix.arithmetics.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\detail\matrix.base.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\detail\matrix.creation.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\math\detail\matrix.operations.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\math\detail\vector.operations.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\functors.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\matrix.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\polynomial.hpp" />

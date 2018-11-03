@@ -26,6 +26,25 @@ using math::identity;
 using math::ones;
 using math::zeros;
 
+using math::minor;
+using math::determinant;
+using math::is_invertible;
+using math::invert;
+using math::transpose;
+
+using math::dot;
+using math::norm;
+using math::length;
+using math::normalize;
+using math::unit;
+using math::distance;
+using math::cross;
+using math::projection;
+using math::rejection;
+using math::perpendicular;
+using math::angle;
+using math::bisector;
+
 } /* namespace cpp_essentials::geo */
 
 #endif /* CPP_ESSENTIALS_GEO_MATRIX_HPP_ */

@@ -129,3 +129,33 @@ TEST_CASE("matrix::elementwise")
     REQUIRE(math::elementwise_multiply(a, b) == math::make_vector(5.0, 4.5));
     REQUIRE(math::elementwise_divide(b, a) == math::make_vector(1.25, 0.5));
 }
+
+TEST_CASE("matrix minor")
+{
+    math::square_matrix_2d<int> m{ { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+    REQUIRE(math::minor(m, 1, 1) == math::matrix<int, 2, 2>{ { 1, 3 }, { 7, 9 }});
+}
+
+TEST_CASE("matrix determinant")
+{
+    math::square_matrix_2d<int> m{ { 1, 1, 2 }, { 1, 0, 3 }, { 2, 2, 9 } };
+    REQUIRE(math::determinant(m) == -5);
+}
+
+TEST_CASE("matrix is_invertible")
+{
+    math::square_matrix_2d<int> m{ { 1, 1, 2 }, { 1, 0, 3 }, { 2, 2, 9 } };
+    REQUIRE(math::is_invertible(m) == true);
+}
+
+TEST_CASE("matrix invert")
+{
+    math::square_matrix_2d<int> m{ { 1, 1, 2 }, { 1, 0, 3 }, { 2, 2, 9 } };
+    REQUIRE(*math::invert(m) == math::square_matrix_2d<int>{ { 1, 1, 0 }, { 0, -1, 0 }, { 0, 0, 0 } });
+}
+
+TEST_CASE("matrix transpose")
+{
+    math::matrix<int, 2, 3> m{ { 1, 1, 2 }, { 1, 0, 3 } };
+    REQUIRE(math::transpose(m) == math::matrix<int, 3, 2>{ { 1, 1 }, { 1, 0 }, { 2, 3 } });
+}

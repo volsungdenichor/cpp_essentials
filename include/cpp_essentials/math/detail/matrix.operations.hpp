@@ -1,140 +1,159 @@
-#ifndef GEO_MATRIX_OPERATIONS_HPP_
-#define GEO_MATRIX_OPERATIONS_HPP_
+#ifndef CPP_ESSENTIALS_MATH_DETAIL_MATRIX_OPERATIONS_HPP_
+#define CPP_ESSENTIALS_MATH_DETAIL_MATRIX_OPERATIONS_HPP_
 
-#include <core/assertions.hpp>
-#include <core/optional.hpp>
+#pragma once
 
-#include <geo/matrix.base.hpp>
-#include <geo/matrix.access.hpp>
+#include <cpp_essentials/core/assertions.hpp>
+#include <cpp_essentials/core/optional.hpp>
+
+#include <cpp_essentials/math/detail/matrix.base.hpp>
+#include <cpp_essentials/math/detail/matrix.access.hpp>
 
 #ifdef __GNUC__
 #  undef minor
 #endif
 
-namespace geo
+namespace cpp_essentials::math
 {
 
-template <class T, size_t R, size_t C>
-auto minor(const matrix<T, R, C>& item, size_t row, size_t col)
+namespace detail
 {
-    static_assert(R > 1, "minor: invalid row.");
-    static_assert(C > 1, "minor: invalid col.");
 
-    EXPECTS(row < R);
-    EXPECTS(col < C);
-
-    matrix<T, R - 1, C - 1> result;
-
-    for (size_t r = 0; r < result.row_count(); ++r)
+struct minor_t
+{
+    template <class T, size_t R, size_t C>
+    auto operator ()(const matrix<T, R, C>& item, size_t row, size_t col) const -> matrix<T, R - 1, C - 1>
     {
-        for (size_t c = 0; c < result.col_count(); ++c)
+        static_assert(R > 1, "minor: invalid row.");
+        static_assert(C > 1, "minor: invalid col.");
+
+        EXPECTS(row < R);
+        EXPECTS(col < C);
+
+        matrix<T, R - 1, C - 1> result;
+
+        for (size_t r = 0; r < result.row_count(); ++r)
         {
-            result(r, c) = item(r + (r < row ? 0 : 1), c + (c < col ? 0 : 1));
+            for (size_t c = 0; c < result.col_count(); ++c)
+            {
+                result(r, c) = item(r + (r < row ? 0 : 1), c + (c < col ? 0 : 1));
+            }
         }
+
+        return result;
+    }
+};
+
+struct determinant_t
+{
+    template <class T>
+    auto operator ()(const square_matrix<T, 1>& item) const
+    {
+        return get<0, 0>(item);
     }
 
-    return result;
-}
-
-template <size_t Row, size_t Col, class T, size_t R, size_t C>
-auto minor(const matrix<T, R, C>& item)
-{
-    static_assert(Row < R, "minor: invalid row.");
-    static_assert(Col < C, "minor: invalid col.");
-
-    return minor(item, Row, Col);
-}
-
-
-
-template <class T>
-auto determinant(const square_matrix<T, 1>& item)
-{
-    return get<0, 0>(item);
-}
-
-template <class T>
-auto determinant(const square_matrix<T, 2>& item)
-{
-    return
-        + get<0, 0>(item) * get<1, 1>(item)
-        - get<0, 1>(item) * get<1, 0>(item);
-}
-
-template <class T>
-auto determinant(const square_matrix<T, 3>& item)
-{
-    return
-        + get<0, 0>(item) * get<1, 1>(item) * get<2, 2>(item)
-        + get<0, 1>(item) * get<1, 2>(item) * get<2, 0>(item)
-        + get<0, 2>(item) * get<1, 0>(item) * get<2, 1>(item)
-        - get<0, 2>(item) * get<1, 1>(item) * get<2, 0>(item)
-        - get<0, 0>(item) * get<1, 2>(item) * get<2, 1>(item)
-        - get<0, 1>(item) * get<1, 0>(item) * get<2, 2>(item);
-}
-
-template <class T, size_t D>
-auto determinant(const square_matrix<T, D>& item)
-{
-    auto sum = T {};
-
-    for (size_t i = 0; i < D; ++i)
+    template <class T>
+    auto operator ()(const square_matrix<T, 2>& item) const
     {
-        sum += (i % 2 == 0 ? 1 : -1) * item(0, i) * determinant(minor(item, 0, i));
+        return
+            + get<0, 0>(item) * get<1, 1>(item)
+            - get<0, 1>(item) * get<1, 0>(item);
     }
 
-    return sum;
-}
-
-
-
-template <class T, size_t D>
-bool is_invertible(const square_matrix<T, D>& value)
-{
-    return determinant(value);
-}
-
-template <class T, size_t D>
-auto invert(const square_matrix<T, D>& value) -> core::optional<square_matrix<T, D>>
-{
-    auto det = determinant(value);
-
-    if (!det)
+    template <class T>
+    auto operator ()(const square_matrix<T, 3>& item) const
     {
-        return{};
+        return
+            + get<0, 0>(item) * get<1, 1>(item) * get<2, 2>(item)
+            + get<0, 1>(item) * get<1, 2>(item) * get<2, 0>(item)
+            + get<0, 2>(item) * get<1, 0>(item) * get<2, 1>(item)
+            - get<0, 2>(item) * get<1, 1>(item) * get<2, 0>(item)
+            - get<0, 0>(item) * get<1, 2>(item) * get<2, 1>(item)
+            - get<0, 1>(item) * get<1, 0>(item) * get<2, 2>(item);
     }
 
-    square_matrix<T, D> result;
-
-    for (size_t r = 0; r < D; ++r)
+    template <class T, size_t D>
+    auto operator ()(const square_matrix<T, D>& item) const
     {
-        for (size_t c = 0; c < D; ++c)
+        static constexpr minor_t minor = {};
+
+        auto sum = T{};
+
+        for (size_t i = 0; i < D; ++i)
         {
-            result(c, r) = T((r + c) % 2 == 0 ? 1 : -1) * determinant(minor(value, r, c)) / det;
+            sum += (i % 2 == 0 ? 1 : -1) * item(0, i) * (*this)(minor(item, 0, i));
         }
+
+        return sum;
     }
+};
 
-    return result;
-}
-
-
-
-template <class T, size_t R, size_t C>
-auto transpose(const matrix<T, R, C>& item)
+struct is_invertible_t
 {
-    matrix<T, C, R> result;
-
-    for (size_t r = 0; r < item.row_count(); ++r)
+    template <class T, size_t D>
+    bool operator ()(const square_matrix<T, D>& value) const
     {
-        for (size_t c = 0; c < item.col_count(); ++c)
-        {
-            result(c, r) = item(r, c);
-        }
+        static constexpr determinant_t determinant = {};
+        return determinant(value);
     }
+};
 
-    return result;
-}
+struct invert_t
+{
+    template <class T, size_t D>
+    auto operator ()(const square_matrix<T, D>& value) const -> core::optional<square_matrix<T, D>>
+    {
+        static constexpr determinant_t determinant = {};
+        static constexpr minor_t minor = {};
 
-} /* namespace geo */
+        auto det = determinant(value);
 
-#endif /* GEO_MATRIX_OPERATIONS_HPP_ */
+        if (!det)
+        {
+            return{};
+        }
+
+        square_matrix<T, D> result;
+
+        for (size_t r = 0; r < D; ++r)
+        {
+            for (size_t c = 0; c < D; ++c)
+            {
+                result(c, r) = T((r + c) % 2 == 0 ? 1 : -1) * determinant(minor(value, r, c)) / det;
+            }
+        }
+
+        return result;
+    }
+};
+
+struct transpose_t
+{
+    template <class T, size_t R, size_t C>
+    auto operator ()(const matrix<T, R, C>& item) const -> matrix<T, C, R>
+    {
+        matrix<T, C, R> result;
+
+        for (size_t r = 0; r < item.row_count(); ++r)
+        {
+            for (size_t c = 0; c < item.col_count(); ++c)
+            {
+                result(c, r) = item(r, c);
+            }
+        }
+
+        return result;
+    }
+};
+
+} /* namespace detail */
+
+static constexpr detail::minor_t minor = {};
+static constexpr detail::determinant_t determinant = {};
+static constexpr detail::is_invertible_t is_invertible = {};
+static constexpr detail::invert_t invert = {};
+static constexpr detail::transpose_t transpose = {};
+
+} /* namespace cpp_essentials::math */
+
+#endif /* CPP_ESSENTIALS_MATH_DETAIL_MATRIX_OPERATIONS_HPP_ */

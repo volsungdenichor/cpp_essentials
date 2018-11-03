@@ -42,7 +42,7 @@ const auto& get(const matrix<T, R, C>& item)
 
     static const size_t index = Row * C + Col;
 
-    return std::get<index>(item.data());
+    return std::get<index>(item._data);
 }
 
 template <size_t Row, size_t Col, class T, size_t R, size_t C>
@@ -53,7 +53,7 @@ auto& get(matrix<T, R, C>& item)
 
     static const size_t index = Row * C + Col;
 
-    return std::get<index>(item.data());
+    return std::get<index>(item._data);
 }
 
 
@@ -63,7 +63,7 @@ const auto& get(const matrix<T, R, C>& item)
 {
     static_assert(Index < (R * C), "matrix get: invalid index");
 
-    return std::get<Index>(item.data());
+    return std::get<Index>(item._data);
 }
 
 template <size_t Index, class T, size_t R, size_t C>
@@ -71,7 +71,7 @@ auto& get(matrix<T, R, C>& item)
 {
     static_assert(Index < (R * C), "matrix get: invalid index");
 
-    return std::get<Index>(item.data());
+    return std::get<Index>(item._data);
 }
 
 } /* namespace cpp_essentials::math */

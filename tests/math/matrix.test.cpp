@@ -29,6 +29,14 @@ TEST_CASE("matrix copy")
     REQUIRE(actual == original);
 }
 
+TEST_CASE("matrix assignment")
+{
+    math::square_matrix_2d<int> original = { { 1, 1, 1 }, { 2, 2, 2 }, { 3, 3, 3 } };
+    math::square_matrix_2d<float> actual;
+    actual = original;
+    REQUIRE(actual == original);
+}
+
 TEST_CASE("matrix plus")
 {
     math::square_matrix_2d<int> original = { { 1, 1, 1 }, { 2, 2, 2 }, { 3, 3, 3 } };

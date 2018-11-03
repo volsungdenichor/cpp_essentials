@@ -34,6 +34,9 @@
     <Filter Include="Header Files\cpp_essentials\math\detail">
       <UniqueIdentifier>{8f3baad9-e5f6-4e80-bf35-ed52ac70bffc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\cpp_essentials\geo">
+      <UniqueIdentifier>{e91939f4-6684-47be-bad5-08b48f3f1ab0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -218,6 +221,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\nil.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\interval.hpp">
+      <Filter>Header Files\cpp_essentials\geo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

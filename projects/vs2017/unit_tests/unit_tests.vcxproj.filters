@@ -21,6 +21,9 @@
     <Filter Include="tests\math">
       <UniqueIdentifier>{10150ebf-127c-4866-aaad-9603505a6eca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tests\geo">
+      <UniqueIdentifier>{a3d60461-66fb-419f-86e9-d64998a6b88a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\3rd_party\catch.hpp">
@@ -87,6 +90,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\tests\math\matrix.test.cpp">
       <Filter>tests\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\tests\geo\interval.tests.cpp">
+      <Filter>tests\geo</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

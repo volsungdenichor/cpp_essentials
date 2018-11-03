@@ -175,6 +175,7 @@
     <ClCompile Include="..\..\..\tests\core\serialization.test.cpp" />
     <ClCompile Include="..\..\..\tests\core\slice.test.cpp" />
     <ClCompile Include="..\..\..\tests\core\zip.test.cpp" />
+    <ClCompile Include="..\..\..\tests\geo\interval.tests.cpp" />
     <ClCompile Include="..\..\..\tests\math\math_functors.test.cpp" />
     <ClCompile Include="..\..\..\tests\math\matrix.test.cpp" />
     <ClCompile Include="main.cpp" />

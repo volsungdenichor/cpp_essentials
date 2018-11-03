@@ -225,6 +225,9 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\interval.hpp">
       <Filter>Header Files\cpp_essentials\geo</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\matrix.hpp">
+      <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

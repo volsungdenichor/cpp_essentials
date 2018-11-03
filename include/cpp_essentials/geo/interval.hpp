@@ -1,6 +1,8 @@
 #ifndef CPP_ESSENTIALS_GEO_INTERVAL_HPP_
 #define CPP_ESSENTIALS_GEO_INTERVAL_HPP_
 
+#pragma once
+
 #include <array>
 #include <vector>
 #include <functional>

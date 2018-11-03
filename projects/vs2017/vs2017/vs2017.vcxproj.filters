@@ -31,6 +31,9 @@
     <Filter Include="Header Files\cpp_essentials\sq">
       <UniqueIdentifier>{b23cacd1-699d-45ed-8a6a-d2a3ef90c53f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\cpp_essentials\math\detail">
+      <UniqueIdentifier>{8f3baad9-e5f6-4e80-bf35-ed52ac70bffc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -98,9 +101,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\slice.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\nil.hpp">
-      <Filter>Header Files\cpp_essentials\core\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\containers.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
@@ -199,6 +199,24 @@
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\format.hpp">
+      <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\math\detail\matrix.access.hpp">
+      <Filter>Header Files\cpp_essentials\math\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\math\detail\matrix.arithmetics.hpp">
+      <Filter>Header Files\cpp_essentials\math\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\math\detail\matrix.base.hpp">
+      <Filter>Header Files\cpp_essentials\math\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\math\detail\matrix.creation.hpp">
+      <Filter>Header Files\cpp_essentials\math\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\math\matrix.hpp">
+      <Filter>Header Files\cpp_essentials\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\nil.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
   </ItemGroup>

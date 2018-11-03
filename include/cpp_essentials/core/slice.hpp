@@ -5,7 +5,7 @@
 
 #include <cpp_essentials/core/functors.hpp>
 #include <cpp_essentials/core/iterator_range.hpp>
-#include <cpp_essentials/core/detail/nil.hpp>
+#include <cpp_essentials/core/nil.hpp>
 
 namespace cpp_essentials::core
 {

@@ -29,6 +29,9 @@
     <ClInclude Include="..\..\..\tests\test_helpers.hpp">
       <Filter>tests</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\3rd_party\json.hpp">
+      <Filter>3rd_party</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -81,6 +84,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\tests\core\zip.test.cpp">
       <Filter>tests\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\tests\math\matrix.test.cpp">
+      <Filter>tests\math</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

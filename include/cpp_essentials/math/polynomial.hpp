@@ -262,7 +262,7 @@ auto operator *(const polynomial<T, D1>& lhs, const polynomial<U, D2>& rhs) -> p
 template <class T, class U, size_t D>
 bool operator ==(const polynomial<T, D>& lhs, const polynomial<U, D>& rhs)
 {
-    return core::equal(lhs, rhs);
+    return core::equal(lhs._data, rhs._data);
 }
 
 template <class T, class U, size_t D>

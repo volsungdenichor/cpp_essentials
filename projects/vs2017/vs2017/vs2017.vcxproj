@@ -218,6 +218,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\math\functors.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\matrix.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\polynomial.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\math\regression.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\sq.hpp" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>

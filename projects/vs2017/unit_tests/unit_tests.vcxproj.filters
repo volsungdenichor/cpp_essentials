@@ -97,5 +97,8 @@
     <ClCompile Include="..\..\..\tests\math\vector.test.cpp">
       <Filter>tests\math</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\tests\math\regression.test.cpp">
+      <Filter>tests\math</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

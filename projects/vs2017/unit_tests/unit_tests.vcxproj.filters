@@ -100,5 +100,11 @@
     <ClCompile Include="..\..\..\tests\math\regression.test.cpp">
       <Filter>tests\math</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\tests\geo\bounding_box.test.cpp">
+      <Filter>tests\geo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\tests\geo\vertex_array.test.cpp">
+      <Filter>tests\geo</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

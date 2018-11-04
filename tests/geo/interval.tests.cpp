@@ -3,6 +3,17 @@
 
 using namespace cpp_essentials;
 
+TEST_CASE("interval properties")
+{
+    auto interval = geo::make_interval(0, 50);
+    REQUIRE(interval.lower() == 0);
+    REQUIRE(interval.upper() == 50);
+    REQUIRE(interval.min() == 0);
+    REQUIRE(interval.max() == 49);
+    REQUIRE(interval.size() == 50);
+    REQUIRE(interval.empty() == false);
+}
+
 TEST_CASE("interval addition")
 {
     auto interval = geo::make_interval(0, 50);

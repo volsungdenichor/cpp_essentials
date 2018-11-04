@@ -37,6 +37,9 @@
     <Filter Include="Header Files\cpp_essentials\geo">
       <UniqueIdentifier>{e91939f4-6684-47be-bad5-08b48f3f1ab0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\cpp_essentials\geo\detail">
+      <UniqueIdentifier>{d0dc678a-05d1-4233-8a81-62092d5601ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -236,6 +239,18 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\math\regression.hpp">
       <Filter>Header Files\cpp_essentials\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\bounding_box.hpp">
+      <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\vertex_array.arithmetics.hpp">
+      <Filter>Header Files\cpp_essentials\geo\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\vertex_array.base.hpp">
+      <Filter>Header Files\cpp_essentials\geo\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\vertex_array.hpp">
+      <Filter>Header Files\cpp_essentials\geo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

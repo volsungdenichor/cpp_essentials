@@ -16,7 +16,7 @@ namespace detail
 {
 
 template <class T>
-struct try_parse_t
+struct try_parse_fn
 {
     template <class Range>
     core::optional<T> operator ()(const Range& text) const
@@ -29,12 +29,13 @@ struct try_parse_t
 };
 
 template <class T>
-struct parse_t
+struct parse_fn
 {
     template <class Range>
     T operator ()(const Range& text) const
     {
-        auto result = try_parse_t<T>{}(text);
+        static constexpr try_parse_fn<T> try_parse = {};
+        auto result = try_parse(text);
         if (!result)
         {
             std::stringstream ss;
@@ -72,7 +73,7 @@ struct ostream_guard
 };
 
 
-struct serialize_t
+struct serialize_fn
 {
     template <class... Args>
     std::ostream& operator ()(std::ostream& os, const Args&... args) const
@@ -86,13 +87,14 @@ struct serialize_t
     }
 };
 
-struct to_string_t
+struct to_string_fn
 {
     template <class... Args>
     std::string operator ()(const Args&... args) const
     {
+        static constexpr serialize_fn serialize = {};
         std::ostringstream ss;
-        serialize_t{}(ss, args...);
+        serialize(ss, args...);
         return ss.str();
     }
 };
@@ -100,13 +102,13 @@ struct to_string_t
 } /* namespace detail */
 
 template <class T>
-static constexpr detail::try_parse_t<T> try_parse = {};
+static constexpr detail::try_parse_fn<T> try_parse = {};
 
 template <class T>
-static constexpr detail::parse_t<T> parse = {};
+static constexpr detail::parse_fn<T> parse = {};
 
-static constexpr detail::serialize_t serialize = {};
-static constexpr detail::to_string_t to_string = {};
+static constexpr detail::serialize_fn serialize = {};
+static constexpr detail::to_string_fn to_string = {};
 
 } /* namespace cpp_essentials::core */
 

@@ -14,7 +14,7 @@ namespace cpp_essentials::math
 namespace detail
 {
 
-struct pow_t
+struct pow_fn
 {
     template <class X, class Y>
     auto operator ()(X x, Y y) const
@@ -32,7 +32,7 @@ struct pow_t
     }
 };
 
-struct sqr_t
+struct sqr_fn
 {
     template <class T>
     auto operator ()(const T& v) const
@@ -41,7 +41,7 @@ struct sqr_t
     }
 };
 
-struct sqrt_t
+struct sqrt_fn
 {
     template <class T>
     auto operator ()(const T& v) const
@@ -50,7 +50,7 @@ struct sqrt_t
     }
 };
 
-struct exp_t
+struct exp_fn
 {
     template <class T>
     auto operator ()(T x) const
@@ -59,7 +59,7 @@ struct exp_t
     }
 };
 
-struct sin_t
+struct sin_fn
 {
     template <class T>
     auto operator ()(T x) const
@@ -68,7 +68,7 @@ struct sin_t
     }
 };
 
-struct cos_t
+struct cos_fn
 {
     template <class T>
     auto operator ()(T x) const
@@ -77,7 +77,7 @@ struct cos_t
     }
 };
 
-struct tan_t
+struct tan_fn
 {
     template <class T>
     auto operator ()(T x) const
@@ -86,7 +86,7 @@ struct tan_t
     }
 };
 
-struct cot_t
+struct cot_fn
 {
     template <class T>
     auto operator ()(T x) const
@@ -95,7 +95,7 @@ struct cot_t
     }
 };
 
-struct acos_t
+struct acos_fn
 {
     template <class T>
     auto operator ()(T x) const
@@ -104,7 +104,7 @@ struct acos_t
     }
 };
 
-struct atan2_t
+struct atan2_fn
 {
     template <class T>
     auto operator ()(T y, T x) const
@@ -113,7 +113,7 @@ struct atan2_t
     }
 };
 
-struct rad_t
+struct rad_fn
 {
     template <class T>
     auto operator ()(T d) const
@@ -123,7 +123,7 @@ struct rad_t
     }
 };
 
-struct deg_t
+struct deg_fn
 {
     template <class T>
     auto operator ()(T r) const
@@ -135,18 +135,18 @@ struct deg_t
 
 } /* namespace detail */
 
-static constexpr detail::pow_t pow = {};
-static constexpr detail::sqr_t sqr = {};
-static constexpr detail::sqrt_t sqrt = {};
-static constexpr detail::exp_t exp = {};
-static constexpr detail::sin_t sin = {};
-static constexpr detail::cos_t cos = {};
-static constexpr detail::tan_t tan = {};
-static constexpr detail::cot_t cot = {};
-static constexpr detail::acos_t acos = {};
-static constexpr detail::atan2_t atan2 = {};
-static constexpr detail::rad_t rad = {};
-static constexpr detail::deg_t deg = {};
+static constexpr detail::pow_fn pow = {};
+static constexpr detail::sqr_fn sqr = {};
+static constexpr detail::sqrt_fn sqrt = {};
+static constexpr detail::exp_fn exp = {};
+static constexpr detail::sin_fn sin = {};
+static constexpr detail::cos_fn cos = {};
+static constexpr detail::tan_fn tan = {};
+static constexpr detail::cot_fn cot = {};
+static constexpr detail::acos_fn acos = {};
+static constexpr detail::atan2_fn atan2 = {};
+static constexpr detail::rad_fn rad = {};
+static constexpr detail::deg_fn deg = {};
 
 } /* namespace cpp_essentials::math */
 

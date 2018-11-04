@@ -19,7 +19,7 @@ namespace cpp_essentials::math
 namespace detail
 {
 
-struct minor_t
+struct minor_fn
 {
     template <class T, size_t R, size_t C>
     auto operator ()(const matrix<T, R, C>& item, size_t row, size_t col) const -> matrix<T, R - 1, C - 1>
@@ -44,7 +44,7 @@ struct minor_t
     }
 };
 
-struct determinant_t
+struct determinant_fn
 {
     template <class T>
     auto operator ()(const square_matrix<T, 1>& item) const
@@ -75,7 +75,7 @@ struct determinant_t
     template <class T, size_t D>
     auto operator ()(const square_matrix<T, D>& item) const
     {
-        static constexpr minor_t minor = {};
+        static constexpr minor_fn minor = {};
 
         auto sum = T{};
 
@@ -88,23 +88,23 @@ struct determinant_t
     }
 };
 
-struct is_invertible_t
+struct is_invertible_fn
 {
     template <class T, size_t D>
     bool operator ()(const square_matrix<T, D>& value) const
     {
-        static constexpr determinant_t determinant = {};
+        static constexpr determinant_fn determinant = {};
         return determinant(value);
     }
 };
 
-struct invert_t
+struct invert_fn
 {
     template <class T, size_t D>
     auto operator ()(const square_matrix<T, D>& value) const -> core::optional<square_matrix<T, D>>
     {
-        static constexpr determinant_t determinant = {};
-        static constexpr minor_t minor = {};
+        static constexpr determinant_fn determinant = {};
+        static constexpr minor_fn minor = {};
 
         auto det = determinant(value);
 
@@ -127,7 +127,7 @@ struct invert_t
     }
 };
 
-struct transpose_t
+struct transpose_fn
 {
     template <class T, size_t R, size_t C>
     auto operator ()(const matrix<T, R, C>& item) const -> matrix<T, C, R>
@@ -148,11 +148,11 @@ struct transpose_t
 
 } /* namespace detail */
 
-static constexpr detail::minor_t minor = {};
-static constexpr detail::determinant_t determinant = {};
-static constexpr detail::is_invertible_t is_invertible = {};
-static constexpr detail::invert_t invert = {};
-static constexpr detail::transpose_t transpose = {};
+static constexpr detail::minor_fn minor = {};
+static constexpr detail::determinant_fn determinant = {};
+static constexpr detail::is_invertible_fn is_invertible = {};
+static constexpr detail::invert_fn invert = {};
+static constexpr detail::transpose_fn transpose = {};
 
 } /* namespace cpp_essentials::math */
 

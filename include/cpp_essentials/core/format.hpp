@@ -339,7 +339,7 @@ void format(std::ostream& os, cstring_view fmt, const Args&... args)
 
 } /* namespace detail */
 
-struct format_t
+struct format_fn
 {
 
     template <class... Args>
@@ -381,10 +381,10 @@ struct format_t
 
 };
 
-static constexpr format_t format = {};
+static constexpr format_fn format = {};
 
 
-struct print_t
+struct print_fn
 {
     template <class... Args>
     std::ostream& operator ()(const std::locale& locale, const char* fmt, const Args&... args) const
@@ -399,7 +399,7 @@ struct print_t
     }
 };
 
-static constexpr print_t print = {};
+static constexpr print_fn print = {};
 
 } /* namespace cpp_essentials::core */
 

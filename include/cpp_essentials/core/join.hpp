@@ -13,7 +13,7 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-struct join_t
+struct join_fn
 {
     template
         < class Range
@@ -26,7 +26,7 @@ struct join_t
 
 } /* namespace detail */
 
-static constexpr detail::join_t join = {};
+static constexpr detail::join_fn join = {};
 
 } /* namespace cpp_essentials::core */
 

@@ -13,7 +13,7 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-struct slice_t
+struct slice_fn
 {
     std::ptrdiff_t adjust_index(std::ptrdiff_t index, std::ptrdiff_t size) const
     {
@@ -100,7 +100,7 @@ struct slice_t
     }
 };
 
-struct take_t
+struct take_fn
 {
     template
         < class Range
@@ -112,7 +112,7 @@ struct take_t
     }
 };
 
-struct drop_t
+struct drop_fn
 {
     template
         < class Range
@@ -124,7 +124,7 @@ struct drop_t
     }
 };
 
-struct take_back_t
+struct take_back_fn
 {
     template
         < class Range
@@ -136,7 +136,7 @@ struct take_back_t
     }
 };
 
-struct drop_back_t
+struct drop_back_fn
 {
     template
         < class Range
@@ -148,7 +148,7 @@ struct drop_back_t
     }
 };
 
-struct take_exactly_t
+struct take_exactly_fn
 {
     template
         < class Range
@@ -160,7 +160,7 @@ struct take_exactly_t
     }
 };
 
-struct drop_exactly_t
+struct drop_exactly_fn
 {
     template
         < class Range
@@ -172,7 +172,7 @@ struct drop_exactly_t
     }
 };
 
-struct take_back_exactly_t
+struct take_back_exactly_fn
 {
     template
         < class Range
@@ -184,7 +184,7 @@ struct take_back_exactly_t
     }
 };
 
-struct drop_back_exactly_t
+struct drop_back_exactly_fn
 {
     template
         < class Range
@@ -198,15 +198,15 @@ struct drop_back_exactly_t
 
 } /* namespace detail */
 
-static constexpr detail::slice_t slice = {};
-static constexpr detail::take_t take = {};
-static constexpr detail::drop_t drop = {};
-static constexpr detail::take_back_t take_back = {};
-static constexpr detail::drop_back_t drop_back = {};
-static constexpr detail::take_exactly_t take_exactly = {};
-static constexpr detail::drop_exactly_t drop_exactly = {};
-static constexpr detail::take_back_exactly_t take_back_exactly = {};
-static constexpr detail::drop_back_exactly_t drop_back_exactly = {};
+static constexpr detail::slice_fn slice = {};
+static constexpr detail::take_fn take = {};
+static constexpr detail::drop_fn drop = {};
+static constexpr detail::take_back_fn take_back = {};
+static constexpr detail::drop_back_fn drop_back = {};
+static constexpr detail::take_exactly_fn take_exactly = {};
+static constexpr detail::drop_exactly_fn drop_exactly = {};
+static constexpr detail::take_back_exactly_fn take_back_exactly = {};
+static constexpr detail::drop_back_exactly_fn drop_back_exactly = {};
 
 } /* namespace cpp_essentials::core */
 

@@ -14,7 +14,7 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-struct range_t
+struct range_fn
 {   
     template <class T>
     auto operator ()(T first, T last) const
@@ -33,7 +33,7 @@ struct range_t
     }
 };
 
-struct inclusive_range_t
+struct inclusive_range_fn
 {
     template <class T>
     auto operator ()(T first, T last) const
@@ -52,7 +52,7 @@ struct inclusive_range_t
     }
 };
 
-struct infinite_range_t
+struct infinite_range_fn
 {
     template <class T = int>
     auto operator ()(T start = {}) const
@@ -65,9 +65,9 @@ struct infinite_range_t
 
 } /* namespace detail */
 
-static constexpr detail::range_t range = {};
-static constexpr detail::inclusive_range_t inclusive_range = {};
-static constexpr detail::infinite_range_t infinite_range = {};
+static constexpr detail::range_fn range = {};
+static constexpr detail::inclusive_range_fn inclusive_range = {};
+static constexpr detail::infinite_range_fn infinite_range = {};
 
 } /* namespace cpp_essentials::core */
 

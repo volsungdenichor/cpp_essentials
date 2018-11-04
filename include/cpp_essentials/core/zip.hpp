@@ -12,7 +12,7 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-struct zip_t
+struct zip_fn
 {
     template
         < class Range1
@@ -31,7 +31,7 @@ struct zip_t
 
 } /* namespace detail */
 
-static constexpr detail::zip_t zip = {};
+static constexpr detail::zip_fn zip = {};
 
 } /* namespace cpp_essentials::core */
 

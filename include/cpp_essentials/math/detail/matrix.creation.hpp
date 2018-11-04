@@ -9,7 +9,7 @@ namespace cpp_essentials::math
 namespace detail
 {
 
-struct make_vector_t
+struct make_vector_fn
 {
     template <class T>
     vector<T, 1> operator ()(T x) const
@@ -61,7 +61,7 @@ struct make_vector_t
     }
 };
 
-struct as_tuple_t
+struct as_tuple_fn
 {
     template <class T>
     std::tuple<T> operator ()(const vector<T, 1>& item) const
@@ -88,7 +88,7 @@ struct as_tuple_t
     }
 };
 
-struct identity_t
+struct identity_fn
 {
 public:
     template <size_t D, class T = double>
@@ -141,10 +141,10 @@ public:
 
 } /* namespace detail */
 
-static constexpr detail::make_vector_t make_vector = {};
-static constexpr detail::as_tuple_t as_tuple = {};
+static constexpr detail::make_vector_fn make_vector = {};
+static constexpr detail::as_tuple_fn as_tuple = {};
 
-static constexpr detail::identity_t identity = {};
+static constexpr detail::identity_fn identity = {};
 static constexpr detail::matrix_builder_t<0> zeros = {};
 static constexpr detail::matrix_builder_t<1> ones = {};
 

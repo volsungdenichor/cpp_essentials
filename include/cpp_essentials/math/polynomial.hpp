@@ -272,7 +272,7 @@ bool operator !=(const polynomial<T, D>& lhs, const polynomial<U, D>& rhs)
 }
 
 
-struct root_t
+struct root_fn
 {
     template <class T>
     auto operator ()(const polynomial<T, 1>& polynomial) const -> core::optional<T>
@@ -299,7 +299,7 @@ struct root_t
     }
 };
 
-static constexpr root_t root = {};
+static constexpr root_fn root = {};
 
 } /* namespace cpp_essentials::math */
 

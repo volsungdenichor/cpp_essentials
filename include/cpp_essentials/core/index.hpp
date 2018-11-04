@@ -37,7 +37,7 @@ struct make_indexed_item
 };
 
 
-struct index_t
+struct index_fn
 {
     template
         < class Range
@@ -50,7 +50,7 @@ struct index_t
 
 } /* namespace detail */
 
-static constexpr detail::index_t index = {};
+static constexpr detail::index_fn index = {};
 
 } /* namespace cpp_essentials::core */
 

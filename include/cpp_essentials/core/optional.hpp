@@ -453,7 +453,7 @@ bool operator !=(none_t, const optional<T>& rhs)
 }
 
 
-struct make_optional_t
+struct make_optional_fn
 {
     template <class T>
     auto operator ()(T value) const
@@ -468,10 +468,10 @@ struct make_optional_t
     }
 };
 
-static constexpr make_optional_t make_optional = {};
+static constexpr make_optional_fn make_optional = {};
 
 
-struct eval_optional_t
+struct eval_optional_fn
 {
     template <class Func>
     auto operator ()(bool condition, Func func) const
@@ -482,7 +482,7 @@ struct eval_optional_t
     }
 };
 
-static constexpr eval_optional_t eval_optional = {};
+static constexpr eval_optional_fn eval_optional = {};
 
 
 

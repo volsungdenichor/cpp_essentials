@@ -64,7 +64,7 @@ auto trim_while(Iter begin, Iter end, UnaryPred&& pred)
     return make_range(b, e);
 }
 
-struct take_while_t
+struct take_while_fn
 {
     template
         < class Range
@@ -77,7 +77,7 @@ struct take_while_t
     }
 };
 
-struct drop_while_t
+struct drop_while_fn
 {
     template
         < class Range
@@ -90,7 +90,7 @@ struct drop_while_t
     }
 };
 
-struct take_until_t
+struct take_until_fn
 {
     template
         < class Range
@@ -103,7 +103,7 @@ struct take_until_t
     }
 };
 
-struct drop_until_t
+struct drop_until_fn
 {
     template
         < class Range
@@ -116,7 +116,7 @@ struct drop_until_t
     }
 };
 
-struct take_back_while_t
+struct take_back_while_fn
 {
     template
         < class Range
@@ -129,7 +129,7 @@ struct take_back_while_t
     }
 };
 
-struct drop_back_while_t
+struct drop_back_while_fn
 {
     template
         < class Range
@@ -142,7 +142,7 @@ struct drop_back_while_t
     }
 };
 
-struct take_back_until_t
+struct take_back_until_fn
 {
     template
         < class Range
@@ -155,7 +155,7 @@ struct take_back_until_t
     }
 };
 
-struct drop_back_until_t
+struct drop_back_until_fn
 {
     template
         < class Range
@@ -168,7 +168,7 @@ struct drop_back_until_t
     }
 };
 
-struct trim_while_t
+struct trim_while_fn
 {
     template
         < class Range
@@ -181,7 +181,7 @@ struct trim_while_t
     }
 };
 
-struct trim_until_t
+struct trim_until_fn
 {
     template
         < class Range
@@ -196,18 +196,18 @@ struct trim_until_t
 
 } /* namespace detail */
 
-static constexpr detail::take_while_t take_while = {};
-static constexpr detail::drop_while_t drop_while = {};
-static constexpr detail::take_until_t take_until = {};
-static constexpr detail::drop_until_t drop_until = {};
+static constexpr detail::take_while_fn take_while = {};
+static constexpr detail::drop_while_fn drop_while = {};
+static constexpr detail::take_until_fn take_until = {};
+static constexpr detail::drop_until_fn drop_until = {};
 
-static constexpr detail::take_back_while_t take_back_while = {};
-static constexpr detail::drop_back_while_t drop_back_while = {};
-static constexpr detail::take_back_until_t take_back_until = {};
-static constexpr detail::drop_back_until_t drop_back_until = {};
+static constexpr detail::take_back_while_fn take_back_while = {};
+static constexpr detail::drop_back_while_fn drop_back_while = {};
+static constexpr detail::take_back_until_fn take_back_until = {};
+static constexpr detail::drop_back_until_fn drop_back_until = {};
 
-static constexpr detail::trim_while_t trim_while = {};
-static constexpr detail::trim_until_t trim_until = {};
+static constexpr detail::trim_while_fn trim_while = {};
+static constexpr detail::trim_until_fn trim_until = {};
 
 } /* namespace cpp_essentials::core */
 

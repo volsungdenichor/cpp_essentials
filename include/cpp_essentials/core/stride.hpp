@@ -12,7 +12,7 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-struct stride_t
+struct stride_fn
 {    
     template
         < class Range
@@ -28,7 +28,7 @@ struct stride_t
 
 } /* namespace detail */
 
-static constexpr detail::stride_t stride = {};
+static constexpr detail::stride_fn stride = {};
 
 } /* namespace cpp_essentials::core */
 

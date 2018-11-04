@@ -13,7 +13,7 @@ namespace cpp_essentials::core
 {
 namespace detail
 {
-struct accumulate_t
+struct accumulate_fn
 {
     template
         < class Range
@@ -27,7 +27,7 @@ struct accumulate_t
     }
 };
 
-struct adjacent_difference_t
+struct adjacent_difference_fn
 {
     template
         < class Range
@@ -42,7 +42,7 @@ struct adjacent_difference_t
     }
 };
 
-struct all_of_t
+struct all_of_fn
 {
     template
         < class Range
@@ -55,7 +55,7 @@ struct all_of_t
     }
 };
 
-struct any_of_t
+struct any_of_fn
 {
     template
         < class Range
@@ -68,7 +68,7 @@ struct any_of_t
     }
 };
 
-struct copy_t
+struct copy_fn
 {
     template
         < class Range
@@ -81,7 +81,7 @@ struct copy_t
     }
 };
 
-struct copy_if_t
+struct copy_if_fn
 {
     template
         < class Range
@@ -96,7 +96,7 @@ struct copy_if_t
     }
 };
 
-struct copy_n_t
+struct copy_n_fn
 {
     template
         < class Range
@@ -111,7 +111,7 @@ struct copy_n_t
     }
 };
 
-struct count_t
+struct count_fn
 {
     template
         < class Range
@@ -123,7 +123,7 @@ struct count_t
     }
 };
 
-struct count_if_t
+struct count_if_fn
 {
     template
         < class Range
@@ -136,7 +136,7 @@ struct count_if_t
     }
 };
 
-struct equal_t
+struct equal_fn
 {
     template
         < class Range1
@@ -151,7 +151,7 @@ struct equal_t
     }
 };
 
-struct equal_range_t
+struct equal_range_fn
 {
     template
         < class Range
@@ -165,7 +165,7 @@ struct equal_range_t
     }
 };
 
-struct fill_t
+struct fill_fn
 {
     template
         < class Range
@@ -179,10 +179,10 @@ struct fill_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct find_t
+struct find_fn
 {   
     template <class P>
-    static constexpr find_t<P> as = {};
+    static constexpr find_fn<P> as = {};
 
     template
         < class Range
@@ -199,10 +199,10 @@ struct find_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct find_if_t
+struct find_if_fn
 {
     template <class P>
-    static constexpr find_if_t<P> as = {};
+    static constexpr find_if_fn<P> as = {};
 
     template
         < class Range
@@ -219,10 +219,10 @@ struct find_if_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct find_if_not_t
+struct find_if_not_fn
 {
     template <class P>
-    static constexpr find_if_not_t<P> as = {};
+    static constexpr find_if_not_fn<P> as = {};
 
     template
         < class Range
@@ -239,10 +239,10 @@ struct find_if_not_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct find_end_t
+struct find_end_fn
 {
     template <class P>
-    static constexpr find_end_t<P> as = {};
+    static constexpr find_end_fn<P> as = {};
 
     template
         < class Range1
@@ -259,10 +259,10 @@ struct find_end_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct find_first_of_t
+struct find_first_of_fn
 {
     template <class P>
-    static constexpr find_first_of_t<P> as = {};
+    static constexpr find_first_of_fn<P> as = {};
 
     template
         < class Range1
@@ -280,7 +280,7 @@ struct find_first_of_t
     }
 };
 
-struct for_each_t
+struct for_each_fn
 {
     template
         < class Range
@@ -293,7 +293,7 @@ struct for_each_t
     }
 };
 
-struct generate_t
+struct generate_fn
 {
     template
         < class Range
@@ -306,7 +306,7 @@ struct generate_t
     }
 };
 
-struct generate_n_t
+struct generate_n_fn
 {
     template
         < class OutputIter
@@ -321,7 +321,7 @@ struct generate_n_t
     }
 };
 
-struct includes_t
+struct includes_fn
 {
     template
         < class Range1
@@ -341,7 +341,7 @@ struct includes_t
     }
 };
 
-struct inner_product_t
+struct inner_product_fn
 {
     template
         < class Range1
@@ -359,7 +359,7 @@ struct inner_product_t
     }
 };
 
-struct iota_t
+struct iota_fn
 {
     template
         < class Range
@@ -372,7 +372,7 @@ struct iota_t
     }
 };
 
-struct is_heap_t
+struct is_heap_fn
 {
     template
         < class Range
@@ -386,10 +386,10 @@ struct is_heap_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct is_heap_until_t
+struct is_heap_until_fn
 {
     template <class P>
-    static constexpr is_heap_until_t<P> as = {};
+    static constexpr is_heap_until_fn<P> as = {};
 
     template
         < class Range
@@ -405,7 +405,7 @@ struct is_heap_until_t
     }
 };
 
-struct is_partitioned_t
+struct is_partitioned_fn
 {
     template
         < class Range
@@ -418,7 +418,7 @@ struct is_partitioned_t
     }
 };
 
-struct is_permutation_t
+struct is_permutation_fn
 {
     template
         < class Range1
@@ -431,7 +431,7 @@ struct is_permutation_t
     }
 };
 
-struct is_sorted_t
+struct is_sorted_fn
 {
     template
         < class Range
@@ -445,10 +445,10 @@ struct is_sorted_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct is_sorted_until_t
+struct is_sorted_until_fn
 {
     template <class P>
-    static constexpr is_sorted_until_t<P> as = {};
+    static constexpr is_sorted_until_fn<P> as = {};
 
     template
         < class Range
@@ -464,7 +464,7 @@ struct is_sorted_until_t
     }
 };
 
-struct lexicographical_compare_t
+struct lexicographical_compare_fn
 {
     template
         < class Range1
@@ -485,10 +485,10 @@ struct lexicographical_compare_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct lower_bound_t
+struct lower_bound_fn
 {
     template <class P>
-    static constexpr lower_bound_t<P> as = {};
+    static constexpr lower_bound_fn<P> as = {};
 
     template
         < class Range
@@ -505,7 +505,7 @@ struct lower_bound_t
     }
 };
 
-struct make_heap_t
+struct make_heap_fn
 {
     template
         < class Range
@@ -519,10 +519,10 @@ struct make_heap_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct max_element_t
+struct max_element_fn
 {
     template <class P>
-    static constexpr max_element_t<P> as = {};
+    static constexpr max_element_fn<P> as = {};
 
     template
         < class Range
@@ -538,7 +538,7 @@ struct max_element_t
     }
 };
 
-struct merge_t
+struct merge_fn
 {
     template
         < class Range1
@@ -561,7 +561,7 @@ struct merge_t
     }
 };
 
-struct inplace_merge_t
+struct inplace_merge_fn
 {
     template
         < class Range
@@ -575,10 +575,10 @@ struct inplace_merge_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct minmax_element_t
+struct minmax_element_fn
 {
     template <class P>
-    static constexpr minmax_element_t<P> as = {};
+    static constexpr minmax_element_fn<P> as = {};
 
     template
         < class Range
@@ -598,10 +598,10 @@ struct minmax_element_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct min_element_t
+struct min_element_fn
 {
     template <class P>
-    static constexpr min_element_t<P> as = {};
+    static constexpr min_element_fn<P> as = {};
 
     template
         < class Range
@@ -618,10 +618,10 @@ struct min_element_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct mismatch_t
+struct mismatch_fn
 {
     template <class P>
-    static constexpr mismatch_t<P> as = {};
+    static constexpr mismatch_fn<P> as = {};
 
     template
         < class Range1
@@ -643,7 +643,7 @@ struct mismatch_t
     }
 };
 
-struct move_t
+struct move_fn
 {
     template
         < class Range
@@ -656,7 +656,7 @@ struct move_t
     }
 };
 
-struct next_permutation_t
+struct next_permutation_fn
 {
     template
         < class Range
@@ -669,7 +669,7 @@ struct next_permutation_t
     }
 };
 
-struct none_of_t
+struct none_of_fn
 {
     template
         < class Range
@@ -682,7 +682,7 @@ struct none_of_t
     }
 };
 
-struct nth_element_t
+struct nth_element_fn
 {
     template
         < class Range
@@ -695,7 +695,7 @@ struct nth_element_t
     }
 };
 
-struct partial_sort_t
+struct partial_sort_fn
 {
     template
         < class Range
@@ -709,10 +709,10 @@ struct partial_sort_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct partial_sort_copy_t
+struct partial_sort_copy_fn
 {
     template <class P>
-    static constexpr partial_sort_copy_t<P> as = {};
+    static constexpr partial_sort_copy_fn<P> as = {};
 
     template
         < class Range1
@@ -730,7 +730,7 @@ struct partial_sort_copy_t
     }
 };
 
-struct partial_sum_t
+struct partial_sum_fn
 {
     template
         < class Range
@@ -746,10 +746,10 @@ struct partial_sum_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct partition_t
+struct partition_fn
 {
     template <class P>
-    static constexpr partition_t<P> as = {};
+    static constexpr partition_fn<P> as = {};
 
     template
         < class Range
@@ -765,7 +765,7 @@ struct partition_t
     }
 };
 
-struct partition_copy_t
+struct partition_copy_fn
 {
     template
         < class Range
@@ -783,10 +783,10 @@ struct partition_copy_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct stable_partition_t
+struct stable_partition_fn
 {
     template <class P>
-    static constexpr stable_partition_t<P> as = {};
+    static constexpr stable_partition_fn<P> as = {};
 
     template
         < class Range
@@ -802,7 +802,7 @@ struct stable_partition_t
     }
 };
 
-struct prev_permutation_t
+struct prev_permutation_fn
 {
     template
         < class Range
@@ -815,7 +815,7 @@ struct prev_permutation_t
     }
 };
 
-struct push_heap_t
+struct push_heap_fn
 {
     template
         < class Range
@@ -829,10 +829,10 @@ struct push_heap_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct remove_t
+struct remove_fn
 {
     template <class P>
-    static constexpr remove_t<P> as = {};
+    static constexpr remove_fn<P> as = {};
 
     template
         < class Range
@@ -849,10 +849,10 @@ struct remove_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct remove_if_t
+struct remove_if_fn
 {
     template <class P>
-    static constexpr remove_if_t<P> as = {};
+    static constexpr remove_if_fn<P> as = {};
 
     template
         < class Range
@@ -868,7 +868,7 @@ struct remove_if_t
     }
 };
 
-struct remove_copy_t
+struct remove_copy_fn
 {
     template
         < class Range
@@ -883,7 +883,7 @@ struct remove_copy_t
     }
 };
 
-struct remove_copy_if_t
+struct remove_copy_if_fn
 {
     template
         < class Range
@@ -898,7 +898,7 @@ struct remove_copy_if_t
     }
 };
 
-struct replace_t
+struct replace_fn
 {
     template
         < class Range
@@ -911,7 +911,7 @@ struct replace_t
     }
 };
 
-struct replace_if_t
+struct replace_if_fn
 {
     template
         < class Range
@@ -926,7 +926,7 @@ struct replace_if_t
     }
 };
 
-struct replace_copy_t
+struct replace_copy_fn
 {
     template
         < class Range
@@ -941,7 +941,7 @@ struct replace_copy_t
     }
 };
 
-struct replace_copy_if_t
+struct replace_copy_if_fn
 {
     template
         < class Range
@@ -958,7 +958,7 @@ struct replace_copy_if_t
     }
 };
 
-struct reverse_t
+struct reverse_fn
 {
     template
         < class Range
@@ -969,7 +969,7 @@ struct reverse_t
     }
 };
 
-struct reverse_copy_t
+struct reverse_copy_fn
 {
     template
         < class Range
@@ -983,10 +983,10 @@ struct reverse_copy_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct rotate_t
+struct rotate_fn
 {
     template <class P>
-    static constexpr rotate_t<P> as = {};
+    static constexpr rotate_fn<P> as = {};
 
     template
         < class Range
@@ -1000,7 +1000,7 @@ struct rotate_t
     }
 };
 
-struct rotate_copy_t
+struct rotate_copy_fn
 {
     template
         < class Range
@@ -1014,10 +1014,10 @@ struct rotate_copy_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct search_t
+struct search_fn
 {
     template <class P>
-    static constexpr search_t<P> as = {};
+    static constexpr search_fn<P> as = {};
 
     template
         < class Range1
@@ -1036,10 +1036,10 @@ struct search_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct search_n_t
+struct search_n_fn
 {
     template <class P>
-    static constexpr search_n_t<P> as = {};
+    static constexpr search_n_fn<P> as = {};
 
     template
         < class Range
@@ -1058,7 +1058,7 @@ struct search_n_t
     }
 };
 
-struct set_difference_t
+struct set_difference_fn
 {
     template
         < class Range1
@@ -1081,7 +1081,7 @@ struct set_difference_t
     }
 };
 
-struct set_intersection_t
+struct set_intersection_fn
 {
     template
         < class Range1
@@ -1104,7 +1104,7 @@ struct set_intersection_t
     }
 };
 
-struct set_symmetric_difference_t
+struct set_symmetric_difference_fn
 {
     template
         < class Range1
@@ -1127,7 +1127,7 @@ struct set_symmetric_difference_t
     }
 };
 
-struct set_union_t
+struct set_union_fn
 {
     template
         < class Range1
@@ -1150,7 +1150,7 @@ struct set_union_t
     }
 };
 
-struct shuffle_t
+struct shuffle_fn
 {
     template
         < class Range
@@ -1163,7 +1163,7 @@ struct shuffle_t
     }
 };
 
-struct sort_t
+struct sort_fn
 {
     template
         < class Range
@@ -1176,7 +1176,7 @@ struct sort_t
     }
 };
 
-struct stable_sort_t
+struct stable_sort_fn
 {
     template
         < class Range
@@ -1189,7 +1189,7 @@ struct stable_sort_t
     }
 };
 
-struct transform_t
+struct transform_fn
 {
     template
         < class Range
@@ -1219,10 +1219,10 @@ struct transform_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct unique_t
+struct unique_fn
 {
     template <class P>
-    static constexpr unique_t<P> as = {};
+    static constexpr unique_fn<P> as = {};
 
     template
         < class Range
@@ -1238,7 +1238,7 @@ struct unique_t
     }
 };
 
-struct unique_copy_t
+struct unique_copy_fn
 {
     template
         < class Range
@@ -1254,10 +1254,10 @@ struct unique_copy_t
 };
 
 template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>>
-struct upper_bound_t
+struct upper_bound_fn
 {
     template <class P>
-    static constexpr upper_bound_t<P> as = {};
+    static constexpr upper_bound_fn<P> as = {};
 
     template
         < class Range
@@ -1276,81 +1276,81 @@ struct upper_bound_t
 
 } /* namespace detail */
 
-static constexpr detail::accumulate_t accumulate = {};
-static constexpr detail::adjacent_difference_t adjacent_difference = {};
-static constexpr detail::all_of_t all_of = {};
-static constexpr detail::any_of_t any_of = {};
-static constexpr detail::copy_t copy = {};
-static constexpr detail::copy_if_t copy_if = {};
-static constexpr detail::copy_n_t copy_n = {};
-static constexpr detail::count_t count = {};
-static constexpr detail::count_if_t count_if = {};
-static constexpr detail::equal_t equal = {};
-static constexpr detail::equal_range_t equal_range = {};
-static constexpr detail::fill_t fill = {};
-static constexpr detail::find_t<> find = {};
-static constexpr detail::find_if_t<> find_if = {};
-static constexpr detail::find_if_not_t<> find_if_not = {};
-static constexpr detail::find_end_t<> find_end = {};
-static constexpr detail::find_first_of_t<> find_first_of = {};
-static constexpr detail::for_each_t for_each = {};
-static constexpr detail::generate_t generate = {};
-static constexpr detail::generate_n_t generate_n = {};
-static constexpr detail::includes_t includes = {};
-static constexpr detail::inner_product_t inner_product = {};
-static constexpr detail::iota_t iota = {};
-static constexpr detail::is_heap_t is_heap = {};
-static constexpr detail::is_heap_until_t<> is_heap_until = {};
-static constexpr detail::is_partitioned_t is_partitioned = {};
-static constexpr detail::is_permutation_t is_permutation = {};
-static constexpr detail::is_sorted_t is_sorted = {};
-static constexpr detail::is_sorted_until_t<> is_sorted_until = {};
-static constexpr detail::lexicographical_compare_t lexicographical_compare = {};
-static constexpr detail::lower_bound_t<> lower_bound = {};
-static constexpr detail::make_heap_t make_heap = {};
-static constexpr detail::max_element_t<> max_element = {};
-static constexpr detail::merge_t merge = {};
-static constexpr detail::inplace_merge_t inplace_merge = {};
-static constexpr detail::minmax_element_t<> minmax_element = {};
-static constexpr detail::min_element_t<> min_element = {};
-static constexpr detail::mismatch_t<> mismatch = {};
-static constexpr detail::move_t move = {};
-static constexpr detail::next_permutation_t next_permutation = {};
-static constexpr detail::none_of_t none_of = {};
-static constexpr detail::nth_element_t nth_element = {};
-static constexpr detail::partial_sort_t partial_sort = {};
-static constexpr detail::partial_sort_copy_t<> partial_sort_copy = {};
-static constexpr detail::partial_sum_t partial_sum = {};
-static constexpr detail::partition_t<> partition = {};
-static constexpr detail::partition_copy_t partition_copy = {};
-static constexpr detail::stable_partition_t<> stable_partition = {};
-static constexpr detail::prev_permutation_t prev_permutation = {};
-static constexpr detail::push_heap_t push_heap = {};
-static constexpr detail::remove_t<> remove = {};
-static constexpr detail::remove_if_t<> remove_if = {};
-static constexpr detail::remove_copy_t remove_copy = {};
-static constexpr detail::remove_copy_if_t remove_copy_if = {};
-static constexpr detail::replace_t replace = {};
-static constexpr detail::replace_if_t replace_if = {};
-static constexpr detail::replace_copy_t replace_copy = {};
-static constexpr detail::replace_copy_if_t replace_copy_if = {};
-static constexpr detail::reverse_t reverse = {};
-static constexpr detail::reverse_copy_t reverse_copy = {};
-static constexpr detail::rotate_t<> rotate = {};
-static constexpr detail::rotate_copy_t rotate_copy = {};
-static constexpr detail::search_t<> search = {};
-static constexpr detail::search_n_t<> search_n = {};
-static constexpr detail::set_difference_t set_difference = {};
-static constexpr detail::set_intersection_t set_intersection = {};
-static constexpr detail::set_symmetric_difference_t set_symmetric_difference = {};
-static constexpr detail::set_union_t set_union = {};
-static constexpr detail::shuffle_t shuffle = {};
-static constexpr detail::sort_t sort = {};
-static constexpr detail::stable_sort_t stable_sort = {};
-static constexpr detail::transform_t transform = {};
-static constexpr detail::unique_t<> unique = {};
-static constexpr detail::unique_copy_t unique_copy = {};
-static constexpr detail::upper_bound_t<> upper_bound = {};
+static constexpr detail::accumulate_fn accumulate = {};
+static constexpr detail::adjacent_difference_fn adjacent_difference = {};
+static constexpr detail::all_of_fn all_of = {};
+static constexpr detail::any_of_fn any_of = {};
+static constexpr detail::copy_fn copy = {};
+static constexpr detail::copy_if_fn copy_if = {};
+static constexpr detail::copy_n_fn copy_n = {};
+static constexpr detail::count_fn count = {};
+static constexpr detail::count_if_fn count_if = {};
+static constexpr detail::equal_fn equal = {};
+static constexpr detail::equal_range_fn equal_range = {};
+static constexpr detail::fill_fn fill = {};
+static constexpr detail::find_fn<> find = {};
+static constexpr detail::find_if_fn<> find_if = {};
+static constexpr detail::find_if_not_fn<> find_if_not = {};
+static constexpr detail::find_end_fn<> find_end = {};
+static constexpr detail::find_first_of_fn<> find_first_of = {};
+static constexpr detail::for_each_fn for_each = {};
+static constexpr detail::generate_fn generate = {};
+static constexpr detail::generate_n_fn generate_n = {};
+static constexpr detail::includes_fn includes = {};
+static constexpr detail::inner_product_fn inner_product = {};
+static constexpr detail::iota_fn iota = {};
+static constexpr detail::is_heap_fn is_heap = {};
+static constexpr detail::is_heap_until_fn<> is_heap_until = {};
+static constexpr detail::is_partitioned_fn is_partitioned = {};
+static constexpr detail::is_permutation_fn is_permutation = {};
+static constexpr detail::is_sorted_fn is_sorted = {};
+static constexpr detail::is_sorted_until_fn<> is_sorted_until = {};
+static constexpr detail::lexicographical_compare_fn lexicographical_compare = {};
+static constexpr detail::lower_bound_fn<> lower_bound = {};
+static constexpr detail::make_heap_fn make_heap = {};
+static constexpr detail::max_element_fn<> max_element = {};
+static constexpr detail::merge_fn merge = {};
+static constexpr detail::inplace_merge_fn inplace_merge = {};
+static constexpr detail::minmax_element_fn<> minmax_element = {};
+static constexpr detail::min_element_fn<> min_element = {};
+static constexpr detail::mismatch_fn<> mismatch = {};
+static constexpr detail::move_fn move = {};
+static constexpr detail::next_permutation_fn next_permutation = {};
+static constexpr detail::none_of_fn none_of = {};
+static constexpr detail::nth_element_fn nth_element = {};
+static constexpr detail::partial_sort_fn partial_sort = {};
+static constexpr detail::partial_sort_copy_fn<> partial_sort_copy = {};
+static constexpr detail::partial_sum_fn partial_sum = {};
+static constexpr detail::partition_fn<> partition = {};
+static constexpr detail::partition_copy_fn partition_copy = {};
+static constexpr detail::stable_partition_fn<> stable_partition = {};
+static constexpr detail::prev_permutation_fn prev_permutation = {};
+static constexpr detail::push_heap_fn push_heap = {};
+static constexpr detail::remove_fn<> remove = {};
+static constexpr detail::remove_if_fn<> remove_if = {};
+static constexpr detail::remove_copy_fn remove_copy = {};
+static constexpr detail::remove_copy_if_fn remove_copy_if = {};
+static constexpr detail::replace_fn replace = {};
+static constexpr detail::replace_if_fn replace_if = {};
+static constexpr detail::replace_copy_fn replace_copy = {};
+static constexpr detail::replace_copy_if_fn replace_copy_if = {};
+static constexpr detail::reverse_fn reverse = {};
+static constexpr detail::reverse_copy_fn reverse_copy = {};
+static constexpr detail::rotate_fn<> rotate = {};
+static constexpr detail::rotate_copy_fn rotate_copy = {};
+static constexpr detail::search_fn<> search = {};
+static constexpr detail::search_n_fn<> search_n = {};
+static constexpr detail::set_difference_fn set_difference = {};
+static constexpr detail::set_intersection_fn set_intersection = {};
+static constexpr detail::set_symmetric_difference_fn set_symmetric_difference = {};
+static constexpr detail::set_union_fn set_union = {};
+static constexpr detail::shuffle_fn shuffle = {};
+static constexpr detail::sort_fn sort = {};
+static constexpr detail::stable_sort_fn stable_sort = {};
+static constexpr detail::transform_fn transform = {};
+static constexpr detail::unique_fn<> unique = {};
+static constexpr detail::unique_copy_fn unique_copy = {};
+static constexpr detail::upper_bound_fn<> upper_bound = {};
 
 } /* namespace cpp_essentials::core */
 

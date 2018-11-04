@@ -232,7 +232,7 @@ bool operator !=(const matrix<T, R, C>& lhs, const matrix<U, R, C>& rhs)
 namespace detail
 {
 
-struct elementwise_multiply_t
+struct elementwise_multiply_fn
 {
     template
         < class T
@@ -248,7 +248,7 @@ struct elementwise_multiply_t
     }
 };
 
-struct elementwise_divide_t
+struct elementwise_divide_fn
 {
     template
         < class T
@@ -266,8 +266,8 @@ struct elementwise_divide_t
 
 } /* namespace detail */
 
-static constexpr detail::elementwise_multiply_t elementwise_multiply = {};
-static constexpr detail::elementwise_divide_t elementwise_divide = {};
+static constexpr detail::elementwise_multiply_fn elementwise_multiply = {};
+static constexpr detail::elementwise_divide_fn elementwise_divide = {};
 
 } /* namespace cpp_essentials::math */
 

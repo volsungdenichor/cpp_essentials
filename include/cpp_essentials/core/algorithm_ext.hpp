@@ -40,7 +40,7 @@ bool is_single(Iter b, Iter e)
     return b != e && std::next(b) == e;
 }
 
-struct front_t
+struct front_fn
 {
     template
         < class Range
@@ -54,7 +54,7 @@ struct front_t
     }
 };
 
-struct front_or_throw_t
+struct front_or_throw_fn
 {
     template
         < class Range
@@ -81,7 +81,7 @@ struct front_or_throw_t
     }
 };
 
-struct front_or_t
+struct front_or_fn
 {
     template
         < class Range
@@ -95,7 +95,7 @@ struct front_or_t
     }
 };
 
-struct front_or_default_t
+struct front_or_default_fn
 {
     template
         < class Range
@@ -108,7 +108,7 @@ struct front_or_default_t
     }
 };
 
-struct front_or_eval_t
+struct front_or_eval_fn
 {
     template
         < class Range
@@ -123,7 +123,7 @@ struct front_or_eval_t
     }
 };
 
-struct front_or_none_t
+struct front_or_none_fn
 {
     template
         < class Range
@@ -136,7 +136,7 @@ struct front_or_none_t
     }
 };
 
-struct single_t
+struct single_fn
 {
     template
         < class Range
@@ -150,7 +150,7 @@ struct single_t
     }
 };
 
-struct single_or_throw_t
+struct single_or_throw_fn
 {
     template
         < class Range
@@ -177,7 +177,7 @@ struct single_or_throw_t
     }
 };
 
-struct single_or_t
+struct single_or_fn
 {
     template
         < class Range
@@ -191,7 +191,7 @@ struct single_or_t
     }
 };
 
-struct single_or_default_t
+struct single_or_default_fn
 {
     template
         < class Range
@@ -204,7 +204,7 @@ struct single_or_default_t
     }
 };
 
-struct single_or_eval_t
+struct single_or_eval_fn
 {
     template
         < class Range
@@ -219,7 +219,7 @@ struct single_or_eval_t
     }
 };
 
-struct single_or_none_t
+struct single_or_none_fn
 {
     template
         < class Range
@@ -232,7 +232,7 @@ struct single_or_none_t
     }
 };
 
-struct size_t
+struct size_fn
 {
     template
         < class Range
@@ -243,7 +243,7 @@ struct size_t
     }
 };
 
-struct empty_t
+struct empty_fn
 {
     template
         < class Range
@@ -254,7 +254,7 @@ struct empty_t
     }
 };
 
-struct non_empty_t
+struct non_empty_fn
 {
     template
         < class Range
@@ -265,7 +265,7 @@ struct non_empty_t
     }
 };
 
-struct copy_while_t
+struct copy_while_fn
 {
     template
         < class Range
@@ -280,7 +280,7 @@ struct copy_while_t
     }
 };
 
-struct copy_until_t
+struct copy_until_fn
 {
     template
         < class Range
@@ -295,7 +295,7 @@ struct copy_until_t
     }
 };
 
-struct starts_with_t
+struct starts_with_fn
 {
     template
         < class Range1
@@ -313,7 +313,7 @@ struct starts_with_t
     }
 };
 
-struct ends_with_t
+struct ends_with_fn
 {
     template
         < class Range1
@@ -337,7 +337,7 @@ struct ends_with_t
     }
 };
 
-struct contains_t
+struct contains_fn
 {
     template
         < class Range1
@@ -357,26 +357,26 @@ struct contains_t
 
 } /* namespace detail */
 
-static constexpr detail::front_t front = {};
-static constexpr detail::front_or_throw_t front_or_throw = {};
-static constexpr detail::front_or_t front_or = {};
-static constexpr detail::front_or_default_t front_or_default = {};
-static constexpr detail::front_or_eval_t front_or_eval = {};
-static constexpr detail::front_or_none_t front_or_none = {};
-static constexpr detail::single_t single = {};
-static constexpr detail::single_or_throw_t single_or_throw = {};
-static constexpr detail::single_or_t single_or = {};
-static constexpr detail::single_or_default_t single_or_default = {};
-static constexpr detail::single_or_eval_t single_or_eval = {};
-static constexpr detail::single_or_none_t single_or_none = {};
-static constexpr detail::size_t size = {};
-static constexpr detail::empty_t empty = {};
-static constexpr detail::non_empty_t non_empty = {};
-static constexpr detail::copy_while_t copy_while = {};
-static constexpr detail::copy_until_t copy_until = {};
-static constexpr detail::starts_with_t starts_with = {};
-static constexpr detail::ends_with_t ends_with = {};
-static constexpr detail::contains_t contains = {};
+static constexpr detail::front_fn front = {};
+static constexpr detail::front_or_throw_fn front_or_throw = {};
+static constexpr detail::front_or_fn front_or = {};
+static constexpr detail::front_or_default_fn front_or_default = {};
+static constexpr detail::front_or_eval_fn front_or_eval = {};
+static constexpr detail::front_or_none_fn front_or_none = {};
+static constexpr detail::single_fn single = {};
+static constexpr detail::single_or_throw_fn single_or_throw = {};
+static constexpr detail::single_or_fn single_or = {};
+static constexpr detail::single_or_default_fn single_or_default = {};
+static constexpr detail::single_or_eval_fn single_or_eval = {};
+static constexpr detail::single_or_none_fn single_or_none = {};
+static constexpr detail::size_fn size = {};
+static constexpr detail::empty_fn empty = {};
+static constexpr detail::non_empty_fn non_empty = {};
+static constexpr detail::copy_while_fn copy_while = {};
+static constexpr detail::copy_until_fn copy_until = {};
+static constexpr detail::starts_with_fn starts_with = {};
+static constexpr detail::ends_with_fn ends_with = {};
+static constexpr detail::contains_fn contains = {};
 
 } /* namespace cpp_essentials::core */
 

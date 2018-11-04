@@ -20,7 +20,7 @@ auto make_filtered_range(Iter begin, Iter end, UnaryPred pred)
         filter_iterator{ end, pred, end });
 }
 
-struct take_if_t
+struct take_if_fn
 {
     template
         < class Range
@@ -33,7 +33,7 @@ struct take_if_t
     }
 };
 
-struct drop_if_t
+struct drop_if_fn
 {
     template
         < class Range
@@ -48,8 +48,8 @@ struct drop_if_t
 
 } /* namespace detail */
 
-static constexpr detail::take_if_t take_if = {};
-static constexpr detail::drop_if_t drop_if = {};
+static constexpr detail::take_if_fn take_if = {};
+static constexpr detail::drop_if_fn drop_if = {};
 
 } /* namespace cpp_essentials::core */
 

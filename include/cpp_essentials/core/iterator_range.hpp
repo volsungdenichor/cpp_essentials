@@ -210,7 +210,7 @@ auto operator >=(const iterator_range<Iter>& lhs, Range&& rhs) -> bool
 }
 
 
-struct make_range_t
+struct make_range_fn
 {
     template <class Iter, CONCEPT = cc::InputIterator<Iter>>
     auto operator ()(Iter begin, Iter end) const -> iterator_range<Iter>
@@ -231,7 +231,7 @@ struct make_range_t
     }
 };
 
-static constexpr make_range_t make_range = {};
+static constexpr make_range_fn make_range = {};
 
 } /* namespace cpp_essentials::core */
 

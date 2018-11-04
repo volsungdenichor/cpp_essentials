@@ -255,7 +255,7 @@ std::ostream& operator <<(std::ostream& os, const interval<T>& item)
 namespace detail
 {
 
-struct make_interval_t
+struct make_interval_fn
 {
     template <class T>
     auto operator ()(T lower, T upper) const -> interval<T>
@@ -264,7 +264,7 @@ struct make_interval_t
     }
 };
 
-struct make_union_t
+struct make_union_fn
 {
     template <class T>
     auto operator ()(const interval<T>& lhs, const interval<T>& rhs) const -> interval<T>
@@ -283,7 +283,7 @@ struct make_union_t
     }
 };
 
-struct make_intersection_t
+struct make_intersection_fn
 {
     template <class T>
     auto operator ()(const interval<T>& lhs, const interval<T>& rhs) const -> interval<T>
@@ -299,9 +299,9 @@ struct make_intersection_t
 
 } /* namespace detail */
 
-static constexpr detail::make_interval_t make_interval = {};
-static constexpr detail::make_union_t make_union = {};
-static constexpr detail::make_intersection_t make_intersection = {};
+static constexpr detail::make_interval_fn make_interval = {};
+static constexpr detail::make_union_fn make_union = {};
+static constexpr detail::make_intersection_fn make_intersection = {};
 
 } /* namespace cpp_essentials::geo */
 

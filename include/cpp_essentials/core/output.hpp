@@ -159,7 +159,7 @@ auto delimit(Iter begin, Iter end, const C* separator)
 
 } /* namespace detail */
 
-struct output_t
+struct output_fn
 {
     template <class T = void, class C>
     auto operator ()(std::basic_ostream<C>& os, const C* separator = nullptr) const
@@ -168,10 +168,10 @@ struct output_t
     }
 };
 
-static constexpr output_t output = {};
+static constexpr output_fn output = {};
 
 
-struct delimit_t
+struct delimit_fn
 {
     template
         < class Range
@@ -183,7 +183,7 @@ struct delimit_t
     }
 };
 
-static constexpr delimit_t delimit = {};
+static constexpr delimit_fn delimit = {};
 
 } /* namespace cpp_essentials::core */
 

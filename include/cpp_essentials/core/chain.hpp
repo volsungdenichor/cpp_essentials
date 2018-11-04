@@ -20,7 +20,7 @@ auto chain(Iter1 b1, Iter1 e1, Iter2 b2, Iter2 e2)
         chain_iterator{ e1, e2, e1, b2 });
 }
 
-struct append_t
+struct append_fn
 {
     template
         < class Range1
@@ -33,7 +33,7 @@ struct append_t
     }
 };
 
-struct prepend_t
+struct prepend_fn
 {
     template
         < class Range1
@@ -48,9 +48,9 @@ struct prepend_t
 
 } /* namespace chain */
 
-static constexpr detail::append_t chain = {};
-static constexpr detail::append_t append = {};
-static constexpr detail::prepend_t prepend = {};
+static constexpr detail::append_fn chain = {};
+static constexpr detail::append_fn append = {};
+static constexpr detail::prepend_fn prepend = {};
 
 } /* namespace cpp_essentials::core */
 

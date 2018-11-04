@@ -12,7 +12,7 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-struct map_t
+struct map_fn
 {
     template
         < class Range
@@ -40,7 +40,7 @@ struct map_t
 
 } /* namespace detail */
 
-static constexpr detail::map_t map = {};
+static constexpr detail::map_fn map = {};
 
 } /* namespace cpp_essentials::core */
 

@@ -9,7 +9,7 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-struct flatten_t
+struct flatten_fn
 {
     template
         < class Range
@@ -32,7 +32,7 @@ struct flatten_t
 
 } /* namespace detail */
 
-static constexpr detail::flatten_t flatten = {};
+static constexpr detail::flatten_fn flatten = {};
 
 } /* namespace cpp_essentials::core */
 

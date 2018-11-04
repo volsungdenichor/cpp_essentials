@@ -12,7 +12,7 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-struct iterate_t
+struct iterate_fn
 {
     template
         < class Range
@@ -27,7 +27,7 @@ struct iterate_t
 
 } /* namespace detail */
 
-static constexpr detail::iterate_t iterate = {};
+static constexpr detail::iterate_fn iterate = {};
 
 } /* namespace cpp_essentials::core */
 

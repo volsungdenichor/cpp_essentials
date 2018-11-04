@@ -22,7 +22,7 @@ using basic_string = std::basic_string<C, std::char_traits<C>, std::allocator<C>
 
 
 template <template <class> class Container>
-struct to_container_t
+struct to_container_fn
 {
     template
         < class Range
@@ -35,11 +35,11 @@ struct to_container_t
 
 } /* namespace detail */
 
-static constexpr detail::to_container_t<std::vector> to_vector = {};
-static constexpr detail::to_container_t<std::set> to_set = {};
-static constexpr detail::to_container_t<std::list> to_list = {};
-static constexpr detail::to_container_t<std::forward_list> to_forward_list = {};
-static constexpr detail::to_container_t<std::list> to_deque = {};
+static constexpr detail::to_container_fn<std::vector> to_vector = {};
+static constexpr detail::to_container_fn<std::set> to_set = {};
+static constexpr detail::to_container_fn<std::list> to_list = {};
+static constexpr detail::to_container_fn<std::forward_list> to_forward_list = {};
+static constexpr detail::to_container_fn<std::list> to_deque = {};
 
 } /* namespace cpp_essentials::core */
 

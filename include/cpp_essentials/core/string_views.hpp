@@ -66,7 +66,7 @@ std::size_t string_hash(Iter begin, Iter end)
 namespace detail
 {
 
-struct trim_t
+struct trim_fn
 {
     template
         < class Range
@@ -77,7 +77,7 @@ struct trim_t
     }
 };
 
-struct c_str_t
+struct c_str_fn
 {
     cstring_mut_view operator ()(char* text) const
     {
@@ -116,8 +116,8 @@ struct c_str_t
 
 } /* namespace detail */
 
-static constexpr detail::trim_t trim = {};
-static constexpr detail::c_str_t c_str = {};
+static constexpr detail::trim_fn trim = {};
+static constexpr detail::c_str_fn c_str = {};
 
 inline cstring_view operator ""_str(const char* text, size_t length)
 {

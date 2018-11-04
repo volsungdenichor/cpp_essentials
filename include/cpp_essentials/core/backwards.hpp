@@ -12,7 +12,7 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-struct backwards_t
+struct backwards_fn
 {
     template <class Iter>
     auto make_iterator(Iter iter) const
@@ -39,7 +39,7 @@ struct backwards_t
 
 } /* namespace detail */
 
-static constexpr detail::backwards_t backwards = {};
+static constexpr detail::backwards_fn backwards = {};
 
 } /* namespace cpp_essentials::core */
 

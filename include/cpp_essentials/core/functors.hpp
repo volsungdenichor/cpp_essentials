@@ -15,7 +15,7 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-struct identity_t
+struct identity_fn
 {
     template <class T>
     const T& operator ()(const T& value) const
@@ -24,7 +24,7 @@ struct identity_t
     }
 };
 
-struct logical_negation_t
+struct logical_negation_fn
 {
     template <class Func>
     auto operator ()(Func func) const
@@ -36,7 +36,7 @@ struct logical_negation_t
     }
 };
 
-struct approx_equal_to_t
+struct approx_equal_to_fn
 {
     template <class L, class R, class E>
     bool operator ()(const L& lhs, const R& rhs, const E& epsilon) const
@@ -54,7 +54,7 @@ struct approx_equal_to_t
     }
 };
 
-struct clamp_t
+struct clamp_fn
 {
     template <class T>
     const T& operator ()(const T& value, const T& lower, const T& upper) const
@@ -72,7 +72,7 @@ struct clamp_t
     }
 };
 
-struct between_t
+struct between_fn
 {
     template <class V, class T, class U>
     bool operator ()(const V& value, const T& lower, const U& upper) const
@@ -90,7 +90,7 @@ struct between_t
     }
 };
 
-struct inclusive_between_t
+struct inclusive_between_fn
 {
     template <class V, class T, class U>
     bool operator ()(const V& value, const T& lower, const U& upper) const
@@ -108,7 +108,7 @@ struct inclusive_between_t
     }
 };
 
-struct min_t
+struct min_fn
 {
     template <class T>
     const T& operator ()(const T& lhs, const T& rhs) const
@@ -117,7 +117,7 @@ struct min_t
     }
 };
 
-struct max_t
+struct max_fn
 {
     template <class T>
     const T& operator ()(const T& lhs, const T& rhs) const
@@ -126,7 +126,7 @@ struct max_t
     }
 };
 
-struct lerp_t
+struct lerp_fn
 {
     template <class R, class T, class U>
     auto operator ()(const R& ratio, const T& a, const U& b) const
@@ -144,7 +144,7 @@ struct lerp_t
     }
 };
 
-struct make_pair_t
+struct make_pair_fn
 {
     template <class L, class R>
     auto operator ()(L&& lhs, R&& rhs) const
@@ -153,7 +153,7 @@ struct make_pair_t
     }
 };
 
-struct make_tuple_t
+struct make_tuple_fn
 {
     template <class... Args>
     auto operator ()(Args&&... args) const
@@ -162,7 +162,7 @@ struct make_tuple_t
     }
 };
 
-struct tie_t
+struct tie_fn
 {
     template <class... Args>
     auto operator ()(Args&&... args) const
@@ -172,7 +172,7 @@ struct tie_t
 };
 
 template <std::size_t Index>
-struct get_t
+struct get_fn
 {
     template <class T>
     decltype(auto) operator ()(T&& arg) const
@@ -181,7 +181,7 @@ struct get_t
     }
 };
 
-struct has_value_t
+struct has_value_fn
 {
     template <class T>
     bool operator ()(T&& arg) const
@@ -190,7 +190,7 @@ struct has_value_t
     }
 };
 
-struct dereference_t
+struct dereference_fn
 {
     template <class T>
     decltype(auto) operator ()(T&& arg) const
@@ -200,7 +200,7 @@ struct dereference_t
 };
 
 template <class Type>
-struct cast_t
+struct cast_fn
 {
     template <class T>
     decltype(auto) operator ()(const T& arg) const
@@ -211,29 +211,29 @@ struct cast_t
 
 } /* namespace detail */
 
-static constexpr detail::identity_t identity = {};
-static constexpr detail::approx_equal_to_t approx_equal_to = {};
-static constexpr detail::clamp_t clamp = {};
-static constexpr detail::between_t between = {};
-static constexpr detail::inclusive_between_t inclusive_between = {};
-static constexpr detail::min_t min = {};
-static constexpr detail::max_t max = {};
-static constexpr detail::lerp_t lerp = {};
+static constexpr detail::identity_fn identity = {};
+static constexpr detail::approx_equal_to_fn approx_equal_to = {};
+static constexpr detail::clamp_fn clamp = {};
+static constexpr detail::between_fn between = {};
+static constexpr detail::inclusive_between_fn inclusive_between = {};
+static constexpr detail::min_fn min = {};
+static constexpr detail::max_fn max = {};
+static constexpr detail::lerp_fn lerp = {};
 
-static constexpr detail::logical_negation_t logical_negation = {};
+static constexpr detail::logical_negation_fn logical_negation = {};
 
-static constexpr detail::has_value_t has_value = {};
-static constexpr detail::dereference_t dereference = {};
+static constexpr detail::has_value_fn has_value = {};
+static constexpr detail::dereference_fn dereference = {};
 
-static constexpr detail::make_pair_t make_pair = {};
-static constexpr detail::make_tuple_t make_tuple = {};
-static constexpr detail::tie_t tie = {};
+static constexpr detail::make_pair_fn make_pair = {};
+static constexpr detail::make_tuple_fn make_tuple = {};
+static constexpr detail::tie_fn tie = {};
 
 template <std::size_t Index>
-static constexpr detail::get_t<Index> get = {};
+static constexpr detail::get_fn<Index> get = {};
 
 template <class Type>
-static constexpr detail::cast_t<Type> cast = {};
+static constexpr detail::cast_fn<Type> cast = {};
 
 } /* namespace cpp_essentials::core */
 

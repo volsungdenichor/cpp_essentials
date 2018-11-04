@@ -20,7 +20,7 @@ auto chunk(Iter b, Iter e, int size, int step)
         chunk_iterator{ e, e, step, e });
 }
 
-struct chunk_t
+struct chunk_fn
 {
     template
         < class Range
@@ -31,7 +31,7 @@ struct chunk_t
     }
 };
 
-struct slide_t
+struct slide_fn
 {
     template
         < class Range
@@ -42,7 +42,7 @@ struct slide_t
     }
 };
 
-struct group_t
+struct group_fn
 {
     template
         < class Range
@@ -53,7 +53,7 @@ struct group_t
     }
 };
 
-struct pairwise_t
+struct pairwise_fn
 {
     template
         < class Range
@@ -66,10 +66,10 @@ struct pairwise_t
 
 } /* namespace detail */
 
-static constexpr detail::chunk_t chunk = {};
-static constexpr detail::slide_t slide = {};
-static constexpr detail::group_t group = {};
-static constexpr detail::pairwise_t pairwise = {};
+static constexpr detail::chunk_fn chunk = {};
+static constexpr detail::slide_fn slide = {};
+static constexpr detail::group_fn group = {};
+static constexpr detail::pairwise_fn pairwise = {};
 
 } /* namespace cpp_essentials::core */
 

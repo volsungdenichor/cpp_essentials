@@ -252,6 +252,21 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\vertex_array.hpp">
       <Filter>Header Files\cpp_essentials\geo</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\linear_shape.arithmetics.hpp">
+      <Filter>Header Files\cpp_essentials\geo\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\linear_shape.base.hpp">
+      <Filter>Header Files\cpp_essentials\geo\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\linear_shape.hpp">
+      <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\vertex_container.hpp">
+      <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\vertex_container.traits.hpp">
+      <Filter>Header Files\cpp_essentials\geo\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

@@ -177,7 +177,9 @@
     <ClCompile Include="..\..\..\tests\core\zip.test.cpp" />
     <ClCompile Include="..\..\..\tests\geo\bounding_box.test.cpp" />
     <ClCompile Include="..\..\..\tests\geo\interval.tests.cpp" />
+    <ClCompile Include="..\..\..\tests\geo\linear_shape.test.cpp" />
     <ClCompile Include="..\..\..\tests\geo\vertex_array.test.cpp" />
+    <ClCompile Include="..\..\..\tests\geo\vertex_container.test.cpp" />
     <ClCompile Include="..\..\..\tests\math\math_functors.test.cpp" />
     <ClCompile Include="..\..\..\tests\math\matrix.test.cpp" />
     <ClCompile Include="..\..\..\tests\math\regression.test.cpp" />

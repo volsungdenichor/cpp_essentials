@@ -102,8 +102,8 @@ public:
     template <class U = T, size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
     quad<U, 2> as_quad() const
     {
-        auto lo = lower();
-        auto hi = upper();
+        const auto lo = min();
+        const auto hi = max();
         return
         {
             { lo[0], lo[1] },
@@ -122,13 +122,11 @@ public:
     std::array<interval_type, D> _data;
 };
 
-
 template <class T>
 using rect = bounding_box<T, 2>;
 
 template <class T>
 using cuboid = bounding_box<T, 3>;
-
 
 template <class T>
 using rect_2d = rect<T>;
@@ -162,6 +160,25 @@ auto operator +(const bounding_box<T, D>& lhs, const vector<U, D>& rhs) -> bound
     }
     return result;
 }
+
+template
+< class T
+    , class U
+    , CONCEPT = cc::Multiply<T, U>>
+auto operator *(const rect_2d<T>& lhs, const square_matrix_2d<U>& rhs) -> quad_2d<cc::Multiply<T, U>>
+{
+    return static_cast<quad<T, 2>>(lhs) * rhs;
+}
+
+template
+    < class T
+    , class U
+    , CONCEPT = cc::Multiply<T, U>>
+auto operator *(const square_matrix_2d<T>& lhs, const rect_2d<U>& rhs) -> quad_2d<cc::Multiply<T, U>>
+{
+    return rhs * lhs;
+}
+
 
 
 
@@ -211,6 +228,43 @@ bool operator !=(const bounding_box<T, D>& lhs, const bounding_box<U, D>& rhs)
 {
     return !(lhs == rhs);
 }
+
+namespace detail
+{
+
+template <size_t D, size_t E>
+struct get_rect_side_fn
+{
+    template <class T>
+    auto operator ()(const rect_2d<T>& rect) const -> T
+    {
+        return E == 0 ? rect._data[D].min() : rect._data[D].max();
+    }
+};
+
+template <size_t H, size_t V>
+struct get_rect_vertex_fn
+{
+    template <class T>
+    auto operator ()(const rect_2d<T>& rect) const -> vector_2d<T>
+    {
+        static constexpr get_rect_side_fn<0, H> h = {};
+        static constexpr get_rect_side_fn<1, V> v = {};
+
+        return { h(rect), v(rect) };
+    }
+};
+
+} /* namespace detail */
+
+static constexpr detail::get_rect_vertex_fn<0, 0> top_left = {};
+static constexpr detail::get_rect_vertex_fn<1, 0> top_right = {};
+static constexpr detail::get_rect_vertex_fn<0, 1> bottom_left = {};
+static constexpr detail::get_rect_vertex_fn<1, 1> bottom_right = {};
+static constexpr detail::get_rect_side_fn<0, 0> left = {};
+static constexpr detail::get_rect_side_fn<0, 1> right = {};
+static constexpr detail::get_rect_side_fn<1, 0> top = {};
+static constexpr detail::get_rect_side_fn<1, 1> bottom = {};
 
 template <class T, size_t D>
 std::ostream& operator <<(std::ostream& os, const bounding_box<T, D>& bb)

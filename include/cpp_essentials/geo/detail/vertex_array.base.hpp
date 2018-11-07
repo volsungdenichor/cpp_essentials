@@ -21,9 +21,6 @@ public:
     using const_reference = const vector_type&;
     using reference = vector_type&;
 
-    using const_iterator = typename std::array<vector_type, N>::const_iterator;
-    using iterator = typename std::array<vector_type, N>::iterator;
-
     vertex_array()
     {
         core::fill(_data, vector_type {});

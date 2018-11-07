@@ -106,5 +106,11 @@
     <ClCompile Include="..\..\..\tests\geo\vertex_array.test.cpp">
       <Filter>tests\geo</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\tests\geo\linear_shape.test.cpp">
+      <Filter>tests\geo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\tests\geo\vertex_container.test.cpp">
+      <Filter>tests\geo</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

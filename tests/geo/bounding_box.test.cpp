@@ -51,5 +51,26 @@ TEST_CASE("rect as quad")
 {
     geo::rect_2d<int> a = { { 0, 0 }, { 50, 30 } };
     geo::quad_2d<int> quad = a;
-    REQUIRE(quad == geo::quad_2d<int>{ { 0, 0 }, { 50, 0 }, { 50, 30 }, { 0, 30 } });
+    REQUIRE(quad == geo::quad_2d<int>{ { 0, 0 }, { 49, 0 }, { 49, 29 }, { 0, 29 } });
+}
+
+TEST_CASE("rect - matrix multiplication")
+{
+    geo::rect_2d<int> a = { { 0, 0 }, { 50, 30 } };
+    auto actual = a * geo::identity.make<3>();
+    REQUIRE(actual == geo::quad_2d<double>{ { 0, 0 }, { 49, 0 }, { 49, 29 }, { 0, 29 } });
+}
+
+TEST_CASE("rect vertices")
+{
+    geo::rect_2d<int> a = { { 0, 0 }, { 50, 30 } };
+    REQUIRE(geo::top_left(a) == geo::make_vector(0, 0));
+    REQUIRE(geo::top_right(a) == geo::make_vector(49, 0));
+    REQUIRE(geo::bottom_left(a) == geo::make_vector(0, 29));
+    REQUIRE(geo::bottom_right(a) == geo::make_vector(49, 29));
+
+    REQUIRE(geo::left(a) == 0);
+    REQUIRE(geo::right(a) == 49);
+    REQUIRE(geo::top(a) == 0);
+    REQUIRE(geo::bottom(a) == 29);
 }

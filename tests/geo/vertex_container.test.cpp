@@ -38,3 +38,48 @@ TEST_CASE("rect getters")
     REQUIRE(geo::get_segment(t, 2) == geo::segment_2d<int>{ geo::vector_2d<int>{ 9, 19 }, geo::vector_2d<int>{ 0, 19 } });
     REQUIRE(geo::get_segment(t, 3) == geo::segment_2d<int>{ geo::vector_2d<int>{ 0, 19 }, geo::vector_2d<int>{ 0, 0 } });
 }
+
+TEST_CASE("polygon getters")
+{
+    geo::polygon_2d<int> t = {
+        geo::vector_2d<int>{ 0, 0 },
+        geo::vector_2d<int>{ 10, 20 },
+        geo::vector_2d<int>{ 20, 10 },
+        geo::vector_2d<int>{ 10, 0 },
+    };
+
+    REQUIRE(geo::vertex_count(t) == 4);
+    REQUIRE(geo::segment_count(t) == 4);
+
+    REQUIRE(geo::get_vertex(t, 0) == geo::vector_2d<int>{ 0, 0 });
+    REQUIRE(geo::get_vertex(t, 1) == geo::vector_2d<int>{ 10, 20 });
+    REQUIRE(geo::get_vertex(t, 2) == geo::vector_2d<int>{ 20, 10 });
+    REQUIRE(geo::get_vertex(t, 3) == geo::vector_2d<int>{ 10, 0 });
+
+    REQUIRE(geo::get_segment(t, 0) == geo::segment_2d<int>{ geo::vector_2d<int>{ 0, 0 }, geo::vector_2d<int>{ 10, 20 } });
+    REQUIRE(geo::get_segment(t, 1) == geo::segment_2d<int>{ geo::vector_2d<int>{ 10, 20 }, geo::vector_2d<int>{ 20, 10 } });
+    REQUIRE(geo::get_segment(t, 2) == geo::segment_2d<int>{ geo::vector_2d<int>{ 20, 10 }, geo::vector_2d<int>{ 10, 0 } });
+    REQUIRE(geo::get_segment(t, 3) == geo::segment_2d<int>{ geo::vector_2d<int>{ 10, 0 }, geo::vector_2d<int>{ 0, 0 } });
+}
+
+TEST_CASE("polyline getters")
+{
+    geo::polyline_2d<int> t = {
+        geo::vector_2d<int>{ 0, 0 },
+        geo::vector_2d<int>{ 10, 20 },
+        geo::vector_2d<int>{ 20, 10 },
+        geo::vector_2d<int>{ 10, 0 },
+    };
+
+    REQUIRE(geo::vertex_count(t) == 4);
+    REQUIRE(geo::segment_count(t) == 3);
+
+    REQUIRE(geo::get_vertex(t, 0) == geo::vector_2d<int>{ 0, 0 });
+    REQUIRE(geo::get_vertex(t, 1) == geo::vector_2d<int>{ 10, 20 });
+    REQUIRE(geo::get_vertex(t, 2) == geo::vector_2d<int>{ 20, 10 });
+    REQUIRE(geo::get_vertex(t, 3) == geo::vector_2d<int>{ 10, 0 });
+
+    REQUIRE(geo::get_segment(t, 0) == geo::segment_2d<int>{ geo::vector_2d<int>{ 0, 0 }, geo::vector_2d<int>{ 10, 20 } });
+    REQUIRE(geo::get_segment(t, 1) == geo::segment_2d<int>{ geo::vector_2d<int>{ 10, 20 }, geo::vector_2d<int>{ 20, 10 } });
+    REQUIRE(geo::get_segment(t, 2) == geo::segment_2d<int>{ geo::vector_2d<int>{ 20, 10 }, geo::vector_2d<int>{ 10, 0 } });
+}

@@ -267,6 +267,15 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\vertex_container.traits.hpp">
       <Filter>Header Files\cpp_essentials\geo\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\poly_shape.base.hpp">
+      <Filter>Header Files\cpp_essentials\geo\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\poly_shape.hpp">
+      <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\poly_shape.arithmetics.hpp">
+      <Filter>Header Files\cpp_essentials\geo\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

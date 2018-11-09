@@ -66,17 +66,3 @@ TEST_CASE("interval division")
     auto interval = geo::make_interval(0, 50);
     REQUIRE((interval / 2.5) == geo::make_interval(0.0, 20.0));
 }
-
-TEST_CASE("interval union")
-{
-    auto a = geo::make_interval(0, 10);
-    auto b = geo::make_interval(8, 15);
-    REQUIRE(geo::make_union(a, b) == geo::make_interval(0, 15));
-}
-
-TEST_CASE("interval intersecion")
-{
-    auto a = geo::make_interval(0, 10);
-    auto b = geo::make_interval(8, 15);
-    REQUIRE(geo::make_intersection(a, b) == geo::make_interval(8, 10));
-}

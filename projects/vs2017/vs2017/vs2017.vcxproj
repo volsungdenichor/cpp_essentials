@@ -207,6 +207,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\views.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\zip.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\bounding_box.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\contains.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\linear_shape.arithmetics.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\linear_shape.base.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\poly_shape.arithmetics.hpp" />
@@ -216,6 +217,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\vertex_container.traits.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\interval.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\linear_shape.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\interval_operations.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\matrix.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\poly_shape.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\vertex_array.hpp" />

@@ -64,6 +64,7 @@ public:
     {
     }   
 
+
     const value_type& operator [](size_t index) const
     {
         return _data[index];
@@ -264,44 +265,9 @@ struct make_interval_fn
     }
 };
 
-struct make_union_fn
-{
-    template <class T>
-    auto operator ()(const interval<T>& lhs, const interval<T>& rhs) const -> interval<T>
-    {
-        if (lhs.empty())
-        {
-            return rhs;
-        }
-
-        if (rhs.empty())
-        {
-            return lhs;
-        }
-
-        return { std::min(lhs.lower(), rhs.lower()), std::max(lhs.upper(), rhs.upper()) };
-    }
-};
-
-struct make_intersection_fn
-{
-    template <class T>
-    auto operator ()(const interval<T>& lhs, const interval<T>& rhs) const -> interval<T>
-    {
-        if (lhs.empty() || rhs.empty())
-        {
-            return {};
-        }
-
-        return { std::max(lhs.lower(), rhs.lower()), std::min(lhs.upper(), rhs.upper()) };
-    }
-};
-
 } /* namespace detail */
 
 static constexpr detail::make_interval_fn make_interval = {};
-static constexpr detail::make_union_fn make_union = {};
-static constexpr detail::make_intersection_fn make_intersection = {};
 
 } /* namespace cpp_essentials::geo */
 

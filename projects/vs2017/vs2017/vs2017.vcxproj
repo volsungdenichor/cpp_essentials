@@ -155,6 +155,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\include\cpp_essentials\arrays\array.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\arrays\array_base.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\arrays\array_view.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\arrays\detail\vector.creation.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\arrays\iterator.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\arrays\region_iterator.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\arrays\slice_iterator.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\arrays\transformations.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\cc\cc.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\adaptor.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\algorithm.hpp" />

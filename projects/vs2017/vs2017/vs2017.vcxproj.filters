@@ -40,6 +40,12 @@
     <Filter Include="Header Files\cpp_essentials\geo\detail">
       <UniqueIdentifier>{d0dc678a-05d1-4233-8a81-62092d5601ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\cpp_essentials\arrays">
+      <UniqueIdentifier>{d493e46d-9575-4d37-8789-2528564aff2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\cpp_essentials\arrays\detail">
+      <UniqueIdentifier>{1e5e5c57-3e45-4d52-83a6-5dabb898e919}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -281,6 +287,30 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\interval_operations.hpp">
       <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\arrays\detail\vector.creation.hpp">
+      <Filter>Header Files\cpp_essentials\arrays\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\arrays\iterator.hpp">
+      <Filter>Header Files\cpp_essentials\arrays</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\arrays\array_base.hpp">
+      <Filter>Header Files\cpp_essentials\arrays</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\arrays\array.hpp">
+      <Filter>Header Files\cpp_essentials\arrays</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\arrays\array_view.hpp">
+      <Filter>Header Files\cpp_essentials\arrays</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\arrays\region_iterator.hpp">
+      <Filter>Header Files\cpp_essentials\arrays</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\arrays\slice_iterator.hpp">
+      <Filter>Header Files\cpp_essentials\arrays</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\arrays\transformations.hpp">
+      <Filter>Header Files\cpp_essentials\arrays</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

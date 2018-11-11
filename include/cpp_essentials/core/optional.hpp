@@ -317,6 +317,8 @@ public:
     {
     }
 
+    optional(value_type&&) = delete;
+
     optional(optional&& other)
         : optional{}
     {

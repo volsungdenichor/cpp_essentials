@@ -170,6 +170,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\arithmetic_functors.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\assertions.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\chain.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\channel.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\chunk.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\containers.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\container_helpers.hpp" />

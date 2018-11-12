@@ -339,6 +339,9 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\gx\defs.hpp">
       <Filter>Header Files\cpp_essentials\gx</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\channel.hpp">
+      <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

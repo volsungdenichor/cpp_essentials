@@ -14,6 +14,35 @@ namespace cpp_essentials::math
 namespace detail
 {
 
+struct abs_fn
+{
+    template <class T>
+    auto operator ()(T x) const
+    {
+        return std::abs(x);
+    }
+};
+
+struct sgn_fn
+{
+    template <class T>
+    auto operator ()(T x) const -> int
+    {
+        if (x > zero)
+        {
+            return +1;
+        }
+        else if (x < zero)
+        {
+            return -1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+};
+
 struct pow_fn
 {
     template <class X, class Y>
@@ -135,6 +164,8 @@ struct deg_fn
 
 } /* namespace detail */
 
+static constexpr detail::sgn_fn sgn = {};
+static constexpr detail::abs_fn abs = {};
 static constexpr detail::pow_fn pow = {};
 static constexpr detail::sqr_fn sqr = {};
 static constexpr detail::sqrt_fn sqrt = {};

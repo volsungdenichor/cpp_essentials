@@ -230,6 +230,14 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\poly_shape.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\vertex_array.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\vertex_container.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\gx\algorithm.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\gx\bitmap.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\gx\colors.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\gx\color_models.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\gx\core.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\gx\defs.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\gx\drawing_context.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\gx\image.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\constants.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\detail\matrix.access.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\detail\matrix.arithmetics.hpp" />

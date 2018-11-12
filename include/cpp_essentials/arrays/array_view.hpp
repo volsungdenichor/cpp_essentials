@@ -158,7 +158,7 @@ public:
         return slice<1>(index);
     }
 
-    template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
+    template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim > 1)>>
     slice_type operator [](location_value_type index) const
     {
         return slice<0>(index);

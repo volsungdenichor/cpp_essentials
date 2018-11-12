@@ -46,6 +46,9 @@
     <Filter Include="Header Files\cpp_essentials\arrays\detail">
       <UniqueIdentifier>{1e5e5c57-3e45-4d52-83a6-5dabb898e919}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\cpp_essentials\gx">
+      <UniqueIdentifier>{fe408fa1-ced6-4a6d-bd1c-db78a52a0781}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -311,6 +314,30 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\arrays\transformations.hpp">
       <Filter>Header Files\cpp_essentials\arrays</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\gx\bitmap.hpp">
+      <Filter>Header Files\cpp_essentials\gx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\gx\color_models.hpp">
+      <Filter>Header Files\cpp_essentials\gx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\gx\image.hpp">
+      <Filter>Header Files\cpp_essentials\gx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\gx\core.hpp">
+      <Filter>Header Files\cpp_essentials\gx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\gx\colors.hpp">
+      <Filter>Header Files\cpp_essentials\gx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\gx\drawing_context.hpp">
+      <Filter>Header Files\cpp_essentials\gx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\gx\algorithm.hpp">
+      <Filter>Header Files\cpp_essentials\gx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\gx\defs.hpp">
+      <Filter>Header Files\cpp_essentials\gx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

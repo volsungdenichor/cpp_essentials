@@ -61,6 +61,12 @@ public:
         initialize(init);
     }
 
+    template <size_t Row = R, size_t Col = C, CONCEPT = std::enable_if_t<(Row == 1 && Col == 1)>>
+    matrix(value_type value)
+    {
+        (*this)[0] = value;
+    }
+
     matrix(const matrix& other)
     {
         core::copy(other._data, _data.begin());

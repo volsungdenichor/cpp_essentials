@@ -74,6 +74,8 @@ public:
     std::array<vector_type, N> _data;
 };
 
+template <class T, size_t N>
+using vertex_array_2d = vertex_array<T, 2, N>;
 
 
 template <class T, size_t D>

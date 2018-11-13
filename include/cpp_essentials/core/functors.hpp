@@ -209,6 +209,16 @@ struct cast_fn
     }
 };
 
+struct offset_of_fn
+{
+    template <class Type, class T>
+    constexpr size_t operator ()(Type T::*ptr) const
+    {
+        // static_assert(std::is_standard_layout_v<T>, "Only standard layout types supported");
+        return (char*)&(static_cast<T*>(nullptr)->*ptr) - (char*)static_cast<T*>(nullptr);
+    }
+};
+
 } /* namespace detail */
 
 static constexpr detail::identity_fn identity = {};
@@ -234,6 +244,8 @@ static constexpr detail::get_fn<Index> get = {};
 
 template <class Type>
 static constexpr detail::cast_fn<Type> cast = {};
+
+static constexpr detail::offset_of_fn offset_of = {};
 
 } /* namespace cpp_essentials::core */
 

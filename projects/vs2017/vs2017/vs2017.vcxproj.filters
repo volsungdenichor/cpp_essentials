@@ -49,6 +49,9 @@
     <Filter Include="Header Files\cpp_essentials\gx">
       <UniqueIdentifier>{fe408fa1-ced6-4a6d-bd1c-db78a52a0781}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\cpp_essentials\meta">
+      <UniqueIdentifier>{f32afa56-67d2-4e82-ba04-0ff671a1f756}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -341,6 +344,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\channel.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\meta\meta.hpp">
+      <Filter>Header Files\cpp_essentials\meta</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

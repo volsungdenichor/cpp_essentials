@@ -12,6 +12,22 @@ namespace cpp_essentials::core
 namespace detail
 {
 
+template <class T, class Func, size_t... Index>
+void visit(const T& tuple, Func&& func, std::index_sequence<Index...>)
+{
+    auto dummy = { 0, (func(std::get<Index>(tuple)), 0)... };
+    (void)dummy;
+}
+
+struct visit_fn
+{
+    template <class... Args, class Func>
+    void operator ()(const std::tuple<Args...>& tuple, Func&& func) const
+    {
+        visit(tuple, func, std::index_sequence_for<Args...>{});
+    }
+};
+
 template <class T, std::size_t Index, std::size_t Last>
 struct tuple_printer
 {
@@ -32,6 +48,8 @@ struct tuple_printer<T, Index, Index>
 };
 
 } /* namespace detail */
+
+static constexpr detail::visit_fn visit = {};
 
 } /* namespace cpp_essentials::core */
 

@@ -11,139 +11,99 @@
 namespace cpp_essentials::meta
 {
 
-template <class T>
-struct is_optional : std::false_type {};
-
-template <class T>
-struct is_optional<std::optional<T>> : std::true_type {};
-
-template <class T>
-struct is_optional<core::optional<T>> : std::true_type {};
-
-
 template <class Type, class T>
-struct Member
+struct member_info
 {
-    Member(const char* name, Type T::*ptr, std::optional<Type> default_value)
+    member_info(const char* name, Type T::*ptr)
         : name{ name }
         , ptr{ ptr }
-        , offset{ core::offset_of(ptr) }
-        , default_value{ std::move(default_value) }
     {
     }
 
     const char* name;
     Type T::*ptr;
-    size_t offset;
-    std::optional<Type> default_value;
+};
+
+template <class T>
+struct enum_info
+{
+    enum_info(const char* name, T value)
+        : name{ name }
+        , value{ value }
+    {
+    }
+
+    const char* name;
+    T value;
 };
 
 template <class Type, class T>
-auto member(Type T::*ptr, const char* name) -> Member<Type, T>
+auto member(Type T::*ptr, const char* name) -> member_info<Type, T>
 {
-    return { name, ptr, std::nullopt };
+    return { name, ptr };
 }
 
-template <class Type, class T>
-auto member(Type T::*ptr, const char* name, Type default_value) -> Member<Type, T>
+template <class T>
+auto enum_value(T value, const char* name) -> enum_info<T>
 {
-    return { name, ptr, std::move(default_value) };
+    return { name, value };
 }
+
+template <class Members>
+struct members_list
+{
+    Members members;
+};
+
+template <class Values>
+struct enum_value_list
+{
+    Values values;
+};
 
 template <class... Members>
 auto members(Members&&... members)
 {
-    return std::make_tuple(std::forward<Members>(members)...);
+    return members_list<std::tuple<Members...>>{ std::make_tuple(std::forward<Members>(members)...) };
+}
+
+template <class... Values>
+auto enum_values(Values&&... values)
+{
+    return enum_value_list<std::tuple<Values...>>{ std::make_tuple(std::forward<Values>(values)...) };
+}
+
+using empty_tuple = std::tuple<>;
+
+template <class T>
+auto register_members()
+{
+    return empty_tuple{};
 }
 
 template <class T>
-auto register_members();
+auto register_enum_values()
+{
+    return empty_tuple{};
+}
+
+template <class T>
+constexpr bool members_registered = !std::is_same_v<decltype(register_members<T>()), empty_tuple>;
+
 
 template <class T>
 const auto& get_members()
 {
+    static_assert(members_registered<T>, "Members not registrered");
     static const auto m = register_members<T>();
-    return m;
-}
-
-template <class Type, class T>
-void serialize_member(const Member<Type, T>& member, const Type& value, nlohmann::json& json)
-{
-    if constexpr (is_optional<Type>::value)
-    {
-        if (value)
-        {
-            json[member.name] = *value;
-        }
-        else
-        {
-            json[member.name] = nullptr;
-        }
-    }
-    else
-    {
-        json[member.name] = value;
-    }
-}
-
-template <class Type, class T>
-void deserialize_member(const Member<Type, T>& member, Type& value, const nlohmann::json& json)
-{
-    auto it = json.find(member.name);
-    if (it == json.end())
-    {
-        if constexpr (is_optional<Type>::value)
-        {
-            value = std::nullopt;
-        }
-        else
-        {
-            if (member.default_value)
-            {
-                value = *member.default_value;
-            }
-            else
-            {
-                using namespace std::string_literals;
-                throw std::runtime_error{ "Missing mandatory field '"s + member.name + "'" };
-            }
-        }
-    }
-    else
-    {
-        value = *it;
-    }
+    return m.members;
 }
 
 template <class T>
-void serialize(const T& item, nlohmann::json& json)
+const auto& get_enum_values()
 {
-    core::visit(get_members<T>(), [&json, &item](const auto& member)
-    {
-        serialize_member(member, item.*member.ptr, json);
-    });
-}
-
-template <class T>
-nlohmann::json serialize(const T& item)
-{
-    nlohmann::json result;
-    serialize(item, result);
-    return result;
-}
-
-template <class T>
-void deserialize(T& item, const nlohmann::json& json)
-{
-    core::visit(get_members<T>(), [&json, &item](const auto& member) { deserialize_member(member, item.*member.ptr, json); });
-}
-
-template <class T>
-T deserialize(const nlohmann::json& json)
-{
-    T result;
-    deserialize(result, json);
-    return result;   
+    static const auto m = register_enum_values<T>();
+    return m.values;
 }
 
 template <class Type, class T>
@@ -153,12 +113,36 @@ const char* name_of(Type T::*ptr)
     auto offset = core::offset_of(ptr);
     core::visit(get_members<T>(), [offset, &result](const auto& member)
     {
-        if (member.offset == offset)
+        if (core::offset_of(member.ptr) == offset)
         {
             result = member.name;
         }
     });
     return result;
+}
+
+template <class T, class Func>
+void for_each(Func&& func)
+{
+    core::visit(get_members<T>(), func);
+}
+
+template <class T, class Func>
+void for_each(const T& item, Func&& func)
+{
+    core::visit(get_members<T>(), [&item, &func](const auto& member)
+    {
+        func(member, item.*member.ptr);
+    });
+}
+
+template <class T, class Func>
+void for_each(T& item, Func&& func)
+{
+    core::visit(get_members<T>(), [&item, &func](const auto& member)
+    {
+        func(member, item.*member.ptr);
+    });
 }
 
 } /* namespace cpp_essentials::meta */

@@ -140,6 +140,26 @@ PULL_ADAPTABLE(zip);
 #undef PULL_ADAPTABLE
 #undef PULL_FUNCTOR
 
+namespace detail
+{
+
+struct partition_fn
+{
+    template
+        < class Range
+        , class UnaryPred
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+    auto operator ()(Range&& range, UnaryPred pred) const
+    {
+        return std::make_tuple(take_if(range, pred), drop_if(range, pred));
+    }
+};
+
+} /* namespace detail */
+
+static constexpr auto partition = core::adaptable{ detail::partition_fn{} };
+
 } /* namespace sq */
 
 #endif /* CPP_ESSENTIALS_SQ_SQ_HPP_ */

@@ -13,6 +13,7 @@
 #include <cpp_essentials/core/elementwise.hpp>
 #include <cpp_essentials/core/filter.hpp>
 #include <cpp_essentials/core/flatten.hpp>
+#include <cpp_essentials/core/group_by.hpp>
 #include <cpp_essentials/core/index.hpp>
 #include <cpp_essentials/core/iterate.hpp>
 #include <cpp_essentials/core/join.hpp>
@@ -136,6 +137,8 @@ PULL_ADAPTABLE(trim_while);
 PULL_ADAPTABLE(trim_until);
 
 PULL_ADAPTABLE(zip);
+
+PULL_ADAPTABLE(group_by);
 
 #undef PULL_ADAPTABLE
 #undef PULL_FUNCTOR

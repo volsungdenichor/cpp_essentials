@@ -348,6 +348,9 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\meta\meta.hpp">
       <Filter>Header Files\cpp_essentials\meta</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\group_by.hpp">
+      <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

@@ -56,8 +56,7 @@ std::size_t string_hash(Iter begin, Iter end)
     auto b = &(*begin);
     auto e = &(*end);
 #if _MSC_VER
-    std::_Fnv1a_hasher hasher;
-    return hasher._Add_bytes((const unsigned char*)b, (const unsigned char*)e);
+    return std::_Hash_array_representation(b, e - b);
 #else
     return std::_Hash_impl::hash(b, e - b);
 #endif

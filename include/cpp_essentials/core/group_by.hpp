@@ -25,7 +25,8 @@ auto group_by(Iter begin, Iter end, Func&& func)
 
     for (auto it = begin; it != end; ++it)
     {
-        result[func(*it)].push_back(*it);
+        auto&& value = *it;
+        result[func(value)].push_back(value);
     }
 
     return result;

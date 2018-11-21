@@ -234,9 +234,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\math\matrix.hpp">
       <Filter>Header Files\cpp_essentials\math</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\nil.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\interval.hpp">
       <Filter>Header Files\cpp_essentials\geo</Filter>
     </ClInclude>
@@ -349,6 +346,9 @@
       <Filter>Header Files\cpp_essentials\meta</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\group_by.hpp">
+      <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\nil.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
   </ItemGroup>

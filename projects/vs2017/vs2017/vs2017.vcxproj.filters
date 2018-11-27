@@ -342,9 +342,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\channel.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\meta\meta.hpp">
-      <Filter>Header Files\cpp_essentials\meta</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\group_by.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
@@ -356,6 +353,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\linear_shape.traits.hpp">
       <Filter>Header Files\cpp_essentials\geo\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\meta\meta.hpp">
+      <Filter>Header Files\cpp_essentials\meta</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\meta\serialization.hpp">
+      <Filter>Header Files\cpp_essentials\meta</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

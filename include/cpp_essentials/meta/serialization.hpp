@@ -9,11 +9,14 @@
 namespace cpp_essentials::meta
 {
 
-template <class T, CONCEPT = is_enum<T>>
+template <class T>
 std::optional<T> try_parse(const std::string& text)
 {
+    static_assert(is_registered<T>, "Type not registered");
+    static_assert(is_enumeration<T>, "Enumeration required");
+
     std::optional<T> result = std::nullopt;
-    core::visit(get_enum_values<T>(), [&result, &text](const auto& info)
+    for_each<T>([&result, &text](const auto& info)
     {
         if (info.name == text)
         {
@@ -23,9 +26,12 @@ std::optional<T> try_parse(const std::string& text)
     return result;
 }
 
-template <class T, CONCEPT = is_enum<T>>
+template <class T>
 T parse(const std::string& text)
 {
+    static_assert(is_registered<T>, "Type not registered");
+    static_assert(is_enumeration<T>, "Enumeration required");
+
     const auto result = try_parse<T>(text);
     if (!result)
     {
@@ -34,68 +40,129 @@ T parse(const std::string& text)
     return *result;
 }
 
-} /* namespace cpp_essentials::meta */
+template <class T>
+struct is_optional : std::false_type {};
 
-template <class T, CONCEPT = std::enable_if_t<::cpp_essentials::meta::type_registered<T>>>
+template <class T>
+struct is_optional<std::optional<T>> : std::true_type {};
+
+
+template <class T, class Type, class Tag>
+void to_json(nlohmann::json& json, const member_info<T, Type, Tag>& info, const Type& value)
+{
+    json[info.name] = value;
+}
+
+template <class T, class Type>
+void from_json(const nlohmann::json& json, const member_info<T, Type, default_member>& info, Type& value)
+{
+    auto it = json.find(info.name);
+    if (it != json.end())
+    {
+        it->get_to(value);
+    }
+    else
+    {
+        if constexpr (is_optional<T>::value)
+        {
+            value = Type{};
+        }
+        else
+        {
+            using namespace std::string_literals;
+            throw std::runtime_error{ "Mandatory member missing: "s + info.name };
+        }
+    }
+}
+
+template <class T, class Type>
+void from_json(const nlohmann::json& json, const member_info<T, Type, member_or_value>& info, Type& value)
+{
+    auto it = json.find(info.name);
+    if (it != json.end())
+    {
+        it->get_to(value);
+    }
+    else
+    {
+        value = info.default_value;
+    }
+}
+
+template <class T>
 void to_json(nlohmann::json& json, const T& item)
 {
-    if constexpr (::cpp_essentials::meta::members_registered<T>)
+    if constexpr (is_structure<T>)
     {
-        meta::for_each(item, [&json](const auto& info, const auto& value)
+        for_each(item, [&json](const auto& info, const auto& value)
         {
-            json[info.name] = value;
+            to_json(json, info, value);
         });
     }
-    else if constexpr (::cpp_essentials::meta::enum_values_registered<T>)
+    else if constexpr (is_enumeration<T>)
     {
         json = meta::name_of(item);
     }
 }
 
-template <class T, CONCEPT = std::enable_if_t<::cpp_essentials::meta::type_registered<T>>>
+template <class T>
 void from_json(const nlohmann::json& json, T& item)
 {
-    if constexpr (::cpp_essentials::meta::members_registered<T>)
+    if constexpr (is_structure<T>)
     {
-        meta::for_each(item, [&json](const auto& info, auto& value)
+        for_each(item, [&json](const auto& info, auto& value)
         {
-            value = json[info.name];
+            from_json(json, info, value);
         });
     }
-    else if constexpr (::cpp_essentials::meta::enum_values_registered<T>)
+    else if constexpr (is_enumeration<T>)
     {
-        item = meta::template parse<T>(json.get<std::string>());
+        item = parse<T>(json.get<std::string>());
     }
 }
 
-template <class T, CONCEPT = std::enable_if_t<::cpp_essentials::meta::type_registered<T>>>
+} /* namespace cpp_essentials::meta */
+
+template <class T, CONCEPT = std::enable_if_t<cpp_essentials::meta::is_registered<T>>>
+void to_json(nlohmann::json& json, const T& item)
+{
+    ::cpp_essentials::meta::to_json(json, item);
+}
+
+template <class T, CONCEPT = std::enable_if_t<cpp_essentials::meta::is_registered<T>>>
+void from_json(const nlohmann::json& json, T& item)
+{
+    ::cpp_essentials::meta::from_json(json, item);
+}
+
+template <class T, CONCEPT = std::enable_if_t<cpp_essentials::meta::is_registered<T>>>
 std::ostream& operator <<(std::ostream& os, const T& item)
 {
-    if constexpr (::cpp_essentials::meta::members_registered<T>)
+    if constexpr (::cpp_essentials::meta::is_structure<T>)
     {
         meta::for_each(item, [&os](const auto& info, const auto& value)
         {
             os << info.name << "=" << value << ";";
         });
     }
-    else if constexpr (::cpp_essentials::meta::enum_values_registered<T>)
+    else if constexpr (::cpp_essentials::meta::is_enumeration<T>)
     {
         os << meta::name_of(item);
     }
     return os;
 }
 
-template <class T, CONCEPT = std::enable_if_t<::cpp_essentials::meta::type_registered<T>>>
+template <class T, CONCEPT = std::enable_if_t<cpp_essentials::meta::is_registered<T>>>
 std::istream& operator >>(std::istream& is, T& item)
 {
-    if constexpr (::cpp_essentials::meta::members_registered<T>)
+    if constexpr (::cpp_essentials::meta::is_structure<T>)
     {
         meta::for_each(item, [&is](const auto& info, auto& value)
         {
             // TODO
         });
     }
-    else if constexpr (::cpp_essentials::meta::enum_values_registered<T>)
+    else if constexpr (::cpp_essentials::meta::is_enumeration<T>)
     {
         std::string temp;
         is >> temp;

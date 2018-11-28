@@ -9,15 +9,29 @@
 namespace cpp_essentials::meta
 {
 
-template <class T>
-using is_struct = std::enable_if_t<std::is_class_v<T>>;
+using none = std::tuple<>;
 
-template <class T>
-using is_enum = std::enable_if_t<std::is_enum_v<T>>;
+struct unregistered_type {};
+struct structure_type {};
+struct enumeration_type {};
 
+struct default_member {};
+struct member_or_value {};
 
-template <class Type, class T>
-struct member_info
+template <class Type, class Members>
+struct type_info
+{
+    using type = Type;
+
+    const char* name;
+    Members members;
+};
+
+template <class T, class Type, class Tag>
+struct member_info;
+
+template <class T, class Type>
+struct member_info<T, Type, default_member>
 {
     member_info(const char* name, Type T::*ptr)
         : name{ name }
@@ -27,6 +41,21 @@ struct member_info
 
     const char* name;
     Type T::*ptr;
+};
+
+template <class T, class Type>
+struct member_info<T, Type, member_or_value>
+{
+    member_info(const char* name, Type T::*ptr, Type default_value)
+        : name{ name }
+        , ptr{ ptr }
+        , default_value{ std::move(default_value) }
+    {
+    }
+
+    const char* name;
+    Type T::*ptr;
+    Type default_value;
 };
 
 template <class T>
@@ -43,9 +72,21 @@ struct enum_info
 };
 
 template <class Type, class T>
-auto member(Type T::*ptr, const char* name) -> member_info<Type, T>
+auto member(Type T::*ptr, const char* name) -> member_info<T, Type, default_member>
 {
     return { name, ptr };
+}
+
+template <class Type, class T>
+auto member_or(Type T::*ptr, const char* name, Type default_value) -> member_info<T, Type, member_or_value>
+{
+    return { name, ptr, std::move(default_value) };
+}
+
+template <class Type, class T>
+auto member_or_default(Type T::*ptr, const char* name) -> member_info<T, Type, member_or_value>
+{
+    return member_or(ptr, name, Type{});
 }
 
 template <class T>
@@ -54,85 +95,87 @@ auto enum_value(T value, const char* name) -> enum_info<T>
     return { name, value };
 }
 
-template <class Members>
-struct member_list
+template <class T>
+auto register_type()
 {
-    Members members;
-};
+    return type_info<unregistered_type, none>{};
+}
 
-template <class Values>
-struct enum_value_list
+template <class T>
+const auto& get_type_info()
 {
-    Values values;
-};
+    static const auto info = register_type<T>();
+    return info;
+}
+
+template <class T>
+using type_info_type = typename std::decay_t<decltype(get_type_info<T>())>::type;
+
+template <class T>
+static constexpr bool is_registered = !std::is_same_v<unregistered_type, type_info_type<T>>;
+
+template <class T>
+static constexpr bool is_structure = std::is_same_v<structure_type, type_info_type<T>>;
+
+template <class T>
+static constexpr bool is_enumeration = std::is_same_v<enumeration_type, type_info_type<T>>;
+
 
 template <class... Members>
-auto members(Members&&... members)
+auto structure(const char* name, Members&&... members)
 {
-    return member_list<std::tuple<Members...>>{ std::make_tuple(std::forward<Members>(members)...) };
+    using members_tuple = std::tuple<Members...>;
+    return type_info<structure_type, members_tuple>{ name, members_tuple{ std::forward<Members>(members)... } };
 }
 
-template <class... Values>
-auto enum_values(Values&&... values)
+template <class... Members>
+auto enumeration(const char* name, Members&&... members)
 {
-    return enum_value_list<std::tuple<Values...>>{ std::make_tuple(std::forward<Values>(values)...) };
+    using members_tuple = std::tuple<Members...>;
+    return type_info<enumeration_type, members_tuple>{ name, members_tuple{ std::forward<Members>(members)... } };
 }
 
-using empty_tuple = std::tuple<>;
-
-template <class T>
-auto register_members()
+template <class T, class Func>
+void for_each(Func&& func)
 {
-    return empty_tuple{};
+    static_assert(is_registered<T>, "Type not registered");
+
+    core::visit(get_type_info<T>().members, func);
 }
 
-template <class T>
-auto register_enum_values()
+template <class T, class Func>
+void for_each(const T& item, Func&& func)
 {
-    return empty_tuple{};
+    static_assert(is_registered<T>, "Type not registered");
+    static_assert(is_structure<T>, "Structure required");
+
+    core::visit(get_type_info<T>().members, [&item, &func](const auto& info)
+    {
+        func(info, item.*info.ptr);
+    });
 }
 
-template <class T>
-auto register_name()
+template <class T, class Func>
+void for_each(T& item, Func&& func)
 {
-    return nullptr;
-}
+    static_assert(is_registered<T>, "Type not registered");
+    static_assert(is_structure<T>, "Structure required");
 
-template <class T>
-constexpr bool members_registered = !std::is_same_v<decltype(register_members<T>()), empty_tuple>;
-
-template <class T>
-constexpr bool enum_values_registered = !std::is_same_v<decltype(register_enum_values<T>()), empty_tuple>;
-
-template <class T>
-constexpr bool name_registered = !std::is_same_v<decltype(register_name<T>()), std::nullptr_t>;
-
-template <class T>
-constexpr bool type_registered = members_registered<T> || enum_values_registered<T>;
-
-
-template <class T>
-const auto& get_members()
-{
-    static_assert(members_registered<T>, "Members not registrered");
-    static const auto m = register_members<T>();
-    return m.members;
-}
-
-template <class T>
-const auto& get_enum_values()
-{
-    static_assert(enum_values_registered<T>, "Enum values not registrered");
-    static const auto m = register_enum_values<T>();
-    return m.values;
+    core::visit(get_type_info<T>().members, [&item, &func](const auto& info)
+    {
+        func(info, item.*info.ptr);
+    });
 }
 
 template <class Type, class T>
 const char* name_of(Type T::*ptr)
 {
+    static_assert(is_registered<T>, "Type not registered");
+    static_assert(is_structure<T>, "Structure required");
+
     const char* result = nullptr;
     auto offset = core::offset_of(ptr);
-    core::visit(get_members<T>(), [offset, &result](const auto& info)
+    for_each<T>([offset, &result](const auto& info)
     {
         if (core::offset_of(info.ptr) == offset)
         {
@@ -145,8 +188,11 @@ const char* name_of(Type T::*ptr)
 template <class T>
 const char* name_of(T value)
 {
+    static_assert(is_registered<T>, "Type not registered");
+    static_assert(is_enumeration<T>, "Enumeration required");
+
     const char* result = nullptr;
-    core::visit(get_enum_values<T>(), [&value, &result](const auto& info)
+    for_each<T>([&value, &result](const auto& info)
     {
         if (info.value == value)
         {
@@ -159,40 +205,9 @@ const char* name_of(T value)
 template <class T>
 const char* name_of()
 {
-    static_assert(name_registered<T>, "Type name not registrered");
-    static const char* value = register_name<T>();
-    return value;
-}
+    static_assert(is_registered<T>, "Type not registered");
 
-template <class T, class Func>
-void for_each(Func&& func)
-{
-    if constexpr (std::is_class_v<T>)
-    {
-        core::visit(get_members<T>(), func);
-    }
-    else if constexpr (std::is_enum_v<T>)
-    {
-        core::visit(get_enum_values<T>(), func);
-    }
-}
-
-template <class T, class Func>
-void for_each(const T& item, Func&& func)
-{
-    core::visit(get_members<T>(), [&item, &func](const auto& info)
-    {
-        func(info, item.*info.ptr);
-    });
-}
-
-template <class T, class Func>
-void for_each(T& item, Func&& func)
-{
-    core::visit(get_members<T>(), [&item, &func](const auto& info)
-    {
-        func(info, item.*info.ptr);
-    });
+    return get_type_info<T>().name;
 }
 
 } /* namespace cpp_essentials::meta */

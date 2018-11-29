@@ -10,7 +10,7 @@ namespace cpp_essentials::meta
 {
 
 template <class T>
-std::optional<T> try_parse(const std::string& text)
+std::optional<T> try_parse(std::string_view text)
 {
     static_assert(is_registered<T>, "Type not registered");
     static_assert(is_enumeration<T>, "Enumeration required");
@@ -27,7 +27,7 @@ std::optional<T> try_parse(const std::string& text)
 }
 
 template <class T>
-T parse(const std::string& text)
+T parse(std::string_view text)
 {
     static_assert(is_registered<T>, "Type not registered");
     static_assert(is_enumeration<T>, "Enumeration required");
@@ -50,13 +50,13 @@ struct is_optional<std::optional<T>> : std::true_type {};
 template <class T, class Type, class Tag>
 void to_json(nlohmann::json& json, const member_info<T, Type, Tag>& info, const Type& value)
 {
-    json[info.name] = value;
+    json[info.name.data()] = value;
 }
 
 template <class T, class Type>
 void from_json(const nlohmann::json& json, const member_info<T, Type, default_member>& info, Type& value)
 {
-    auto it = json.find(info.name);
+    auto it = json.find(info.name.data());
     if (it != json.end())
     {
         it->get_to(value);
@@ -70,7 +70,7 @@ void from_json(const nlohmann::json& json, const member_info<T, Type, default_me
         else
         {
             using namespace std::string_literals;
-            throw std::runtime_error{ "Mandatory member missing: "s + info.name };
+            throw std::runtime_error{ "Mandatory member missing: "s + std::string{ info.name } };
         }
     }
 }

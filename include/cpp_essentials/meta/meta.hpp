@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <string_view>
 #include <cpp_essentials/core/tuple.hpp>
 #include <cpp_essentials/core/optional.hpp>
 
@@ -23,7 +24,7 @@ struct type_info
 {
     using type = Type;
 
-    const char* name;
+    std::string_view name;
     Members members;
 };
 
@@ -33,27 +34,27 @@ struct member_info;
 template <class T, class Type>
 struct member_info<T, Type, default_member>
 {
-    member_info(const char* name, Type T::*ptr)
+    member_info(std::string_view name, Type T::*ptr)
         : name{ name }
         , ptr{ ptr }
     {
     }
 
-    const char* name;
+    std::string_view name;
     Type T::*ptr;
 };
 
 template <class T, class Type>
 struct member_info<T, Type, member_or_value>
 {
-    member_info(const char* name, Type T::*ptr, Type default_value)
+    member_info(std::string_view name, Type T::*ptr, Type default_value)
         : name{ name }
         , ptr{ ptr }
         , default_value{ std::move(default_value) }
     {
     }
 
-    const char* name;
+    std::string_view name;
     Type T::*ptr;
     Type default_value;
 };
@@ -61,36 +62,36 @@ struct member_info<T, Type, member_or_value>
 template <class T>
 struct enum_info
 {
-    enum_info(const char* name, T value)
+    enum_info(std::string_view name, T value)
         : name{ name }
         , value{ value }
     {
     }
 
-    const char* name;
+    std::string_view name;
     T value;
 };
 
 template <class Type, class T>
-auto member(Type T::*ptr, const char* name) -> member_info<T, Type, default_member>
+auto member(Type T::*ptr, std::string_view name) -> member_info<T, Type, default_member>
 {
     return { name, ptr };
 }
 
 template <class Type, class T>
-auto member_or(Type T::*ptr, const char* name, Type default_value) -> member_info<T, Type, member_or_value>
+auto member_or(Type T::*ptr, std::string_view name, Type default_value) -> member_info<T, Type, member_or_value>
 {
     return { name, ptr, std::move(default_value) };
 }
 
 template <class Type, class T>
-auto member_or_default(Type T::*ptr, const char* name) -> member_info<T, Type, member_or_value>
+auto member_or_default(Type T::*ptr, std::string_view name) -> member_info<T, Type, member_or_value>
 {
     return member_or(ptr, name, Type{});
 }
 
 template <class T>
-auto enum_value(T value, const char* name) -> enum_info<T>
+auto enum_value(T value, std::string_view name) -> enum_info<T>
 {
     return { name, value };
 }
@@ -122,14 +123,14 @@ static constexpr bool is_enumeration = std::is_same_v<enumeration_type, type_inf
 
 
 template <class... Members>
-auto structure(const char* name, Members&&... members)
+auto structure(std::string_view name, Members&&... members)
 {
     using members_tuple = std::tuple<Members...>;
     return type_info<structure_type, members_tuple>{ name, members_tuple{ std::forward<Members>(members)... } };
 }
 
 template <class... Members>
-auto enumeration(const char* name, Members&&... members)
+auto enumeration(std::string_view name, Members&&... members)
 {
     using members_tuple = std::tuple<Members...>;
     return type_info<enumeration_type, members_tuple>{ name, members_tuple{ std::forward<Members>(members)... } };
@@ -168,12 +169,12 @@ void for_each(T& item, Func&& func)
 }
 
 template <class Type, class T>
-const char* name_of(Type T::*ptr)
+std::string_view name_of(Type T::*ptr)
 {
     static_assert(is_registered<T>, "Type not registered");
     static_assert(is_structure<T>, "Structure required");
 
-    const char* result = nullptr;
+    std::string_view result = {};
     auto offset = core::offset_of(ptr);
     for_each<T>([offset, &result](const auto& info)
     {
@@ -186,12 +187,12 @@ const char* name_of(Type T::*ptr)
 }
 
 template <class T>
-const char* name_of(T value)
+std::string_view name_of(T value)
 {
     static_assert(is_registered<T>, "Type not registered");
     static_assert(is_enumeration<T>, "Enumeration required");
 
-    const char* result = nullptr;
+    std::string_view result = {};
     for_each<T>([&value, &result](const auto& info)
     {
         if (info.value == value)
@@ -203,7 +204,7 @@ const char* name_of(T value)
 }
 
 template <class T>
-const char* name_of()
+std::string_view name_of()
 {
     static_assert(is_registered<T>, "Type not registered");
 

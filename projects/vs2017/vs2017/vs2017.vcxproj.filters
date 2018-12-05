@@ -357,7 +357,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\meta\meta.hpp">
       <Filter>Header Files\cpp_essentials\meta</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\meta\serialization.hpp">
+    <ClInclude Include="..\..\..\include\cpp_essentials\meta\serialization_json.hpp">
       <Filter>Header Files\cpp_essentials\meta</Filter>
     </ClInclude>
   </ItemGroup>

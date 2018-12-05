@@ -254,7 +254,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\math\polynomial.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\regression.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\meta\meta.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\meta\serialization.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\meta\serialization_json.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\sq.hpp" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>

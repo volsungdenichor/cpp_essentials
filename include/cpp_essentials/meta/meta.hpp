@@ -6,9 +6,34 @@
 #include <string_view>
 #include <cpp_essentials/core/tuple.hpp>
 #include <cpp_essentials/core/optional.hpp>
+#include <cpp_essentials/core/serialization.hpp>
 
 namespace cpp_essentials::meta
 {
+
+template <class T>
+struct is_optional : std::false_type {};
+
+template <class T>
+struct is_optional<std::optional<T>> : std::true_type {};
+
+template <class T>
+static constexpr bool is_optional_v = is_optional<T>::value;
+
+template <class T>
+struct underlying_type
+{
+    using type = T;
+};
+
+template <class T>
+struct underlying_type<std::optional<T>>
+{
+    using type = T;
+};
+
+template <class T>
+using underlying_type_t = typename underlying_type<T>::type;
 
 using none = std::tuple<>;
 
@@ -16,8 +41,17 @@ struct unregistered_type {};
 struct structure_type {};
 struct enumeration_type {};
 
-struct default_member {};
-struct member_or_value {};
+struct mandatory_member {};
+
+template <class T = void>
+struct default_member
+{
+    T value;
+};
+
+template <>
+struct default_member<void> {};
+
 
 template <class Type, class Members>
 struct type_info
@@ -28,35 +62,35 @@ struct type_info
     Members members;
 };
 
-template <class T, class Type, class Tag>
-struct member_info;
-
-template <class T, class Type>
-struct member_info<T, Type, default_member>
+template <class T>
+default_member<T> default_value(T value)
 {
-    member_info(std::string_view name, Type T::*ptr)
+    return { std::move(value) };
+}
+
+inline default_member<> default_value()
+{
+    return {};
+}
+
+inline mandatory_member mandatory()
+{
+    return {};
+}
+
+template <class T, class Type, class Extra>
+struct member_info
+{
+    member_info(std::string_view name, Type T::*ptr, Extra extra)
         : name{ name }
         , ptr{ ptr }
+        , extra{ std::move(extra) }
     {
     }
 
     std::string_view name;
     Type T::*ptr;
-};
-
-template <class T, class Type>
-struct member_info<T, Type, member_or_value>
-{
-    member_info(std::string_view name, Type T::*ptr, Type default_value)
-        : name{ name }
-        , ptr{ ptr }
-        , default_value{ std::move(default_value) }
-    {
-    }
-
-    std::string_view name;
-    Type T::*ptr;
-    Type default_value;
+    Extra extra;
 };
 
 template <class T>
@@ -72,22 +106,10 @@ struct enum_info
     T value;
 };
 
-template <class Type, class T>
-auto member(Type T::*ptr, std::string_view name) -> member_info<T, Type, default_member>
+template <class T, class Type, class Extra = std::conditional_t<is_optional_v<Type>, default_member<>, mandatory_member>>
+auto member(Type T::*ptr, std::string_view name, Extra extra = {}) -> member_info<T, Type, Extra>
 {
-    return { name, ptr };
-}
-
-template <class Type, class T>
-auto member_or(Type T::*ptr, std::string_view name, Type default_value) -> member_info<T, Type, member_or_value>
-{
-    return { name, ptr, std::move(default_value) };
-}
-
-template <class Type, class T>
-auto member_or_default(Type T::*ptr, std::string_view name) -> member_info<T, Type, member_or_value>
-{
-    return member_or(ptr, name, Type{});
+    return { name, ptr, std::move(extra) };
 }
 
 template <class T>
@@ -211,6 +233,190 @@ std::string_view name_of()
     return get_type_info<T>().name;
 }
 
+template <class T, class Func>
+void invoke(const T& item, std::string_view member_name, Func&& func)
+{
+    bool found = false;
+    for_each(item, [&member_name, &func, &found](const auto& info, const auto& value)
+    {
+        if (info.name == member_name)
+        {
+            func(value);
+            found = true;
+        }
+    });
+
+    if (!found)
+    {
+        throw std::runtime_error{ core::to_string("Member '", member_name, "' not found in '", name_of<T>(), "'") };
+    }
+}
+
+template <class T, class Func>
+void invoke(T& item, std::string_view member_name, Func&& func)
+{
+    bool found = false;
+    for_each(item, [&member_name, &func, &found](const auto& info, auto& value)
+    {
+        if (info.name == member_name)
+        {
+            func(value);
+            found = true;
+        }
+    });
+
+    if (!found)
+    {
+        throw std::runtime_error{ core::to_string("Member '", member_name, "' not found in '", name_of<T>(), "'") };
+    }
+}
+
+template <class T>
+struct member_proxy
+{
+    T* item;
+    std::string_view member_name;
+
+    template <class Ostream>
+    friend Ostream& operator <<(Ostream& os, const member_proxy& item)
+    {
+        invoke(*item.item, item.member_name, [&os](const auto& value)
+        {
+            os << value;
+        });
+        return os;
+    }
+
+    template <class Istream>
+    friend Istream& operator >>(Istream& is, member_proxy& item)
+    {
+        invoke(*item.item, item.member_name, [&is](auto& value)
+        {
+            is >> value;
+        });
+        return is;
+    }
+
+    template <class Type>
+    member_proxy& operator =(const Type& new_value)
+    {
+        invoke(*item, member_name, [&new_value](auto& value)
+        {
+            if constexpr (std::is_same_v<decltype(value), Type&>)
+            {
+                value = new_value;
+            }
+            else
+            {
+                throw std::runtime_error{ "Invalid type" };
+            }
+        });
+        return *this;
+    }
+
+    template <class Type>
+    const Type& as() const
+    {
+        const Type* result = nullptr;
+
+        invoke(*item, member_name, [&result](const auto& value)
+        {
+            if constexpr (std::is_same_v<decltype(value), const Type&>)
+            {
+                result = &value;
+            }
+            else
+            {
+                throw std::runtime_error{ "Invalid type" };
+            }
+        });
+
+        return *result;
+    }
+};
+
+template <class T>
+auto get(const T& item, std::string_view member_name) -> member_proxy<const T>
+{
+    static_assert(is_registered<T>, "Type not registered");
+    static_assert(is_structure<T>, "Structure required");
+
+    return { &item, member_name };
+}
+
+template <class T>
+auto get(T& item, std::string_view member_name) -> member_proxy<T>
+{
+    static_assert(is_registered<T>, "Type not registered");
+    static_assert(is_structure<T>, "Structure required");
+
+    return { &item, member_name };
+}
+
+template <class T>
+std::optional<T> try_parse_enum(std::string_view text)
+{
+    static_assert(is_registered<T>, "Type not registered");
+    static_assert(is_enumeration<T>, "Enumeration required");
+
+    std::optional<T> result = std::nullopt;
+    for_each<T>([&result, &text](const auto& info)
+    {
+        if (info.name == text)
+        {
+            result = info.value;
+        }
+    });
+    return result;
+}
+
+template <class T>
+T parse_enum(std::string_view text)
+{
+    static_assert(is_registered<T>, "Type not registered");
+    static_assert(is_enumeration<T>, "Enumeration required");
+
+    const auto result = try_parse_enum<T>(text);
+    if (!result)
+    {
+        throw std::runtime_error{ "Unknown enum value" };
+    }
+    return *result;
+}
+
 } /* namespace cpp_essentials::meta */
+
+template <class T, CONCEPT = std::enable_if_t<cpp_essentials::meta::is_structure<T>>>
+std::ostream& operator <<(std::ostream& os, const T& item)
+{
+    os << "(";
+    bool first = true;
+    meta::for_each(item, [&os, &first](const auto& /* info */, const auto& value)
+    {
+        if (!first)
+        {
+            os << ";";
+        }
+        first = false;
+        os << value;
+    });
+    os << ")";
+    return os;
+}
+
+template <class T, CONCEPT = std::enable_if_t<cpp_essentials::meta::is_enumeration<T>>>
+std::ostream& operator <<(std::ostream& os, T item)
+{
+    return os << meta::name_of(item);
+}
+
+template <class T, CONCEPT = std::enable_if_t<cpp_essentials::meta::is_enumeration<T>>>
+std::istream& operator >>(std::istream& is, T& item)
+{
+    std::string temp;
+    is >> temp;
+    item = meta::template parse_enum<T>(temp);
+    return is;
+}
 
 #endif /* CPP_ESSENTIALS_META_META_HPP_ */

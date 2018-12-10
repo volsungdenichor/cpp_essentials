@@ -7,6 +7,7 @@
 #include <stdexcept>
 
 #include <cpp_essentials/core/views.hpp>
+#include <cpp_essentials/core/string_views.hpp>
 #include <cpp_essentials/core/optional.hpp>
 
 namespace cpp_essentials::core
@@ -18,8 +19,7 @@ namespace detail
 template <class T>
 struct try_parse_fn
 {
-    template <class Range>
-    core::optional<T> operator ()(const Range& text) const
+    core::optional<T> operator ()(cstring_view text) const
     {
         std::istringstream is{ text };
         T result;
@@ -31,8 +31,7 @@ struct try_parse_fn
 template <class T>
 struct parse_fn
 {
-    template <class Range>
-    T operator ()(const Range& text) const
+    T operator ()(cstring_view text) const
     {
         static constexpr try_parse_fn<T> try_parse = {};
         auto result = try_parse(text);

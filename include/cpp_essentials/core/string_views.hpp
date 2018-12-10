@@ -6,25 +6,82 @@
 #include <string>
 #include <cstring>
 #include <locale>
+#include <string_view>
+
 #include <cpp_essentials/core/views.hpp>
 #include <cpp_essentials/core/trim.hpp>
 
 namespace cpp_essentials::core
 {
 
-using cstring_mut_view = mut_span<char>;
-using cstring_view = span<char>;
+class cstring_mut_view : public mut_span<char>
+{
+public:
+    using base_type = mut_span<char>;
+
+    using iterator_range::iterator_range;
+
+    cstring_mut_view(char* text)
+        : base_type{ base_type::iterator(text), base_type::size_type(std::strlen(text)) }
+    {
+    }
+
+    cstring_mut_view(std::string& text)
+        : base_type{ base_type::iterator(&text[0]), base_type::size_type(text.size()) }
+    {
+    }
+
+    cstring_mut_view(mut_view<std::string> text)
+        : base_type{ base_type::iterator(&text[0]), base_type::size_type(text.size()) }
+    {
+    }    
+};
+
+class cstring_view : public span<char>
+{
+public:
+    using base_type = span<char>;
+
+    using iterator_range::iterator_range;
+
+    cstring_view(char* text)
+        : base_type{ base_type::iterator(text), base_type::size_type(std::strlen(text)) }
+    {
+    }
+
+    cstring_view(const char* text)
+        : base_type{ base_type::iterator(text), base_type::size_type(std::strlen(text)) }
+    {
+    }
+
+    cstring_view(std::string& text)
+        : base_type{ base_type::iterator(&text[0]), base_type::size_type(text.size()) }
+    {
+    }
+
+    cstring_view(const std::string& text)
+        : base_type{ base_type::iterator(&text[0]), base_type::size_type(text.size()) }
+    {
+    }
+
+    cstring_view(mut_view<std::string> text)
+        : base_type{ base_type::iterator(&text[0]), base_type::size_type(text.size()) }
+    {
+    }
+
+    cstring_view(view<std::string> text)
+        : base_type{ base_type::iterator(&text[0]), base_type::size_type(text.size()) }
+    {
+    }
+
+    cstring_view(std::string_view text)
+        : base_type{ base_type::iterator(&text[0]), base_type::size_type(text.size()) }
+    {
+    }
+};
 
 using string_mut_view = mut_view<std::string>;
 using string_view = view<std::string>;
-
-
-using cwstring_mut_view = mut_span<wchar_t>;
-using cwstring_view = span<wchar_t>;
-
-using wstring_mut_view = mut_view<std::wstring>;
-using wstring_view = view<std::wstring>;
-
 
 inline std::ostream& operator <<(std::ostream& os, const string_mut_view& item)
 {
@@ -50,6 +107,18 @@ inline std::ostream& operator <<(std::ostream& os, const cstring_view& item)
     return os;
 }
 
+inline std::ostream& operator <<(std::ostream& os, const cstring_mut_view::base_type& item)
+{
+    std::copy(item.begin(), item.end(), std::ostream_iterator<char>{ os });
+    return os;
+}
+
+inline std::ostream& operator <<(std::ostream& os, const cstring_view::base_type& item)
+{
+    std::copy(item.begin(), item.end(), std::ostream_iterator<char>{ os });
+    return os;
+}
+
 template <class Iter>
 std::size_t string_hash(Iter begin, Iter end)
 {
@@ -70,7 +139,7 @@ struct trim_fn
     template
         < class Range
         , CONCEPT = cc::BidirectionalRange<Range>>
-    auto operator ()(Range&& range, const std::locale& locale = {}) const
+        auto operator ()(Range&& range, const std::locale& locale = {}) const
     {
         return core::trim_while(range, [&](auto ch) { return std::isspace(ch, locale); });
     }

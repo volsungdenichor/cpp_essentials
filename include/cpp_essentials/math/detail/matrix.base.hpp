@@ -302,6 +302,18 @@ struct tuple_element<Index, ::cpp_essentials::math::vector<T, D>>
     using type = decltype(std::declval<::cpp_essentials::math::vector<T, D>>().template get<Index>());
 };
 
+template <size_t Index, class T, size_t D>
+const auto& get(const ::cpp_essentials::math::vector<T, D>& item)
+{
+    return item.template get<Index>();
+};
+
+template <size_t Index, class T, size_t D>
+auto& get(::cpp_essentials::math::vector<T, D>& item)
+{
+    return item.template get<Index>();
+};
+
 } /* namespace std */
 
 #endif /* CPP_ESSENTIALS_MATH_DETAIL_MATRIX_BASE_HPP_ */

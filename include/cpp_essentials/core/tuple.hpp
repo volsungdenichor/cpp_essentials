@@ -12,19 +12,32 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-template <class T, class Func, size_t... Index>
-void visit(const T& tuple, Func&& func, std::index_sequence<Index...>)
+template <size_t Index, class T, class Func>
+void visit_value(T&& value, Func&& func)
 {
-    auto dummy = { 0, (func(std::get<Index>(tuple)), 0)... };
+    if constexpr (std::is_invocable_v<Func, T, size_t>)
+    {
+        func(value, Index);
+    }
+    else
+    {
+        func(value);
+    }
+}
+
+template <class Tuple, class Func, size_t... Index>
+void visit(Tuple&& tuple, Func&& func, std::index_sequence<Index...>)
+{
+    auto dummy = { 0, (visit_value<Index>(std::get<Index>(tuple), func), 0)... };
     (void)dummy;
 }
 
 struct visit_fn
 {
-    template <class... Args, class Func>
-    void operator ()(const std::tuple<Args...>& tuple, Func&& func) const
+    template <class Tuple, class Func>
+    void operator ()(Tuple&& tuple, Func&& func) const
     {
-        visit(tuple, func, std::index_sequence_for<Args...>{});
+        visit(tuple, func, std::make_index_sequence<std::tuple_size_v<std::decay_t<Tuple>>>{});
     }
 };
 

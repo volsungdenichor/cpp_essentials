@@ -219,6 +219,22 @@ struct offset_of_fn
     }
 };
 
+struct compose_fn
+{
+    template <class Func, class... Tail>
+    auto operator ()(Func&& func, Tail&&... tail) const
+    {
+        if constexpr (sizeof...(tail) == 0)
+        {
+            return func;
+        }
+        else
+        {
+            return [=](auto&& item) { return (*this)(tail...)(func(item)); };
+        }
+    }
+};
+
 } /* namespace detail */
 
 static constexpr detail::identity_fn identity = {};
@@ -246,6 +262,7 @@ template <class Type>
 static constexpr detail::cast_fn<Type> cast = {};
 
 static constexpr detail::offset_of_fn offset_of = {};
+static constexpr detail::compose_fn compose;
 
 } /* namespace cpp_essentials::core */
 

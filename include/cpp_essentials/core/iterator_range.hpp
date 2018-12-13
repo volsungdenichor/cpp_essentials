@@ -141,7 +141,7 @@ public:
         return front();
     }
 
-    explicit operator bool() const
+    operator bool() const
     {
         return !empty();
     }

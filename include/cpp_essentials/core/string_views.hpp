@@ -14,71 +14,8 @@
 namespace cpp_essentials::core
 {
 
-class cstring_mut_view : public mut_span<char>
-{
-public:
-    using base_type = mut_span<char>;
-
-    using iterator_range::iterator_range;
-
-    cstring_mut_view(char* text)
-        : base_type{ base_type::iterator(text), base_type::size_type(std::strlen(text)) }
-    {
-    }
-
-    cstring_mut_view(std::string& text)
-        : base_type{ base_type::iterator(&text[0]), base_type::size_type(text.size()) }
-    {
-    }
-
-    cstring_mut_view(mut_view<std::string> text)
-        : base_type{ base_type::iterator(&text[0]), base_type::size_type(text.size()) }
-    {
-    }    
-};
-
-class cstring_view : public span<char>
-{
-public:
-    using base_type = span<char>;
-
-    using iterator_range::iterator_range;
-
-    cstring_view(char* text)
-        : base_type{ base_type::iterator(text), base_type::size_type(std::strlen(text)) }
-    {
-    }
-
-    cstring_view(const char* text)
-        : base_type{ base_type::iterator(text), base_type::size_type(std::strlen(text)) }
-    {
-    }
-
-    cstring_view(std::string& text)
-        : base_type{ base_type::iterator(&text[0]), base_type::size_type(text.size()) }
-    {
-    }
-
-    cstring_view(const std::string& text)
-        : base_type{ base_type::iterator(&text[0]), base_type::size_type(text.size()) }
-    {
-    }
-
-    cstring_view(mut_view<std::string> text)
-        : base_type{ base_type::iterator(&text[0]), base_type::size_type(text.size()) }
-    {
-    }
-
-    cstring_view(view<std::string> text)
-        : base_type{ base_type::iterator(&text[0]), base_type::size_type(text.size()) }
-    {
-    }
-
-    cstring_view(std::string_view text)
-        : base_type{ base_type::iterator(&text[0]), base_type::size_type(text.size()) }
-    {
-    }
-};
+using cstring_mut_view = mut_span<char>;
+using cstring_view = span<char>;
 
 using string_mut_view = mut_view<std::string>;
 using string_view = view<std::string>;
@@ -102,18 +39,6 @@ inline std::ostream& operator <<(std::ostream& os, const cstring_mut_view& item)
 }
 
 inline std::ostream& operator <<(std::ostream& os, const cstring_view& item)
-{
-    std::copy(item.begin(), item.end(), std::ostream_iterator<char>{ os });
-    return os;
-}
-
-inline std::ostream& operator <<(std::ostream& os, const cstring_mut_view::base_type& item)
-{
-    std::copy(item.begin(), item.end(), std::ostream_iterator<char>{ os });
-    return os;
-}
-
-inline std::ostream& operator <<(std::ostream& os, const cstring_view::base_type& item)
 {
     std::copy(item.begin(), item.end(), std::ostream_iterator<char>{ os });
     return os;

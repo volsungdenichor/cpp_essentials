@@ -355,6 +355,16 @@ struct contains_fn
     }
 };
 
+struct sum_fn
+{
+    template <class Range>
+    auto operator ()(Range&& range) const
+    {
+        using result_type = cc::Add<cc::range_val<Range>, cc::range_val<Range>>;
+        return std::accumulate(std::begin(range), std::end(range), result_type{});
+    }
+};
+
 } /* namespace detail */
 
 static constexpr detail::front_fn front = {};
@@ -377,6 +387,7 @@ static constexpr detail::copy_until_fn copy_until = {};
 static constexpr detail::starts_with_fn starts_with = {};
 static constexpr detail::ends_with_fn ends_with = {};
 static constexpr detail::contains_fn contains = {};
+static constexpr detail::sum_fn sum = {};
 
 } /* namespace cpp_essentials::core */
 

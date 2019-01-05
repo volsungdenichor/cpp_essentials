@@ -132,16 +132,16 @@ const auto& get_type_info()
 }
 
 template <class T>
-using type_info_type = typename std::decay_t<decltype(get_type_info<T>())>::type;
+using type_info_type = std::decay_t<decltype(get_type_info<T>())>;
 
 template <class T>
-static constexpr bool is_registered = !std::is_same_v<unregistered_type, type_info_type<T>>;
+static constexpr bool is_registered = !std::is_same_v<unregistered_type, typename type_info_type<T>::type>;
 
 template <class T>
-static constexpr bool is_structure = std::is_same_v<structure_type, type_info_type<T>>;
+static constexpr bool is_structure = std::is_same_v<structure_type, typename type_info_type<T>::type>;
 
 template <class T>
-static constexpr bool is_enumeration = std::is_same_v<enumeration_type, type_info_type<T>>;
+static constexpr bool is_enumeration = std::is_same_v<enumeration_type, typename type_info_type<T>::type>;
 
 
 template <class... Members>

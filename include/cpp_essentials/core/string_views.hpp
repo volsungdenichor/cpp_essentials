@@ -86,24 +86,39 @@ struct c_str_fn
         return { text, text + std::strlen(text) };
     }
 
+    cstring_mut_view operator ()(cstring_mut_view text) const
+    {
+        return text;
+    }
+
+    cstring_view operator ()(cstring_view text) const
+    {
+        return text;
+    }
+
     cstring_mut_view operator ()(std::string& text) const
     {
-        return { &(*text.begin()), &(*text.end()) };
+        return { cstring_mut_view::iterator(&text[0]), cstring_mut_view::size_type(text.size()) };
     }
 
     cstring_view operator ()(const std::string& text) const
     {
-        return { &(*text.begin()), &(*text.end()) };
+        return { cstring_view::iterator(&text[0]), cstring_mut_view::size_type(text.size()) };
     }
 
     cstring_mut_view operator ()(string_mut_view text) const
     {
-        return { &(*text.begin()), &(*text.end()) };
+        return { cstring_mut_view::iterator(&text[0]), cstring_mut_view::size_type(text.size()) };
     }
 
     cstring_view operator ()(string_view text) const
     {
-        return { &(*text.begin()), &(*text.end()) };
+        return { cstring_view::iterator(&text[0]), cstring_view::size_type(text.size()) };
+    }
+
+    cstring_view operator ()(std::string_view text) const
+    {
+        return { cstring_view::iterator(&text[0]), cstring_view::size_type(text.size()) };
     }
 };
 

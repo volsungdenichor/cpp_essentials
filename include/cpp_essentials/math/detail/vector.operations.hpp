@@ -26,8 +26,8 @@ struct norm_fn
     template <class T, size_t D>
     auto operator ()(const vector<T, D>& item) const
     {
-        static constexpr dot_fn dot = {};
-        return dot(item, item);
+        static constexpr dot_fn _dot = {};
+        return _dot(item, item);
     }
 };
 
@@ -36,8 +36,8 @@ struct length_fn
     template <class T, size_t D>
     auto operator ()(const vector<T, D>& item) const
     {
-        static constexpr norm_fn norm = {};
-        return sqrt(norm(item));
+        static constexpr norm_fn _norm = {};
+        return sqrt(_norm(item));
     }
 };
 
@@ -46,8 +46,8 @@ struct normalize_fn
     template <class T, size_t D>
     auto& operator ()(vector<T, D>& item) const
     {
-        static constexpr length_fn length = {};
-        auto len = length(item);
+        static constexpr length_fn _length = {};
+        auto len = _length(item);
 
         if (len)
         {
@@ -63,9 +63,9 @@ struct unit_fn
     template <class T, size_t D>
     auto operator ()(const vector<T, D>& item) const
     {
-        static constexpr normalize_fn normalize = {};
+        static constexpr normalize_fn _normalize = {};
         vector<T, D> result{ item };
-        normalize(result);
+        _normalize(result);
         return result;
     }
 };
@@ -75,8 +75,8 @@ struct distance_fn
     template <class T, class U, size_t D >
     auto operator ()(const vector<T, D>& lhs, const vector<U, D>& rhs) const
     {
-        static constexpr length_fn length = {};
-        return length(rhs - lhs);
+        static constexpr length_fn _length = {};
+        return _length(rhs - lhs);
     }
 };
 
@@ -103,9 +103,9 @@ struct projection_fn
     template <class T, size_t D>
     auto operator ()(const vector<T, D>& lhs, const vector<T, D>& rhs) const
     {
-        static constexpr dot_fn dot = {};
-        static constexpr norm_fn norm = {};
-        return rhs * (dot(rhs, lhs) / norm(rhs));
+        static constexpr dot_fn _dot = {};
+        static constexpr norm_fn _norm = {};
+        return rhs * (_dot(rhs, lhs) / _norm(rhs));
     }
 };
 
@@ -114,8 +114,8 @@ struct rejection_fn
     template <class T, size_t D>
     auto operator ()(const vector<T, D>& lhs, const vector<T, D>& rhs) const
     {
-        static constexpr projection_fn projection = {};
-        return lhs - projection(lhs, rhs);
+        static constexpr projection_fn _projection = {};
+        return lhs - _projection(lhs, rhs);
     }
 };
 
@@ -133,9 +133,9 @@ struct angle_fn
     template <class T>
     auto operator ()(const vector_2d<T>& lhs, const vector_2d<T>& rhs) const
     {
-        static constexpr cross_fn cross = {};
-        static constexpr dot_fn dot = {};
-        return atan2(cross(lhs, rhs), dot(lhs, rhs));
+        static constexpr cross_fn _cross = {};
+        static constexpr dot_fn _dot = {};
+        return atan2(_cross(lhs, rhs), _dot(lhs, rhs));
     }
 
     template <class T>
@@ -148,9 +148,9 @@ struct angle_fn
     template <class T>
     auto operator ()(const vector_3d<T>& lhs, const vector_3d<T>& rhs) const
     {
-        static constexpr dot_fn dot = {};
-        static constexpr length_fn length = {};
-        return acos(dot(lhs, rhs) / (length(lhs) * length(rhs)));
+        static constexpr dot_fn _dot = {};
+        static constexpr length_fn _length = {};
+        return acos(_dot(lhs, rhs) / (_length(lhs) * _length(rhs)));
     }
 };
 
@@ -159,8 +159,8 @@ struct bisector_fn
     template <class T, size_t D>
     auto operator ()(const vector<T, D>& lhs, const vector<T, D>& rhs) const
     {
-        static constexpr unit_fn unit = {};
-        return unit(unit(lhs) + unit(rhs));
+        static constexpr unit_fn _unit = {};
+        return _unit(_unit(lhs) + _unit(rhs));
     }
 };
 

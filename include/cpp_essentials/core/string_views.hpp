@@ -127,10 +127,15 @@ struct c_str_fn
 static constexpr detail::trim_fn trim = {};
 static constexpr detail::c_str_fn c_str = {};
 
-inline cstring_view operator ""_str(const char* text, size_t length)
+namespace literals
+{
+
+inline cstring_view operator ""_s(const char* text, size_t length)
 {
     return { text, text + length };
 }
+
+} /* namespace literals */
 
 } /* namespace cpp_essentials::core */
 

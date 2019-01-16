@@ -75,13 +75,13 @@ struct determinant_fn
     template <class T, size_t D>
     auto operator ()(const square_matrix<T, D>& item) const
     {
-        static constexpr minor_fn minor = {};
+        static constexpr minor_fn _minor = {};
 
         auto sum = T{};
 
         for (size_t i = 0; i < D; ++i)
         {
-            sum += (i % 2 == 0 ? 1 : -1) * item(0, i) * (*this)(minor(item, 0, i));
+            sum += (i % 2 == 0 ? 1 : -1) * item(0, i) * (*this)(_minor(item, 0, i));
         }
 
         return sum;
@@ -93,8 +93,8 @@ struct is_invertible_fn
     template <class T, size_t D>
     bool operator ()(const square_matrix<T, D>& value) const
     {
-        static constexpr determinant_fn determinant = {};
-        return determinant(value);
+        static constexpr determinant_fn _determinant = {};
+        return _determinant(value);
     }
 };
 
@@ -103,10 +103,10 @@ struct invert_fn
     template <class T, size_t D>
     auto operator ()(const square_matrix<T, D>& value) const -> core::optional<square_matrix<T, D>>
     {
-        static constexpr determinant_fn determinant = {};
-        static constexpr minor_fn minor = {};
+        static constexpr determinant_fn _determinant = {};
+        static constexpr minor_fn _minor = {};
 
-        auto det = determinant(value);
+        auto det = _determinant(value);
 
         if (!det)
         {
@@ -119,7 +119,7 @@ struct invert_fn
         {
             for (size_t c = 0; c < D; ++c)
             {
-                result(c, r) = T((r + c) % 2 == 0 ? 1 : -1) * determinant(minor(value, r, c)) / det;
+                result(c, r) = T((r + c) % 2 == 0 ? 1 : -1) * _determinant(_minor(value, r, c)) / det;
             }
         }
 

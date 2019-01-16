@@ -33,8 +33,8 @@ struct parse_fn
 {
     T operator ()(cstring_view text) const
     {
-        static constexpr try_parse_fn<T> try_parse = {};
-        auto result = try_parse(text);
+        static constexpr try_parse_fn<T> _try_parse = {};
+        auto result = _try_parse(text);
         if (!result)
         {
             std::stringstream ss;
@@ -91,9 +91,9 @@ struct to_string_fn
     template <class... Args>
     std::string operator ()(const Args&... args) const
     {
-        static constexpr serialize_fn serialize = {};
+        static constexpr serialize_fn _serialize = {};
         std::ostringstream ss;
-        serialize(ss, args...);
+        _serialize(ss, args...);
         return ss.str();
     }
 };

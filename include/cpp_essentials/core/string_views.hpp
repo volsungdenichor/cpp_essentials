@@ -64,7 +64,7 @@ struct trim_fn
     template
         < class Range
         , CONCEPT = cc::BidirectionalRange<Range>>
-        auto operator ()(Range&& range, const std::locale& locale = {}) const
+    auto operator ()(Range&& range, const std::locale& locale = {}) const
     {
         return core::trim_while(range, [&](auto ch) { return std::isspace(ch, locale); });
     }

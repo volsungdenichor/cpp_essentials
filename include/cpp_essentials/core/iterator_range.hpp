@@ -92,19 +92,7 @@ public:
     iterator_range(Range&& range)
         : iterator_range{ std::begin(range), std::end(range) }
     {
-    }
-
-    template <size_t N, class It = iterator, CONCEPT = std::enable_if_t<std::is_same_v<It, const char*>>>
-    iterator_range(const char(&range)[N])
-        : iterator_range{ iterator(&range[0]), size_type(N - 1) }
-    {
-    }
-
-    template <class It = iterator, CONCEPT = std::enable_if_t<std::is_same_v<It, const char*>>>
-    iterator_range(std::string_view range)
-        : iterator_range{ iterator(&range[0]), size_type(range.size()) }
-    {
-    }
+    }    
 
 
     auto begin() const -> iterator
@@ -133,6 +121,12 @@ public:
     {
         EXPECTS(!empty());
         return *begin();
+    }
+
+    auto back() const -> reference
+    {
+        EXPECTS(!empty());
+        return *std::prev(end());
     }
 
     auto operator [](size_type index) const -> reference

@@ -86,7 +86,7 @@ struct serialize_fn
     }
 };
 
-struct to_string_fn
+struct stringify_fn
 {
     template <class... Args>
     std::string operator ()(const Args&... args) const
@@ -107,7 +107,8 @@ template <class T>
 static constexpr detail::parse_fn<T> parse = {};
 
 static constexpr detail::serialize_fn serialize = {};
-static constexpr detail::to_string_fn to_string = {};
+static constexpr detail::stringify_fn stringify = {};
+static constexpr detail::stringify_fn str = {};
 
 } /* namespace cpp_essentials::core */
 

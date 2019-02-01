@@ -33,7 +33,7 @@ void to_json(nlohmann::json& json, const member_info<T, Type, Extra>& info, cons
 template <class T>
 T get_default_value(const mandatory_member&, std::string_view name)
 {
-    throw std::runtime_error{ core::to_string("missing field '", name, "'") };
+    throw std::runtime_error{ core::stringify("missing field '", name, "'") };
 }
 
 template <class T, class U>
@@ -58,7 +58,7 @@ void from_json(const nlohmann::json& json, const member_info<T, Type, Extra>& in
     }
     catch (std::exception& ex)
     {
-        throw std::runtime_error{ core::to_string("JSON to '", name_of<T>(), "': ", ex.what()) };
+        throw std::runtime_error{ core::stringify("JSON to '", name_of<T>(), "': ", ex.what()) };
     }
 }
 

@@ -24,8 +24,8 @@ TEST_CASE("parse")
     REQUIRE_THROWS(core::parse<int>("x42"_s));
 }
 
-TEST_CASE("to_string")
+TEST_CASE("stringify")
 {
-    REQUIRE(core::to_string(42) == "42");
-    REQUIRE(core::to_string(4.2) == "4.2");
+    REQUIRE(core::stringify(42) == "42");
+    REQUIRE(core::stringify(4.2) == "4.2");
 }

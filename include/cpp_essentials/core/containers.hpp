@@ -33,6 +33,17 @@ struct to_container_fn
     }
 };
 
+struct to_string_fn
+{
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range) const -> std::string
+    {
+        return { std::begin(range), std::end(range) };
+    }
+};
+
 } /* namespace detail */
 
 static constexpr detail::to_container_fn<std::vector> to_vector = {};
@@ -40,6 +51,7 @@ static constexpr detail::to_container_fn<std::set> to_set = {};
 static constexpr detail::to_container_fn<std::list> to_list = {};
 static constexpr detail::to_container_fn<std::forward_list> to_forward_list = {};
 static constexpr detail::to_container_fn<std::list> to_deque = {};
+static constexpr detail::to_string_fn to_string = {};
 
 } /* namespace cpp_essentials::core */
 

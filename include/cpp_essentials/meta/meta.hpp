@@ -248,7 +248,7 @@ void invoke(const T& item, std::string_view member_name, Func&& func)
 
     if (!found)
     {
-        throw std::runtime_error{ core::to_string("Member '", member_name, "' not found in '", name_of<T>(), "'") };
+        throw std::runtime_error{ core::stringify("Member '", member_name, "' not found in '", name_of<T>(), "'") };
     }
 }
 
@@ -267,7 +267,7 @@ void invoke(T& item, std::string_view member_name, Func&& func)
 
     if (!found)
     {
-        throw std::runtime_error{ core::to_string("Member '", member_name, "' not found in '", name_of<T>(), "'") };
+        throw std::runtime_error{ core::stringify("Member '", member_name, "' not found in '", name_of<T>(), "'") };
     }
 }
 

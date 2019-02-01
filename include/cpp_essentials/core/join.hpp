@@ -20,7 +20,7 @@ struct join_fn
         , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, const char* separator) const -> std::string
     {
-        return to_string(core::delimit(range, separator));
+        return stringify(core::delimit(range, separator));
     }
 };
 

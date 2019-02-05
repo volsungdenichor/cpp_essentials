@@ -124,5 +124,8 @@
     <ClCompile Include="..\..\..\tests\geo\intersects.test.cpp">
       <Filter>tests\geo</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\tests\core\flat_map.test.cpp">
+      <Filter>tests\core</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

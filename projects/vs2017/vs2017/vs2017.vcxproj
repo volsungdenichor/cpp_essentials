@@ -191,6 +191,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\elementwise.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\filter.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\flatten.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\flat_map.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\format.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\function_defs.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\exceptions.hpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\iterator_range.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\join.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\map.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\map_utils.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\nil.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\numeric.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\optional.hpp" />

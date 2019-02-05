@@ -386,6 +386,40 @@ private:
 };
 
 
+template <class T>
+struct underlying_type
+{
+    using type = T;
+};
+
+template <class T>
+struct underlying_type<optional<T>>
+{
+    using type = T;
+};
+
+template <class T>
+struct underlying_type<std::optional<T>>
+{
+    using type = T;
+};
+
+template <class T>
+struct is_optional : std::false_type {};
+
+template <class T>
+struct is_optional<optional<T>> : std::true_type {};
+
+template <class T>
+struct is_optional<std::optional<T>> : std::true_type {};
+
+template <class T>
+using underlying_type_t = typename underlying_type<T>::type;
+
+template <class T>
+static constexpr bool is_optional_v = is_optional<T>::value;
+
+
 template <class T, class U, class = cc::EqualityCompare<T, U>>
 bool operator ==(const optional<T>& lhs, const optional<U>& rhs)
 {

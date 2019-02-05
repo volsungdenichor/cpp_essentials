@@ -258,6 +258,9 @@ static constexpr detail::tie_fn tie = {};
 template <std::size_t Index>
 static constexpr detail::get_fn<Index> get = {};
 
+static constexpr detail::get_fn<0> get_key = {};
+static constexpr detail::get_fn<1> get_value = {};
+
 template <class Type>
 static constexpr detail::cast_fn<Type> cast = {};
 

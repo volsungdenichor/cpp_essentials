@@ -12,6 +12,7 @@
 #include <cpp_essentials/core/containers.hpp>
 #include <cpp_essentials/core/elementwise.hpp>
 #include <cpp_essentials/core/filter.hpp>
+#include <cpp_essentials/core/flat_map.hpp>
 #include <cpp_essentials/core/flatten.hpp>
 #include <cpp_essentials/core/group_by.hpp>
 #include <cpp_essentials/core/index.hpp>
@@ -104,6 +105,7 @@ PULL_ADAPTABLE(to_deque);
 PULL_ADAPTABLE(take_if);
 PULL_ADAPTABLE(drop_if);
 
+PULL_ADAPTABLE(flat_map);
 PULL_ADAPTABLE(flatten);
 
 PULL_ADAPTABLE(index);

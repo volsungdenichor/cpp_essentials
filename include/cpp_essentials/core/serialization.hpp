@@ -19,7 +19,8 @@ namespace detail
 template <class T>
 struct try_parse_fn
 {
-    core::optional<T> operator ()(cstring_view text) const
+    template <class String>
+    core::optional<T> operator ()(const String& text) const
     {
         std::istringstream is{ text };
         T result;
@@ -31,7 +32,8 @@ struct try_parse_fn
 template <class T>
 struct parse_fn
 {
-    T operator ()(cstring_view text) const
+    template <class String>
+    T operator ()(const String& text) const
     {
         static constexpr try_parse_fn<T> _try_parse = {};
         auto result = _try_parse(text);

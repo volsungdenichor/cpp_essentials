@@ -139,6 +139,12 @@ public:
     {
     }
 
+    template <class U>
+    optional(const optional<U>& other)
+        : optional{ other, detail::optional_tag{} }
+    {
+    }
+
 #if 1
     optional(const std::optional<T>& other)
         : optional{ other, detail::optional_tag{} }

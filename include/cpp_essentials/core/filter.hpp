@@ -29,7 +29,7 @@ struct take_if_fn
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred pred) const
     {
-        return make_filtered_range(std::begin(range), std::end(range), std::move(pred));
+        return make_filtered_range(std::begin(range), std::end(range), make_func(pred));
     }
 };
 
@@ -42,7 +42,7 @@ struct drop_if_fn
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred pred) const
     {
-        return make_filtered_range(std::begin(range), std::end(range), logical_negation(std::move(pred)));
+        return make_filtered_range(std::begin(range), std::end(range), logical_negation(make_func(pred)));
     }
 };
 

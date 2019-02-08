@@ -51,7 +51,7 @@ struct all_of_fn
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const -> bool
     {
-        return std::all_of(std::begin(range), std::end(range), std::move(pred));
+        return std::all_of(std::begin(range), std::end(range), make_func(pred));
     }
 };
 
@@ -64,7 +64,7 @@ struct any_of_fn
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const -> bool
     {
-        return std::any_of(std::begin(range), std::end(range), std::move(pred));
+        return std::any_of(std::begin(range), std::end(range), make_func(pred));
     }
 };
 
@@ -92,7 +92,7 @@ struct copy_if_fn
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, OutputIter output, UnaryPred&& pred) const -> OutputIter
     {
-        return std::copy_if(std::begin(range), std::end(range), output, std::move(pred));
+        return std::copy_if(std::begin(range), std::end(range), output, make_func(pred));
     }
 };
 
@@ -132,7 +132,7 @@ struct count_if_fn
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const
     {
-        return std::count_if(std::begin(range), std::end(range), std::move(pred));
+        return std::count_if(std::begin(range), std::end(range), make_func(pred));
     }
 };
 
@@ -214,7 +214,7 @@ struct find_if_fn
         static constexpr Policy policy = {};
 
         auto[b, e] = make_range(range);
-        return policy(b, std::find_if(b, e, std::move(pred)), e);
+        return policy(b, std::find_if(b, e, make_func(pred)), e);
     }
 };
 
@@ -234,7 +234,7 @@ struct find_if_not_fn
         static constexpr Policy policy = {};
 
         auto[b, e] = make_range(range);
-        return policy(b, std::find_if_not(b, e, std::move(pred)), e);
+        return policy(b, std::find_if_not(b, e, make_func(pred)), e);
     }
 };
 
@@ -289,7 +289,7 @@ struct for_each_fn
         , CONCEPT = cc::UnaryFunction<UnaryFunc, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryFunc&& func) const
     {
-        return std::for_each(std::begin(range), std::end(range), std::move(func));
+        return std::for_each(std::begin(range), std::end(range), make_func(func));
     }
 };
 
@@ -414,7 +414,7 @@ struct is_partitioned_fn
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const -> bool
     {
-        return std::is_partitioned(std::begin(range), std::end(range), std::move(pred));
+        return std::is_partitioned(std::begin(range), std::end(range), make_func(pred));
     }
 };
 
@@ -678,7 +678,7 @@ struct none_of_fn
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const -> bool
     {
-        return std::none_of(std::begin(range), std::end(range), std::move(pred));
+        return std::none_of(std::begin(range), std::end(range), make_func(pred));
     }
 };
 
@@ -761,7 +761,7 @@ struct partition_fn
         static constexpr Policy policy = {};
 
         auto[b, e] = make_range(range);
-        return policy(b, std::partition(b, e, std::move(pred)), e);
+        return policy(b, std::partition(b, e, make_func(pred)), e);
     }
 };
 
@@ -778,7 +778,7 @@ struct partition_copy_fn
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, OutputIter1 result_true, OutputIter2 result_false, UnaryPred&& pred) const
     {
-        return std::partition_copy(std::begin(range), std::end(range), result_true, result_false, std::move(pred));
+        return std::partition_copy(std::begin(range), std::end(range), result_true, result_false, make_func(pred));
     }
 };
 
@@ -798,7 +798,7 @@ struct stable_partition_fn
         static constexpr Policy policy = {};
 
         auto[b, e] = make_range(range);
-        return policy(b, std::stable_partition(b, e, std::move(pred)), e);
+        return policy(b, std::stable_partition(b, e, make_func(pred)), e);
     }
 };
 
@@ -864,7 +864,7 @@ struct remove_if_fn
         static constexpr Policy policy = {};
 
         auto[b, e] = make_range(range);
-        return policy(b, std::remove_if(b, e, std::move(pred)), e);
+        return policy(b, std::remove_if(b, e, make_func(pred)), e);
     }
 };
 
@@ -894,7 +894,7 @@ struct remove_copy_if_fn
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, OutputIter output, UnaryPred&& pred) const -> OutputIter
     {
-        return std::remove_copy_if(std::begin(range), std::end(range), output, std::move(pred));
+        return std::remove_copy_if(std::begin(range), std::end(range), output, make_func(pred));
     }
 };
 
@@ -920,9 +920,9 @@ struct replace_if_fn
         , CONCEPT = cc::ForwardRange<Range>
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>
         , CONCEPT = cc::Assignable<cc::range_ref<Range>, T>>
-    void operator ()(Range&& range, UnaryPred pred, const T& new_value) const
+    void operator ()(Range&& range, UnaryPred&& pred, const T& new_value) const
     {
-        std::replace_if(std::begin(range), std::end(range), pred, new_value);
+        std::replace_if(std::begin(range), std::end(range), make_func(pred), new_value);
     }
 };
 
@@ -954,7 +954,7 @@ struct replace_copy_if_fn
         , CONCEPT = cc::EqualityCompare<cc::range_ref<Range>, T>>
     auto operator ()(Range&& range, OutputIter output, UnaryPred&& pred, const T& new_value) const -> OutputIter
     {
-        return std::replace_copy_if(std::begin(range), std::end(range), output, std::move(pred), new_value);
+        return std::replace_copy_if(std::begin(range), std::end(range), output, make_func(pred), new_value);
     }
 };
 
@@ -1200,7 +1200,7 @@ struct transform_fn
         , CONCEPT = cc::UnaryFunction<UnaryFunc, cc::range_ref<Range>>>
     auto operator ()(Range&& range, OutputIter output, UnaryFunc&& func) const -> OutputIter
     {
-        return std::transform(std::begin(range), std::end(range), output, std::move(func));
+        return std::transform(std::begin(range), std::end(range), output, make_func(func));
     }
 
     template

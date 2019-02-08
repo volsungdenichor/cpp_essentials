@@ -157,19 +157,14 @@ auto delimit(Iter begin, Iter end, const C* separator)
     });
 }
 
-} /* namespace detail */
-
 struct output_fn
 {
     template <class T = void, class C>
     auto operator ()(std::basic_ostream<C>& os, const C* separator = nullptr) const
     {
-        return detail::make_output_iterator(detail::output_t<C, T>{ os, separator });
+        return make_output_iterator(output_t<C, T>{ os, separator });
     }
 };
-
-static constexpr output_fn output = {};
-
 
 struct delimit_fn
 {
@@ -179,11 +174,14 @@ struct delimit_fn
         , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, const C* separator) const
     {
-        return detail::delimit(std::begin(range), std::end(range), separator);
+        return delimit(std::begin(range), std::end(range), separator);
     }
 };
 
-static constexpr delimit_fn delimit = {};
+} /* namespace detail */
+
+static constexpr detail::output_fn output = {};
+static constexpr detail::delimit_fn delimit = {};
 
 } /* namespace cpp_essentials::core */
 

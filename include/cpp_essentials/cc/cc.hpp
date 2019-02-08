@@ -151,6 +151,18 @@ constexpr bool _is_non_const_reference = std::is_lvalue_reference<T>::value && !
 
 } /* namespace detail */
 
+template <class Type, class T>
+auto make_func(Type T::*ptr)
+{
+    return std::mem_fn(ptr);
+}
+
+template <class Func>
+auto make_func(Func func)
+{
+    return func;
+}
+
 
 template <class T>
 using InputIterator = detail::iterator_of_category<std::input_iterator_tag, T>;
@@ -187,10 +199,10 @@ template <class T>
 using NullaryFunction = decltype(std::declval<T&>()());
 
 template <class T, class A>
-using UnaryFunction = decltype(std::declval<T&>()(std::declval<A&>()));
+using UnaryFunction = decltype(make_func(std::declval<T&>())(std::declval<A&>()));
 
 template <class T, class A, class B = A>
-using BinaryFunction = decltype(std::declval<T&>()(std::declval<A&>(), std::declval<B&>()));
+using BinaryFunction = decltype(make_func(std::declval<T&>())(std::declval<A&>(), std::declval<B&>()));
 
 template <class T, class A>
 using UnaryPredicate = std::enable_if_t<std::is_convertible_v<UnaryFunction<T, A>, bool>>;

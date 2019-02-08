@@ -273,10 +273,11 @@ struct copy_while_fn
         , class UnaryPred
         , CONCEPT = cc::InputRange<Range>
         , CONCEPT = cc::OutputIterator<OutputIter>
-        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>
+        >
     auto operator ()(Range&& range, OutputIter output, UnaryPred&& pred) const
     {
-        return copy_while(std::begin(range), std::end(range), output, std::move(pred));
+        return copy_while(std::begin(range), std::end(range), output, make_func(pred));
     }
 };
 
@@ -291,7 +292,7 @@ struct copy_until_fn
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, OutputIter output, UnaryPred&& pred) const
     {
-        return copy_while(std::begin(range), std::end(range), output, logical_negation(pred));
+        return copy_while(std::begin(range), std::end(range), output, logical_negation(make_func(pred)));
     }
 };
 

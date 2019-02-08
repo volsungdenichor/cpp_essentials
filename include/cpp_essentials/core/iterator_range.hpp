@@ -13,6 +13,8 @@
 namespace cpp_essentials::core
 {
 
+using cc::make_func;
+
 template <class Iter, class Diff>
 auto advance(Iter begin, Iter end, Diff n) -> Iter
 {

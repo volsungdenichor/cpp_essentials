@@ -41,18 +41,7 @@ struct group_by_fn
         , CONCEPT = cc::UnaryFunction<UnaryFunc, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryFunc func) const
     {
-        return group_by(std::begin(range), std::end(range), func);
-    }
-
-    template
-        < class Range
-        , class Type
-        , class T
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::BaseOf<T, cc::range_val<Range>>>
-    auto operator ()(Range&& range, Type T::*field) const
-    {
-        return (*this)(range, std::mem_fn(field));
+        return group_by(std::begin(range), std::end(range), make_func(func));
     }
 };
 

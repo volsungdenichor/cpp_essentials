@@ -21,16 +21,18 @@ struct flat_map_fn
         , CONCEPT = cc::UnaryFunction<UnaryFunc, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryFunc&& func) const
     {
-        using type = std::invoke_result_t<UnaryFunc, cc::range_ref<Range>>;        
+        using type = std::invoke_result_t<UnaryFunc, cc::range_ref<Range>>;
         using underlying_type = std::decay_t<underlying_type_t<type>>;
 
         static_assert(is_optional_v<type>, "flat_map func: optional return type required");
+
+        const auto f = make_func(func);
 
         std::vector<underlying_type> result;
 
         for (auto&& item : range)
         {
-            auto value = func(item);
+            auto value = f(item);
             if (has_value(value))
             {
                 result.push_back(dereference(value));

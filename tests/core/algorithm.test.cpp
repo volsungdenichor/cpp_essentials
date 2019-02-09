@@ -6,9 +6,20 @@
 
 using namespace cpp_essentials;
 
+struct Test
+{
+    bool active;
+};
+
+bool operator ==(const Test& lhs, const Test& rhs)
+{
+    return lhs.active == rhs.active;
+}
+
 TEST_CASE("accumulate")
 {
     REQUIRE(core::accumulate(vec(1, 2, 3, 4), 1, std::multiplies<>{}) == 24);
+    REQUIRE((vec(1, 2, 3, 4) | sq::accumulate(1, std::multiplies<>{})) == 24);
     REQUIRE((vec(1, 2, 3, 4) | sq::accumulate(1, std::multiplies<>{})) == 24);
 }
 
@@ -21,12 +32,14 @@ TEST_CASE("all_of")
 {
     REQUIRE(core::all_of(vec(1, 2, 3), [](auto&& x) { return x < 5; }) == true);
     REQUIRE((vec(1, 2, 3) | sq::all_of([](auto&& x) { return x < 5; })) == true);
+    REQUIRE((vec(Test{ true }, Test{ true }, Test{ true }) | sq::all_of(&Test::active)) == true);
 }
 
 TEST_CASE("any_of")
 {
     REQUIRE(core::any_of(vec(1, 2, 3, 7), [](auto&& x) { return x < 5; }) == true);
     REQUIRE((vec(1, 2, 3, 7) | sq::any_of([](auto&& x) { return x < 5; })) == true);
+    REQUIRE((vec(Test{ false }, Test{ true }, Test{ false }) | sq::any_of(&Test::active)) == true);
 }
 
 TEST_CASE("copy")
@@ -39,6 +52,7 @@ TEST_CASE("copy_if")
 {
     REQUIRE(core::copy_if(vec(1, 2, 3, 4), vector_builder<int>{}, [](auto&& x) { return x % 2 == 0; }) == vec(2, 4));
     REQUIRE((vec(1, 2, 3, 4) | sq::copy_if(vector_builder<int>{}, [](auto&& x) { return x % 2 == 0; })) == vec(2, 4));
+    REQUIRE((vec(Test{ false }, Test{ true }, Test{ false }) | sq::copy_if(vector_builder<Test>{}, &Test::active)) == vec(Test{ true }));
 }
 
 TEST_CASE("copy_n")
@@ -57,6 +71,7 @@ TEST_CASE("count_if")
 {
     REQUIRE(core::count_if(vec(1, 1, 2, 3, 1, 4), [](auto&& x) { return x != 1; }) == 3);
     REQUIRE((vec(1, 1, 2, 3, 1, 4) | sq::count_if([](auto&& x) { return x != 1; })) == 3);
+    REQUIRE((vec(Test{ false }, Test{ true }, Test{ false }) | sq::count_if(&Test::active)) == 1);
 }
 
 TEST_CASE("equal")

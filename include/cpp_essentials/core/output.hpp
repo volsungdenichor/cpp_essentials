@@ -4,7 +4,7 @@
 #pragma once
 
 #include <iostream>
-#include <cpp_essentials/cc/cc.hpp>
+#include <cpp_essentials/core/algorithm.hpp>
 
 namespace cpp_essentials::core
 {
@@ -166,6 +166,17 @@ struct output_fn
     }
 };
 
+struct write_fn
+{
+    template <class C, class Range, CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range, std::basic_ostream<C>& os, const C* separator = nullptr) const
+    {
+        static constexpr copy_fn _copy = {};
+        static constexpr output_fn _output = {};
+        return _copy(range, _output(os, separator));
+    }
+};
+
 struct delimit_fn
 {
     template
@@ -182,6 +193,7 @@ struct delimit_fn
 
 static constexpr detail::output_fn output = {};
 static constexpr detail::delimit_fn delimit = {};
+static constexpr detail::write_fn write = {};
 
 } /* namespace cpp_essentials::core */
 

@@ -25,6 +25,8 @@
 #include <cpp_essentials/core/trim.hpp>
 #include <cpp_essentials/core/zip.hpp>
 
+#include <cpp_essentials/core/output.hpp>
+
 namespace cpp_essentials::sq
 {
 
@@ -138,6 +140,7 @@ PULL_ADAPTABLE(take_back_until);
 PULL_ADAPTABLE(drop_back_until);
 PULL_ADAPTABLE(trim_while);
 PULL_ADAPTABLE(trim_until);
+PULL_ADAPTABLE(write);
 
 PULL_ADAPTABLE(zip);
 

@@ -38,6 +38,7 @@ using underlying_type_t = typename underlying_type<T>::type;
 using none = std::tuple<>;
 
 struct unregistered_type {};
+struct primitive_type {};
 struct structure_type {};
 struct enumeration_type {};
 
@@ -138,11 +139,19 @@ template <class T>
 static constexpr bool is_registered = !std::is_same_v<unregistered_type, typename type_info_type<T>::type>;
 
 template <class T>
+static constexpr bool is_primitive = !std::is_same_v<primitive_type, typename type_info_type<T>::type>;
+
+template <class T>
 static constexpr bool is_structure = std::is_same_v<structure_type, typename type_info_type<T>::type>;
 
 template <class T>
 static constexpr bool is_enumeration = std::is_same_v<enumeration_type, typename type_info_type<T>::type>;
 
+
+inline auto primitive(std::string_view name)
+{
+    return type_info<primitive_type, none>{ name, none{} };
+}
 
 template <class... Members>
 auto structure(std::string_view name, Members&&... members)

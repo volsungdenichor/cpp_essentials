@@ -150,7 +150,7 @@ public:
         return other._counter - _counter;
     }
 
-    const location_type& location() const
+    location_type location() const
     {
         return _location;
     }

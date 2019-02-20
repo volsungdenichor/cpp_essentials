@@ -1,6 +1,8 @@
 #ifndef CPP_ESSENTIALS_MATH_DETAIL_MATRIX_ACCESS_HPP_
 #define CPP_ESSENTIALS_MATH_DETAIL_MATRIX_ACCESS_HPP_
 
+#pragma once
+
 #include <cpp_essentials/math/detail/matrix.base.hpp>
 
 namespace cpp_essentials::math

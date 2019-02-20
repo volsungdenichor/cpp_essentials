@@ -311,9 +311,7 @@ T parse_enum(std::string_view text)
     return *result;
 }
 
-} /* namespace cpp_essentials::meta */
-
-template <class T, CONCEPT = std::enable_if_t<cpp_essentials::meta::is_structure<T>>>
+template <class T, CONCEPT = std::enable_if_t<is_structure<T>>>
 std::ostream& operator <<(std::ostream& os, const T& item)
 {
     os << "(";
@@ -331,13 +329,13 @@ std::ostream& operator <<(std::ostream& os, const T& item)
     return os;
 }
 
-template <class T, CONCEPT = std::enable_if_t<cpp_essentials::meta::is_enumeration<T>>>
+template <class T, CONCEPT = std::enable_if_t<is_enumeration<T>>>
 std::ostream& operator <<(std::ostream& os, T item)
 {
     return os << meta::name_of(item);
 }
 
-template <class T, CONCEPT = std::enable_if_t<cpp_essentials::meta::is_enumeration<T>>>
+template <class T, CONCEPT = std::enable_if_t<is_enumeration<T>>>
 std::istream& operator >>(std::istream& is, T& item)
 {
     std::string temp;
@@ -345,5 +343,7 @@ std::istream& operator >>(std::istream& is, T& item)
     item = meta::template parse_enum<T>(temp);
     return is;
 }
+
+} /* namespace cpp_essentials::meta */
 
 #endif /* CPP_ESSENTIALS_META_META_HPP_ */

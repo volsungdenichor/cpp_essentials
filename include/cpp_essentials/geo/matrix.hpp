@@ -26,6 +26,12 @@ using math::identity;
 using math::ones;
 using math::zeros;
 
+using math::get;
+
+using math::make_scale;
+using math::make_rotation;
+using math::make_translation;
+
 using math::minor;
 using math::determinant;
 using math::is_invertible;

@@ -15,6 +15,7 @@ using rgb_proxy = geo::vector<double, 3>;
 
 struct rgb_color
 {
+    using proxy = rgb_proxy;
     using const_reference = const byte&;
     using reference = byte&;
 

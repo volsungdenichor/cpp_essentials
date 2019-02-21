@@ -227,7 +227,7 @@ inline rgb_image load_bitmap_24(const detail::dib_header& header, std::istream& 
 
 struct save_bitmap_fn
 {
-    void operator ()(byte_image::const_view_type view, std::ostream& os) const
+    void operator ()(byte_image::view_type view, std::ostream& os) const
     {
         size_t bits_per_pixel = 8;
         auto padding = detail::get_padding(view.width(), bits_per_pixel);
@@ -259,14 +259,14 @@ struct save_bitmap_fn
         }
     }
 
-    void operator ()(byte_image::const_view_type view, const std::string& file) const
+    void operator ()(byte_image::view_type view, const std::string& file) const
     {
         std::ofstream fs(file.c_str(), std::ofstream::binary);
 
         (*this)(view, fs);
     }
 
-    void operator ()(rgb_image::const_view_type view, std::ostream& os) const
+    void operator ()(rgb_image::view_type view, std::ostream& os) const
     {
         size_t bits_per_pixel = 24;
         size_t padding = detail::get_padding(view.width(), bits_per_pixel);
@@ -290,7 +290,7 @@ struct save_bitmap_fn
         }
     }
 
-    void operator ()(rgb_image::const_view_type view, const std::string& file) const
+    void operator ()(rgb_image::view_type view, const std::string& file) const
     {
         std::ofstream fs(file.c_str(), std::ofstream::binary);
 

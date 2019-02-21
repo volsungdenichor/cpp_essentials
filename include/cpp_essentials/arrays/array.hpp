@@ -18,26 +18,26 @@ public:
 
     using value_type = T;
 
-    using view_type = array_view<T, D>;
-    using const_view_type = array_view<const T, D>;
+    using mut_view_type = array_view<T, D>;
+    using view_type = array_view<const T, D>;
 
-    using reference = typename view_type::reference;
-    using const_reference = typename const_view_type::reference;
+    using reference = typename mut_view_type::reference;
+    using const_reference = typename view_type::reference;
 
-    using pointer = typename view_type::pointer;
-    using const_pointer = typename const_view_type::pointer;
+    using pointer = typename mut_view_type::pointer;
+    using const_pointer = typename view_type::pointer;
 
-    using iterator = typename view_type::iterator;
-    using const_iterator = typename const_view_type::iterator;
+    using iterator = typename mut_view_type::iterator;
+    using const_iterator = typename view_type::iterator;
 
-    using slice_type = typename view_type::slice_type;
-    using const_slice_type = typename const_view_type::slice_type;
+    using slice_type = typename mut_view_type::slice_type;
+    using const_slice_type = typename view_type::slice_type;
 
-    using slice_range_type = typename view_type::slice_range_type;
-    using const_slice_range_type = typename const_view_type::slice_range_type;
+    using slice_range_type = typename mut_view_type::slice_range_type;
+    using const_slice_range_type = typename view_type::slice_range_type;
 
-    using region_range_type = typename view_type::region_range_type;
-    using const_region_range_type = typename const_view_type::region_range_type;
+    using region_range_type = typename mut_view_type::region_range_type;
+    using const_region_range_type = typename view_type::region_range_type;
 
     array(const size_type& size, const stride_type& stride)
         : array_base<D>(size, stride)
@@ -82,27 +82,27 @@ public:
         return *this;
     }
 
-    const_view_type view() const
+    view_type view() const
     {
         return{ const_pointer(_data.data()), base_type::size(), base_type::stride() };
     }
 
-    view_type view()
+    mut_view_type view()
     {
         return{ pointer(_data.data()), base_type::size(), base_type::stride() };
     }
 
-    const_view_type cview() const
+    view_type cview() const
     {
         return view();
     }
 
-    operator const_view_type() const
+    operator view_type() const
     {
         return view();
     }
 
-    operator view_type()
+    operator mut_view_type()
     {
         return view();
     }
@@ -187,23 +187,23 @@ public:
         return end();
     }
 
-    const_view_type region(const region_type& region) const
+    view_type region(const region_type& region) const
     {
         return view().region(region);
     }
 
-    view_type region(const region_type& region)
+    mut_view_type region(const region_type& region)
     {
         return view().region(region);
     }
 
 #if 0
-    const_view_type sub(const stride_type& sub_begin, const stride_type& sub_end = nil, const stride_type& sub_stride = nil) const
+    view_type sub(const stride_type& sub_begin, const stride_type& sub_end = nil, const stride_type& sub_stride = nil) const
     {
         return view().sub(sub_begin, sub_end, sub_stride);
     }
 
-    view_type sub(const stride_type& sub_begin, const stride_type& sub_end = nil, const stride_type& sub_stride = nil)
+    mut_view_type sub(const stride_type& sub_begin, const stride_type& sub_end = nil, const stride_type& sub_stride = nil)
     {
         return view().sub(sub_begin, sub_end, sub_stride);
     }

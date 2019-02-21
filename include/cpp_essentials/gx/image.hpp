@@ -38,13 +38,13 @@ namespace detail
 {
 
 template <class ImageView>
-byte_image::view_type channel(ImageView&& img, size_t index, std::false_type)
+byte_image::mut_view_type channel(ImageView&& img, size_t index, std::false_type)
 {
     return { byte_image::pointer(img.data()) + index, img.size(), img.stride() };
 }
 
 template <class ImageView>
-byte_image::const_view_type channel(ImageView&& img, size_t index, std::true_type)
+byte_image::view_type channel(ImageView&& img, size_t index, std::true_type)
 {
     return { byte_image::const_pointer(img.data()) + index, img.size(), img.stride() };
 }

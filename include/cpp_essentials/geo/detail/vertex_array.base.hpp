@@ -7,10 +7,21 @@
 #include <cpp_essentials/geo/matrix.hpp>
 #include <cpp_essentials/core/output.hpp>
 
+#include <vector>
+#include <array>
+
 namespace cpp_essentials::geo
 {
 
-template <class T, size_t D, size_t N>
+namespace detail
+{
+
+struct polygon_tag { };
+struct polyline_tag { };
+
+} /* namespace detail */
+
+template <class T, size_t D, size_t N, class Tag>
 class vertex_array
 {
 public:
@@ -21,35 +32,42 @@ public:
     using const_reference = const vector_type&;
     using reference = vector_type&;
 
+    using data_type = std::conditional_t<N == 0, std::vector<value_type>, std::array<value_type, N>>;
+
     vertex_array()
     {
         core::fill(_data, vector_type {});
     }
 
+    vertex_array(size_type size)
+    {
+        resize(size);
+        core::fill(_data, vector_type{});
+    }
+
     vertex_array(std::initializer_list<vector_type> init)
     {
-        EXPECTS(init.size() == N, "invalid initializer size");
-
+        resize(init.size());
         core::copy(init, _data.begin());
     }
 
     template <class U>
     vertex_array(std::initializer_list<vector<U, D>> init)
     {
-        EXPECTS(init.size() == N, "invalid initializer size");
-        
+        resize(init.size());
         core::copy(init, _data.begin());
     }
 
-    template <class U>
-    vertex_array(const vertex_array<U, D, N>& other)
+    template <class U, class Tag>
+    vertex_array(const vertex_array<U, D, N, Tag>& other)
     {
+        resize(other.size());
         core::copy(other._data, _data.begin());
     }
 
 
     template <class U>
-    vertex_array<U, D, N> as() const
+    vertex_array<U, D, N, Tag> as() const
     {
         return *this;
     }
@@ -71,18 +89,27 @@ public:
         return _data[index];
     }
 
-    std::array<vector_type, N> _data;
+    void resize(size_type size)
+    {
+        if constexpr (N == 0)
+        {
+            _data.resize(size);
+        }
+        else
+        {
+            EXPECTS(size == _data.size());
+        }
+    }
+
+    data_type _data;
 };
 
-template <class T, size_t N>
-using vertex_array_2d = vertex_array<T, 2, N>;
-
 
 template <class T, size_t D>
-using triangle = vertex_array<T, D, 3>;
+using triangle = vertex_array<T, D, 3, detail::polygon_tag>;
 
 template <class T, size_t D>
-using quad = vertex_array<T, D, 4>;
+using quad = vertex_array<T, D, 4, detail::polygon_tag>;
 
 
 template <class T>
@@ -91,9 +118,22 @@ using triangle_2d = triangle<T, 2>;
 template <class T>
 using quad_2d = quad<T, 2>;
 
+template <class T, size_t D>
+using polygon = vertex_array<T, D, 0, detail::polygon_tag>;
 
-template <class T, size_t D, size_t N>
-std::ostream& operator <<(std::ostream& os, const vertex_array<T, D, N>& item)
+template <class T, size_t D>
+using polyline = vertex_array<T, D, 0, detail::polyline_tag>;
+
+
+template <class T>
+using polygon_2d = polygon<T, 2>;
+
+template <class T>
+using polyline_2d = polyline<T, 2>;
+
+
+template <class T, size_t D, size_t N, class Tag>
+std::ostream& operator <<(std::ostream& os, const vertex_array<T, D, N, Tag>& item)
 {
     return os << "{ " << core::delimit(item._data, " ") << " }";
 }

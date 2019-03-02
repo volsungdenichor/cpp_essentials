@@ -1,5 +1,5 @@
 #include <catch.hpp>
-#include <cpp_essentials/geo/poly_shape.hpp>
+#include <cpp_essentials/geo/vertex_array.hpp>
 
 using namespace cpp_essentials;
 

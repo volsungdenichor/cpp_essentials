@@ -112,6 +112,12 @@ struct make_line_fn
     {
         return{ start, end };
     }
+
+    template <class T, size_t D, class Tag>
+    auto operator ()(const linear_shape<T, D, Tag>& value) const -> line<T, D>
+    {
+        return (*this)(value[0], value[1]);
+    }
 };
 
 } /* namespace detail */

@@ -7,7 +7,7 @@
 #include <cpp_essentials/geo/bounding_box.hpp>
 #include <cpp_essentials/geo/contains.hpp>
 #include <cpp_essentials/geo/linear_shape.hpp>
-#include <cpp_essentials/geo/poly_shape.hpp>
+#include <cpp_essentials/geo/vertex_array.hpp>
 
 namespace cpp_essentials::gx
 {

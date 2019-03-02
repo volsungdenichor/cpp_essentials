@@ -2,6 +2,7 @@
 #define CPP_ESSENTIALS_CC_CC_HPP_
 
 #include <type_traits>
+#include <functional>
 #include <iterator>
 #include <iostream>
 

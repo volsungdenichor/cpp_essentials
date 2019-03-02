@@ -8,6 +8,7 @@
 #include <cpp_essentials/gx/algorithm.hpp>
 
 #include <cpp_essentials/gx/defs.hpp>
+#include <cpp_essentials/gx/image.hpp>
 
 namespace cpp_essentials::gx
 {

@@ -95,6 +95,24 @@ struct linear_shape_traits<line<T, D>>
 };
 
 template <class T, class E>
+auto get_line_intersection_parameter(
+    const vector<T, 2>& a0,
+    const vector<T, 2>& a1,
+    const vector<T, 2>& p,
+    E epsilon) -> core::optional<T>
+{
+    auto dir = a1 - a0;
+
+    auto d = p - a0;
+
+    auto det = cross(dir, d);
+
+    return core::make_optional(
+        core::approx_equal_to(det, math::zero, epsilon),
+        dot(d, dir) / norm(dir));
+}
+
+template <class T, class E>
 auto get_line_intersection_parameters(
     const vector<T, 2>& a0,
     const vector<T, 2>& a1,

@@ -276,15 +276,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\vertex_container.traits.hpp">
       <Filter>Header Files\cpp_essentials\geo\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\poly_shape.base.hpp">
-      <Filter>Header Files\cpp_essentials\geo\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\geo\poly_shape.hpp">
-      <Filter>Header Files\cpp_essentials\geo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\poly_shape.arithmetics.hpp">
-      <Filter>Header Files\cpp_essentials\geo\detail</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\contains.hpp">
       <Filter>Header Files\cpp_essentials\geo</Filter>
     </ClInclude>
@@ -368,6 +359,30 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\math\detail\matrix.transformations.hpp">
       <Filter>Header Files\cpp_essentials\math\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\triangle.hpp">
+      <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\intersection.hpp">
+      <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\interpolate.hpp">
+      <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\projection.hpp">
+      <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\distance.hpp">
+      <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\length.hpp">
+      <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\center.hpp">
+      <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\perpendicular.hpp">
+      <Filter>Header Files\cpp_essentials\geo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -112,9 +112,6 @@
     <ClCompile Include="..\..\..\tests\geo\vertex_container.test.cpp">
       <Filter>tests\geo</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\tests\geo\poly_shape.test.cpp">
-      <Filter>tests\geo</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\tests\geo\contains.test.cpp">
       <Filter>tests\geo</Filter>
     </ClCompile>

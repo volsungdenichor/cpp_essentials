@@ -40,14 +40,10 @@ using math::transpose;
 
 using math::dot;
 using math::norm;
-using math::length;
 using math::normalize;
 using math::unit;
-using math::distance;
 using math::cross;
-using math::projection;
 using math::rejection;
-using math::perpendicular;
 using math::angle;
 using math::bisector;
 

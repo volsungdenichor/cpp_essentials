@@ -224,7 +224,10 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\zip.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\bounding_box.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\center.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\circle.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\circular_shape.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\contains.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\coordinates_conversion.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\linear_shape.arithmetics.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\linear_shape.base.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\linear_shape.traits.hpp" />
@@ -236,7 +239,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\intersection.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\intersects.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\interval.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\geo\length.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\linear_shape.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\interval_operations.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\matrix.hpp" />

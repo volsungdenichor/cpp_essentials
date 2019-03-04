@@ -58,7 +58,7 @@ public:
         core::copy(init, _data.begin());
     }
 
-    template <class U, class Tag>
+    template <class U>
     vertex_array(const vertex_array<U, D, N, Tag>& other)
     {
         resize(other.size());

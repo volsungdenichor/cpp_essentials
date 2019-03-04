@@ -3,7 +3,7 @@
 
 #include <cpp_essentials/geo/vertex_array.hpp>
 #include <cpp_essentials/geo/vertex_container.hpp>
-#include <cpp_essentials/geo/length.hpp>
+#include <cpp_essentials/geo/distance.hpp>
 #include <cpp_essentials/geo/center.hpp>
 #include <cpp_essentials/geo/perpendicular.hpp>
 

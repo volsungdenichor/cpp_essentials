@@ -26,11 +26,27 @@ struct distance_fn
     }
 };
 
+struct length_fn
+{
+    template <class T, size_t D>
+    auto operator ()(const vector<T, D>& item) const
+    {
+        return math::length(item);
+    }
+
+    template <class T, size_t D>
+    auto operator ()(const segment<T, D>& item) const
+    {
+        return math::distance(item[0], item[1]);
+    }
+};
+
 } /* namespace detail */
 
+static constexpr detail::length_fn length = {};
 static constexpr detail::distance_fn distance = {};
 
 } /* namespace cpp_essentials::geo */
 
-#endif /* CPP_ESSENTIALS_GEO_DISTANCE_HPP_ 
-*/
+#endif /* CPP_ESSENTIALS_GEO_DISTANCE_HPP_ */
+

@@ -375,13 +375,19 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\distance.hpp">
       <Filter>Header Files\cpp_essentials\geo</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\geo\length.hpp">
-      <Filter>Header Files\cpp_essentials\geo</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\center.hpp">
       <Filter>Header Files\cpp_essentials\geo</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\perpendicular.hpp">
+      <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\circular_shape.hpp">
+      <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\circle.hpp">
+      <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\coordinates_conversion.hpp">
       <Filter>Header Files\cpp_essentials\geo</Filter>
     </ClInclude>
   </ItemGroup>

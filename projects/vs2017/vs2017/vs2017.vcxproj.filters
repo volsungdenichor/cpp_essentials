@@ -52,6 +52,9 @@
     <Filter Include="Header Files\cpp_essentials\meta">
       <UniqueIdentifier>{f32afa56-67d2-4e82-ba04-0ff671a1f756}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\cpp_essentials\rs">
+      <UniqueIdentifier>{da151163-a59b-4555-a0b6-a6a326bdcad9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -389,6 +392,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\coordinates_conversion.hpp">
       <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\rs\rs.hpp">
+      <Filter>Header Files\cpp_essentials\rs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

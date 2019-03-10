@@ -104,13 +104,15 @@ public:
     using value_type = T;
 
     using const_reference = const T&;
-    using reference = T & ;
+    using reference = T& ;
 
     using const_pointer = const T*;
-    using pointer = T * ;
+    using pointer = T*;
+
+    static_assert(!std::is_rvalue_reference_v<T>, "rvalue reference is not allowed");
 
     optional()
-        : _has_value{ false }
+        : _opt{}
     {
     }
 
@@ -120,46 +122,45 @@ public:
     }
 
     optional(const value_type& value)
-        : optional{ value, detail::value_tag{} }
+        : _opt{ value }
     {
     }
 
     optional(value_type&& value)
-        : optional{ std::move(value), detail::value_tag{} }
+        : _opt{ std::move(value) }
     {
     }
 
     optional(const optional& other)
-        : optional{ other, detail::optional_tag{} }
+        : _opt{ other._opt }
     {
     }
 
     optional(optional&& other)
-        : optional{ std::move(other), detail::optional_tag{} }
+        : _opt{ std::move(other._opt) }
     {
     }
 
     template <class U>
     optional(const optional<U>& other)
-        : optional{ other, detail::optional_tag{} }
+        : _opt{ static_cast<std::optional<U>>(other) }
     {
     }
 
 #if 1
-    optional(const std::optional<T>& other)
-        : optional{ other, detail::optional_tag{} }
+    optional(const std::optional<value_type>& other)
+        : _opt{ other }
     {
     }
 
-    optional(std::optional<T>&& other)
-        : optional{ std::move(other), detail::optional_tag{} }
+    optional(std::optional<value_type>&& other)
+        : _opt{ std::move(other) }
     {
     }
 #endif
 
     ~optional()
     {
-        destroy();
     }
 
     optional& operator =(optional other)
@@ -170,12 +171,12 @@ public:
 
     operator std::optional<T>() const
     {
-        return has_value() ? std::optional<T>{ value() } : std::optional<T>{};
+        return _opt;
     }
 
     bool has_value() const
     {
-        return _has_value;
+        return _opt.has_value();
     }
 
     bool operator !() const
@@ -221,49 +222,22 @@ public:
     const_pointer get() const
     {
         check_not_null();
-        return do_get();
+        return &(*_opt);
+;
     }
 
     pointer get()
     {
         check_not_null();
-        return do_get();
+        return &(*_opt);
     }
 
     void swap(optional& other)
     {
-        std::swap(_storage, other._storage);
-        std::swap(_has_value, other._has_value);
+        std::swap(_opt, other._opt);
     }
 
 private:
-    template <class U>
-    optional(U&& value, detail::value_tag)
-        : _has_value{ true }
-    {
-        construct(std::move(value));
-    }
-
-    template <class U>
-    optional(U&& other, detail::optional_tag)
-        : _has_value{ other }
-    {
-        if (other)
-        {
-            construct(std::move(*other));
-        }
-    }
-
-    const_pointer do_get() const
-    {
-        return reinterpret_cast<const_pointer>(&_storage);
-    }
-
-    pointer do_get()
-    {
-        return reinterpret_cast<pointer>(&_storage);
-    }
-
     void check_not_null() const
     {
         if (!has_value())
@@ -272,36 +246,17 @@ private:
         }
     }
 
-    void destroy()
-    {
-        if (has_value())
-        {
-            do_get()->~value_type();
-            _has_value = false;
-        }
-    }
-
-    template <class U>
-    void construct(U&& value)
-    {
-        new(&_storage) value_type(std::move(value));
-    }
-
 private:
-    using storage_type = std::aligned_storage_t<sizeof(T), alignof(T)>;
-
-    storage_type _storage;
-    bool _has_value;
+    std::optional<value_type> _opt;
 };
-
 
 template <class T>
 class optional<T&> : public detail::optional_base<optional<T&>>
 {
 public:
     using value_type = std::remove_const_t<T>;
-    using reference = T&;
-    using pointer = T*;
+    using reference = T & ;
+    using pointer = T * ;
 
     optional()
         : _ptr{}
@@ -494,6 +449,8 @@ bool operator !=(none_t, const optional<T>& rhs)
     return rhs.has_value();
 }
 
+namespace detail
+{
 
 struct make_optional_fn
 {
@@ -510,9 +467,6 @@ struct make_optional_fn
     }
 };
 
-static constexpr make_optional_fn make_optional = {};
-
-
 struct eval_optional_fn
 {
     template <class Func>
@@ -524,7 +478,10 @@ struct eval_optional_fn
     }
 };
 
-static constexpr eval_optional_fn eval_optional = {};
+} /* namespace detail */
+
+static constexpr detail::make_optional_fn make_optional = {};
+static constexpr detail::eval_optional_fn eval_optional = {};
 
 
 

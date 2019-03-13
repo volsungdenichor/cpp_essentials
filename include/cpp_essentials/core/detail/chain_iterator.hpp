@@ -45,6 +45,8 @@ public:
 
     INHERIT_ITERATOR_FACADE_TYPES(base_type)
 
+    chain_iterator() = default;
+
     chain_iterator(Iter1 iter1, Iter2 iter2, Iter1 end, Iter2 begin)
         : _iter1{ iter1 }
         , _iter2{ iter2 }

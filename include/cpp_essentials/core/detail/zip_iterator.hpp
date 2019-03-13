@@ -47,6 +47,8 @@ public:
 
     INHERIT_ITERATOR_FACADE_TYPES(base_type)
 
+    zip_iterator() = default;
+
     zip_iterator(Func func, const Iters&... args)
         : _func{ func }
         , _current{ args... }
@@ -97,7 +99,7 @@ private:
         ignore(--std::get<S>(_current)...);
     }
 
-    Func _func;
+    default_constructible_func<Func> _func;
     std::tuple<Iters...> _current;
 };
 

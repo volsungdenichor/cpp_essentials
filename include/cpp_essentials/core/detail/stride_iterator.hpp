@@ -29,6 +29,8 @@ public:
 
     INHERIT_ITERATOR_FACADE_TYPES(base_type)
 
+    stride_iterator() = default;
+
     stride_iterator(Iter iter, difference_type step, Iter last)
         : _iter{ iter }
         , _step{ step }

@@ -27,6 +27,8 @@ public:
 
     INHERIT_ITERATOR_FACADE_TYPES(base_type)
 
+    iterate_iterator() = default;
+
     iterate_iterator(Iter iter)
         : _iter{ iter }
     {

@@ -28,6 +28,8 @@ public:
 
     INHERIT_ITERATOR_FACADE_TYPES(base_type)
 
+    chunk_iterator() = default;
+
     chunk_iterator(Iter begin, Iter end, difference_type step, Iter last)
         : _begin{ begin }
         , _end{ end }

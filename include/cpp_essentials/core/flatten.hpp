@@ -16,17 +16,12 @@ struct flatten_fn
         , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range) const
     {
-        using outer_iter = cc::range_iter<Range>;
-        using inner_iter = cc::range_iter<cc::iter_ref<outer_iter>>;
-
-        using iterator = flatten_iterator<outer_iter, inner_iter>;
-
         auto b = std::begin(range);
         auto e = std::end(range);
 
         return make_range(
-            iterator{ b, e },
-            iterator{ e, e });
+            flatten_iterator{ b, e },
+            flatten_iterator{ e, e });
     }
 };
 

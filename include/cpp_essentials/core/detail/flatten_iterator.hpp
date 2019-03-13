@@ -10,7 +10,7 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-template <class Outer, class Inner>
+template <class Outer, class Inner = cc::range_iter<cc::iter_ref<Outer>>>
 class flatten_iterator
     : public core::iterator_facade
         < flatten_iterator<Outer, Inner>
@@ -24,6 +24,8 @@ public:
         , cc::iter_ref<Inner>>;
 
     INHERIT_ITERATOR_FACADE_TYPES(base_type)
+
+    flatten_iterator() = default;
 
     flatten_iterator(Outer outer, Outer outer_end)
         : _outer{ outer }

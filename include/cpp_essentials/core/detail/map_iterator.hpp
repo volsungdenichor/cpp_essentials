@@ -30,6 +30,8 @@ public:
 
     INHERIT_ITERATOR_FACADE_TYPES(base_type)
 
+    map_iterator() = default;
+
     map_iterator(Iter iter, Func func)
         : _iter{ iter }
         , _func{ func }
@@ -73,7 +75,7 @@ public:
 
 private:
     Iter _iter;
-    Func _func;
+    default_constructible_func<Func> _func;
 };
 
 } /* namespace detail */

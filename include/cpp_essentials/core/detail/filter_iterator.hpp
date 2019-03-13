@@ -7,6 +7,7 @@
 
 #include <cpp_essentials/core/iterator_facade.hpp>
 #include <cpp_essentials/core/iterator_range.hpp>
+#include <cpp_essentials/core/detail/iterator_func_helper.hpp>
 
 namespace cpp_essentials::core
 {
@@ -30,6 +31,8 @@ public:
         , cc::iter_diff<Iter>>;
 
     INHERIT_ITERATOR_FACADE_TYPES(base_type)
+
+    filter_iterator() = default;
 
     filter_iterator(Iter iter, Pred pred, Iter last)
         : _iter{ iter }
@@ -80,7 +83,7 @@ private:
     }
 
     Iter _iter;
-    Pred _pred;
+    default_constructible_func<Pred> _pred;
     Iter _last;
 };
 

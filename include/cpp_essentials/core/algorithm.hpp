@@ -170,7 +170,7 @@ struct fill_fn
     template
         < class Range
         , class T
-        , CONCEPT = cc::ForwardRange<Range>
+        , CONCEPT = cc::InputRange<Range>
         , CONCEPT = cc::Assignable<cc::range_ref<Range>, T>>
     void operator ()(Range&& range, const T& value) const
     {

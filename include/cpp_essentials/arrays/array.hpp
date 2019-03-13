@@ -97,6 +97,11 @@ public:
         return view();
     }
 
+    mut_view_type mut_view()
+    {
+        return view();
+    }
+
     operator view_type() const
     {
         return view();

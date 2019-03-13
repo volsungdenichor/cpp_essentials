@@ -55,6 +55,9 @@
     <Filter Include="Header Files\cpp_essentials\rs">
       <UniqueIdentifier>{da151163-a59b-4555-a0b6-a6a326bdcad9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\cpp_essentials\gx\detail">
+      <UniqueIdentifier>{ea5d5bce-ae9c-40b7-b97e-899b8d462c3f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -395,6 +398,18 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\rs\rs.hpp">
       <Filter>Header Files\cpp_essentials\rs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\gx\detail\morphological_operations.hpp">
+      <Filter>Header Files\cpp_essentials\gx\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\gx\morphological_operations.hpp">
+      <Filter>Header Files\cpp_essentials\gx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\gx\kernels.hpp">
+      <Filter>Header Files\cpp_essentials\gx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\gx\lookup_table.hpp">
+      <Filter>Header Files\cpp_essentials\gx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

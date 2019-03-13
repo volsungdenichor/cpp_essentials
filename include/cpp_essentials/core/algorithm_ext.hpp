@@ -358,11 +358,55 @@ struct contains_fn
 
 struct sum_fn
 {
-    template <class Range>
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range) const
     {
         using result_type = cc::Add<cc::range_val<Range>, cc::range_val<Range>>;
         return std::accumulate(std::begin(range), std::end(range), result_type{});
+    }
+};
+
+template <class Iter, class Compare>
+auto extreme_value(Iter b, Iter e, Compare&& compare)
+{
+    auto result = *b;
+
+    for (; b != e; ++b)
+    {
+        if (compare(*b, result))
+        {
+            result = *b;
+        }
+    }
+
+    return result;
+}
+
+struct min_value_fn
+{
+    template
+        < class Range
+        , class Compare = std::less<>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>, cc::range_ref<Range>>>
+    auto operator ()(Range&& range, Compare compare = {}) const
+    {
+        return extreme_value(std::begin(range), std::end(range), compare);
+    }
+};
+
+struct max_value_fn
+{
+    template
+        < class Range
+        , class Compare = std::less<>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>, cc::range_ref<Range>>>
+    auto operator ()(Range&& range, Compare compare = {}) const
+    {
+        return extreme_value(std::begin(range), std::end(range), core::logical_negation(compare));
     }
 };
 
@@ -389,6 +433,8 @@ static constexpr detail::starts_with_fn starts_with = {};
 static constexpr detail::ends_with_fn ends_with = {};
 static constexpr detail::contains_fn contains = {};
 static constexpr detail::sum_fn sum = {};
+static constexpr detail::min_value_fn min_value = {};
+static constexpr detail::max_value_fn max_value = {};
 
 } /* namespace cpp_essentials::core */
 

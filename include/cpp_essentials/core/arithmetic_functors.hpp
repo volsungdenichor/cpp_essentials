@@ -67,6 +67,15 @@ public:
     }
 };
 
+struct divisible
+{
+    template <class L, class R>
+    bool operator ()(L value, R divisor) const
+    {
+        return value % divisor == 0;
+    }
+};
+
 } /* namespace detail */
 
 constexpr detail::unary_operator<std::negate<>> negate = {};
@@ -84,6 +93,7 @@ constexpr detail::binary_operator<std::less<>> less = {};
 constexpr detail::binary_operator<std::less_equal<>> less_equal = {};
 constexpr detail::binary_operator<std::greater<>> greater = {};
 constexpr detail::binary_operator<std::greater_equal<>> greater_equal = {};
+constexpr detail::binary_operator<detail::divisible> divisible = {};
 
 constexpr detail::binary_operator<std::logical_and<>> logical_and = {};
 constexpr detail::binary_operator<std::logical_or<>> logical_or = {};

@@ -65,6 +65,8 @@ PULL_ADAPTABLE(starts_with);
 PULL_ADAPTABLE(ends_with);
 PULL_ADAPTABLE(contains);
 PULL_ADAPTABLE(sum);
+PULL_ADAPTABLE(min_value);
+PULL_ADAPTABLE(max_value);
 
 PULL_ADAPTABLE(accumulate);
 PULL_ADAPTABLE(all_of);

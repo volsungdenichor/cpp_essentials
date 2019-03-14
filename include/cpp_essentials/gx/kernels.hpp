@@ -41,7 +41,7 @@ inline kernel_type normalized(const kernel_type& img)
 
 inline auto sharpen() -> kernel_convolution_t<1>
 {
-    static float tab [][3] =
+    static const float tab [][3] =
     {
         {  0, -1,  0 },
         { -1, +5, -1 },
@@ -57,7 +57,7 @@ inline auto sharpen() -> kernel_convolution_t<1>
 
 inline auto blur() -> kernel_convolution_t<1>
 {
-    static float tab [][3] =
+    static const float tab [][3] =
     {
         { +1, +2, +1 },
         { +2, +4, +2 },
@@ -73,7 +73,7 @@ inline auto blur() -> kernel_convolution_t<1>
 
 inline auto emboss() -> kernel_convolution_t<1>
 {
-    static float tab [][3] =
+    static const float tab [][3] =
     {
         { -2, -1,  0 },
         { -1, +1, +1 },
@@ -89,7 +89,7 @@ inline auto emboss() -> kernel_convolution_t<1>
 
 inline auto edge_detect() -> kernel_convolution_t<1>
 {
-    static float tab [][3] =
+    static const float tab [][3] =
     {
         { -1, -1, -1 },
         { -1, +8, -1 },

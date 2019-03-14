@@ -5,6 +5,7 @@
 
 #include <cpp_essentials/gx/image.hpp>
 #include <cpp_essentials/sq/sq.hpp>
+#include <cpp_essentials/core/container_helpers.hpp>
 
 namespace cpp_essentials::gx
 {

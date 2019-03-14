@@ -411,6 +411,12 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\gx\lookup_table.hpp">
       <Filter>Header Files\cpp_essentials\gx</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\repeat_iterator.hpp">
+      <Filter>Header Files\cpp_essentials\core\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\repeat.hpp">
+      <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

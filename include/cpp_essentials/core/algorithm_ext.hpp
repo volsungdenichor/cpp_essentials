@@ -9,6 +9,7 @@
 #include <cpp_essentials/cc/cc.hpp>
 #include <cpp_essentials/core/optional.hpp>
 #include <cpp_essentials/core/return_policy.hpp>
+#include <cpp_essentials/core/functors.hpp>
 
 namespace cpp_essentials::core
 {
@@ -406,7 +407,7 @@ struct max_value_fn
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>, cc::range_ref<Range>>>
     auto operator ()(Range&& range, Compare compare = {}) const
     {
-        return extreme_value(std::begin(range), std::end(range), core::logical_negation(compare));
+        return extreme_value(std::begin(range), std::end(range), logical_negation(compare));
     }
 };
 

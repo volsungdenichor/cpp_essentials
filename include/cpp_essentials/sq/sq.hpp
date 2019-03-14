@@ -20,6 +20,7 @@
 #include <cpp_essentials/core/join.hpp>
 #include <cpp_essentials/core/map.hpp>
 #include <cpp_essentials/core/numeric.hpp>
+#include <cpp_essentials/core/repeat.hpp>
 #include <cpp_essentials/core/slice.hpp>
 #include <cpp_essentials/core/stride.hpp>
 #include <cpp_essentials/core/trim.hpp>
@@ -41,6 +42,8 @@ PULL_FUNCTOR(make_range);
 PULL_FUNCTOR(range);
 PULL_FUNCTOR(inclusive_range);
 PULL_FUNCTOR(infinite_range);
+PULL_FUNCTOR(repeat);
+PULL_FUNCTOR(once);
 
 PULL_ADAPTABLE(front);
 PULL_ADAPTABLE(front_or_throw);

@@ -21,7 +21,7 @@ class format_error : public std::runtime_error
 {
 public:
     format_error(const std::string& message)
-        : std::runtime_error { std::string { "format: " } + message }
+        : std::runtime_error{ std::string { "format: " } + message }
     {
     }
 };
@@ -66,7 +66,7 @@ struct format_guard
 using key_value_func = std::function<void(cstring_view, cstring_view)>;
 
 void parse_term(cstring_view text, key_value_func func)
-{    
+{
     if (!text)
     {
         return;
@@ -146,71 +146,72 @@ struct format_modifier_handler
 
     void operator ()(cstring_view key, cstring_view value) const
     {
-        if (key == "format"_str)
+        using namespace literals;
+        if (key == "format"_s)
         {
             format(value);
         }
-        else if (key == "width"_str)
+        else if (key == "width"_s)
         {
             os << std::setw(parse<int>(value));
         }
-        else if (key == "fill"_str)
+        else if (key == "fill"_s)
         {
             os << std::setfill(*value);
         }
-        else if (key == "precision"_str)
+        else if (key == "precision"_s)
         {
             os << std::setprecision(parse<int>(value));
         }
-        else if (key == "left"_str)
+        else if (key == "left"_s)
         {
             os << std::left;
         }
-        else if (key == "right"_str)
+        else if (key == "right"_s)
         {
             os << std::right;
         }
-        else if (key == "internal"_str)
+        else if (key == "internal"_s)
         {
             os << std::internal;
         }
-        else if (key == "fixed"_str)
+        else if (key == "fixed"_s)
         {
             os << std::fixed;
         }
-        else if (key == "scientific"_str)
+        else if (key == "scientific"_s)
         {
             os << std::scientific;
         }
-        else if (key == "dec"_str)
+        else if (key == "dec"_s)
         {
             os << std::dec;
         }
-        else if (key == "hex"_str)
+        else if (key == "hex"_s)
         {
             os << std::hex;
         }
-        else if (key == "oct"_str)
+        else if (key == "oct"_s)
         {
             os << std::oct;
         }
-        else if (key == "boolalpha"_str)
+        else if (key == "boolalpha"_s)
         {
             os << std::boolalpha;
         }
-        else if (key == "uppercase"_str)
+        else if (key == "uppercase"_s)
         {
             os << std::uppercase;
         }
-        else if (key == "showpoint"_str)
+        else if (key == "showpoint"_s)
         {
             os << std::showpoint;
         }
-        else if (key == "showpos"_str)
+        else if (key == "showpos"_s)
         {
             os << std::showpos;
         }
-        else if (key == "showbase"_str)
+        else if (key == "showbase"_s)
         {
             os << std::showbase;
         }
@@ -245,7 +246,7 @@ void write_argument(std::ostream& os, cstring_view fmt, int index, const Arg& ar
     }
     else
     {
-        THROW(format_error { "argument index out of range" });
+        THROW(format_error{ "argument index out of range" });
     }
 }
 
@@ -264,13 +265,13 @@ void write_argument(std::ostream& os, cstring_view fmt, int index, const Arg& ar
 
 inline void write_argument(std::ostream& /*os*/, cstring_view /*fmt*/, int /*index*/)
 {
-    THROW(format_error { "argument index out of range" });
+    THROW(format_error{ "argument index out of range" });
 }
 
 inline std::tuple<int, cstring_view> parse_field(cstring_view fmt)
-{    
+{
     auto digits_fmt = core::take_while(core::drop_while(fmt, core::is_blank), core::is_digit);
-        
+
     int index = !digits_fmt.empty()
         ? core::parse<int>(digits_fmt)
         : -1;
@@ -281,7 +282,7 @@ inline std::tuple<int, cstring_view> parse_field(cstring_view fmt)
 template <class... Args>
 void handle_item(std::ostream& os, int argument_index, cstring_view fmt, const Args&... args)
 {
-    auto [field_index, field_fmt] = parse_field(fmt);
+    auto[field_index, field_fmt] = parse_field(fmt);
 
     if (field_index == -1)
     {
@@ -292,8 +293,8 @@ void handle_item(std::ostream& os, int argument_index, cstring_view fmt, const A
 }
 
 template <class... Args>
-void format(std::ostream& os, cstring_view fmt, const Args&... args)
-{    
+void do_format(std::ostream& os, cstring_view fmt, const Args&... args)
+{
     int argument_index = 0;
 
     for (auto it = fmt.begin(); it != fmt.end(); ++it)
@@ -311,7 +312,7 @@ void format(std::ostream& os, cstring_view fmt, const Args&... args)
 
                 if (e == fmt.end())
                 {
-                    THROW(format_error { "unclosed bracket" });
+                    THROW(format_error{ "unclosed bracket" });
                 }
 
                 handle_item(os, argument_index++, cstring_view(it + 1, e), args...);
@@ -323,7 +324,7 @@ void format(std::ostream& os, cstring_view fmt, const Args&... args)
         {
             if (it[1] != '}')
             {
-                THROW(format_error { "unexpected closing bracket" });
+                THROW(format_error{ "unexpected closing bracket" });
             }
 
             os << '}';
@@ -337,11 +338,8 @@ void format(std::ostream& os, cstring_view fmt, const Args&... args)
     }
 }
 
-} /* namespace detail */
-
 struct format_fn
 {
-
     template <class... Args>
     std::ostream& operator ()(std::ostream& os, const std::locale& locale, const char* fmt, const Args&... args) const
     {
@@ -352,14 +350,14 @@ struct format_fn
         (void)save_format;
 
         os.imbue(locale);
-        detail::format(os, c_str(fmt), args...);
+        do_format(os, c_str(fmt), args...);
         return os;
     }
 
     template <class... Args>
     std::ostream& operator ()(std::ostream& os, const char* fmt, const Args&... args) const
     {
-        detail::format(os, c_str(fmt), args...);
+        do_format(os, c_str(fmt), args...);
         return os;
     }
 
@@ -378,11 +376,9 @@ struct format_fn
         (*this)(ss, fmt, args...);
         return ss.str();
     }
-
 };
 
-static constexpr format_fn format = {};
-
+static constexpr format_fn format{};
 
 struct print_fn
 {
@@ -399,7 +395,12 @@ struct print_fn
     }
 };
 
-static constexpr print_fn print = {};
+static constexpr print_fn print{};
+
+} /* namespace detail */
+
+using detail::format;
+using detail::print;
 
 } /* namespace cpp_essentials::core */
 

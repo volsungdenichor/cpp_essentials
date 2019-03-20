@@ -131,19 +131,19 @@ public:
     template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
     size_value_type width() const
     {
-        return _size.get<0>();
+        return _size.x();
     }
 
     template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
     size_value_type height() const
     {
-        return _size.get<1>();
+        return _size.y();
     }
 
     template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
     size_value_type slice_count() const
     {
-        return _size.get<Dim>();
+        return _size.template get<Dim>();
     }
 
     template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>

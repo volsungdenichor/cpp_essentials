@@ -125,7 +125,7 @@ public:
     slice_range_type slice_range() const
     {
         static const size_t dim = D - 1 - N;
-        return slice_range<N>(size_value_type(0), base_type::size().get<dim>());
+        return slice_range<N>(size_value_type(0), base_type::size().template get<dim>());
     }
 
     template <size_t N, size_t Dim = D, CONCEPT = std::enable_if_t<(Dim > 1)>>
@@ -213,7 +213,7 @@ private:
 
         auto sub_size = detail::erase<dim>(base_type::size());
         auto sub_stride = detail::erase<dim>(base_type::stride());
-        auto sub_step = begin < end ? base_type::stride().get<dim>() : -base_type::stride().get<dim>();
+        auto sub_step = begin < end ? base_type::stride().template get<dim>() : -base_type::stride().template get<dim>();
 
         return core::make_range(
             slice_iterator{ data(base_type::template get_slice_offset<dim>(begin)), sub_size, sub_stride, sub_step },

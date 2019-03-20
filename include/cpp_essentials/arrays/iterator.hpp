@@ -21,12 +21,12 @@ struct forward_advancer
 
         static forward_advancer<D, Dim + 1, Iterator> next;
 
-        item._ptr += item._step.get<Dim>();
-        ++item._location.get<Dim>();
+        item._ptr += item._step.template get<Dim>();
+        ++item._location.template get<Dim>();
 
-        if (location_value_type(item._location.get<Dim>()) == location_value_type(item._size.get<Dim>()))
+        if (location_value_type(item._location.template get<Dim>()) == location_value_type(item._size.template get<Dim>()))
         {
-            item._location.get<Dim>() = 0;
+            item._location.template get<Dim>() = 0;
 
             next(item);
         }
@@ -50,15 +50,15 @@ struct backward_advancer
 
         static backward_advancer<D, Dim + 1, Iterator> next;
 
-        if (item._location.get<Dim>() == 0)
+        if (item._location.template get<Dim>() == 0)
         {
-            item._location.get<Dim>() = item._size.get<Dim>();
+            item._location.template get<Dim>() = item._size.template get<Dim>();
 
             next(item);
         }
 
-        item._ptr -= item._step.get<Dim>();
-        --item._location.get<Dim>();
+        item._ptr -= item._step.template get<Dim>();
+        --item._location.template get<Dim>();
     }
 };
 

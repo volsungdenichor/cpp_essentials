@@ -15,6 +15,7 @@
 #include <cpp_essentials/arrays/slice_iterator.hpp>
 
 #include <cpp_essentials/core/iterator_range.hpp>
+#include <cpp_essentials/geo/contains.hpp>
 
 namespace cpp_essentials::arrays
 {

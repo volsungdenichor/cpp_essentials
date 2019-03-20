@@ -29,6 +29,16 @@ Iter copy_while(Iter first, Iter last, OutputIter output, UnaryPred pred)
     return first;
 }
 
+template <class Iter1, class Iter2>
+Iter1 overwrite(Iter1 s_begin, Iter1 s_end, Iter2 d_begin, Iter2 d_end)
+{
+    for (; s_begin != s_end && d_begin != d_end; ++s_begin, ++d_begin)
+    {
+        *d_begin = *s_begin;
+    }
+    return s_begin;
+}
+
 template <class Iter>
 bool is_not_empty(Iter b, Iter e)
 {
@@ -274,11 +284,23 @@ struct copy_while_fn
         , class UnaryPred
         , CONCEPT = cc::InputRange<Range>
         , CONCEPT = cc::OutputIterator<OutputIter>
-        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>
-        >
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, OutputIter output, UnaryPred&& pred) const
     {
         return copy_while(std::begin(range), std::end(range), output, make_func(pred));
+    }
+};
+
+struct overwrite_fn
+{
+    template
+        < class Range
+        , class Dest
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::Range<Dest>>
+    auto operator ()(Range&& range, Dest&& dest) const
+    {
+        return overwrite(std::begin(range), std::end(range), std::begin(dest), std::end(dest));
     }
 };
 
@@ -430,6 +452,7 @@ static constexpr detail::empty_fn empty = {};
 static constexpr detail::non_empty_fn non_empty = {};
 static constexpr detail::copy_while_fn copy_while = {};
 static constexpr detail::copy_until_fn copy_until = {};
+static constexpr detail::overwrite_fn overwrite = {};
 static constexpr detail::starts_with_fn starts_with = {};
 static constexpr detail::ends_with_fn ends_with = {};
 static constexpr detail::contains_fn contains = {};

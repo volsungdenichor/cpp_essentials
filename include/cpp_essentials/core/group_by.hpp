@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include <unordered_map>
+#include <map>
 #include <cpp_essentials/core/ref_vector.hpp>
 
 namespace cpp_essentials::core
@@ -21,7 +21,7 @@ auto group_by(Iter begin, Iter end, Func&& func)
         , core::ref_vector<std::remove_reference_t<cc::iter_ref<Iter>>>
         , std::vector<cc::iter_val<Iter>>>;
 
-    std::unordered_map<key_type, value_type> result;
+    std::map<key_type, value_type> result;
 
     for (auto it = begin; it != end; ++it)
     {

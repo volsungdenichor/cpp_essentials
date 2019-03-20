@@ -64,6 +64,7 @@ PULL_ADAPTABLE(empty);
 PULL_ADAPTABLE(non_empty);
 PULL_ADAPTABLE(copy_while);
 PULL_ADAPTABLE(copy_until);
+PULL_ADAPTABLE(overwrite);
 PULL_ADAPTABLE(starts_with);
 PULL_ADAPTABLE(ends_with);
 PULL_ADAPTABLE(contains);

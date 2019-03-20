@@ -75,6 +75,22 @@ public:
     {
         return self().has_value() ? self().value() : func();
     }
+   
+    decltype(auto) value_or_default() const
+    {
+        using type = std::remove_reference_t<decltype(self().value())>;
+        return value_or(type{});
+    }
+
+    template <class Exception>
+    decltype(auto) value_or_throw(const Exception& exception)
+    {
+        if (!self().has_value())
+        {
+            throw exception;
+        }
+        return self().value();
+    }
 
     template <class T>
     auto and_optional(const optional<T>& other) const
@@ -86,6 +102,16 @@ public:
     auto or_optional(const optional<T>& other) const
     {
         return self().has_value() ? self() : other;
+    }
+
+    bool operator !() const
+    {
+        return !self().has_value();
+    }
+
+    explicit operator bool() const
+    {
+        return self().has_value();
     }
 
 private:
@@ -177,16 +203,6 @@ public:
     bool has_value() const
     {
         return _opt.has_value();
-    }
-
-    bool operator !() const
-    {
-        return !has_value();
-    }
-
-    explicit operator bool() const
-    {
-        return has_value();
     }
 
     const_reference operator *() const
@@ -295,16 +311,6 @@ public:
     bool has_value() const
     {
         return _ptr;
-    }
-
-    bool operator !() const
-    {
-        return !has_value();
-    }
-
-    explicit operator bool() const
-    {
-        return has_value();
     }
 
     reference operator *() const

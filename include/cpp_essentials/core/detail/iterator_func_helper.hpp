@@ -6,6 +6,7 @@
 #include <iterator>
 #include <tuple>
 #include <type_traits>
+#include <optional>
 
 namespace cpp_essentials::core
 {

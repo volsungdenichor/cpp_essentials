@@ -229,13 +229,13 @@ public:
     template <size_t N, size_t Dim = D, CONCEPT = std::enable_if_t<(Dim > 1)>>
     const_slice_range_type slice_range() const
     {
-        return view().slice_range<N>();
+        return view().template slice_range<N>();
     }
 
     template <size_t N, size_t Dim = D, CONCEPT = std::enable_if_t<(Dim > 1)>>
     slice_range_type slice_range()
     {
-        return view().slice_range<N>();
+        return view().template slice_range<N>();
     }
 
     template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim > 1)>>

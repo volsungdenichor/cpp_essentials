@@ -275,7 +275,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\math\regression.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\meta\meta.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\meta\serialization_json.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\rs\rs.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\sq.hpp" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>

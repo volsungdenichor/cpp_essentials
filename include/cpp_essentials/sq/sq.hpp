@@ -19,6 +19,7 @@
 #include <cpp_essentials/core/iterate.hpp>
 #include <cpp_essentials/core/join.hpp>
 #include <cpp_essentials/core/map.hpp>
+#include <cpp_essentials/core/map_utils.hpp>
 #include <cpp_essentials/core/numeric.hpp>
 #include <cpp_essentials/core/repeat.hpp>
 #include <cpp_essentials/core/slice.hpp>
@@ -151,6 +152,8 @@ PULL_ADAPTABLE(write);
 PULL_ADAPTABLE(zip);
 
 PULL_ADAPTABLE(group_by);
+
+PULL_ADAPTABLE(at);
 
 #undef PULL_ADAPTABLE
 #undef PULL_FUNCTOR

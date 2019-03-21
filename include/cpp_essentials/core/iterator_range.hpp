@@ -8,6 +8,7 @@
 #include <tuple>
 
 #include <cpp_essentials/core/assertions.hpp>
+#include <cpp_essentials/core/optional.hpp>
 #include <cpp_essentials/cc/cc.hpp>
 
 namespace cpp_essentials::core
@@ -94,7 +95,7 @@ public:
     iterator_range(Range&& range)
         : iterator_range{ std::begin(range), std::end(range) }
     {
-    }    
+    }
 
 
     auto begin() const -> iterator
@@ -237,6 +238,48 @@ struct make_range_fn
     {
         return (*this)(std::begin(range), std::end(range));
     }
+
+    template <class T>
+    auto operator ()(const optional<T>& item) const
+    {
+        return from_optional(item);
+    }
+
+    template <class T>
+    auto operator ()(optional<T>& item) const
+    {
+        return from_optional(item);
+    }
+
+    template <class T>
+    auto operator ()(optional<T>&&) const = delete;
+
+    template <class T>
+    auto operator ()(const std::optional<T>& item) const
+    {
+        return from_optional(item);
+    }
+
+    template <class T>
+    auto operator ()(std::optional<T>& item) const
+    {
+        return from_optional(item);
+    }
+
+    template <class T>
+    auto operator ()(std::optional<T>&&) const = delete;
+
+private:
+    template <class T>
+    auto from_optional(T&& item) const
+    {
+        using Iter = decltype(&(*item));
+        return item
+            ? iterator_range<Iter>{ &(*item), 1 }
+            : iterator_range<Iter>{};
+    }
+
+
 };
 
 static constexpr make_range_fn make_range = {};

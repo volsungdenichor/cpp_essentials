@@ -37,13 +37,18 @@ static constexpr bool is_associative_container_v = is_associative_container<T>::
 template <class T>
 using AssociativeContainer = std::enable_if_t<is_associative_container_v<T>>;
 
+struct at_fn
+{
+    template <class Map, class K, CONCEPT = detail::AssociativeContainer<std::decay_t<Map>>>
+    auto operator ()(Map&& item, const K& key) const
+    {
+        return map(make_range(item.equal_range(key)), get_value);
+    }
+};
+
 } /* namespace detail */
 
-template <class Map, class K, CONCEPT = detail::AssociativeContainer<Map>>
-auto at(const Map& item, const K& key)
-{
-    return map(make_range(item.equal_range(key)), get_value);
-}
+static constexpr detail::at_fn at = {};
 
 } /* namespace cpp_essentials::core */
 

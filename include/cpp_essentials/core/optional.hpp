@@ -82,14 +82,21 @@ public:
         return value_or(type{});
     }
 
-    template <class Exception>
-    decltype(auto) value_or_throw(const Exception& exception)
+    template
+        < class Exception
+        , CONCEPT = cc::BaseOf<std::exception, Exception>>
+    decltype(auto) value_or_throw(const Exception& exception) const
     {
         if (!self().has_value())
         {
             throw exception;
         }
         return self().value();
+    }
+
+    decltype(auto) value_or_throw(const std::string& message) const
+    {
+        return value_or_throw(std::runtime_error{ message });
     }
 
     template <class T>

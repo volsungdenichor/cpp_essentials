@@ -182,6 +182,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\chunk_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\filter_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\flatten_iterator.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\flat_map_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\iterate_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\iterator_func_helper.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\map_iterator.hpp" />

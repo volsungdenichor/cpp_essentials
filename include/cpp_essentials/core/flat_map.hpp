@@ -3,8 +3,7 @@
 
 #pragma once
 
-#include <cpp_essentials/core/optional.hpp>
-#include <cpp_essentials/core/functors.hpp>
+#include <cpp_essentials/core/detail/flat_map_iterator.hpp>
 
 namespace cpp_essentials::core
 {
@@ -21,20 +20,13 @@ struct flat_map_fn
         , CONCEPT = cc::UnaryFunction<UnaryFunc, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryFunc&& func) const
     {
-        const auto f = make_func(func);
-        using type = std::decay_t<decltype(*f(*std::begin(range)))>;
+        auto f = make_func(std::move(func));
+        auto b = std::begin(range);
+        auto e = std::end(range);
 
-        std::vector<type> result;
-
-        for (auto&& item : range)
-        {
-            auto value = f(item);
-            if (has_value(value))
-            {
-                result.push_back(dereference(value));
-            }
-        }
-        return result;
+        return make_range(
+            flat_map_iterator{ b, f, e },
+            flat_map_iterator{ e, f, e });       
     }
 };
 

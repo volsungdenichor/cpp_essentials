@@ -8,6 +8,7 @@
 #include <tuple>
 
 #include <cpp_essentials/math/constants.hpp>
+#include <cpp_essentials/core/assertions.hpp>
 
 namespace cpp_essentials::core
 {

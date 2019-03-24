@@ -15,20 +15,7 @@ template <class T, class Queue>
 class basic_channel
 {
 public:
-    using queue_type = Queue;
-
-    void close()
-    {
-        std::unique_lock<std::mutex> lock{ _mutex };
-        _open = false;
-        _condition_var.notify_all();
-    }
-
-    bool is_open() const
-    {
-        std::unique_lock<std::mutex> lock{ _mutex };
-        return _open;
-    }
+    using queue_type = Queue;    
 
     bool empty() const
     {
@@ -40,23 +27,13 @@ protected:
     basic_channel()
         : _queue()
         , _mutex{}
-        , _condition_var{}
-        , _open{ true }
+        , _condition_var{}       
     {
-    }
-
-    void check_if_open() const
-    {
-        if (!_open)
-        {
-            throw std::logic_error{ "channel is closed" };
-        }
-    }
+    }    
 
     queue_type _queue;
     mutable std::mutex _mutex;
-    std::condition_variable _condition_var;
-    bool _open;
+    std::condition_variable _condition_var;   
 };
 
 template <class T, class Queue = std::list<T>>
@@ -75,9 +52,7 @@ public:
     {
         std::unique_lock<std::mutex> lock{ base_type::_mutex };
 
-        base_type::check_if_open();
-
-        base_type::_condition_var.wait(lock, [this]() { return !base_type::_open || !base_type::_queue.empty(); });
+        base_type::_condition_var.wait(lock, std::bind(&ichannel::item_available, *this));
 
         T item = std::move(base_type::_queue.front());
         base_type::_queue.pop_front();
@@ -89,9 +64,7 @@ public:
     {
         std::unique_lock<std::mutex> lock{ base_type::_mutex };
 
-        base_type::check_if_open();
-
-        base_type::_condition_var.wait_for(lock, timeout, [this]() { return !base_type::_open || !base_type::_queue.empty(); });
+        base_type::_condition_var.wait_for(lock, timeout, std::bind(&ichannel::item_available, *this));
 
         T item = std::move(base_type::_queue.front());
         base_type::_queue.pop_front();
@@ -110,7 +83,7 @@ public:
     {
         std::unique_lock<std::mutex> lock{ base_type::_mutex };
 
-        if (!base_type::_condition_var.wait_for(lock, timeout, [this]() { return !base_type::_open || !base_type::_queue.empty(); }))
+        if (!base_type::_condition_var.wait_for(lock, timeout, std::bind(&ichannel::item_available, *this)))
         {
             return false;
         }
@@ -119,13 +92,13 @@ public:
     }
 
 private:
+    bool item_available() const
+    {
+        return !base_type::_queue.empty();
+    }
+
     bool do_pop(T& item)
     {
-        if (!base_type::_open)
-        {
-            return false;
-        }
-
         if (base_type::_queue.empty())
         {
             return false;
@@ -153,8 +126,6 @@ public:
     {
         std::unique_lock<std::mutex> lock{ base_type::_mutex };
 
-        base_type::check_if_open();
-
         base_type::_queue.push_back(std::move(item));
         base_type::_condition_var.notify_one();
     }
@@ -162,11 +133,6 @@ public:
     bool try_push(T item)
     {
         std::unique_lock<std::mutex> lock{ base_type::_mutex };
-
-        if (!base_type::_open)
-        {
-            return false;
-        }
 
         base_type::_queue.push_back(std::move(item));
         base_type::_condition_var.notify_one();

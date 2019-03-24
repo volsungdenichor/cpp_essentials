@@ -79,10 +79,3 @@ TEST_CASE("trim_until")
     REQUIRE((vect | sq::trim_until([](auto&& x) { return x == 2; })) == vec(2, 3, 4, 5, 2));
 }
 
-TEST_CASE("partition")
-{
-    auto vect = vec(1, 2, 3, 4, 5, 2, 1, 1);
-    auto[positive, negative] = vect | sq::partition([](auto x) { return x % 2 == 0; });
-    REQUIRE(positive == vec(2, 4, 2));
-    REQUIRE(negative == vec(1, 3, 5, 1, 1));
-}

@@ -26,7 +26,7 @@ struct flat_map_fn
 
         return make_range(
             flat_map_iterator{ b, f, e },
-            flat_map_iterator{ e, f, e });       
+            flat_map_iterator{ e, f, e });
     }
 };
 

@@ -191,6 +191,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\stride_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\zip_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\elementwise.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\expected.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\filter.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\flatten.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\flat_map.hpp" />

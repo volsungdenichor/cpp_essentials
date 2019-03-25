@@ -52,7 +52,7 @@ public:
 
     template <class U>
     expected(detail::unexpected<U> other)
-        : _storage{ unexpected_type{ error_type{std::move(other.value)}} }
+        : _storage{ unexpected_type{ error_type{ std::move(other.value) } } }
     {
     }
 
@@ -130,6 +130,108 @@ private:
     using storage_type = std::variant<value_type, unexpected_type>;
     storage_type _storage;
 };
+
+template <class T, class E>
+class expected<T&, E>
+{
+private:
+    using unexpected_type = detail::unexpected<E>;
+
+public:
+    using value_type = T;
+    using error_type = E;
+
+    expected() = default;
+
+    expected(value_type& value)
+        : _value{ &value }
+        , _error{}
+    {
+    }
+
+    template <class U>
+    expected(detail::unexpected<U> other)
+        : _value{}
+        , _error{ unexpected_type{ error_type(std::move(other.value)) } }
+    {
+    }
+
+    template <class OE>
+    expected(const expected<T&, OE>& other)
+    {
+        if (other.has_value())
+        {
+            *this = other.value();
+        }
+        else
+        {
+            *this = other.unexpected();
+        }
+    }
+
+    expected(const expected&) = default;
+    expected(expected&&) = default;
+
+    expected& operator =(expected other)
+    {
+        std::swap(_value, other._value);
+        std::swap(_error, other._error);
+        return *this;
+    }
+
+    template <class U>
+    operator optional<U>() const
+    {
+        return has_value() ? optional<U>{ value() } : optional<U>{};
+    }
+
+    explicit operator bool() const
+    {
+        return has_value();
+    }
+
+    value_type& operator *() const
+    {
+        return value();
+    }
+
+    value_type* operator ->() const
+    {
+        return &value();
+    }
+
+    const unexpected_type& unexpected() const
+    {
+        EXPECTS(!has_value());
+        return *_error;
+    }
+
+    value_type& value() const
+    {
+        EXPECTS(has_value());
+        return *_value;
+    }
+
+    const error_type& error() const
+    {
+        return unexpected().value;
+    }
+
+    bool has_value() const
+    {
+        return _value;
+    }
+
+    bool has_error() const
+    {
+        return !has_value();
+    }
+
+private:
+    value_type* _value;
+    std::optional<unexpected_type> _error;
+};
+
 
 template <class T, class E>
 struct is_optional<expected<T, E>> : std::true_type {};

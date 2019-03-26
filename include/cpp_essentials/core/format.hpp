@@ -341,7 +341,7 @@ void do_format(std::ostream& os, cstring_view fmt, const Args&... args)
 struct format_fn
 {
     template <class... Args>
-    std::ostream& operator ()(std::ostream& os, const std::locale& locale, const char* fmt, const Args&... args) const
+    std::ostream& operator ()(std::ostream& os, const std::locale& locale, std::string_view fmt, const Args&... args) const
     {
         const auto save_locale = detail::locale_guard{ os };
         (void)save_locale;
@@ -355,14 +355,14 @@ struct format_fn
     }
 
     template <class... Args>
-    std::ostream& operator ()(std::ostream& os, const char* fmt, const Args&... args) const
+    std::ostream& operator ()(std::ostream& os, std::string_view fmt, const Args&... args) const
     {
         do_format(os, c_str(fmt), args...);
         return os;
     }
 
     template <class... Args>
-    std::string operator ()(const std::locale& locale, const char* fmt, const Args&... args) const
+    std::string operator ()(const std::locale& locale, std::string_view fmt, const Args&... args) const
     {
         std::stringstream ss;
         (*this)(ss, locale, fmt, args...);
@@ -370,7 +370,7 @@ struct format_fn
     }
 
     template <class... Args>
-    std::string operator ()(const char* fmt, const Args&... args) const
+    std::string operator ()(std::string_view fmt, const Args&... args) const
     {
         std::stringstream ss;
         (*this)(ss, fmt, args...);
@@ -383,13 +383,13 @@ static constexpr format_fn format{};
 struct print_fn
 {
     template <class... Args>
-    std::ostream& operator ()(const std::locale& locale, const char* fmt, const Args&... args) const
+    std::ostream& operator ()(const std::locale& locale, std::string_view fmt, const Args&... args) const
     {
         return format(std::cout, locale, fmt, args...);
     }
 
     template <class... Args>
-    std::ostream& operator ()(const char* fmt, const Args&... args) const
+    std::ostream& operator ()(std::string_view fmt, const Args&... args) const
     {
         return format(std::cout, fmt, args...);
     }
@@ -397,10 +397,28 @@ struct print_fn
 
 static constexpr print_fn print{};
 
+struct println_fn
+{
+    template <class... Args>
+    std::ostream& operator ()(const std::locale& locale, std::string_view fmt, const Args&... args) const
+    {
+        return print(locale, fmt, args...) << std::endl;
+    }
+
+    template <class... Args>
+    std::ostream& operator ()(std::string_view fmt, const Args&... args) const
+    {
+        return print(fmt, args...) << std::endl;
+    }
+};
+
+static constexpr println_fn println{};
+
 } /* namespace detail */
 
 using detail::format;
 using detail::print;
+using detail::println;
 
 } /* namespace cpp_essentials::core */
 

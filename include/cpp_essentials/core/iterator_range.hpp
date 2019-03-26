@@ -8,7 +8,6 @@
 #include <tuple>
 
 #include <cpp_essentials/core/assertions.hpp>
-#include <cpp_essentials/core/optional.hpp>
 #include <cpp_essentials/cc/cc.hpp>
 
 namespace cpp_essentials::core
@@ -237,37 +236,7 @@ struct make_range_fn
     auto operator ()(Range&& range) const
     {
         return (*this)(std::begin(range), std::end(range));
-    }
-
-    template <class T>
-    auto operator ()(const optional<T>& item) const
-    {
-        return from_optional(item);
-    }
-
-    template <class T>
-    auto operator ()(optional<T>& item) const
-    {
-        return from_optional(item);
-    }
-
-    template <class T>
-    auto operator ()(optional<T>&&) const = delete;
-
-    template <class T>
-    auto operator ()(const std::optional<T>& item) const
-    {
-        return from_optional(item);
-    }
-
-    template <class T>
-    auto operator ()(std::optional<T>& item) const
-    {
-        return from_optional(item);
-    }
-
-    template <class T>
-    auto operator ()(std::optional<T>&&) const = delete;
+    }    
 
 private:
     template <class T>

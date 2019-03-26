@@ -5,7 +5,6 @@
 
 #include <cpp_essentials/core/output.hpp>
 #include <cpp_essentials/core/serialization.hpp>
-#include <sstream>
 
 namespace cpp_essentials::core
 {

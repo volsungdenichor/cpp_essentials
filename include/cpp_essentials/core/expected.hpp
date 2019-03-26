@@ -144,15 +144,13 @@ public:
     expected() = default;
 
     expected(value_type& value)
-        : _value{ &value }
-        , _error{}
+        : _storage{ &value }
     {
     }
 
     template <class U>
     expected(detail::unexpected<U> other)
-        : _value{}
-        , _error{ unexpected_type{ error_type(std::move(other.value)) } }
+        : _storage{ unexpected_type{ error_type{ std::move(other.value) } } }
     {
     }
 
@@ -174,8 +172,7 @@ public:
 
     expected& operator =(expected other)
     {
-        std::swap(_value, other._value);
-        std::swap(_error, other._error);
+        std::swap(_storage, other._storage);
         return *this;
     }
 
@@ -203,13 +200,13 @@ public:
     const unexpected_type& unexpected() const
     {
         EXPECTS(!has_value());
-        return *_error;
+        return std::get<unexpected_type>(_storage);
     }
 
     value_type& value() const
     {
         EXPECTS(has_value());
-        return *_value;
+        return *std::get<value_type*>(_storage);
     }
 
     const error_type& error() const
@@ -219,7 +216,7 @@ public:
 
     bool has_value() const
     {
-        return _value;
+        return std::holds_alternative<value_type*>(_storage);
     }
 
     bool has_error() const
@@ -228,8 +225,8 @@ public:
     }
 
 private:
-    value_type* _value;
-    std::optional<unexpected_type> _error;
+    using storage_type = std::variant<value_type*, unexpected_type>;
+    storage_type _storage;
 };
 
 

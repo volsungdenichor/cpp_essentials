@@ -110,6 +110,7 @@ PULL_ADAPTABLE(to_set);
 PULL_ADAPTABLE(to_list);
 PULL_ADAPTABLE(to_forward_list);
 PULL_ADAPTABLE(to_deque);
+PULL_ADAPTABLE(to_string);
 
 PULL_ADAPTABLE(take_if);
 PULL_ADAPTABLE(drop_if);

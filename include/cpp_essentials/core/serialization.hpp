@@ -17,12 +17,25 @@ namespace detail
 {
 
 template <class T>
+std::string str(const T& item)
+{
+    std::ostringstream os;
+    os << item;
+    return os.str();
+}
+
+inline const std::string& str(const std::string& item)
+{
+    return item;
+}
+
+template <class T>
 struct try_parse_fn
 {
     template <class String>
     core::optional<T> operator ()(const String& text) const
     {
-        std::istringstream is{ text };
+        std::istringstream is{ str(text) };
         T result;
         is >> result;
         return eval_optional(!is.fail(), [&]() { return result; });

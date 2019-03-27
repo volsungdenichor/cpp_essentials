@@ -25,7 +25,7 @@ struct slice_fn
         , CONCEPT = cc::ForwardRange<Range>>
     auto operator ()(Range&& range, nil_t /* begin_index */, nil_t /* end_index */) const
     {
-        return make_range(range);        
+        return make_range(range);
     }
 
     template

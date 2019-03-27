@@ -229,6 +229,45 @@ private:
     storage_type _storage;
 };
 
+template <class T, class E1, class U, class E2, class = cc::EqualityCompare<T, U>>
+bool operator ==(const expected<T, E1>& lhs, const expected<U, E2>& rhs)
+{
+    return (!lhs && !rhs) || (lhs && rhs && *lhs == *rhs);
+}
+
+template <class T, class E1, class U, class E2, class = cc::EqualityCompare<T, U>>
+bool operator !=(const expected<T, E1>& lhs, const expected<U, E2>& rhs)
+{
+    return !(lhs == rhs);
+}
+
+
+
+template <class T, class E, class U, class = cc::EqualityCompare<T, U>>
+bool operator ==(const expected<T, E>& lhs, const U& rhs)
+{
+    return lhs && *lhs == rhs;
+}
+
+template <class T, class E, class U, class = cc::EqualityCompare<T, U>>
+bool operator !=(const expected<T, E>& lhs, const U& rhs)
+{
+    return !(lhs == rhs);
+}
+
+
+
+template <class T, class U, class E, class = cc::EqualityCompare<T, U>>
+bool operator ==(const T& lhs, const expected<U, E>& rhs)
+{
+    return rhs == lhs;
+}
+
+template <class T, class U, class E, class = cc::EqualityCompare<T, U>>
+bool operator !=(const T& lhs, const expected<U, E>& rhs)
+{
+    return !(lhs == rhs);
+}
 
 template <class T, class E>
 struct is_optional<expected<T, E>> : std::true_type {};

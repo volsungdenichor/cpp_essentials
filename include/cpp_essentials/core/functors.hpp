@@ -237,6 +237,31 @@ struct compose_fn
     }
 };
 
+struct compare_by_fn
+{
+    template <class Func, class Compare = std::less<>>
+    auto operator ()(Func func, Compare compare = {}) const
+    {
+        auto f = cc::make_func(func);
+        return [=](const auto& lhs, const auto& rhs)
+        {
+            return compare(f(lhs), f(rhs));
+        };
+    }
+};
+
+struct tie_members_fn
+{
+    template <class... F>
+    auto operator ()(F... fields) const
+    {
+        return [=](const auto& item)
+        {
+            return std::tuple{ (cc::make_func(fields)(item))... };
+        };
+    }
+};
+
 } /* namespace detail */
 
 static constexpr detail::identity_fn identity = {};
@@ -268,6 +293,8 @@ static constexpr detail::cast_fn<Type> cast = {};
 
 static constexpr detail::offset_of_fn offset_of = {};
 static constexpr detail::compose_fn compose;
+static constexpr detail::compare_by_fn compare_by;
+static constexpr detail::tie_members_fn tie_members;
 
 } /* namespace cpp_essentials::core */
 

@@ -54,7 +54,7 @@ struct default_constructible_func
         }
     }
 
-    impl_type _func;
+    mutable impl_type _func;
 };
 
 } /* namespace detail */

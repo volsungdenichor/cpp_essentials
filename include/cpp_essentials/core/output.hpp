@@ -94,11 +94,16 @@ private:
     proxy_t _proxy;
 };
 
-template <class Func>
-auto make_output_iterator(Func func) -> output_iterator_t<Func>
+struct make_output_iterator_fn
 {
-    return { std::move(func) };
-}
+    template <class Func>
+    auto operator ()(Func func) const -> output_iterator_t<Func>
+    {
+        return { std::move(func) };
+    }
+};
+
+static constexpr make_output_iterator_fn make_output_iterator = {};
 
 
 template <class C, class T>
@@ -190,6 +195,8 @@ struct delimit_fn
 };
 
 } /* namespace detail */
+
+using detail::make_output_iterator;
 
 static constexpr detail::output_fn output = {};
 static constexpr detail::delimit_fn delimit = {};

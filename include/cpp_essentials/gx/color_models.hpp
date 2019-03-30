@@ -13,6 +13,18 @@ namespace cpp_essentials::gx
 
 using rgb_proxy = geo::vector<double, 3>;
 
+struct to_byte_fn
+{
+    template <class T>
+    byte operator ()(T v) const
+    {
+        return static_cast<byte>(core::clamp(v, T(0), T(255)));
+    };
+};
+
+static constexpr to_byte_fn to_byte = {};
+
+
 struct rgb_color
 {
     using proxy = rgb_proxy;
@@ -36,7 +48,7 @@ struct rgb_color
 
     rgb_color(const rgb_proxy& proxy)
     {
-        core::transform(proxy._data, data._data.begin(), [](auto v) { return static_cast<byte>(core::clamp(v, 0.0, 255.0)); });
+        core::transform(proxy._data, data._data.begin(), to_byte);
     }
 
     operator byte() const

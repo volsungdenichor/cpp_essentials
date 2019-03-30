@@ -131,7 +131,7 @@ struct convolution_t<kernel_tag, D>
 
         auto sum = geo::length(vect);
 
-        return static_cast<byte>(core::clamp(sum, 0.F, 255.F));
+        return to_byte(sum);
     }
 
     size_type size() const
@@ -154,7 +154,7 @@ struct convolution_t<kernel_tag, 1>
     {
         auto sum = core::inner_product(region, _kernel, 0.F);
 
-        return static_cast<byte>(core::clamp(sum, 0.F, 255.F));
+        return to_byte(sum);
     }
 
     size_type size() const

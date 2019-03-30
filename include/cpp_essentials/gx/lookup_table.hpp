@@ -49,7 +49,7 @@ inline lookup_table make_lut(std::function<int(int)> func)
 
     for (size_t i = 0; i < result.size(); ++i)
     {
-        result[i] = core::clamp(func(int(i)), 0, 255);
+        result[i] = to_byte(func(static_cast<int>(i)));
     }
 
     return result;

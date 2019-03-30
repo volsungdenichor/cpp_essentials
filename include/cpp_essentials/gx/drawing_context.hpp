@@ -52,7 +52,7 @@ public:
         xiaolin_wu_line(
             start,
             end,
-            [&](auto&& pos, auto r) { draw_pixel(pos, color, byte(core::clamp(alpha * r, 0.0F, 255.0F))); });
+            [&](auto&& pos, auto r) { draw_pixel(pos, color, to_byte(alpha * r)); });
 
         return *this;
     }    

@@ -8,6 +8,7 @@
 #include <cpp_essentials/geo/contains.hpp>
 #include <cpp_essentials/geo/linear_shape.hpp>
 #include <cpp_essentials/geo/vertex_array.hpp>
+#include <cpp_essentials/geo/circular_shape.hpp>
 
 namespace cpp_essentials::gx
 {
@@ -20,6 +21,7 @@ using quad = geo::quad_2d<int>;
 using segment = geo::segment_2d<int>;
 using polygon = geo::polygon_2d<int>;
 using polyline = geo::polyline_2d<int>;
+using circle = geo::circle_2d<int>;
 
 } /* namespace cpp_essentials::gx */
 

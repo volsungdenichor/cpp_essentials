@@ -13,7 +13,7 @@
 namespace cpp_essentials::gx
 {
 
-template <typename Color>
+template <class Color>
 class drawing_context
 {
 public:
@@ -40,66 +40,61 @@ public:
     drawing_context& draw_line(const point& start, const point& end, color_type color, byte alpha = 255)
     {
         bresenham_line(
-            segment{ start, end },
+            start,
+            end,
             [&](auto&& pos) { draw_pixel(pos, color, alpha); });
 
         return *this;
     }
 
-    template <typename T>
+    drawing_context& draw_line_smooth(const point& start, const point& end, color_type color, byte alpha = 255)
+    {
+        xiaolin_wu_line(
+            start,
+            end,
+            [&](auto&& pos, auto r) { draw_pixel(pos, color, byte(core::clamp(alpha * r, 0.0F, 255.0F))); });
+
+        return *this;
+    }    
+
+    drawing_context& draw_circle(const point& center, int radius, color_type color, byte alpha = 255)
+    {
+        bresenham_circle(
+            center,
+            radius,
+            [&](auto&& pos) { draw_pixel(pos, color, alpha); });
+
+        return *this;
+    }
+
+    template <class T>
     drawing_context& draw(const geo::vector_2d<T>& point, color_type color, byte alpha = 255)
     {
         return draw_pixel(point, color, alpha);
     }
 
-    template <typename T>
+    template <class T>
     drawing_context& draw(const geo::segment_2d<T>& line, color_type color, byte alpha = 255)
     {
         return draw_line(line[0], line[1], color, alpha);
     }
 
-    template <typename T>
+    template <class T>
     drawing_context& draw(const geo::rect<T>& rect, color_type color, byte alpha = 255)
     {
-        for (auto seg : geo::segments(rect))
-        {
-            draw(seg, color, alpha);
-        }
-
-        return *this;
+        return draw_segments(rect, color, alpha);
     }
 
-    template <typename T, size_t N>
-    drawing_context& draw(const geo::vertex_array<T, 2, N>& shape, color_type color, byte alpha = 255)
+    template <class T, size_t N, class Tag>
+    drawing_context& draw(const geo::vertex_array<T, 2, N, Tag>& shape, color_type color, byte alpha = 255)
     {
-        for (auto seg : geo::segments(shape))
-        {
-            draw(seg, color, alpha);
-        }
-
-        return *this;
+        return draw_segments(shape, color, alpha);
     }
 
-    template <typename T>
-    drawing_context& draw(const geo::polygon_2d<T>& shape, color_type color, byte alpha = 255)
+    template <class T>
+    drawing_context& draw(const geo::circle_2d<T>& shape, color_type color, byte alpha = 255)
     {
-        for (auto seg : geo::segments(shape))
-        {
-            draw(seg, color, alpha);
-        }
-
-        return *this;
-    }
-
-    template <typename T>
-    drawing_context& draw(const geo::polyline_2d<T>& shape, color_type color, byte alpha = 255)
-    {
-        for (auto seg : geo::segments(shape))
-        {
-            draw(seg, color, alpha);
-        }
-
-        return *this;
+        return draw_circle(shape.center(), shape.radius(), color, alpha);
     }
 
     drawing_context& fill(const rect& rect, color_type color, byte alpha = 255)
@@ -154,6 +149,18 @@ public:
     }
 
 private:
+    template <class S>
+    drawing_context& draw_segments(const S& shape, color_type color, byte alpha)
+    {
+        size_t count = geo::segment_count(shape);
+        for (size_t i = 0; i < count; ++i)
+        {
+            draw(geo::get_segment(shape, i), color, alpha);
+        }
+
+        return *this;
+    }
+
     void draw_char(char ch, const point& location, color_type color, byte alpha)
     {
         static const byte font8x8_basic[128][8] = {

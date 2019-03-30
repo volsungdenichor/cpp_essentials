@@ -78,7 +78,8 @@ struct between_fn
     template <class V, class T, class U>
     bool operator ()(const V& value, const T& lower, const U& upper) const
     {
-        return lower <= value && value < upper;
+        using common = std::common_type_t<std::common_type_t<V, T>, U>;
+        return (common)lower <= (common)value && (common)value < (common)upper;
     }
 
     template <class T, class U>

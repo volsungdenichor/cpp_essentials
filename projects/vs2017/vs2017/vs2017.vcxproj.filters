@@ -417,6 +417,9 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\expected.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\graph.hpp">
+      <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

@@ -263,6 +263,15 @@ struct tie_members_fn
     }
 };
 
+struct hash_fn
+{
+    template <class T>
+    size_t operator ()(const T& item) const
+    {       
+        return std::hash<T>{}(item);
+    }
+};
+
 } /* namespace detail */
 
 static constexpr detail::identity_fn identity = {};
@@ -293,9 +302,11 @@ template <class Type>
 static constexpr detail::cast_fn<Type> cast = {};
 
 static constexpr detail::offset_of_fn offset_of = {};
-static constexpr detail::compose_fn compose;
-static constexpr detail::compare_by_fn compare_by;
-static constexpr detail::tie_members_fn tie_members;
+static constexpr detail::compose_fn compose = {};
+static constexpr detail::compare_by_fn compare_by = {};
+static constexpr detail::tie_members_fn tie_members = {};
+
+static constexpr detail::hash_fn hash = {};
 
 } /* namespace cpp_essentials::core */
 

@@ -426,6 +426,15 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\graphs\algorithm.hpp">
       <Filter>Header Files\cpp_essentials\graphs</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\graphs\binary_tree.hpp">
+      <Filter>Header Files\cpp_essentials\graphs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\graphs\tree.hpp">
+      <Filter>Header Files\cpp_essentials\graphs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\graphs\tree_base.hpp">
+      <Filter>Header Files\cpp_essentials\graphs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

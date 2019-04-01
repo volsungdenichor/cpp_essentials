@@ -252,7 +252,10 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\vertex_array.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\vertex_container.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\graphs\algorithm.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\graphs\binary_tree.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\graphs\graph.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\graphs\tree.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\graphs\tree_base.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\gx\algorithm.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\gx\bitmap.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\gx\colors.hpp" />

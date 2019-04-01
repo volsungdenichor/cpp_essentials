@@ -288,7 +288,7 @@ struct edge_contains_vertex
 };
 
 template <edge_direction EdgeDirection, class V>
-struct edge_contains_vertex_get_opposite_vertex
+struct get_neighbour_vertex
 {
     using vertex = V;
 
@@ -315,7 +315,7 @@ struct edge_contains_vertex_get_opposite_vertex
 };
 
 template <edge_direction EdgeDirection, class E>
-struct edge_contains_vertex_get_edge
+struct get_neighbour_edge
 {
     using edge = E;
 
@@ -345,7 +345,7 @@ struct get_edge
     template <class MapItem>
     edge operator ()(const MapItem& item) const
     {
-        return edge{ *std::get<1>(item) };
+        return edge{ *core::get_value(item) };
     }
 };
 
@@ -357,7 +357,7 @@ struct get_vertex
     template <class MapItem>
     vertex operator ()(const MapItem& item) const
     {
-        return vertex{ *std::get<1>(item) };
+        return vertex{ *core::get_value(item) };
     }
 };
 
@@ -377,13 +377,13 @@ auto get_edges(const EdgeMap& edges)
 template <class V, edge_direction EdgeDirection, class EdgeMap>
 auto get_vertices(const EdgeMap& edges, id_type id)
 {
-    return edges | sq::flat_map(edge_contains_vertex_get_opposite_vertex<EdgeDirection, V> { id });
+    return edges | sq::flat_map(get_neighbour_vertex<EdgeDirection, V> { id });
 }
 
 template <class E, edge_direction EdgeDirection, class EdgeMap>
 auto get_edges(const EdgeMap& edges, id_type id)
 {
-    return edges | sq::flat_map(edge_contains_vertex_get_edge<EdgeDirection, E>{ id });
+    return edges | sq::flat_map(get_neighbour_edge<EdgeDirection, E>{ id });
 }
 
 

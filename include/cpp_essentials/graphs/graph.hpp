@@ -599,7 +599,7 @@ public:
     vertex insert(vertex_value_type vertex_value)
     {
         auto id = next_vertex();
-        auto info = std::make_unique<base_type::vertex_info>(id, std::move(vertex_value));
+        auto info = std::make_unique<typename base_type::vertex_info>(id, std::move(vertex_value));
         base_type::_vertices.emplace(id, std::move(info));
         return vertex{ *base_type::_vertices.at(id) };
     }
@@ -619,7 +619,7 @@ public:
 
         auto id = next_edge();
 
-        auto info = std::make_unique<base_type::edge_info>(id, *base_type::_vertices.at(tail.id()), *base_type::_vertices.at(head.id()), std::move(edge_value));
+        auto info = std::make_unique<typename base_type::edge_info>(id, *base_type::_vertices.at(tail.id()), *base_type::_vertices.at(head.id()), std::move(edge_value));
 
         base_type::_edges.emplace(id, std::move(info));
         return edge{ *base_type::_edges.at(id) };

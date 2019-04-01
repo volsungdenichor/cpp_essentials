@@ -55,6 +55,9 @@
     <Filter Include="Header Files\cpp_essentials\gx\detail">
       <UniqueIdentifier>{ea5d5bce-ae9c-40b7-b97e-899b8d462c3f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\cpp_essentials\graphs">
+      <UniqueIdentifier>{42000d89-6f61-4877-af4a-285aca5072e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -417,8 +420,11 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\expected.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\graph.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
+    <ClInclude Include="..\..\..\include\cpp_essentials\graphs\graph.hpp">
+      <Filter>Header Files\cpp_essentials\graphs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\graphs\algorithm.hpp">
+      <Filter>Header Files\cpp_essentials\graphs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

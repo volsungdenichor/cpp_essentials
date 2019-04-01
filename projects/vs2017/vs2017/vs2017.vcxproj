@@ -199,7 +199,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\function_defs.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\exceptions.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\functors.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\graph.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\group_by.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\index.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\iterate.hpp" />
@@ -252,6 +251,8 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\triangle.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\vertex_array.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\vertex_container.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\graphs\algorithm.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\graphs\graph.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\gx\algorithm.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\gx\bitmap.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\gx\colors.hpp" />

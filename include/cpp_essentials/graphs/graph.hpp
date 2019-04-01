@@ -1,5 +1,5 @@
-#ifndef CPP_ESSENTIALS_CORE_GRAPH_HPP_
-#define CPP_ESSENTIALS_CORE_GRAPH_HPP_
+#ifndef CPP_ESSENTIALS_GRAPHS_GRAPH_HPP_
+#define CPP_ESSENTIALS_GRAPHS_GRAPH_HPP_
 
 #pragma once
 
@@ -13,11 +13,10 @@
 #include <list>
 #include <climits>
 
-#include <cpp_essentials/core/map.hpp>
-#include <cpp_essentials/core/filter.hpp>
+#include <cpp_essentials/sq/sq.hpp>
 #include <cpp_essentials/core/container_helpers.hpp>
 
-namespace cpp_essentials::core
+namespace cpp_essentials::graphs
 {
 
 enum class edge_direction
@@ -79,7 +78,7 @@ public:
     {
     }
 
-    vertex(const vertex_info& info)
+    explicit vertex(const vertex_info& info)
         : _info{ const_cast<vertex_info*>(&info) }
     {
     }
@@ -162,7 +161,7 @@ public:
     {
     }
 
-    edge(const edge_info& info)
+    explicit edge(const edge_info& info)
         : _info{ const_cast<edge_info*>(&info) }
     {
     }
@@ -325,25 +324,30 @@ struct get_vertex
 template <class V, class VertexMap>
 auto get_vertices(const VertexMap& vertices)
 {
-    return map(vertices, get_vertex<V>{});
+    return vertices
+        | sq::map(get_vertex<V>{});
 }
 
 template <class E, class EdgeMap>
 auto get_edges(const EdgeMap& edges)
 {
-    return map(edges, get_edge<E> {});
+    return edges | sq::map(get_edge<E> {});
 }
 
 template <class V, edge_direction EdgeDirection, class EdgeMap>
 auto get_vertices(const EdgeMap& edges, id_type id)
 {
-    return map(take_if(edges, edge_contains_vertex<EdgeDirection> { id }), get_opposite_vertex<V> { id });
+    return edges
+        | sq::take_if(edge_contains_vertex<EdgeDirection> { id })
+        | sq::map(get_opposite_vertex<V> { id });
 }
 
 template <class E, edge_direction EdgeDirection, class EdgeMap>
 auto get_edges(const EdgeMap& edges, id_type id)
 {
-    return map(take_if(edges, edge_contains_vertex<EdgeDirection> { id }), get_edge<E>{});
+    return edges
+        | sq::take_if(edge_contains_vertex<EdgeDirection> { id })
+        | sq::map(get_edge<E>{});
 }
 
 
@@ -384,10 +388,10 @@ public:
         {
             if (v->value == value)
             {
-                return { *v };
+                return vertex{ *v };
             }
         }
-        return {};
+        return vertex{};
     }
 
 
@@ -622,196 +626,7 @@ private:
     id_type _next_edge_id;
 };
 
-namespace detail
-{
+} /* namespace cpp_essentials::graphs */
 
-template <class T>
-struct is_directed_graph : std::false_type
-{
-};
-
-template <class V, class E>
-struct is_directed_graph<directed_graph<V, E>> : std::true_type
-{
-};
-
-template <class V, class E>
-struct is_directed_graph<directed_graph_view<V, E>> : std::true_type
-{
-};
-
-template <class V>
-std::list<V> revert_path(const std::map<V, V>& prev, V last)
-{
-    std::list<V> result;
-
-    while (true)
-    {
-        result.push_front(last);
-
-        auto it = prev.find(last);
-
-        if (it != prev.end())
-        {
-            last = it->second;
-        }
-        else
-        {
-            break;
-        }
-    }
-
-    return result;
-}
-
-template <class V, class D>
-std::list<std::pair<V, D>> revert_path(const std::map<V, V>& prev, const std::map<V, D>& dist, V last)
-{
-    std::list<std::pair<V, D>> result;
-
-    while (true)
-    {
-        auto d = dist.at(last);
-        result.push_front({ last, d });
-
-        auto it = prev.find(last);
-
-        if (it != prev.end())
-        {
-            last = it->second;
-        }
-        else
-        {
-            break;
-        }
-    }
-
-    return result;
-}
-
-template <class V, class D>
-struct path_result
-{
-    std::list<V> vertices;
-    std::map<V, D> dist;
-
-    D distance(V vertex) const
-    {
-        return dist.at(vertex);
-    }
-};
-
-template <class Graph, class Func, class HeuristicFunc>
-auto shortest_path_impl(
-    const Graph& graph,
-    typename Graph::vertex begin,
-    typename Graph::vertex end,
-    Func&& func,
-    HeuristicFunc&& heuristic_func)
-{
-    using vertex_type = typename Graph::vertex;
-    using edge_type = typename Graph::edge;
-
-    using distance_type = std::decay_t<std::invoke_result_t<Func, edge_type>>;
-
-    using priority_type = std::decay_t<cc::Add<distance_type, std::invoke_result_t<HeuristicFunc, vertex_type, vertex_type>>>;
-
-    static const distance_type infinite_distance = std::numeric_limits<distance_type>::max();
-    static const priority_type infinite_priority = std::numeric_limits<priority_type>::max();
-
-    std::map<vertex_type, vertex_type> previous;
-    std::map<vertex_type, distance_type> distance;
-    std::priority_queue<std::pair<priority_type, vertex_type>> queue;
-
-    distance[begin] = distance_type{};
-
-    queue.push({ priority_type {}, begin });
-
-    while (!queue.empty())
-    {
-        auto u = queue.top().second;
-        queue.pop();
-
-        auto dist_u = distance[u];
-
-        for (auto edge : graph.template edges<edge_direction::out>(u))
-        {
-            auto v = edge.tail() != u
-                ? edge.tail()
-                : edge.head();
-
-            auto iter = distance.find(v);
-
-            auto dist = dist_u + func(edge);
-
-            if (iter == distance.end() || dist < iter->second)
-            {
-                distance[v] = dist;
-                previous[v] = u;
-
-                auto priority = priority_type{ dist + heuristic_func(v, end) };
-                queue.push({ priority, v });
-            }
-        }
-    }
-
-    auto vertices = revert_path(previous, end);
-
-    return path_result<vertex_type, distance_type> { vertices, distance };
-}
-
-} /* namespace detail */
-
-template
-    < class Graph
-    , class Func
-    , class HeuristicFunc
-    , class OutputIter
-    , CONCEPT = std::enable_if_t<detail::is_directed_graph<Graph>::value>
-    , CONCEPT = cc::OutputIterator<OutputIter>>
-OutputIter shortest_path(
-    const Graph& graph,
-    typename Graph::vertex begin,
-    typename Graph::vertex end,
-    Func&& func,
-    HeuristicFunc&& heuristic_func,
-    OutputIter output)
-{
-    auto result = detail::shortest_path_impl(graph, begin, end, func, heuristic_func);
-    return copy(result.vertices, output);
-}
-
-template
-    < class Graph
-    , class HeuristicFunc
-    , class OutputIter
-    , CONCEPT = std::enable_if_t<detail::is_directed_graph<Graph>::value>
-    , CONCEPT = cc::OutputIterator<OutputIter>>
-OutputIter shortest_path(
-    const Graph& graph,
-    typename Graph::vertex begin,
-    typename Graph::vertex end,
-    HeuristicFunc&& heuristic_func,
-    OutputIter output)
-{
-    return shortest_path(graph, begin, end, [](auto&& e) -> decltype(auto) { return *e; }, heuristic_func, output);
-}
-
-template
-    < class Graph
-    , class OutputIter
-    , CONCEPT = std::enable_if_t<detail::is_directed_graph<Graph>::value>
-    , CONCEPT = cc::OutputIterator<OutputIter>>
-OutputIter shortest_path(
-    const Graph& graph,
-    typename Graph::vertex begin,
-    typename Graph::vertex end,
-    OutputIter output)
-{
-    return shortest_path(graph, begin, end, [](auto&&, auto&&) { return 0; }, output);
-}
-
-} /* namespace cpp_essentials::core */
-
-#endif /* CPP_ESSENTIALS_CORE_GRAPH_HPP_ */
+#endif /* CPP_ESSENTIALS_GRAPHS_GRAPH_HPP_ */
 

@@ -93,6 +93,11 @@ public:
         return _info;
     }
 
+    bool has_value() const
+    {
+        return _info;
+    }
+
     const vertex_value_type& operator *() const
     {
         return value();
@@ -172,6 +177,11 @@ public:
     }
 
     explicit operator bool() const
+    {
+        return _info;
+    }
+
+    bool has_value() const
     {
         return _info;
     }
@@ -277,22 +287,53 @@ struct edge_contains_vertex
     }
 };
 
-template <class V>
-struct get_opposite_vertex
+template <edge_direction EdgeDirection, class V>
+struct edge_contains_vertex_get_opposite_vertex
 {
     using vertex = V;
 
     const id_type vertex_id;
 
     template <class MapItem>
-    vertex operator ()(const MapItem& item) const
+    core::optional<vertex> operator ()(const MapItem& item) const
     {
-        const auto& edge_info = *std::get<1>(item);
+        static const tag_t<EdgeDirection> tag = {};
+
+        const auto& edge_info = *core::get_value(item);
+
+        if (!edge_contains(vertex_id, edge_info, tag))
+        {
+            return core::none;
+        }
+
         const auto& vertex_info = vertex_id != edge_info.head->id
             ? *edge_info.head
             : *edge_info.tail;
 
         return vertex{ vertex_info };
+    }
+};
+
+template <edge_direction EdgeDirection, class E>
+struct edge_contains_vertex_get_edge
+{
+    using edge = E;
+
+    const id_type vertex_id;
+
+    template <class MapItem>
+    core::optional<edge> operator ()(const MapItem& item) const
+    {
+        static const tag_t<EdgeDirection> tag = {};
+
+        const auto& edge_info = *core::get_value(item);
+
+        if (!edge_contains(vertex_id, edge_info, tag))
+        {
+            return core::none;
+        }
+
+        return edge{ edge_info };
     }
 };
 
@@ -324,8 +365,7 @@ struct get_vertex
 template <class V, class VertexMap>
 auto get_vertices(const VertexMap& vertices)
 {
-    return vertices
-        | sq::map(get_vertex<V>{});
+    return vertices | sq::map(get_vertex<V>{});
 }
 
 template <class E, class EdgeMap>
@@ -337,17 +377,13 @@ auto get_edges(const EdgeMap& edges)
 template <class V, edge_direction EdgeDirection, class EdgeMap>
 auto get_vertices(const EdgeMap& edges, id_type id)
 {
-    return edges
-        | sq::take_if(edge_contains_vertex<EdgeDirection> { id })
-        | sq::map(get_opposite_vertex<V> { id });
+    return edges | sq::flat_map(edge_contains_vertex_get_opposite_vertex<EdgeDirection, V> { id });
 }
 
 template <class E, edge_direction EdgeDirection, class EdgeMap>
 auto get_edges(const EdgeMap& edges, id_type id)
 {
-    return edges
-        | sq::take_if(edge_contains_vertex<EdgeDirection> { id })
-        | sq::map(get_edge<E>{});
+    return edges | sq::flat_map(edge_contains_vertex_get_edge<EdgeDirection, E>{ id });
 }
 
 
@@ -364,14 +400,14 @@ public:
 
     void erase(vertex v)
     {
-        EXPECTS((bool)v);
+        EXPECTS(v.has_value());
         erase_if(_edges, edge_contains_vertex<edge_direction::any> { v.id() });
         _vertices.erase(v.id());
     }
 
     void erase(edge e)
     {
-        EXPECTS((bool)e);
+        EXPECTS(e.has_value());
         _edges.erase(e.id());
     }
 
@@ -397,26 +433,26 @@ public:
 
     const vertex_value_type& operator [](vertex v) const
     {
-        EXPECTS((bool)vertex);
+        EXPECTS(v.has_value());
         return _vertices.at(v.id())->value;
     }
 
     vertex_value_type& operator [](vertex v)
     {
-        EXPECTS((bool)vertex);
+        EXPECTS(v.has_value());
         return _vertices.at(v.id())->value;
     }
 
 
     const edge_value_type& operator [](edge e) const
     {
-        EXPECTS((bool)e);
+        EXPECTS(e.has_value());
         return _edges.at(e.id())->value;
     }
 
     edge_value_type& operator [](edge e)
     {
-        EXPECTS((bool)e);
+        EXPECTS(e.has_value());
         return _edges.at(e.id())->value;
     }
 
@@ -434,21 +470,21 @@ public:
     template <edge_direction EdgeDirection = edge_direction::any>
     std::vector<vertex> vertices(vertex v) const
     {
-        EXPECTS((bool)v);
+        EXPECTS(v.has_value());
         return get_vertices<vertex, EdgeDirection>(_edges, v.id());
     }
 
     template <edge_direction EdgeDirection = edge_direction::any>
     std::vector<edge> edges(vertex v) const
     {
-        EXPECTS((bool)v);
+        EXPECTS(v.has_value());
         return get_edges<edge, EdgeDirection>(_edges, v.id());
     }
 
     template <edge_direction EdgeDirection = edge_direction::any>
     size_t degree(vertex v) const
     {
-        EXPECTS((bool)v);
+        EXPECTS(v.has_value());
         return size(vertices<EdgeDirection>(v));
     }
 
@@ -578,8 +614,8 @@ public:
 
     edge insert(vertex tail, vertex head, edge_value_type edge_value)
     {
-        EXPECTS((bool)tail);
-        EXPECTS((bool)head);
+        EXPECTS(tail.has_value());
+        EXPECTS(head.has_value());
 
         auto id = next_edge();
 

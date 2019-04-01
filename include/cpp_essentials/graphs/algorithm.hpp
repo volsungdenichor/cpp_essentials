@@ -37,34 +37,7 @@ std::list<V> revert_path(const std::map<V, V>& prev, V last)
     {
         result.push_front(last);
 
-        auto it = prev.find(last);
-
-        if (it != prev.end())
-        {
-            last = it->second;
-        }
-        else
-        {
-            break;
-        }
-    }
-
-    return result;
-}
-
-template <class V, class D>
-std::list<std::pair<V, D>> revert_path(const std::map<V, V>& prev, const std::map<V, D>& dist, V last)
-{
-    std::list<std::pair<V, D>> result;
-
-    while (true)
-    {
-        auto d = dist.at(last);
-        result.push_front({ last, d });
-
-        auto it = prev.find(last);
-
-        if (it != prev.end())
+        if (auto it = prev.find(last); it != prev.end())
         {
             last = it->second;
         }
@@ -165,8 +138,12 @@ struct shortest_path_fn
         HeuristicFunc&& heuristic_func,
         OutputIter output) const
     {
+        EXPECTS(begin.has_value());
+        EXPECTS(end.has_value());
         auto result = shortest_path_impl(graph, begin, end, func, heuristic_func);
-        return core::copy(result.vertices, output);
+        return !result.vertices.empty() && result.vertices.front() == begin && result.vertices.back() == end
+            ? core::copy(result.vertices, output)
+            : output;
     }
 
     template
@@ -212,6 +189,8 @@ struct breadth_first_fn
         typename Graph::vertex begin,
         OutputIter output) const
     {
+        EXPECTS(begin.has_value());
+
         using vertex = typename Graph::vertex;
 
         std::list<vertex> explored;
@@ -272,6 +251,8 @@ struct depth_first_fn
         typename Graph::vertex begin,
         OutputIter output) const
     {
+        EXPECTS(begin.has_value());
+
         using vertex = typename Graph::vertex;
 
         std::list<vertex> explored;

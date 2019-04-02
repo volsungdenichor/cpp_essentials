@@ -450,9 +450,11 @@ template <class T>
 struct tree_iterator_impl<tree_traversal::preorder, T, 0>
 {
     using node_struct = tree_node_struct<T, 0>;
+    node_struct* _root;
 
     node_struct* init(node_struct* node)
     {
+        _root = node;
         return node;
     }
 
@@ -465,7 +467,7 @@ struct tree_iterator_impl<tree_traversal::preorder, T, 0>
             return first_child;
         }
 
-        for (auto i = node; i; i = i->parent())
+        for (auto i = node; i && i != _root; i = i->parent())
         {
             auto next_sibling = i->next_sibling();
 

@@ -70,16 +70,16 @@ template <class V>
 class vertex
 {
 public:
-    using vertex_info = vertex_info<V>;
-    using vertex_value_type = typename vertex_info::vertex_value_type;
+    using info_type = vertex_info<V>;
+    using vertex_value_type = typename info_type::vertex_value_type;
 
     vertex()
         : _info{ nullptr }
     {
     }
 
-    explicit vertex(const vertex_info& info)
-        : _info{ const_cast<vertex_info*>(&info) }
+    explicit vertex(const info_type& info)
+        : _info{ const_cast<info_type*>(&info) }
     {
     }
 
@@ -149,15 +149,15 @@ public:
     }
 
     //private:
-    vertex_info* _info;
+    info_type* _info;
 };
 
 template <class E, class V>
 class edge
 {
 public:
-    using edge_info = edge_info<E, V>;
-    using edge_value_type = typename edge_info::edge_value_type;
+    using info_type = edge_info<E, V>;
+    using edge_value_type = typename info_type::edge_value_type;
 
     using vertex = vertex<V>;
 
@@ -166,8 +166,8 @@ public:
     {
     }
 
-    explicit edge(const edge_info& info)
-        : _info{ const_cast<edge_info*>(&info) }
+    explicit edge(const info_type& info)
+        : _info{ const_cast<info_type*>(&info) }
     {
     }
 
@@ -247,7 +247,7 @@ public:
     }
 
     //private:
-    edge_info* _info;
+    info_type* _info;
 };
 
 template <edge_direction EdgeDirection>

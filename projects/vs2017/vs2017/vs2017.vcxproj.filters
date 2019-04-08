@@ -441,6 +441,9 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\math\distribution.hpp">
       <Filter>Header Files\cpp_essentials\math</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\gx\filters.hpp">
+      <Filter>Header Files\cpp_essentials\gx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

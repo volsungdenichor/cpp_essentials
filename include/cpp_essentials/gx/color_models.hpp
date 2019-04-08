@@ -13,6 +13,9 @@ namespace cpp_essentials::gx
 
 using rgb_proxy = geo::vector<double, 3>;
 
+namespace detail
+{
+
 struct to_byte_fn
 {
     template <class T>
@@ -22,7 +25,9 @@ struct to_byte_fn
     };
 };
 
-static constexpr to_byte_fn to_byte = {};
+} /* namespace detail */
+
+static constexpr detail::to_byte_fn to_byte = {};
 
 
 struct rgb_color

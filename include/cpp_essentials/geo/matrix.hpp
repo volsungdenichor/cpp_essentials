@@ -28,6 +28,7 @@ using math::zeros;
 
 using math::get;
 
+using math::identity;
 using math::make_scale;
 using math::make_rotation;
 using math::make_translation;

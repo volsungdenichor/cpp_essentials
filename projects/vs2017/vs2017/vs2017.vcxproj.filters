@@ -435,6 +435,12 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\graphs\tree_base.hpp">
       <Filter>Header Files\cpp_essentials\graphs</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\event.hpp">
+      <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\math\distribution.hpp">
+      <Filter>Header Files\cpp_essentials\math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

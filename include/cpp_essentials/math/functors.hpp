@@ -151,6 +151,15 @@ struct floor_fn
     }
 };
 
+struct ceil_fn
+{
+    template <class T>
+    auto operator ()(T x) const
+    {
+        return std::ceil(x);
+    }
+};
+
 struct round_fn
 {
     template <class T>
@@ -195,6 +204,7 @@ static constexpr detail::cot_fn cot = {};
 static constexpr detail::acos_fn acos = {};
 static constexpr detail::atan2_fn atan2 = {};
 static constexpr detail::floor_fn floor = {};
+static constexpr detail::ceil_fn ceil = {};
 static constexpr detail::round_fn round = {};
 static constexpr detail::rad_fn rad = {};
 static constexpr detail::deg_fn deg = {};

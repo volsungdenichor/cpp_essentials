@@ -255,16 +255,30 @@ struct get_rect_vertex_fn
     }
 };
 
+template <size_t D>
+struct get_rect_dim_fn
+{
+    template <class T>
+    auto operator ()(const rect_2d<T>& rect) const -> T
+    {
+        return rect._data[D].size();
+    }
+};
+
 } /* namespace detail */
 
 static constexpr detail::get_rect_vertex_fn<0, 0> top_left = {};
 static constexpr detail::get_rect_vertex_fn<1, 0> top_right = {};
 static constexpr detail::get_rect_vertex_fn<0, 1> bottom_left = {};
 static constexpr detail::get_rect_vertex_fn<1, 1> bottom_right = {};
+
 static constexpr detail::get_rect_side_fn<0, 0> left = {};
 static constexpr detail::get_rect_side_fn<0, 1> right = {};
 static constexpr detail::get_rect_side_fn<1, 0> top = {};
 static constexpr detail::get_rect_side_fn<1, 1> bottom = {};
+
+static constexpr detail::get_rect_dim_fn<0> width = {};
+static constexpr detail::get_rect_dim_fn<1> height = {};
 
 template <class T, size_t D>
 std::ostream& operator <<(std::ostream& os, const bounding_box<T, D>& bb)

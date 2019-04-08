@@ -29,7 +29,7 @@ struct rgb_color
 {
     using proxy = rgb_proxy;
     using const_reference = const byte&;
-    using reference = byte&;
+    using reference = byte & ;
 
     rgb_color()
         : rgb_color(0, 0, 0)
@@ -147,7 +147,6 @@ inline rgb_color& operator -=(rgb_color& lhs, const rgb_proxy& rhs)
 }
 
 
-
 template <typename T, CONCEPT = cc::Multiply<byte, T>>
 rgb_proxy operator *(const rgb_color& lhs, T rhs)
 {
@@ -179,6 +178,423 @@ rgb_color& operator /=(rgb_color& lhs, T rhs)
     lhs = lhs / rhs;
     return lhs;
 }
+
+
+struct rgba_color
+{
+    using const_reference = const byte&;
+    using reference = byte & ;
+
+    rgba_color(const rgb_color& color, byte a = 255)
+        : color{ color }
+        , a{ a }
+    {
+    }
+
+    rgba_color(byte r, byte g, byte b, byte a)
+        : rgba_color({ r, g, b }, a)
+    {
+    }
+
+    rgba_color()
+        : rgba_color(rgb_color{})
+    {
+    }
+
+    operator rgb_color() const
+    {
+        return color;
+    }
+
+    byte gray() const
+    {
+        return color.gray();
+    }
+
+    const_reference operator [](size_t index) const
+    {
+        return color[index];
+    }
+
+    reference operator [](size_t index)
+    {
+        return color[index];
+    }
+
+    const_reference red() const
+    {
+        return color.red();
+    }
+
+    reference red()
+    {
+        return color.red();
+    }
+
+    const_reference green() const
+    {
+        return color.green();
+    }
+
+    reference green()
+    {
+        return color.green();
+    }
+
+    const_reference blue() const
+    {
+        return color.blue();
+    }
+
+    reference blue()
+    {
+        return color.blue();
+    }
+
+    const_reference alpha() const
+    {
+        return a;
+    }
+
+    reference alpha()
+    {
+        return a;
+    }
+
+    rgb_color color;
+    byte a;
+};
+
+
+inline bool operator ==(const rgba_color& lhs, const rgba_color& rhs)
+{
+    return lhs.color == rhs.color && lhs.a == rhs.a;
+}
+
+inline bool operator !=(const rgba_color& lhs, const rgba_color& rhs)
+{
+    return !(lhs == rhs);
+}
+
+
+struct hsv_color
+{
+    double h, s, v;
+};
+
+struct hsl_color
+{
+    double h, s, l;
+};
+
+struct cmyk_color
+{
+    double c, m, y, k;
+};
+
+struct yiq_color
+{
+    double y, i, q;
+};
+
+struct yuv_color
+{
+    double y, u, v;
+};
+
+
+namespace detail
+{
+
+struct to_hsv_fn
+{
+    hsv_color operator ()(const rgb_color& color) const
+    {
+        auto rgb = color.data / 255.0;
+
+        auto minmax = core::minmax_element(rgb._data);
+
+        auto min = *std::get<0>(minmax);
+        auto max = *std::get<1>(minmax);
+
+        auto span = max - min;
+
+        auto h = 0.0;
+
+        if (max == min)
+        {
+            h = 0.0;
+        }
+        else if (max == rgb[0] && rgb[1] >= rgb[2])
+        {
+            h = 60 * (rgb[1] - rgb[2]) / span;
+        }
+        else if (max == rgb[0] && rgb[1] < rgb[2])
+        {
+            h = 60 * (rgb[1] - rgb[2]) / span + 360;
+        }
+        else if (max == rgb[1])
+        {
+            h = 60 * (rgb[2] - rgb[0]) / span + 120;
+        }
+        else if (max == rgb[2])
+        {
+            h = 60 * (rgb[0] - rgb[1]) / span + 240;
+        }
+
+        double s = (max == 0) ? 0.0 : (1.0 - (min / max));
+
+        return { h, s, max };
+    }
+};
+
+struct to_hsl_fn
+{
+    hsl_color operator ()(const rgb_color& color) const
+    {
+        double h = 0.0, s = 0.0, l = 0.0;
+
+        auto rgb = color.data / 255.0;
+
+        auto minmax = core::minmax_element(rgb._data);
+
+        auto min = *std::get<0>(minmax);
+        auto max = *std::get<1>(minmax);
+
+        auto span = max - min;
+
+        if (min == max)
+        {
+            h = 0;
+        }
+        else if (max == rgb[0] && rgb[1] >= rgb[2])
+        {
+            h = 60.0 * (rgb[1] - rgb[2]) / span;
+        }
+        else if (max == rgb[0] && rgb[1] < rgb[2])
+        {
+            h = 60.0 * (rgb[1] - rgb[2]) / span + 360.0;
+        }
+        else if (max == rgb[1])
+        {
+            h = 60.0 * (rgb[2] - rgb[0]) / span + 120.0;
+        }
+        else if (max == rgb[2])
+        {
+            h = 60.0 * (rgb[0] - rgb[1]) / span + 240.0;
+        }
+
+        l = (max + min) / 2.0;
+
+        if (l == 0 || max == min)
+        {
+            s = 0;
+        }
+        else if (0 < l && l <= 0.5)
+        {
+            s = (max - min) / (max + min);
+        }
+        else if (l > 0.5)
+        {
+            s = (max - min) / (2 - (max + min));
+        }
+
+        return { h, s, l };
+    }
+};
+
+struct to_cmyk_fn
+{
+    cmyk_color operator ()(const rgb_color& color) const
+    {
+        auto c = (255.0 - color.red()) / 255.0;
+        auto m = (255.0 - color.green()) / 255.0;
+        auto y = (255.0 - color.blue()) / 255.0;
+        auto k = std::min(c, std::min(m, y));
+
+        if (k == 1.0)
+        {
+            return { 0, 0, 0, 1 };
+        }
+        else
+        {
+            return { (c - k) / (1 - k), (m - k) / (1 - k), (y - k) / (1 - k), k };
+        }
+    }
+};
+
+static const geo::square_matrix<double, 3> yiq_matrix =
+{
+    { +0.299, +0.587, +0.114 },
+    { +0.596, -0.274, -0.322 },
+    { +0.211, -0.523, +0.312 },
+};
+
+static const geo::square_matrix<double, 3> yuv_matrix =
+{
+    { +0.29900, +0.58700, +0.11400 },
+    { -0.14713, -0.28886, +0.43600 },
+    { +0.61500, -0.51499, -0.10001 },
+};
+
+struct to_yiq_fn
+{
+    yiq_color operator ()(const rgb_color& color) const
+    {
+        static const auto weights = yiq_matrix;
+
+        auto result = color.data * weights;
+
+        return yiq_color{ result[0], result[1], result[2] };
+    }
+};
+
+struct to_yuv_fn
+{
+    yuv_color operator ()(const rgb_color& color) const
+    {
+        static const auto weights = yuv_matrix;
+
+        auto result = color.data * weights;
+
+        return yuv_color{ result[0], result[1], result[2] };
+    }
+};
+
+struct to_rgb_fn
+{
+    rgb_color operator ()(const hsv_color& color) const
+    {
+        geo::vector<double, 3> result;
+
+        if (core::approx_equal_to(color.s, 0.0, std::numeric_limits<double>::epsilon()))
+        {
+            core::fill(result._data, color.v);
+        }
+        else
+        {
+            auto sector_pos = color.h / 60.0;
+            auto sector_index = int(math::floor(sector_pos));
+            auto fractional_sector = sector_pos - sector_index;
+
+            auto p = color.v * (1.0 - color.s);
+            auto q = color.v * (1.0 - (color.s * fractional_sector));
+            auto t = color.v * (1.0 - (color.s * (1 - fractional_sector)));
+
+            switch (sector_index % 6)
+            {
+                case 0:
+                    result = { color.v, t, p };
+                    break;
+
+                case 1:
+                    result = { q, color.v, p };
+                    break;
+
+                case 2:
+                    result = { p, color.v, t };
+                    break;
+
+                case 3:
+                    result = { p, q, color.v };
+                    break;
+
+                case 4:
+                    result = { t, p, color.v };
+                    break;
+
+                case 5:
+                    result = { color.v, p, q };
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        return 255.0 * result;
+    }
+
+    rgb_color operator ()(const hsl_color& color) const
+    {
+        geo::vector<double, 3> result;
+
+        if (color.s == 0.0)
+        {
+            core::fill(result._data, color.l * 255.0);
+        }
+        else
+        {
+            auto q = (color.l < 0.5) ? (color.l * (1.0 + color.s)) : (color.l + color.s - (color.l * color.s));
+            auto p = (2.0 * color.l) - q;
+
+            auto hk = color.h / 360.0;
+            result = { hk + (1.0 / 3.0), hk, hk - (1.0 / 3.0) };
+
+            for (int i = 0; i < 3; i++)
+            {
+                if (result[i] < 0) result[i] += 1.0;
+                if (result[i] > 1) result[i] -= 1.0;
+
+                if ((result[i] * 6) < 1)
+                {
+                    result[i] = p + ((q - p) * 6.0 * result[i]);
+                }
+                else if ((result[i] * 2.0) < 1)
+                {
+                    result[i] = q;
+                }
+                else if ((result[i] * 3.0) < 2)
+                {
+                    result[i] = p + (q - p) * ((2.0 / 3.0) - result[i]) * 6.0;
+                }
+                else
+                {
+                    result[i] = p;
+                }
+            }
+        }
+
+        return 255.0 * result;
+    }
+
+    rgb_color operator ()(const cmyk_color& color) const
+    {
+        auto r = (1.0 - color.c) * (1.0 - color.k) * 255.0;
+        auto g = (1.0 - color.m) * (1.0 - color.k) * 255.0;
+        auto b = (1.0 - color.y) * (1.0 - color.k) * 255.0;
+
+        return rgb_proxy{ r, g, b };
+    }
+
+    rgb_color operator ()(const yiq_color& color) const
+    {
+        static const auto weights = geo::invert(yiq_matrix).value();
+
+        geo::vector<double, 3> vect = { color.y, color.i, color.q };
+
+        return vect * weights;
+    }
+
+    rgb_color operator ()(const yuv_color& color) const
+    {
+        static const auto weights = geo::invert(yuv_matrix).value();
+
+        geo::vector<double, 3> vect = { color.y, color.u, color.v };
+
+        return vect * weights;
+    }
+};
+
+} /* namespace detail */
+
+static constexpr detail::to_hsv_fn to_hsv = {};
+static constexpr detail::to_hsl_fn to_hsl = {};
+static constexpr detail::to_cmyk_fn to_cmyk = {};
+static constexpr detail::to_yiq_fn to_yiq = {};
+static constexpr detail::to_yuv_fn to_yuv = {};
+static constexpr detail::to_rgb_fn to_rgb = {};
+
 
 } /* namespace cpp_essentials::gx */
 

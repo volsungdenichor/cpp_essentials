@@ -15,8 +15,8 @@ using byte_pointer = byte*;
 template <class T, size_t D>
 using vector = geo::vector<T, D>;
 
-using size_value_type = std::size_t;
-using stride_value_type = std::ptrdiff_t;
+using size_value_type = int;
+using stride_value_type = int;
 using location_value_type = stride_value_type;
 
 namespace detail

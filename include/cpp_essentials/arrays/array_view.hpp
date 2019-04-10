@@ -16,6 +16,7 @@
 
 #include <cpp_essentials/core/iterator_range.hpp>
 #include <cpp_essentials/geo/contains.hpp>
+#include <cpp_essentials/geo/interval_operations.hpp>
 
 namespace cpp_essentials::arrays
 {
@@ -167,7 +168,8 @@ public:
 
     array_view region(const region_type& region) const
     {
-        return array_view(data(region.lower()), region.size(), base_type::stride());
+        auto valid_region = geo::make_intersection(region, base_type::bounds());
+        return array_view(data(valid_region.lower()), valid_region.size(), base_type::stride());
     }
 
 #if 0

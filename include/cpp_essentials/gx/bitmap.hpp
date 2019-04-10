@@ -187,7 +187,7 @@ inline rgb_image load_bitmap_8(const detail::dib_header& header, std::istream& i
     {
         auto row = result[y];
 
-        for (std::size_t x = 0; x < result.width(); ++x)
+        for (int x = 0; x < result.width(); ++x)
         {
             auto color = detail::read<byte>(is);
 
@@ -248,7 +248,7 @@ struct save_bitmap_fn
         {
             auto row = view[y];
 
-            for (std::size_t x = 0; x < view.width(); ++x)
+            for (int x = 0; x < view.width(); ++x)
             {
                 auto value = row[x];
 
@@ -277,7 +277,7 @@ struct save_bitmap_fn
         {
             auto row = view[y];
 
-            for (std::size_t x = 0; x < view.width(); ++x)
+            for (int x = 0; x < view.width(); ++x)
             {
                 auto value = row[x];
 

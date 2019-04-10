@@ -42,7 +42,28 @@ inline void handle(bool condition, const char* expression, const char* file, int
     detail::throw_exception(std::runtime_error { what }, file, line, function);
 }
 
+struct ensures_fn
+{
+    void operator ()(bool condition, const std::string& message) const
+    {
+        if (condition)
+        {
+            return;
+        }
+
+        throw std::runtime_error{ message };
+    }
+
+    void operator ()(bool condition) const
+    {
+        (*this)(condition, "condition not met");
+    }
+};
+
 } /* namespace detail */
+
+static constexpr detail::ensures_fn expects = {};
+static constexpr detail::ensures_fn ensures = {};
 
 } /* namespace cpp_essentials::core */
 

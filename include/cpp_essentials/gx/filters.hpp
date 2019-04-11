@@ -77,102 +77,116 @@ struct grayscale
 namespace filters
 {
 
-inline rgb_color apply(const rgb_color& lhs, const rgb_color& rhs, const core::function<int, int, int>& func)
+template <class Self>
+struct uniform_color_filter
 {
-    rgb_color result;
-    core::transform(lhs.data._data, rhs.data._data, result.data._data.begin(), func);
-    return result;
-}
+    using self_type = Self;
 
-struct blend
+    byte operator ()(byte lhs, byte rhs) const
+    {
+        return to_byte(self().apply(lhs, rhs));
+    }
+    
+    rgb_color operator ()(const rgb_color& lhs, const rgb_color& rhs) const
+    {
+        rgb_color result;
+        core::transform(lhs.data._data, rhs.data._data, result.data._data.begin(), [&](int lt, int rt) { return to_byte(self().apply(lt, rt)); });
+        return result;
+    }
+
+private:
+    const self_type& self() const
+    {
+        return static_cast<const self_type&>(*this);
+    }
+};
+
+struct blend : uniform_color_filter<blend>
 {
     blend(float ratio)
         : _ratio{ ratio }
     {
     }
 
-    rgb_color operator ()(const rgb_color& lhs, const rgb_color& rhs) const
+    int apply(int lhs, int rhs) const
     {
-        return core::lerp(_ratio, lhs, rhs);
-    }
+        return static_cast<int>(core::lerp(_ratio, lhs, rhs));
+    }   
 
     float _ratio;
 };
 
-struct normal
+struct normal : uniform_color_filter<normal>
 {
-    rgb_color operator ()(const rgb_color& /*lhs*/, const rgb_color& rhs) const
+    int apply(int lhs, int rhs) const
     {
         return rhs;
     }
 };
 
-struct darker
+struct darker : uniform_color_filter<darker>
 {
-    rgb_color operator ()(const rgb_color& lhs, const rgb_color& rhs) const
+    int apply(int lhs, int rhs) const
     {
-        return apply(lhs, rhs, core::min);
+        return core::min(lhs, rhs);
     }
 };
 
-struct lighter
+struct lighter : uniform_color_filter<lighter>
 {
-    rgb_color operator ()(const rgb_color& lhs, const rgb_color& rhs) const
+    int apply(int lhs, int rhs) const
     {
-        return apply(lhs, rhs, core::max);
+        return core::min(lhs, rhs);
     }
 };
 
-struct multiply
+struct multiply : uniform_color_filter<multiply>
 {
-    rgb_color operator ()(const rgb_color& lhs, const rgb_color& rhs) const
+    int apply(int lhs, int rhs) const
     {
-        return apply(lhs, rhs, [](int lt, int rt) { return lt * rt / 255; });
+        return lhs * rhs / 255;
     }
 };
 
-struct screen
+struct screen : uniform_color_filter<screen>
 {
-    rgb_color operator ()(const rgb_color& lhs, const rgb_color& rhs) const
+    int apply(int lhs, int rhs) const
     {
-        return apply(lhs, rhs, [](int lt, int rt) { return 255 - (255 - lt) * (255 - rt) / 255; });
+        return 255 - (255 - lhs) * (255 - rhs) / 255;
     }
 };
 
-struct difference
+struct difference : uniform_color_filter<difference>
 {
-    rgb_color operator ()(const rgb_color& lhs, const rgb_color& rhs) const
+    int apply(int lhs, int rhs) const
     {
-        return apply(lhs, rhs, [](int lt, int rt) { return math::abs(lt - rt); });
+        return math::abs(lhs - rhs);
     }
 };
 
-struct overlay
+struct overlay : uniform_color_filter<overlay>
 {
-    rgb_color operator ()(const rgb_color& lhs, const rgb_color& rhs) const
+    int apply(int lhs, int rhs) const
     {
-        return apply(lhs, rhs, [](int lt, int rt)
-        {
-            return lt > 128
-                ? 255 - 2 * (255 - lt) * (255 - rt) / 255
-                : 2 * lt * rt / 255;
-        });
+        return lhs > 128
+            ? 255 - 2 * (255 - lhs) * (255 - rhs) / 255
+            : 2 * lhs * rhs / 255;
     }
 };
 
-struct add
+struct add : uniform_color_filter<add>
 {
-    rgb_color operator ()(const rgb_color& lhs, const rgb_color& rhs) const
+    int apply(int lhs, int rhs) const
     {
         return lhs + rhs;
     }
 };
 
-struct subtract
+struct subtract : uniform_color_filter<subtract>
 {
-    rgb_color operator ()(const rgb_color& lhs, const rgb_color& rhs) const
+    int apply(int lhs, int rhs) const
     {
-        return apply(lhs, rhs, [](int lt, int rt) { return lt + rt - 255; });
+        return lhs + rhs - 255;
     }
 };
 

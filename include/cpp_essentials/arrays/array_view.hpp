@@ -168,8 +168,8 @@ public:
 
     array_view region(const region_type& region) const
     {
-        auto valid_region = geo::make_intersection(region, base_type::bounds());
-        return array_view(data(valid_region.lower()), valid_region.size(), base_type::stride());
+        EXPECTS(geo::contains(base_type::bounds(), region), "region out of bounds");
+        return array_view(data(region.lower()), region.size(), base_type::stride());
     }
 
 #if 0

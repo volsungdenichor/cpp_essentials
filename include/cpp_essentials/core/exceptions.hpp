@@ -22,7 +22,7 @@ class exception_wrapper : public Exception
 public:
     using inner_type = Exception;
 
-    exception_wrapper(const inner_type& inner, const char* file, int line, const char* function)
+    exception_wrapper(const inner_type& inner, std::string_view file, int line, std::string_view function)
         : inner_type { inner }
     {
         std::stringstream ss;
@@ -41,7 +41,7 @@ private:
 };
 
 template <class Exception, class... Args>
-void throw_exception(const Exception& ex, const char* file, int line, const char* function)
+void throw_exception(const Exception& ex, std::string_view file, int line, std::string_view function)
 {
     throw exception_wrapper<Exception>(ex, file, line, function);
 }

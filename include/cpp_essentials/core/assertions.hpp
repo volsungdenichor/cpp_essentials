@@ -5,6 +5,7 @@
 
 #include <stdexcept>
 #include <sstream>
+#include <string_view>
 #include <cpp_essentials/core/exceptions.hpp>
 
 namespace cpp_essentials::core
@@ -13,19 +14,19 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-inline void not_implemented(const char* file, int line, const char* function, const char* message = nullptr)
+inline void not_implemented(std::string_view file, int line, std::string_view function, std::string_view message = {})
 {
     std::stringstream ss;
 
     ss << "not implemented:" << std::endl;
-    ss << "  message    : " << (message ? message : "");
+    ss << "  message    : " << message;
 
     std::string what = ss.str();
 
     detail::throw_exception(std::runtime_error { what }, file, line, function);
 }
 
-inline void handle(bool condition, const char* expression, const char* file, int line, const char* function, const char* message = nullptr)
+inline void handle(bool condition, std::string_view expression, std::string_view file, int line, std::string_view function, std::string_view message = {})
 {
     if (condition)
     {
@@ -34,7 +35,7 @@ inline void handle(bool condition, const char* expression, const char* file, int
 
     std::stringstream ss;
     ss << "expectation failure:" << std::endl;
-    ss << "  message    : " << (message ? message : "") << std::endl;
+    ss << "  message    : " << message << std::endl;
     ss << "  condition  : " << expression;
 
     std::string what = ss.str();
@@ -44,14 +45,14 @@ inline void handle(bool condition, const char* expression, const char* file, int
 
 struct ensures_fn
 {
-    void operator ()(bool condition, const std::string& message) const
+    void operator ()(bool condition, std::string message) const
     {
         if (condition)
         {
             return;
         }
 
-        throw std::runtime_error{ message };
+        throw std::runtime_error{ std::move(message) };
     }
 
     void operator ()(bool condition) const

@@ -83,6 +83,8 @@ using is = typename detail::detector<void, Op, Args...>::value_t;
 template <template<class...> class Op, class... Args>
 static constexpr bool is_v = is<Op, Args...>::value;
 
+template <class T>
+using Optional = decltype(*std::declval<T&>(), static_cast<bool>(std::declval<T&>()));
 
 template <class T>
 using Increment = decltype(++std::declval<T&>());

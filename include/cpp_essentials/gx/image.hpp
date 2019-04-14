@@ -11,6 +11,7 @@ namespace cpp_essentials::gx
 
 using byte_image = arrays::array<byte, 2>;
 using rgb_image = arrays::array<rgb_color, 2, 3>;
+using rgba_image = arrays::array<rgba_color, 2, 4>;
 
 using kernel_type = arrays::array<float, 2>;
 

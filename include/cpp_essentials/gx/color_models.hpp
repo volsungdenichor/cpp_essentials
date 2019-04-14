@@ -191,13 +191,12 @@ struct rgba_color
     using reference = byte & ;
 
     rgba_color(const rgb_color& color, byte a = 255)
-        : color{ color }
-        , a{ a }
+        : data{ color[0], color[1], color[2], a }
     {
     }
 
     rgba_color(byte r, byte g, byte b, byte a)
-        : rgba_color({ r, g, b }, a)
+        : data{ r, g, b, a }
     {
     }
 
@@ -206,74 +205,78 @@ struct rgba_color
     {
     }
 
+    rgb_color to_rgb() const
+    {
+        return { data[0], data[1], data[2] };
+    }
+
     operator rgb_color() const
     {
-        return color;
+        return to_rgb();
     }
 
     byte gray() const
     {
-        return color.gray();
+        return to_rgb().gray();
     }
 
     const_reference operator [](size_t index) const
     {
-        return color[index];
+        return data[index];
     }
 
     reference operator [](size_t index)
     {
-        return color[index];
+        return data[index];
     }
 
     const_reference red() const
     {
-        return color.red();
+        return data[0];
     }
 
     reference red()
     {
-        return color.red();
+        return data[0];
     }
 
     const_reference green() const
     {
-        return color.green();
+        return data[1];
     }
 
     reference green()
     {
-        return color.green();
+        return data[1];
     }
 
     const_reference blue() const
     {
-        return color.blue();
+        return data[2];
     }
 
     reference blue()
     {
-        return color.blue();
+        return data[2];
     }
 
     const_reference alpha() const
     {
-        return a;
+        return data[3];
     }
 
     reference alpha()
     {
-        return a;
+        return data[3];
     }
 
-    rgb_color color;
-    byte a;
+    geo::vector<byte, 4> data;
 };
 
 
 inline bool operator ==(const rgba_color& lhs, const rgba_color& rhs)
 {
-    return lhs.color == rhs.color && lhs.a == rhs.a;
+    return lhs.data == rhs.data;
 }
 
 inline bool operator !=(const rgba_color& lhs, const rgba_color& rhs)

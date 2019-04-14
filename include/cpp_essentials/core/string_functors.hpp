@@ -80,7 +80,7 @@ struct to_lower_fn
 {
     char operator ()(char ch) const
     {
-        return std::toupper(ch, std::locale{});
+        return std::tolower(ch, std::locale{});
     }
 };
 

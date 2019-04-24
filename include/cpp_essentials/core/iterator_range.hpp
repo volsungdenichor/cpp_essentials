@@ -236,19 +236,15 @@ struct make_range_fn
     auto operator ()(Range&& range) const
     {
         return (*this)(std::begin(range), std::end(range));
-    }    
-
-private:
-    template <class T>
-    auto from_optional(T&& item) const
-    {
-        using Iter = decltype(&(*item));
-        return item
-            ? iterator_range<Iter>{ &(*item), 1 }
-            : iterator_range<Iter>{};
     }
 
-
+    template <class T, CONCEPT = cc::Optional<T>>
+    auto operator ()(T& optional) const
+    {
+        auto b = optional ? std::addressof(*optional) + 0 : nullptr;
+        auto e = optional ? std::addressof(*optional) + 1 : nullptr;
+        return (*this)(b, e);
+    }
 };
 
 static constexpr make_range_fn make_range = {};

@@ -78,10 +78,10 @@ struct detector<void_t<Op<Args...>>, Op, Args...>
 
 
 template <template<class...> class Op, class... Args>
-using is = typename detail::detector<void, Op, Args...>::value_t;
+using is_detected = typename detail::detector<void, Op, Args...>::value_t;
 
 template <template<class...> class Op, class... Args>
-static constexpr bool is_v = is<Op, Args...>::value;
+static constexpr bool is_detected_v = is_detected<Op, Args...>::value;
 
 template <class T>
 using Optional = decltype(*std::declval<T&>(), static_cast<bool>(std::declval<T&>()));
@@ -133,8 +133,8 @@ using Iterator = void_t
 
 template <class T>
 using Range = void_t
-    < std::enable_if_t<is<Iterator, decltype(std::begin(std::declval<T&>()))>::value>
-    , std::enable_if_t<is<Iterator, decltype(std::end(std::declval<T&>()))>::value>>;
+    < std::enable_if_t<is_detected_v<Iterator, decltype(std::begin(std::declval<T&>()))>>
+    , std::enable_if_t<is_detected_v<Iterator, decltype(std::end(std::declval<T&>()))>>>;
 
 namespace detail
 {

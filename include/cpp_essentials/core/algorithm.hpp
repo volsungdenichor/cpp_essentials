@@ -591,9 +591,9 @@ struct minmax_element_fn
 
         auto[b, e] = make_range(range);
 
-        auto result = std::minmax_element(b, e, std::move(compare));
+        auto[min, max] = std::minmax_element(b, e, std::move(compare));
 
-        return std::make_pair(policy(b, std::get<0>(result), e), policy(b, std::get<1>(result), e));
+        return std::make_pair(policy(b, min, e), policy(b, max, e));
     }
 };
 

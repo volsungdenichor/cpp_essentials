@@ -67,13 +67,13 @@ using key_value_func = std::function<void(cstring_view, cstring_view)>;
 
 void parse_term(cstring_view text, key_value_func func)
 {
-    if (!text)
+    if (text.empty())
     {
         return;
     }
 
     auto sep = find(text, '=');
-    if (sep)
+    if (!sep.empty())
     {
         auto key = trim(make_range(text.begin(), sep.begin()));
         auto value = trim(core::make_range(sep.begin() + 1, text.end()));
@@ -157,7 +157,7 @@ struct format_modifier_handler
         }
         else if (key == "fill"_s)
         {
-            os << std::setfill(*value);
+            os << std::setfill(value.front());
         }
         else if (key == "precision"_s)
         {
@@ -228,7 +228,7 @@ void write_value(std::ostream& os, cstring_view fmt, const T& value)
     const auto save_format = format_guard{ os };
     (void)save_format;
 
-    if (fmt)
+    if (!fmt.empty())
     {
         parse_format(fmt, format_modifier_handler{ os });
     }

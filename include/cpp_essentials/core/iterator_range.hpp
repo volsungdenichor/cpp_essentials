@@ -143,18 +143,6 @@ public:
         return *it;
     }
 
-
-    auto operator *() const -> reference
-    {
-        return front();
-    }
-
-    operator bool() const
-    {
-        return !empty();
-    }
-
-
     template <class Container, CONCEPT = cc::Constructible<Container, iterator, iterator>>
     operator Container() const
     {

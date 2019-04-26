@@ -76,7 +76,7 @@ std::ostream& operator <<(std::ostream& os, const tagged_value<T, Tag>& item)
 {
     os << item.get();
 
-    if constexpr (cc::is_v<cc::HasOstreamOperator, Tag>)
+    if constexpr (cc::is_detected_v<cc::HasOstreamOperator, Tag>)
     {
         static const Tag tag_instance{};
 

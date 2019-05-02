@@ -212,6 +212,12 @@ private:
 template <class T>
 using cref_vector = ref_vector<const T>;
 
+template <class T>
+using vector = std::conditional_t
+    < std::is_reference_v<T>
+    , ref_vector<std::remove_reference_t<T>>
+    , std::vector<T>>;
+
 } /* namespace cpp_essentials::core */
 
 #endif /* CPP_ESSENTIALS_CORE_REF_VECTOR_HPP_ */

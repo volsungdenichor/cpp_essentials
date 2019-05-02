@@ -205,6 +205,8 @@ auto operator >=(const iterator_range<Iter>& lhs, Range&& rhs) -> bool
     return !(lhs < rhs);
 }
 
+namespace detail
+{
 
 struct make_range_fn
 {
@@ -225,7 +227,10 @@ struct make_range_fn
     {
         return (*this)(std::begin(range), std::end(range));
     }
+};
 
+struct make_range_from_optional_fn
+{
     template <class T, CONCEPT = cc::Optional<T>>
     auto operator ()(T& optional) const
     {
@@ -235,7 +240,10 @@ struct make_range_fn
     }
 };
 
-static constexpr make_range_fn make_range = {};
+} /* namespace detail */
+
+static constexpr detail::make_range_fn make_range = {};
+static constexpr detail::make_range_from_optional_fn make_range_from_optional = {};
 
 } /* namespace cpp_essentials::core */
 

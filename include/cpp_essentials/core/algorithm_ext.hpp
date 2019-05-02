@@ -407,6 +407,27 @@ auto extreme_value(Iter b, Iter e, Compare&& compare)
     return result;
 }
 
+template <class Iter, class Compare>
+auto extreme_values(Iter b, Iter e, Compare&& compare)
+{
+    auto min = *b;
+    auto max = *b;
+
+    for (; b != e; ++b)
+    {
+        if (compare(*b, min))
+        {
+            min = *b;
+        }
+        if (!compare(*b, max))
+        {
+            max = *b;
+        }
+    }
+
+    return std::make_pair(min, max);
+}
+
 struct min_value_fn
 {
     template
@@ -430,6 +451,19 @@ struct max_value_fn
     auto operator ()(Range&& range, Compare compare = {}) const
     {
         return extreme_value(std::begin(range), std::end(range), logical_negation(compare));
+    }
+};
+
+struct minmax_value_fn
+{
+    template
+        < class Range
+        , class Compare = std::less<>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>, cc::range_ref<Range>>>
+    auto operator ()(Range&& range, Compare compare = {}) const
+    {
+        return extreme_values(std::begin(range), std::end(range), compare);
     }
 };
 
@@ -459,6 +493,7 @@ static constexpr detail::contains_fn contains = {};
 static constexpr detail::sum_fn sum = {};
 static constexpr detail::min_value_fn min_value = {};
 static constexpr detail::max_value_fn max_value = {};
+static constexpr detail::minmax_value_fn minmax_value = {};
 
 } /* namespace cpp_essentials::core */
 

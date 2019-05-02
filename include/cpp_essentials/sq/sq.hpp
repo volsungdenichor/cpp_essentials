@@ -25,6 +25,7 @@
 #include <cpp_essentials/core/slice.hpp>
 #include <cpp_essentials/core/stride.hpp>
 #include <cpp_essentials/core/trim.hpp>
+#include <cpp_essentials/core/unzip.hpp>
 #include <cpp_essentials/core/zip.hpp>
 
 #include <cpp_essentials/core/output.hpp>
@@ -151,6 +152,7 @@ PULL_ADAPTABLE(trim_until);
 PULL_ADAPTABLE(write);
 
 PULL_ADAPTABLE(zip);
+PULL_ADAPTABLE(unzip);
 
 PULL_ADAPTABLE(group_by);
 

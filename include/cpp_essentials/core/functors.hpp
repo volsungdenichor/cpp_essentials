@@ -9,6 +9,7 @@
 
 #include <cpp_essentials/math/constants.hpp>
 #include <cpp_essentials/core/assertions.hpp>
+#include <cpp_essentials/core/tuple.hpp>
 
 namespace cpp_essentials::core
 {
@@ -272,6 +273,42 @@ struct hash_fn
     }
 };
 
+struct all_fn
+{
+    template <class... Preds>
+    auto operator ()(Preds&&... preds) const
+    {
+        auto t = std::tuple<Preds...>{ std::forward<Preds>(preds)... };
+        return [=](auto&& item)
+        {
+            bool result = true;
+            core::visit(t, [&](auto&& pred)
+            {
+                result &= pred(item);
+            });
+            return result;
+        };
+    }
+};
+
+struct any_fn
+{
+    template <class... Preds>
+    auto operator ()(Preds&&... preds) const
+    {
+        auto t = std::tuple<Preds...>{ std::forward<Preds>(preds)... };
+        return [=](auto&& item)
+        {
+            bool result = false;
+            core::visit(t, [&](auto&& pred)
+            {
+                result |= pred(item);
+            });
+            return result;
+        };
+    }
+};
+
 } /* namespace detail */
 
 static constexpr detail::identity_fn identity = {};
@@ -307,6 +344,9 @@ static constexpr detail::compare_by_fn compare_by = {};
 static constexpr detail::tie_members_fn tie_members = {};
 
 static constexpr detail::hash_fn hash = {};
+
+static constexpr detail::all_fn all = {};
+static constexpr detail::any_fn any = {};
 
 } /* namespace cpp_essentials::core */
 

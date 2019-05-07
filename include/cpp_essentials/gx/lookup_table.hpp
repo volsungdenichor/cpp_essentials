@@ -38,6 +38,19 @@ public:
         return result;
     }
 
+    rgba_color operator ()(const rgba_color& value) const
+    {
+        rgba_color result;
+
+        for (size_t i = 0; i < 3; ++i)
+        {
+            result[i] = (*this)(value[i]);
+        }
+        result[3] = value[3];
+
+        return result;
+    }
+
 private:
     std::vector<byte> _lut;
 };

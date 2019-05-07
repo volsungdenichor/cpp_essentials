@@ -12,14 +12,15 @@ namespace cpp_essentials::arrays
 namespace detail
 {
 
-template <size_t D, size_t Dim, class Iterator>
+template <size_t D, size_t Dim>
 struct forward_advancer
-{    
-    void operator ()(Iterator& item) const
+{
+    template <class Iter>
+    void operator ()(Iter& item) const
     {
         using namespace geo;
 
-        static forward_advancer<D, Dim + 1, Iterator> next;
+        static forward_advancer<D, Dim + 1> next;
 
         item._ptr += item._step.template get<Dim>();
         ++item._location.template get<Dim>();
@@ -33,22 +34,24 @@ struct forward_advancer
     }
 };
 
-template <size_t D, class Iterator>
-struct forward_advancer<D, D, Iterator>
-{    
-    void operator ()(Iterator& item) const { }
+template <size_t D>
+struct forward_advancer<D, D>
+{
+    template <class Iter>
+    void operator ()(Iter& item) const { }
 };
 
 
 
-template <size_t D, size_t Dim, class Iterator>
+template <size_t D, size_t Dim>
 struct backward_advancer
-{    
-    void operator ()(Iterator& item) const
+{
+    template <class Iter>
+    void operator ()(Iter& item) const
     {
         using namespace geo;
 
-        static backward_advancer<D, Dim + 1, Iterator> next;
+        static backward_advancer<D, Dim + 1> next;
 
         if (item._location.template get<Dim>() == 0)
         {
@@ -62,10 +65,11 @@ struct backward_advancer
     }
 };
 
-template <size_t D, class Iterator>
-struct backward_advancer<D, D, Iterator>
+template <size_t D>
+struct backward_advancer<D, D>
 {
-    void operator ()(Iterator& item) const { }
+    template <class Iter>
+    void operator ()(Iter& item) const { }
 };
 
 template <class SubType, size_t D>
@@ -121,7 +125,7 @@ public:
 
     void inc()
     {
-        static forward_advancer<D, 0, array_iterator> next;
+        static forward_advancer<D, 0> next;
 
         ++_counter;
         next(*this);
@@ -129,7 +133,7 @@ public:
 
     void dec()
     {
-        static backward_advancer<D, 0, array_iterator> next;
+        static backward_advancer<D, 0> next;
 
         --_counter;
         next(*this);

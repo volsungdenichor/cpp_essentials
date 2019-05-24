@@ -42,7 +42,7 @@ struct at_fn
     template <class Map, class K, CONCEPT = detail::AssociativeContainer<std::decay_t<Map>>>
     auto operator ()(Map&& item, const K& key) const
     {
-        return map(make_range(item.equal_range(key)), get_value);
+        return views::map(make_range(item.equal_range(key)), get_value);
     }
 };
 

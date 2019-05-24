@@ -45,6 +45,19 @@ struct to_string_fn
     }
 };
 
+struct to_string_view_fn
+{
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range) const -> std::string_view
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+        return { std::addressof(*b), std::string_view::size_type(std::distance(b, e)) };
+    }
+};
+
 } /* namespace detail */
 
 static constexpr auto to_vector = adaptable{ detail::to_container_fn<std::vector>{} };
@@ -53,6 +66,7 @@ static constexpr auto to_list = adaptable{ detail::to_container_fn<std::list>{} 
 static constexpr auto to_forward_list = adaptable{ detail::to_container_fn<std::forward_list>{} };
 static constexpr auto to_deque = adaptable{ detail::to_container_fn<std::list>{} };
 static constexpr auto to_string = adaptable{ detail::to_string_fn{} };
+static constexpr auto to_string_view = adaptable{ detail::to_string_view_fn{} };
 
 } /* namespace cpp_essentials::core */
 

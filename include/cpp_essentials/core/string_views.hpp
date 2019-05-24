@@ -124,7 +124,7 @@ struct c_str_fn
 
 } /* namespace detail */
 
-static constexpr auto trim = detail::trim_fn{};
+static constexpr auto trim = adaptable{ detail::trim_fn{} };
 static constexpr auto c_str = detail::c_str_fn{};
 
 namespace literals

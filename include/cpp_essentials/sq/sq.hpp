@@ -116,6 +116,7 @@ using core::to_list;
 using core::to_forward_list;
 using core::to_deque;
 using core::to_string;
+using core::to_string_view;
 
 using core::views::take_if;
 using core::views::drop_if;

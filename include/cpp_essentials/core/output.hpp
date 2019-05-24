@@ -4,6 +4,7 @@
 #pragma once
 
 #include <iostream>
+#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/algorithm.hpp>
 
 namespace cpp_essentials::core
@@ -200,7 +201,8 @@ using detail::make_output_iterator;
 
 static constexpr auto output = detail::output_fn{};
 static constexpr auto delimit = detail::delimit_fn{};
-static constexpr auto write = detail::write_fn{};
+
+static constexpr auto write = adaptable{ detail::write_fn{} };
 
 } /* namespace cpp_essentials::core */
 

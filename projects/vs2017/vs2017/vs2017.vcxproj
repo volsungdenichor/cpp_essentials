@@ -218,6 +218,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\ptr_vector.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\ref_vector.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\repeat.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\replace.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\return_policy.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\reverse.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\serialization.hpp" />

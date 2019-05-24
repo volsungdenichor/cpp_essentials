@@ -5,31 +5,31 @@
 
 using namespace cpp_essentials;
 
-TEST_CASE("take")
+TEST_CASE("views::take")
 {
     auto vect = vec(2, 4, 5, 7, 3, 1, 2);
     REQUIRE((vect | sq::take(3)) == vec(2, 4, 5));
 }
 
-TEST_CASE("drop")
+TEST_CASE("views::drop")
 {
     auto vect = vec(2, 4, 5, 7, 3, 1, 2);
     REQUIRE((vect | sq::drop(3)) == vec(7, 3, 1, 2));
 }
 
-TEST_CASE("take_back")
+TEST_CASE("views::take_back")
 {
     auto vect = vec(2, 4, 5, 7, 3, 1, 2);
     REQUIRE((vect | sq::take_back(3)) == vec(3, 1, 2));
 }
 
-TEST_CASE("drop_back")
+TEST_CASE("views::drop_back")
 {
     auto vect = vec(2, 4, 5, 7, 3, 1, 2);
     REQUIRE((vect | sq::drop_back(3)) == vec(2, 4, 5, 7));
 }
 
-TEST_CASE("slice")
+TEST_CASE("views::slice")
 {
     auto vect = vec(2, 4, 5, 7, 3, 1, 2);
     REQUIRE((vect | sq::slice(2, 4)) == vec(5, 7));

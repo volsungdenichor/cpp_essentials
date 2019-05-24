@@ -5,7 +5,7 @@
 
 using namespace cpp_essentials;
 
-TEST_CASE("flat_map")
+TEST_CASE("views::flat_map")
 {
     std::vector<std::string> vect = { "1", "2", "x", "4", "y" };
 

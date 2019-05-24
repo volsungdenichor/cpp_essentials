@@ -22,6 +22,7 @@
 #include <cpp_essentials/core/map_utils.hpp>
 #include <cpp_essentials/core/numeric.hpp>
 #include <cpp_essentials/core/repeat.hpp>
+#include <cpp_essentials/core/replace.hpp>
 #include <cpp_essentials/core/slice.hpp>
 #include <cpp_essentials/core/stride.hpp>
 #include <cpp_essentials/core/trim.hpp>
@@ -129,6 +130,8 @@ using core::views::enumerate;
 using core::views::iterate;
 
 using core::views::map;
+using core::views::replace_if;
+using core::views::replace;
 
 using core::views::slice;
 using core::views::take;

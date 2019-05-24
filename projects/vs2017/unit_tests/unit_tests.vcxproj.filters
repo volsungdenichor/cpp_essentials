@@ -124,5 +124,8 @@
     <ClCompile Include="..\..\..\tests\core\flat_map.test.cpp">
       <Filter>tests\core</Filter>
     </ClCompile>
+    <ClCompile Include="replace.test.cpp">
+      <Filter>tests\core</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

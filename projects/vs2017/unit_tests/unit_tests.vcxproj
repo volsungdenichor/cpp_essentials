@@ -193,6 +193,7 @@
     <ClCompile Include="..\..\..\tests\math\regression.test.cpp" />
     <ClCompile Include="..\..\..\tests\math\vector.test.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="replace.test.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

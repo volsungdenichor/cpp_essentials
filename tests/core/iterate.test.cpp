@@ -5,7 +5,7 @@
 
 using namespace cpp_essentials;
 
-TEST_CASE("iterate")
+TEST_CASE("views::iterate")
 {
     auto vect = vec(2, 4, 5);
     auto r = vect | sq::iterate();

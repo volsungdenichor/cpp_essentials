@@ -5,7 +5,7 @@
 
 using namespace cpp_essentials;
 
-TEST_CASE("zip")
+TEST_CASE("views::zip")
 {
     auto vect = vec(2, 4, 5);
     auto other = vec(2, 5, 1, 3);

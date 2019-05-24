@@ -4,9 +4,10 @@
 #pragma once
 
 #include <cpp_essentials/core/iterator_range.hpp>
+#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/functors.hpp>
 
-namespace cpp_essentials::core
+namespace cpp_essentials::core::views
 {
 
 namespace detail
@@ -196,19 +197,19 @@ struct trim_until_fn
 
 } /* namespace detail */
 
-static constexpr detail::take_while_fn take_while = {};
-static constexpr detail::drop_while_fn drop_while = {};
-static constexpr detail::take_until_fn take_until = {};
-static constexpr detail::drop_until_fn drop_until = {};
+static constexpr auto take_while = adaptable{ detail::take_while_fn{} };
+static constexpr auto drop_while = adaptable{ detail::drop_while_fn{} };
+static constexpr auto take_until = adaptable{ detail::take_until_fn{} };
+static constexpr auto drop_until = adaptable{ detail::drop_until_fn{} };
 
-static constexpr detail::take_back_while_fn take_back_while = {};
-static constexpr detail::drop_back_while_fn drop_back_while = {};
-static constexpr detail::take_back_until_fn take_back_until = {};
-static constexpr detail::drop_back_until_fn drop_back_until = {};
+static constexpr auto take_back_while = adaptable{ detail::take_back_while_fn{} };
+static constexpr auto drop_back_while = adaptable{ detail::drop_back_while_fn{} };
+static constexpr auto take_back_until = adaptable{ detail::take_back_until_fn{} };
+static constexpr auto drop_back_until = adaptable{ detail::drop_back_until_fn{} };
 
-static constexpr detail::trim_while_fn trim_while = {};
-static constexpr detail::trim_until_fn trim_until = {};
+static constexpr auto trim_while = adaptable{ detail::trim_while_fn{} };
+static constexpr auto trim_until = adaptable{ detail::trim_until_fn{} };
 
-} /* namespace cpp_essentials::core */
+} /* namespace cpp_essentials::core::views */
 
 #endif /* CPP_ESSENTIALS_CORE_TRIM_HPP_ */

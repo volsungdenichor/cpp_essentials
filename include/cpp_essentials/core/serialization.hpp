@@ -116,14 +116,14 @@ struct stringify_fn
 } /* namespace detail */
 
 template <class T>
-static constexpr detail::try_parse_fn<T> try_parse = {};
+static constexpr auto try_parse = adaptable{ detail::try_parse_fn<T>{} };
 
 template <class T>
-static constexpr detail::parse_fn<T> parse = {};
+static constexpr auto parse = adaptable{ detail::parse_fn<T>{} };
 
-static constexpr detail::serialize_fn serialize = {};
-static constexpr detail::stringify_fn stringify = {};
-static constexpr detail::stringify_fn str = {};
+static constexpr auto serialize = adaptable{ detail::serialize_fn{} };
+static constexpr auto stringify = adaptable{ detail::stringify_fn{} };
+static constexpr auto str = adaptable{ detail::stringify_fn{} };
 
 } /* namespace cpp_essentials::core */
 

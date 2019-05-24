@@ -66,7 +66,7 @@ struct trim_fn
         , CONCEPT = cc::BidirectionalRange<Range>>
     auto operator ()(Range&& range, const std::locale& locale = {}) const
     {
-        return core::trim_while(range, [&](auto ch) { return std::isspace(ch, locale); });
+        return views::trim_while(range, [&](auto ch) { return std::isspace(ch, locale); });
     }
 };
 
@@ -124,8 +124,8 @@ struct c_str_fn
 
 } /* namespace detail */
 
-static constexpr detail::trim_fn trim = {};
-static constexpr detail::c_str_fn c_str = {};
+static constexpr auto trim = detail::trim_fn{};
+static constexpr auto c_str = detail::c_str_fn{};
 
 namespace literals
 {

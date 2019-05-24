@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/output.hpp>
 #include <cpp_essentials/core/serialization.hpp>
 
@@ -25,7 +26,7 @@ struct join_fn
 
 } /* namespace detail */
 
-static constexpr detail::join_fn join = {};
+static constexpr auto join = adaptable{ detail::join_fn{} };
 
 } /* namespace cpp_essentials::core */
 

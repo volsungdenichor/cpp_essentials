@@ -4,9 +4,10 @@
 #pragma once
 
 #include <cpp_essentials/core/iterator_range.hpp>
+#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/detail/stride_iterator.hpp>
 
-namespace cpp_essentials::core
+namespace cpp_essentials::core::views
 {
 
 namespace detail
@@ -19,6 +20,7 @@ struct stride_fn
         , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, int step) const
     {
+        using cpp_essentials::core::detail::stride_iterator;
         auto[b, e] = make_range(range);
         return make_range(
             stride_iterator{ b, step, e },
@@ -28,8 +30,8 @@ struct stride_fn
 
 } /* namespace detail */
 
-static constexpr detail::stride_fn stride = {};
+static constexpr auto stride = adaptable{ detail::stride_fn{} };
 
-} /* namespace cpp_essentials::core */
+} /* namespace cpp_essentials::core::views */
 
 #endif /* CPP_ESSENTIALS_CORE_STRIDE_HPP_ */

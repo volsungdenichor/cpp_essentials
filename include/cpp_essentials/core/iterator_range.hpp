@@ -242,8 +242,8 @@ struct make_range_from_optional_fn
 
 } /* namespace detail */
 
-static constexpr detail::make_range_fn make_range = {};
-static constexpr detail::make_range_from_optional_fn make_range_from_optional = {};
+static constexpr auto make_range = detail::make_range_fn{};
+static constexpr auto make_range_from_optional = detail::make_range_from_optional_fn{};
 
 } /* namespace cpp_essentials::core */
 

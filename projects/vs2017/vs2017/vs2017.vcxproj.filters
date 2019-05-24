@@ -180,9 +180,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\flatten.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\index.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\iterate.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
@@ -199,9 +196,6 @@
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\zip.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\backwards.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\math\polynomial.hpp">
@@ -454,6 +448,12 @@
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\unzip.hpp">
+      <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\reverse.hpp">
+      <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\enumerate.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
   </ItemGroup>

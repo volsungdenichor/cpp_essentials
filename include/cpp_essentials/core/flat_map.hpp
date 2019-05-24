@@ -3,9 +3,11 @@
 
 #pragma once
 
+#include <cpp_essentials/core/iterator_range.hpp>
+#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/detail/flat_map_iterator.hpp>
 
-namespace cpp_essentials::core
+namespace cpp_essentials::core::views
 {
 
 namespace detail
@@ -20,6 +22,8 @@ struct flat_map_fn
         , CONCEPT = cc::UnaryFunction<UnaryFunc, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryFunc&& func) const
     {
+        using cpp_essentials::core::detail::flat_map_iterator;
+        
         auto f = make_func(std::move(func));
         auto b = std::begin(range);
         auto e = std::end(range);
@@ -32,8 +36,8 @@ struct flat_map_fn
 
 } /* namespace detail */
 
-static constexpr detail::flat_map_fn flat_map = {};
+static constexpr auto flat_map = adaptable{ detail::flat_map_fn{} };
 
-} /* namespace cpp_essentials::core */
+} /* namespace cpp_essentials::core::views */
 
 #endif /* CPP_ESSENTIALS_CORE_FLAT_MAP_HPP_ */

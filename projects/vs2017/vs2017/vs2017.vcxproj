@@ -203,7 +203,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\exceptions.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\functors.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\group_by.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\index.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\enumerate.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\iterate.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\iterator_facade.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\iterator_range.hpp" />
@@ -219,7 +219,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\ref_vector.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\repeat.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\return_policy.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\backwards.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\reverse.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\serialization.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\slice.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\stride.hpp" />

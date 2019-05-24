@@ -48,7 +48,7 @@ struct at_fn
 
 } /* namespace detail */
 
-static constexpr detail::at_fn at = {};
+static constexpr auto at = adaptable{ detail::at_fn{} };
 
 } /* namespace cpp_essentials::core */
 

@@ -4,9 +4,10 @@
 #pragma once
 
 #include <cpp_essentials/core/iterator_range.hpp>
+#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/detail/map_iterator.hpp>
 
-namespace cpp_essentials::core
+namespace cpp_essentials::core::views
 {
 
 namespace detail
@@ -21,6 +22,7 @@ struct map_fn
         , CONCEPT = cc::UnaryFunction<UnaryFunc, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryFunc func) const
     {
+        using cpp_essentials::core::detail::map_iterator;
         auto f = make_func(std::move(func));
         return core::make_range(
             map_iterator{ std::begin(range), f },
@@ -30,8 +32,8 @@ struct map_fn
 
 } /* namespace detail */
 
-static constexpr detail::map_fn map = {};
+static constexpr auto map = adaptable{ detail::map_fn{} };
 
-} /* namespace cpp_essentials::core */
+} /* namespace cpp_essentials::core::views */
 
 #endif /* CPP_ESSENTIALS_CORE_MAP_HPP_ */

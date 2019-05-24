@@ -30,7 +30,7 @@ struct contains_fn
     bool operator ()(const bounding_box<T, D>& item, const vector<U, D>& point) const
     {
         return core::all_of(
-            core::zip(
+            core::views::zip(
                 item._data,
                 point._data,
                 [this](const auto& this_interval, const auto& p) { return (*this)(this_interval, p); }),
@@ -41,7 +41,7 @@ struct contains_fn
     bool operator ()(const bounding_box<T, D>& item, const bounding_box<T, D>& other) const
     {
         return core::all_of(
-            core::zip(
+            core::views::zip(
                 item._data,
                 other._data,
                 [this](const auto& this_interval, const auto& other_interval) { return (*this)(this_interval, other_interval); }),

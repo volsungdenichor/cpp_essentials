@@ -469,31 +469,31 @@ struct minmax_value_fn
 
 } /* namespace detail */
 
-static constexpr detail::front_fn front = {};
-static constexpr detail::front_or_throw_fn front_or_throw = {};
-static constexpr detail::front_or_fn front_or = {};
-static constexpr detail::front_or_default_fn front_or_default = {};
-static constexpr detail::front_or_eval_fn front_or_eval = {};
-static constexpr detail::front_or_none_fn front_or_none = {};
-static constexpr detail::single_fn single = {};
-static constexpr detail::single_or_throw_fn single_or_throw = {};
-static constexpr detail::single_or_fn single_or = {};
-static constexpr detail::single_or_default_fn single_or_default = {};
-static constexpr detail::single_or_eval_fn single_or_eval = {};
-static constexpr detail::single_or_none_fn single_or_none = {};
-static constexpr detail::size_fn size = {};
-static constexpr detail::empty_fn empty = {};
-static constexpr detail::non_empty_fn non_empty = {};
-static constexpr detail::copy_while_fn copy_while = {};
-static constexpr detail::copy_until_fn copy_until = {};
-static constexpr detail::overwrite_fn overwrite = {};
-static constexpr detail::starts_with_fn starts_with = {};
-static constexpr detail::ends_with_fn ends_with = {};
-static constexpr detail::contains_fn contains = {};
-static constexpr detail::sum_fn sum = {};
-static constexpr detail::min_value_fn min_value = {};
-static constexpr detail::max_value_fn max_value = {};
-static constexpr detail::minmax_value_fn minmax_value = {};
+static constexpr auto front = detail::front_fn{};
+static constexpr auto front_or_throw = detail::front_or_throw_fn{};
+static constexpr auto front_or = detail::front_or_fn{};
+static constexpr auto front_or_default = detail::front_or_default_fn{};
+static constexpr auto front_or_eval = detail::front_or_eval_fn{};
+static constexpr auto front_or_none = detail::front_or_none_fn{};
+static constexpr auto single = detail::single_fn{};
+static constexpr auto single_or_throw = detail::single_or_throw_fn{};
+static constexpr auto single_or = detail::single_or_fn{};
+static constexpr auto single_or_default = detail::single_or_default_fn{};
+static constexpr auto single_or_eval = detail::single_or_eval_fn{};
+static constexpr auto single_or_none = detail::single_or_none_fn{};
+static constexpr auto size = detail::size_fn{};
+static constexpr auto empty = detail::empty_fn{};
+static constexpr auto non_empty = detail::non_empty_fn{};
+static constexpr auto copy_while = detail::copy_while_fn{};
+static constexpr auto copy_until = detail::copy_until_fn{};
+static constexpr auto overwrite = detail::overwrite_fn{};
+static constexpr auto starts_with = detail::starts_with_fn{};
+static constexpr auto ends_with = detail::ends_with_fn{};
+static constexpr auto contains = detail::contains_fn{};
+static constexpr auto sum = detail::sum_fn{};
+static constexpr auto min_value = detail::min_value_fn{};
+static constexpr auto max_value = detail::max_value_fn{};
+static constexpr auto minmax_value = detail::minmax_value_fn{};
 
 } /* namespace cpp_essentials::core */
 

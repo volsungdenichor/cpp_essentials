@@ -311,42 +311,42 @@ struct any_fn
 
 } /* namespace detail */
 
-static constexpr detail::identity_fn identity = {};
-static constexpr detail::approx_equal_to_fn approx_equal_to = {};
-static constexpr detail::clamp_fn clamp = {};
-static constexpr detail::between_fn between = {};
-static constexpr detail::inclusive_between_fn inclusive_between = {};
-static constexpr detail::min_fn min = {};
-static constexpr detail::max_fn max = {};
-static constexpr detail::lerp_fn lerp = {};
+static constexpr auto identity = detail::identity_fn{};
+static constexpr auto approx_equal_to = detail::approx_equal_to_fn{};
+static constexpr auto clamp = detail::clamp_fn{};
+static constexpr auto between = detail::between_fn{};
+static constexpr auto inclusive_between = detail::inclusive_between_fn{};
+static constexpr auto min = detail::min_fn{};
+static constexpr auto max = detail::max_fn{};
+static constexpr auto lerp = detail::lerp_fn{};
 
-static constexpr detail::logical_negation_fn logical_negation = {};
+static constexpr auto logical_negation = detail::logical_negation_fn{};
 
-static constexpr detail::has_value_fn has_value = {};
-static constexpr detail::dereference_fn dereference = {};
+static constexpr auto has_value = detail::has_value_fn{};
+static constexpr auto dereference = detail::dereference_fn{};
 
-static constexpr detail::make_pair_fn make_pair = {};
-static constexpr detail::make_tuple_fn make_tuple = {};
-static constexpr detail::tie_fn tie = {};
+static constexpr auto make_pair = detail::make_pair_fn{};
+static constexpr auto make_tuple = detail::make_tuple_fn{};
+static constexpr auto tie = detail::tie_fn{};
 
 template <std::size_t Index>
-static constexpr detail::get_fn<Index> get = {};
+static constexpr auto get = detail::get_fn<Index>{};
 
-static constexpr detail::get_fn<0> get_key = {};
-static constexpr detail::get_fn<1> get_value = {};
+static constexpr auto get_key = detail::get_fn<0>{};
+static constexpr auto get_value = detail::get_fn<1>{};
 
 template <class Type>
-static constexpr detail::cast_fn<Type> cast = {};
+static constexpr auto cast = detail::cast_fn<Type>{};
 
-static constexpr detail::offset_of_fn offset_of = {};
-static constexpr detail::compose_fn compose = {};
-static constexpr detail::compare_by_fn compare_by = {};
-static constexpr detail::tie_members_fn tie_members = {};
+static constexpr auto offset_of = detail::offset_of_fn{};
+static constexpr auto compose = detail::compose_fn{};
+static constexpr auto compare_by = detail::compare_by_fn{};
+static constexpr auto tie_members = detail::tie_members_fn{};
 
-static constexpr detail::hash_fn hash = {};
+static constexpr auto hash = detail::hash_fn{};
 
-static constexpr detail::all_fn all = {};
-static constexpr detail::any_fn any = {};
+static constexpr auto all = detail::all_fn{};
+static constexpr auto any = detail::any_fn{};
 
 } /* namespace cpp_essentials::core */
 

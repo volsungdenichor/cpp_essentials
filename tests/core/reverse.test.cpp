@@ -5,8 +5,8 @@
 
 using namespace cpp_essentials;
 
-TEST_CASE("backwards")
+TEST_CASE("reverse")
 {
     auto vect = vec(2, 4, 5);
-    REQUIRE((vect | sq::backwards()) == vec(5, 4, 2));
+    REQUIRE((vect | sq::reverse()) == vec(5, 4, 2));
 }

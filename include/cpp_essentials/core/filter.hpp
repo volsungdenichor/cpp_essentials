@@ -3,10 +3,12 @@
 
 #pragma once
 
+#include <cpp_essentials/core/iterator_range.hpp>
+#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/functors.hpp>
 #include <cpp_essentials/core/detail/filter_iterator.hpp>
 
-namespace cpp_essentials::core
+namespace cpp_essentials::core::views
 {
 
 namespace detail
@@ -15,6 +17,7 @@ namespace detail
 template <class Iter, class UnaryPred>
 auto make_filtered_range(Iter begin, Iter end, UnaryPred pred)
 {
+    using cpp_essentials::core::detail::filter_iterator;
     return make_range(
         filter_iterator{ begin, pred, end },
         filter_iterator{ end, pred, end });
@@ -48,9 +51,9 @@ struct drop_if_fn
 
 } /* namespace detail */
 
-static constexpr detail::take_if_fn take_if = {};
-static constexpr detail::drop_if_fn drop_if = {};
+static constexpr auto take_if = adaptable{ detail::take_if_fn{} };
+static constexpr auto drop_if = adaptable{ detail::drop_if_fn{} };
 
-} /* namespace cpp_essentials::core */
+} /* namespace cpp_essentials::core::views */
 
 #endif /* CPP_ESSENTIALS_CORE_FILTER_HPP_ */

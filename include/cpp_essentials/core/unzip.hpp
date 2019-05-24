@@ -6,7 +6,7 @@
 #include <cpp_essentials/core/map.hpp>
 #include <cpp_essentials/core/functors.hpp>
 
-namespace cpp_essentials::core
+namespace cpp_essentials::core::views
 {
 
 namespace detail
@@ -32,8 +32,8 @@ private:
 
 } /* namespace detail */
 
-static constexpr detail::unzip_fn unzip = {};
+static constexpr auto unzip = adaptable{ detail::unzip_fn{} };
 
-} /* namespace cpp_essentials::core */
+} /* namespace cpp_essentials::core::views */
 
 #endif /* CPP_ESSENTIALS_CORE_UNZIP_HPP_ */

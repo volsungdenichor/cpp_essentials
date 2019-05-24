@@ -78,25 +78,25 @@ struct divisible
 
 } /* namespace detail */
 
-constexpr detail::unary_operator<std::negate<>> negate = {};
-constexpr detail::unary_operator<std::logical_not<>> logical_not = {};
+constexpr auto negate = detail::unary_operator<std::negate<>>{};
+constexpr auto logical_not = detail::unary_operator<std::logical_not<>>{};
 
-constexpr detail::binary_operator<std::plus<>> plus = {};
-constexpr detail::binary_operator<std::minus<>> minus = {};
-constexpr detail::binary_operator<std::multiplies<>> multiplies = {};
-constexpr detail::binary_operator<std::divides<>> divides = {};
-constexpr detail::binary_operator<std::modulus<>> modulus = {};
+constexpr auto plus = detail::binary_operator<std::plus<>>{};
+constexpr auto minus = detail::binary_operator<std::minus<>>{};
+constexpr auto multiplies = detail::binary_operator<std::multiplies<>>{};
+constexpr auto divides = detail::binary_operator<std::divides<>>{};
+constexpr auto modulus = detail::binary_operator<std::modulus<>>{};
 
-constexpr detail::binary_operator<std::equal_to<>> equal_to = {};
-constexpr detail::binary_operator<std::not_equal_to<>> not_equal_to = {};
-constexpr detail::binary_operator<std::less<>> less = {};
-constexpr detail::binary_operator<std::less_equal<>> less_equal = {};
-constexpr detail::binary_operator<std::greater<>> greater = {};
-constexpr detail::binary_operator<std::greater_equal<>> greater_equal = {};
-constexpr detail::binary_operator<detail::divisible> divisible = {};
+constexpr auto equal_to = detail::binary_operator<std::equal_to<>>{};
+constexpr auto not_equal_to = detail::binary_operator<std::not_equal_to<>>{};
+constexpr auto less = detail::binary_operator<std::less<>>{};
+constexpr auto less_equal = detail::binary_operator<std::less_equal<>>{};
+constexpr auto greater = detail::binary_operator<std::greater<>>{};
+constexpr auto greater_equal = detail::binary_operator<std::greater_equal<>>{};
+constexpr auto divisible = detail::binary_operator<detail::divisible>{};
 
-constexpr detail::binary_operator<std::logical_and<>> logical_and = {};
-constexpr detail::binary_operator<std::logical_or<>> logical_or = {};
+constexpr auto logical_and = detail::binary_operator<std::logical_and<>>{};
+constexpr auto logical_or = detail::binary_operator<std::logical_or<>>{};
 
 } /* namespace cpp_essentials::core */
 

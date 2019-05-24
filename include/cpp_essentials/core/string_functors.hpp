@@ -86,16 +86,16 @@ struct to_lower_fn
 
 } /* namespace detail */
 
-static constexpr detail::is_space_fn is_space = {};
-static constexpr detail::is_digit_fn is_digit = {};
-static constexpr detail::is_blank_fn is_blank = {};
-static constexpr detail::is_alpha_fn is_alpha = {};
-static constexpr detail::is_alnum_fn is_alnum = {};
-static constexpr detail::is_upper_fn is_upper = {};
-static constexpr detail::is_lower_fn is_lower = {};
+static constexpr auto is_space = detail::is_space_fn{};
+static constexpr auto is_digit = detail::is_digit_fn{};
+static constexpr auto is_blank = detail::is_blank_fn{};
+static constexpr auto is_alpha = detail::is_alpha_fn{};
+static constexpr auto is_alnum = detail::is_alnum_fn{};
+static constexpr auto is_upper = detail::is_upper_fn{};
+static constexpr auto is_lower = detail::is_lower_fn{};
 
-static constexpr detail::to_lower_fn to_lower = {};
-static constexpr detail::to_upper_fn to_upper = {};
+static constexpr auto to_lower = detail::to_lower_fn{};
+static constexpr auto to_upper = detail::to_upper_fn{};
 
 } /* namespace cpp_essentials::core */
 

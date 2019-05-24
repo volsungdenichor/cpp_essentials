@@ -1,9 +1,11 @@
 #ifndef CPP_ESSENTIALS_CORE_FLATTEN_HPP_
 #define CPP_ESSENTIALS_CORE_FLATTEN_HPP_
 
+#include <cpp_essentials/core/iterator_range.hpp>
+#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/detail/flatten_iterator.hpp>
 
-namespace cpp_essentials::core
+namespace cpp_essentials::core::views
 {
 
 namespace detail
@@ -16,6 +18,7 @@ struct flatten_fn
         , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range) const
     {
+        using cpp_essentials::core::detail::flatten_iterator;
         auto b = std::begin(range);
         auto e = std::end(range);
 
@@ -27,8 +30,8 @@ struct flatten_fn
 
 } /* namespace detail */
 
-static constexpr detail::flatten_fn flatten = {};
+static constexpr auto flatten = adaptable{ detail::flatten_fn{} };
 
-} /* namespace cpp_essentials::core */
+} /* namespace cpp_essentials::core::views */
 
 #endif /* CPP_ESSENTIALS_CORE_FLATTEN_HPP_ */

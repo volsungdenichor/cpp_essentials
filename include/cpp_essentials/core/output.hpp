@@ -198,9 +198,9 @@ struct delimit_fn
 
 using detail::make_output_iterator;
 
-static constexpr detail::output_fn output = {};
-static constexpr detail::delimit_fn delimit = {};
-static constexpr detail::write_fn write = {};
+static constexpr auto output = detail::output_fn{};
+static constexpr auto delimit = detail::delimit_fn{};
+static constexpr auto write = detail::write_fn{};
 
 } /* namespace cpp_essentials::core */
 

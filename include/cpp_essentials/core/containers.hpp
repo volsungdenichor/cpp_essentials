@@ -4,6 +4,7 @@
 #pragma once
 
 #include <cpp_essentials/core/iterator_range.hpp>
+#include <cpp_essentials/core/adaptor.hpp>
 
 #include <vector>
 #include <list>
@@ -46,12 +47,12 @@ struct to_string_fn
 
 } /* namespace detail */
 
-static constexpr detail::to_container_fn<std::vector> to_vector = {};
-static constexpr detail::to_container_fn<std::set> to_set = {};
-static constexpr detail::to_container_fn<std::list> to_list = {};
-static constexpr detail::to_container_fn<std::forward_list> to_forward_list = {};
-static constexpr detail::to_container_fn<std::list> to_deque = {};
-static constexpr detail::to_string_fn to_string = {};
+static constexpr auto to_vector = adaptable{ detail::to_container_fn<std::vector>{} };
+static constexpr auto to_set = adaptable{ detail::to_container_fn<std::set>{} };
+static constexpr auto to_list = adaptable{ detail::to_container_fn<std::list>{} };
+static constexpr auto to_forward_list = adaptable{ detail::to_container_fn<std::forward_list>{} };
+static constexpr auto to_deque = adaptable{ detail::to_container_fn<std::list>{} };
+static constexpr auto to_string = adaptable{ detail::to_string_fn{} };
 
 } /* namespace cpp_essentials::core */
 

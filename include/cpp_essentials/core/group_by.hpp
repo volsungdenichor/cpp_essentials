@@ -47,7 +47,7 @@ struct group_by_fn
 
 } /* namespace detail */
 
-static constexpr detail::group_by_fn group_by = {};
+static constexpr auto group_by = adaptable{ detail::group_by_fn{} };
 
 } /* namespace cpp_essentials::core */
 

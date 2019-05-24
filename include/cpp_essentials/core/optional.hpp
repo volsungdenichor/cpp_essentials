@@ -493,10 +493,8 @@ struct eval_optional_fn
 
 } /* namespace detail */
 
-static constexpr detail::make_optional_fn make_optional = {};
-static constexpr detail::eval_optional_fn eval_optional = {};
-
-
+static constexpr auto make_optional = detail::make_optional_fn{};
+static constexpr auto eval_optional = detail::eval_optional_fn{};
 
 template <class T>
 std::ostream& operator <<(std::ostream& os, const optional<T>& item)

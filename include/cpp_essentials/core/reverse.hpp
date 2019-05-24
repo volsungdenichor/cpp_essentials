@@ -1,18 +1,18 @@
-#ifndef CPP_ESSENTIALS_CORE_BACKWARDS_HPP_
-#define CPP_ESSENTIALS_CORE_BACKWARDS_HPP_
+#ifndef CPP_ESSENTIALS_CORE_REVERSE_HPP_
+#define CPP_ESSENTIALS_CORE_REVERSE_HPP_
 
 #pragma once
 
 #include <cpp_essentials/core/iterator_range.hpp>
-#include <cpp_essentials/core/detail/zip_iterator.hpp>
+#include <cpp_essentials/core/adaptor.hpp>
 
-namespace cpp_essentials::core
+namespace cpp_essentials::core::views
 {
 
 namespace detail
 {
 
-struct backwards_fn
+struct reverse_fn
 {
     template <class Iter>
     auto make_iterator(Iter iter) const
@@ -39,8 +39,8 @@ struct backwards_fn
 
 } /* namespace detail */
 
-static constexpr detail::backwards_fn backwards = {};
+static constexpr auto reverse = adaptable{ detail::reverse_fn{} };
 
-} /* namespace cpp_essentials::core */
+} /* namespace cpp_essentials::core::views */
 
-#endif /* CPP_ESSENTIALS_CORE_BACKWARDS_HPP_ */
+#endif /* CPP_ESSENTIALS_CORE_REVERSE_HPP_ */

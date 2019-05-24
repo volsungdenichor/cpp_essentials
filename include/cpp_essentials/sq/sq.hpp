@@ -6,16 +6,16 @@
 #include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/algorithm.hpp>
 #include <cpp_essentials/core/algorithm_ext.hpp>
-#include <cpp_essentials/core/backwards.hpp>
+#include <cpp_essentials/core/reverse.hpp>
 #include <cpp_essentials/core/chain.hpp>
 #include <cpp_essentials/core/chunk.hpp>
 #include <cpp_essentials/core/containers.hpp>
 #include <cpp_essentials/core/elementwise.hpp>
+#include <cpp_essentials/core/enumerate.hpp>
 #include <cpp_essentials/core/filter.hpp>
 #include <cpp_essentials/core/flat_map.hpp>
 #include <cpp_essentials/core/flatten.hpp>
 #include <cpp_essentials/core/group_by.hpp>
-#include <cpp_essentials/core/index.hpp>
 #include <cpp_essentials/core/iterate.hpp>
 #include <cpp_essentials/core/join.hpp>
 #include <cpp_essentials/core/map.hpp>
@@ -36,16 +36,20 @@ namespace cpp_essentials::sq
 #define PULL_ADAPTABLE(func) \
     static constexpr auto func = core::adaptable{ core::func }
 
-#define PULL_FUNCTOR(func) \
-    static constexpr decltype(core::func) func
+using core::make_range;
 
-PULL_FUNCTOR(make_range);
+using core::range;
+using core::inclusive_range;
+using core::infinite_range;
+using core::repeat;
+using core::once;
 
-PULL_FUNCTOR(range);
-PULL_FUNCTOR(inclusive_range);
-PULL_FUNCTOR(infinite_range);
-PULL_FUNCTOR(repeat);
-PULL_FUNCTOR(once);
+using core::write;
+using core::join;
+
+using core::group_by;
+
+using core::at;
 
 PULL_ADAPTABLE(front);
 PULL_ADAPTABLE(front_or_throw);
@@ -95,71 +99,63 @@ PULL_ADAPTABLE(move);
 PULL_ADAPTABLE(none_of);
 PULL_ADAPTABLE(upper_bound);
 
-PULL_ADAPTABLE(backwards);
+using core::views::reverse;
 
-PULL_ADAPTABLE(chain);
-PULL_ADAPTABLE(append);
-PULL_ADAPTABLE(prepend);
+using core::views::chain;
+using core::views::append;
+using core::views::prepend;
 
-PULL_ADAPTABLE(chunk);
-PULL_ADAPTABLE(slide);
-PULL_ADAPTABLE(group);
-PULL_ADAPTABLE(pairwise);
+using core::views::chunk;
+using core::views::slide;
+using core::views::group;
+using core::views::pairwise;
 
-PULL_ADAPTABLE(to_vector);
-PULL_ADAPTABLE(to_set);
-PULL_ADAPTABLE(to_list);
-PULL_ADAPTABLE(to_forward_list);
-PULL_ADAPTABLE(to_deque);
-PULL_ADAPTABLE(to_string);
+using core::to_vector;
+using core::to_set;
+using core::to_list;
+using core::to_forward_list;
+using core::to_deque;
+using core::to_string;
 
-PULL_ADAPTABLE(take_if);
-PULL_ADAPTABLE(drop_if);
+using core::views::take_if;
+using core::views::drop_if;
 
-PULL_ADAPTABLE(flat_map);
-PULL_ADAPTABLE(flatten);
+using core::views::flat_map;
+using core::views::flatten;
 
-PULL_ADAPTABLE(index);
+using core::views::enumerate;
 
-PULL_ADAPTABLE(iterate);
+using core::views::iterate;
 
-PULL_ADAPTABLE(join);
+using core::views::map;
 
-PULL_ADAPTABLE(map);
+using core::views::slice;
+using core::views::take;
+using core::views::drop;
+using core::views::take_back;
+using core::views::drop_back;
+using core::views::take_exactly;
+using core::views::drop_exactly;
+using core::views::take_back_exactly;
+using core::views::drop_back_exactly;
 
-PULL_ADAPTABLE(slice);
-PULL_ADAPTABLE(take);
-PULL_ADAPTABLE(drop);
-PULL_ADAPTABLE(take_back);
-PULL_ADAPTABLE(drop_back);
-PULL_ADAPTABLE(take_exactly);
-PULL_ADAPTABLE(drop_exactly);
-PULL_ADAPTABLE(take_back_exactly);
-PULL_ADAPTABLE(drop_back_exactly);
+using core::views::stride;
 
-PULL_ADAPTABLE(stride);
+using core::views::take_while;
+using core::views::drop_while;
+using core::views::take_until;
+using core::views::drop_until;
+using core::views::take_back_while;
+using core::views::drop_back_while;
+using core::views::take_back_until;
+using core::views::drop_back_until;
+using core::views::trim_while;
+using core::views::trim_until;
 
-PULL_ADAPTABLE(take_while);
-PULL_ADAPTABLE(drop_while);
-PULL_ADAPTABLE(take_until);
-PULL_ADAPTABLE(drop_until);
-PULL_ADAPTABLE(take_back_while);
-PULL_ADAPTABLE(drop_back_while);
-PULL_ADAPTABLE(take_back_until);
-PULL_ADAPTABLE(drop_back_until);
-PULL_ADAPTABLE(trim_while);
-PULL_ADAPTABLE(trim_until);
-PULL_ADAPTABLE(write);
-
-PULL_ADAPTABLE(zip);
-PULL_ADAPTABLE(unzip);
-
-PULL_ADAPTABLE(group_by);
-
-PULL_ADAPTABLE(at);
+using core::views::zip;
+using core::views::unzip;
 
 #undef PULL_ADAPTABLE
-#undef PULL_FUNCTOR
 
 } /* namespace sq */
 

@@ -5,9 +5,10 @@
 
 #include <cpp_essentials/core/functors.hpp>
 #include <cpp_essentials/core/iterator_range.hpp>
+#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/nil.hpp>
 
-namespace cpp_essentials::core
+namespace cpp_essentials::core::views
 {
 
 namespace detail
@@ -198,16 +199,16 @@ struct drop_back_exactly_fn
 
 } /* namespace detail */
 
-static constexpr detail::slice_fn slice = {};
-static constexpr detail::take_fn take = {};
-static constexpr detail::drop_fn drop = {};
-static constexpr detail::take_back_fn take_back = {};
-static constexpr detail::drop_back_fn drop_back = {};
-static constexpr detail::take_exactly_fn take_exactly = {};
-static constexpr detail::drop_exactly_fn drop_exactly = {};
-static constexpr detail::take_back_exactly_fn take_back_exactly = {};
-static constexpr detail::drop_back_exactly_fn drop_back_exactly = {};
+static constexpr auto slice = adaptable{ detail::slice_fn{} };
+static constexpr auto take = adaptable{ detail::take_fn{} };
+static constexpr auto drop = adaptable{ detail::drop_fn{} };
+static constexpr auto take_back = adaptable{ detail::take_back_fn{} };
+static constexpr auto drop_back = adaptable{ detail::drop_back_fn{} };
+static constexpr auto take_exactly = adaptable{ detail::take_exactly_fn{} };
+static constexpr auto drop_exactly = adaptable{ detail::drop_exactly_fn{} };
+static constexpr auto take_back_exactly = adaptable{ detail::take_back_exactly_fn{} };
+static constexpr auto drop_back_exactly = adaptable{ detail::drop_back_exactly_fn{} };
 
-} /* namespace cpp_essentials::core */
+} /* namespace cpp_essentials::core::views */
 
 #endif /* CPP_ESSENTIALS_CORE_SLICE_HPP_ */

@@ -1,13 +1,14 @@
-#ifndef CPP_ESSENTIALS_CORE_INDEX_HPP_
-#define CPP_ESSENTIALS_CORE_INDEX_HPP_
+#ifndef CPP_ESSENTIALS_CORE_ENUMERATE_HPP_
+#define CPP_ESSENTIALS_CORE_ENUMERATE_HPP_
 
 #pragma once
 
 #include <cpp_essentials/core/iterator_range.hpp>
+#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/zip.hpp>
 #include <cpp_essentials/core/numeric.hpp>
 
-namespace cpp_essentials::core
+namespace cpp_essentials::core::views
 {
 
 namespace detail
@@ -37,7 +38,7 @@ struct make_indexed_item
 };
 
 
-struct index_fn
+struct enumerate_fn
 {
     template
         < class Range
@@ -50,8 +51,8 @@ struct index_fn
 
 } /* namespace detail */
 
-static constexpr detail::index_fn index = {};
+static constexpr auto enumerate = adaptable{ detail::enumerate_fn{} };
 
-} /* namespace cpp_essentials::core */
+} /* namespace cpp_essentials::core::views */
 
-#endif /* CPP_ESSENTIALS_CORE_INDEX_HPP_ */
+#endif /* CPP_ESSENTIALS_CORE_ENUMERATE_HPP_ */

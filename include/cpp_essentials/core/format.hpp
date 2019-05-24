@@ -115,14 +115,14 @@ struct format_modifier_handler
         const auto is_placeholder = [](char ch) { return ch == '0'; };
         const auto is_dot = [](char ch) { return ch == '.'; };
 
-        const auto integer = core::take_while(value, is_placeholder);
-        value = core::drop(value, integer.size());
+        const auto integer = views::take_while(value, is_placeholder);
+        value = views::drop(value, integer.size());
 
-        const auto sep = core::take_while(value, is_dot);
-        value = core::drop(value, sep.size());
+        const auto sep = views::take_while(value, is_dot);
+        value = views::drop(value, sep.size());
 
-        const auto fractional = core::take_while(value, is_placeholder);
-        value = core::drop(value, fractional.size());
+        const auto fractional = views::take_while(value, is_placeholder);
+        value = views::drop(value, fractional.size());
 
         EXPECTS(value.empty(), "extra format specifier");
         EXPECTS(sep.size() <= 1, "unexpected dot");
@@ -270,7 +270,7 @@ inline void write_argument(std::ostream& /*os*/, cstring_view /*fmt*/, int /*ind
 
 inline std::tuple<int, cstring_view> parse_field(cstring_view fmt)
 {
-    auto digits_fmt = core::take_while(core::drop_while(fmt, core::is_blank), core::is_digit);
+    auto digits_fmt = views::take_while(views::drop_while(fmt, core::is_blank), core::is_digit);
 
     int index = !digits_fmt.empty()
         ? core::parse<int>(digits_fmt)

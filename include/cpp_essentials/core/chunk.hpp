@@ -4,9 +4,10 @@
 #pragma once
 
 #include <cpp_essentials/core/iterator_range.hpp>
+#include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/detail/chunk_iterator.hpp>
 
-namespace cpp_essentials::core
+namespace cpp_essentials::core::views
 {
 
 namespace detail
@@ -15,8 +16,9 @@ namespace detail
 template <class Iter>
 auto chunk(Iter b, Iter e, int size, int step)
 {
+    using cpp_essentials::core::detail::chunk_iterator;
     return core::make_range(
-        chunk_iterator{ b, core::advance(b, e, size), step, e },
+        chunk_iterator{ b, advance(b, e, size), step, e },
         chunk_iterator{ e, e, step, e });
 }
 
@@ -66,11 +68,11 @@ struct pairwise_fn
 
 } /* namespace detail */
 
-static constexpr detail::chunk_fn chunk = {};
-static constexpr detail::slide_fn slide = {};
-static constexpr detail::group_fn group = {};
-static constexpr detail::pairwise_fn pairwise = {};
+static constexpr auto chunk = adaptable{ detail::chunk_fn{} };
+static constexpr auto slide = adaptable{ detail::slide_fn{} };
+static constexpr auto group = adaptable{ detail::group_fn{} };
+static constexpr auto pairwise = adaptable{ detail::pairwise_fn{} };
 
-} /* namespace cpp_essentials::core */
+} /* namespace cpp_essentials::core::views */
 
 #endif /* CPP_ESSENTIALS_CORE_CHUNK_HPP_ */

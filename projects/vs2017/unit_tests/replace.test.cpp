@@ -13,6 +13,6 @@ TEST_CASE("views::replace_if")
 
 TEST_CASE("views::replace")
 {
-    auto vect = core::range(5) | sq::replace(3, -1);
-    REQUIRE(vect == vec(0, 1, 2, -1, 4));
+    auto vect = core::range(5) | sq::replace(2, -1);
+    REQUIRE(vect == vec(0, 1, -1, 3, 4));
 }

@@ -70,7 +70,7 @@ public:
 struct divisible
 {
     template <class L, class R>
-    bool operator ()(L value, R divisor) const
+    constexpr bool operator ()(L value, R divisor) const
     {
         return value % divisor == 0;
     }

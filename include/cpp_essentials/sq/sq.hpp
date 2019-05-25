@@ -119,6 +119,7 @@ using core::to_deque;
 using core::to_string;
 using core::to_string_view;
 
+using core::views::filter;
 using core::views::take_if;
 using core::views::drop_if;
 
@@ -129,6 +130,7 @@ using core::views::enumerate;
 
 using core::views::iterate;
 
+using core::views::transform;
 using core::views::map;
 using core::views::replace_if;
 using core::views::replace;

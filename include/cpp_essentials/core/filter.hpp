@@ -51,6 +51,7 @@ struct drop_if_fn
 
 } /* namespace detail */
 
+static constexpr auto filter = adaptable{ detail::take_if_fn{} };
 static constexpr auto take_if = adaptable{ detail::take_if_fn{} };
 static constexpr auto drop_if = adaptable{ detail::drop_if_fn{} };
 

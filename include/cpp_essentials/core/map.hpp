@@ -32,6 +32,7 @@ struct map_fn
 
 } /* namespace detail */
 
+static constexpr auto transform = adaptable{ detail::map_fn{} };
 static constexpr auto map = adaptable{ detail::map_fn{} };
 
 } /* namespace cpp_essentials::core::views */

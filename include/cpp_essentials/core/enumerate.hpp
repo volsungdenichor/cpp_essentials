@@ -45,7 +45,9 @@ struct enumerate_fn
         , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, int start = 0) const
     {
-        return ::cpp_essentials::core::zip(range, ::cpp_essentials::core::infinite_range(start), make_indexed_item{});
+        using cpp_essentials::core::views::zip;
+        using cpp_essentials::core::infinite_range;
+        return zip(range, infinite_range(start), make_indexed_item{});
     }
 };
 

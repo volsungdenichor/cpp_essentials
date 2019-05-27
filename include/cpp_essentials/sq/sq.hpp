@@ -78,6 +78,7 @@ PULL_ADAPTABLE(contains);
 PULL_ADAPTABLE(sum);
 PULL_ADAPTABLE(min_value);
 PULL_ADAPTABLE(max_value);
+PULL_ADAPTABLE(minmax_value);
 
 PULL_ADAPTABLE(accumulate);
 PULL_ADAPTABLE(all_of);

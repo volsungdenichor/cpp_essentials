@@ -99,6 +99,14 @@ PULL_ADAPTABLE(minmax_element);
 PULL_ADAPTABLE(min_element);
 PULL_ADAPTABLE(move);
 PULL_ADAPTABLE(none_of);
+PULL_ADAPTABLE(partition_copy);
+PULL_ADAPTABLE(remove_copy);
+PULL_ADAPTABLE(remove_copy_if);
+PULL_ADAPTABLE(replace_copy);
+PULL_ADAPTABLE(replace_copy_if);
+PULL_ADAPTABLE(reverse_copy);
+PULL_ADAPTABLE(rotate_copy);
+PULL_ADAPTABLE(unique_copy);
 PULL_ADAPTABLE(upper_bound);
 
 using core::views::reverse;

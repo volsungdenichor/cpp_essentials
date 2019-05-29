@@ -20,9 +20,9 @@ namespace detail
 struct identity_fn
 {
     template <class T>
-    const T& operator ()(const T& value) const
+    T&& operator ()(T&& value) const
     {
-        return value;
+        return std::forward<T>(value);
     }
 };
 

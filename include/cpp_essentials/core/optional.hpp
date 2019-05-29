@@ -367,6 +367,12 @@ struct underlying_type
 };
 
 template <class T>
+using underlying_type_t = typename underlying_type<T>::type;
+
+template <class T>
+struct underlying_type<T&> : underlying_type<T> {};
+
+template <class T>
 struct underlying_type<optional<T>>
 {
     using type = T;
@@ -386,9 +392,6 @@ struct is_optional<optional<T>> : std::true_type {};
 
 template <class T>
 struct is_optional<std::optional<T>> : std::true_type {};
-
-template <class T>
-using underlying_type_t = typename underlying_type<T>::type;
 
 template <class T>
 static constexpr bool is_optional_v = is_optional<T>::value;
@@ -468,13 +471,13 @@ namespace detail
 struct make_optional_fn
 {
     template <class T>
-    auto operator ()(T value) const
+    auto operator ()(T value) const -> std::optional<T>
     {
-        return optional<T> { std::move(value) };
+        return { std::move(value) };
     }
 
     template <class T>
-    auto operator ()(bool condition, T value) const
+    auto operator ()(bool condition, T value) const -> std::optional<T>
     {
         return condition ? optional<T> { std::move(value) } : optional<T>{};
     }

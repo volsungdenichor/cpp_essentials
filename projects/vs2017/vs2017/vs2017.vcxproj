@@ -275,6 +275,17 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\gx\kernels.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\gx\lookup_table.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\gx\morphological_operations.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\animation.core.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\animation.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\ease.detail.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\ease.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\hold.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\loop.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\phase.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\ramp.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\reverse.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\sequence.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\sequence_phase.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\constants.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\detail\matrix.access.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\detail\matrix.arithmetics.hpp" />

@@ -58,6 +58,9 @@
     <Filter Include="Header Files\cpp_essentials\graphs">
       <UniqueIdentifier>{42000d89-6f61-4877-af4a-285aca5072e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\cpp_essentials\kine">
+      <UniqueIdentifier>{3adda15c-5687-4f8e-a38c-5c4d105af935}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -458,6 +461,39 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\replace.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\animation.core.hpp">
+      <Filter>Header Files\cpp_essentials\kine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\animation.hpp">
+      <Filter>Header Files\cpp_essentials\kine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\ease.detail.hpp">
+      <Filter>Header Files\cpp_essentials\kine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\ease.hpp">
+      <Filter>Header Files\cpp_essentials\kine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\phase.hpp">
+      <Filter>Header Files\cpp_essentials\kine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\sequence.hpp">
+      <Filter>Header Files\cpp_essentials\kine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\sequence_phase.hpp">
+      <Filter>Header Files\cpp_essentials\kine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\hold.hpp">
+      <Filter>Header Files\cpp_essentials\kine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\loop.hpp">
+      <Filter>Header Files\cpp_essentials\kine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\ramp.hpp">
+      <Filter>Header Files\cpp_essentials\kine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\reverse.hpp">
+      <Filter>Header Files\cpp_essentials\kine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

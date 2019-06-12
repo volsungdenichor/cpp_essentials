@@ -9,10 +9,10 @@ namespace cpp_essentials::kine
 {
 
 template <class T>
-class ramp_phase : public phase<T>
+class gradual_phase : public phase<T>
 {
 public:
-    ramp_phase(duration_type duration, T start_value, T end_value, ease_function ease)
+    gradual_phase(duration_type duration, T start_value, T end_value, ease_function ease)
         : phase<T>{ duration }
         , _start_value{ std::move(start_value) }
         , _end_value{ std::move(end_value) }
@@ -42,9 +42,9 @@ private:
 };
 
 template <class T>
-phase_ptr<T> ramp(T start_value, T end_value, duration_type duration, ease_function ease = ease::none)
+phase_ptr<T> gradual(T start_value, T end_value, duration_type duration, ease_function ease = ease::none)
 {
-    return std::make_shared<ramp_phase<T>>(duration, std::move(start_value), std::move(end_value), std::move(ease));
+    return std::make_shared<gradual_phase<T>>(duration, std::move(start_value), std::move(end_value), std::move(ease));
 }
 
 } /* namespace cpp_essentials::kine */

@@ -6,10 +6,10 @@ namespace cpp_essentials::kine
 {
 
 template <class T>
-class held_phase : public phase<T>
+class constant_phase : public phase<T>
 {
 public:
-    held_phase(duration_type duration, T value)
+    constant_phase(duration_type duration, T value)
         : phase<T>{ duration }
         , _value { std::move(value) }
     {
@@ -25,9 +25,9 @@ private:
 };
 
 template <class T>
-phase_ptr<T> hold(T value, duration_type duration)
+phase_ptr<T> constant(T value, duration_type duration)
 {
-    return std::make_shared<held_phase<T>>(duration, std::move(value));
+    return std::make_shared<constant_phase<T>>(duration, std::move(value));
 }
 
 } /* namespace cpp_essentials::kine */

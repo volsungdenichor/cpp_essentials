@@ -146,6 +146,17 @@ struct transpose_fn
     }
 };
 
+struct transform_fn
+{
+    template <class T, size_t R, size_t C, class Func>
+    auto operator ()(const matrix<T, R, C>& item, Func&& func) const -> matrix<std::invoke_result_t<Func, T>, C, R>
+    {
+        matrix<std::invoke_result_t<Func, T>, C, R> result;
+        std::transform(item._data.begin(), item._data.end(), result._data.begin(), func);
+        return result;
+    }
+};
+
 } /* namespace detail */
 
 static constexpr detail::minor_fn minor = {};
@@ -153,6 +164,7 @@ static constexpr detail::determinant_fn determinant = {};
 static constexpr detail::is_invertible_fn is_invertible = {};
 static constexpr detail::invert_fn invert = {};
 static constexpr detail::transpose_fn transpose = {};
+static constexpr detail::transform_fn transform = {};
 
 } /* namespace cpp_essentials::math */
 

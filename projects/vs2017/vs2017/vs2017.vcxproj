@@ -279,10 +279,10 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\kine\animation.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\kine\ease.detail.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\kine\ease.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\hold.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\loop.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\constant.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\repeat.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\kine\phase.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\ramp.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\gradual.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\kine\reverse.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\kine\sequence.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\kine\sequence_phase.hpp" />

@@ -483,16 +483,16 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\kine\sequence_phase.hpp">
       <Filter>Header Files\cpp_essentials\kine</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\hold.hpp">
-      <Filter>Header Files\cpp_essentials\kine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\loop.hpp">
-      <Filter>Header Files\cpp_essentials\kine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\ramp.hpp">
-      <Filter>Header Files\cpp_essentials\kine</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\kine\reverse.hpp">
+      <Filter>Header Files\cpp_essentials\kine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\repeat.hpp">
+      <Filter>Header Files\cpp_essentials\kine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\constant.hpp">
+      <Filter>Header Files\cpp_essentials\kine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\kine\gradual.hpp">
       <Filter>Header Files\cpp_essentials\kine</Filter>
     </ClInclude>
   </ItemGroup>

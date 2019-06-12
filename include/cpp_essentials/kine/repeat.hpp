@@ -6,10 +6,10 @@ namespace cpp_essentials::kine
 {
 
 template <class T>
-class looped_phase : public phase<T>
+class repeated_phase : public phase<T>
 {
 public:
-    looped_phase(phase_ptr<T> inner, float count, time_type inflection_point = {})
+    repeated_phase(phase_ptr<T> inner, float count, time_type inflection_point = {})
         : phase<T>{ inner->duration() * count }
         , _inner{ std::move(inner) }
         , _inflection_point{ inflection_point }
@@ -37,9 +37,9 @@ private:
 };
 
 template <class T>
-phase_ptr<T> loop(phase_ptr<T> inner, float count, time_type inflection_point = {})
+phase_ptr<T> repeat(phase_ptr<T> inner, float count, time_type inflection_point = {})
 {
-    return std::make_shared<looped_phase<T>>(std::move(inner), count, inflection_point);
+    return std::make_shared<repeated_phase<T>>(std::move(inner), count, inflection_point);
 }
 
 } /* namespace cpp_essentials::kine */

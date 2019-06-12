@@ -38,6 +38,7 @@ using math::determinant;
 using math::is_invertible;
 using math::invert;
 using math::transpose;
+using math::transform;
 
 using math::dot;
 using math::norm;

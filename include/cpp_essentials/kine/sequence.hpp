@@ -1,8 +1,8 @@
 #pragma once
 
 #include <cpp_essentials/kine/sequence_phase.hpp>
-#include <cpp_essentials/kine/hold.hpp>
-#include <cpp_essentials/kine/ramp.hpp>
+#include <cpp_essentials/kine/constant.hpp>
+#include <cpp_essentials/kine/gradual.hpp>
 
 namespace cpp_essentials::kine
 {
@@ -71,7 +71,7 @@ public:
 
     sequence& then_hold(T value, duration_type duration)
     {
-        return then(hold(std::move(value), duration));
+        return then(constant(std::move(value), duration));
     }
 
     sequence& then_hold(duration_type duration)
@@ -81,7 +81,7 @@ public:
 
     sequence& then_ramp(T start_value, T end_value, duration_type duration, ease_function ease = ease::none)
     {
-        return then(ramp(std::move(start_value), std::move(end_value), duration, std::move(ease)));
+        return then(gradual(std::move(start_value), std::move(end_value), duration, std::move(ease)));
     }
 
     sequence& then_ramp(T value, duration_type duration, ease_function ease = ease::none)

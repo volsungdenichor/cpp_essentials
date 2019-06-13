@@ -231,10 +231,6 @@ private:
     byte_pointer _ptr;
 };
 
-template <class T, size_t D = 1>
-using const_array_view = array_view<const T, D>;
-
-
 namespace detail
 {
 

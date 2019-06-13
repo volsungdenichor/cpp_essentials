@@ -149,10 +149,10 @@ struct transpose_fn
 struct transform_fn
 {
     template <class T, size_t R, size_t C, class Func>
-    auto operator ()(const matrix<T, R, C>& item, Func&& func) const -> matrix<std::invoke_result_t<Func, T>, C, R>
+    auto operator ()(const matrix<T, R, C>& item, Func&& func) const -> matrix<std::invoke_result_t<Func, T>, R, C>
     {
-        matrix<std::invoke_result_t<Func, T>, C, R> result;
-        std::transform(item._data.begin(), item._data.end(), result._data.begin(), func);
+        matrix<std::invoke_result_t<Func, T>, R, C> result;
+        core::transform(item._data, result._data.begin(), func);
         return result;
     }
 };

@@ -6,6 +6,7 @@
 #include <cpp_essentials/geo/distance.hpp>
 #include <cpp_essentials/geo/center.hpp>
 #include <cpp_essentials/geo/perpendicular.hpp>
+#include <cpp_essentials/geo/intersection.hpp>
 
 #pragma once
 

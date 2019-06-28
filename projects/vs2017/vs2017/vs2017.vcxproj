@@ -252,6 +252,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\linear_shape.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\interval_operations.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\matrix.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\orientation.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\perpendicular.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\projection.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\triangle.hpp" />

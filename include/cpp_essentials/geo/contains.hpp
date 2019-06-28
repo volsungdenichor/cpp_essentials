@@ -4,6 +4,10 @@
 #pragma once
 
 #include <cpp_essentials/geo/bounding_box.hpp>
+#include <cpp_essentials/geo/circle.hpp>
+#include <cpp_essentials/geo/vertex_array.hpp>
+#include <cpp_essentials/geo/orientation.hpp>
+#include <cpp_essentials/geo/vertex_container.hpp>
 #include <cpp_essentials/core/zip.hpp>
 
 namespace cpp_essentials::geo
@@ -47,6 +51,32 @@ struct contains_fn
                 [this](const auto& this_interval, const auto& other_interval) { return (*this)(this_interval, other_interval); }),
             core::equal_to(true));
     }
+
+    template <class T, class U, size_t D>
+    bool operator ()(const circular_shape<T, D>& item, const vector<U, D>& other) const
+    {
+        return geo::norm(other - item.center()) <= math::sqr(item.radius());
+    }
+
+    template <class T, class U>
+    bool operator ()(const triangle<T, 2>& item, const vector<U, 2>& other) const
+    {
+        static const auto same_sign = [](int a, int b)
+        {
+            return (a <= 0 && b <= 0) || (a >= 0 && b >= 0);
+        };
+        
+        int result[3];
+
+        for (size_t i = 0; i < 3; ++i)
+        {
+            result[i] = math::sgn(geo::orientation(other, get_segment(item, i)));
+        }
+
+        return same_sign(result[0], result[1])
+            && same_sign(result[0], result[2])
+            && same_sign(result[1], result[2]);
+    }    
 };
 
 } /* namespace detail */

@@ -236,6 +236,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\center.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\circle.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\circular_shape.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\clamp.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\contains.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\coordinates_conversion.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\linear_shape.arithmetics.hpp" />

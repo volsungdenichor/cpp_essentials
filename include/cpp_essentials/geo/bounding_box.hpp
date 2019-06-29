@@ -265,6 +265,53 @@ struct get_rect_dim_fn
     }
 };
 
+struct make_aabb_fn
+{
+    template <class T, size_t D>
+    static bounding_box<T, D> make_bounding_box(const vector<T, D>& lower, const vector<T, D>& upper)
+    {
+        return { lower, upper };
+    }
+
+    template <class T, size_t D>
+    static void expand(bounding_box<T, D>& item, const vector<T, D>& point)
+    {
+        for (size_t d = 0; d < D; ++d)
+        {
+            auto& bounds = item._data[d];
+            const auto& v = point[d];
+
+            bounds = { std::min(bounds.lower(), v), std::max(bounds.upper(), v) };
+        }
+    }
+    
+    template <class Iter>
+    auto operator ()(Iter first, Iter last) const
+    {
+        using result_type = decltype(make_bounding_box(*first, *first));
+
+        if (first == last)
+        {
+            return result_type{};
+        }
+
+        auto result = make_bounding_box(*first, *first);
+
+        for (; first != last; ++first)
+        {
+            expand(result, *first);
+        }
+
+        return result;
+    }
+
+    template <class Range>
+    auto operator ()(Range&& range) const
+    {
+        return (*this)(std::begin(range), std::end(range));
+    }
+};
+
 } /* namespace detail */
 
 static constexpr detail::get_rect_vertex_fn<0, 0> top_left = {};
@@ -279,6 +326,8 @@ static constexpr detail::get_rect_side_fn<1, 1> bottom = {};
 
 static constexpr detail::get_rect_dim_fn<0> width = {};
 static constexpr detail::get_rect_dim_fn<1> height = {};
+
+static constexpr detail::make_aabb_fn make_aabb = {};
 
 template <class T, size_t D>
 std::ostream& operator <<(std::ostream& os, const bounding_box<T, D>& bb)

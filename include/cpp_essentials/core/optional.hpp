@@ -471,13 +471,13 @@ namespace detail
 struct make_optional_fn
 {
     template <class T>
-    auto operator ()(T value) const -> std::optional<T>
+    auto operator ()(T value) const -> optional<T>
     {
         return { std::move(value) };
     }
 
     template <class T>
-    auto operator ()(bool condition, T value) const -> std::optional<T>
+    auto operator ()(bool condition, T value) const -> optional<T>
     {
         return condition ? optional<T> { std::move(value) } : optional<T>{};
     }
@@ -488,7 +488,7 @@ struct eval_optional_fn
     template <class Func>
     auto operator ()(bool condition, Func func) const
     {
-        using type = decltype(func());
+        using type = std::invoke_result_t<Func>;
 
         return condition ? optional<type> { func() } : optional<type>{};
     }
@@ -497,6 +497,7 @@ struct eval_optional_fn
 } /* namespace detail */
 
 static constexpr auto make_optional = detail::make_optional_fn{};
+static constexpr auto some = detail::make_optional_fn{};
 static constexpr auto eval_optional = detail::eval_optional_fn{};
 
 template <class T>

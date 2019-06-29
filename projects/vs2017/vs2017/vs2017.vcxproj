@@ -190,6 +190,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\map_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\numeric_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\repeat_iterator.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\rust_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\stride_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\zip_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\elementwise.hpp" />
@@ -221,6 +222,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\replace.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\return_policy.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\reverse.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\rust_range.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\serialization.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\slice.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\stride.hpp" />

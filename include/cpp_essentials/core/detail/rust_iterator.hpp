@@ -28,18 +28,23 @@ public:
 
     rust_iterator()
         : _func{}
+        , _current{}
+        , _counter{ std::numeric_limits<difference_type>::max() }
     {
     }
 
     rust_iterator(Func func)
         : _func{ std::move(func) }
+        , _current{ _func() }
+        , _counter{}
     {
-        _current = _func();
+
     }
 
     void inc()
     {
         _current = _func();
+        ++_counter;
     }
 
     reference ref() const
@@ -47,14 +52,15 @@ public:
         return *_current;
     }
 
-    bool is_equal(const rust_iterator&) const
+    bool is_equal(const rust_iterator& other) const
     {
-        return !_current.has_value();
+        return !_current.has_value() || _counter == other._counter;
     }
 
 private:
     core::detail::default_constructible_func<Func> _func;
     mutable core::optional<reference> _current;
+    difference_type _counter;
 };
 
 } /* namespace detail */

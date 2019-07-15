@@ -36,7 +36,7 @@ public:
 
     vertex_array()
     {
-        core::fill(_data, vector_type {});
+        core::fill(_data, vector_type{});
     }
 
     vertex_array(size_type size)
@@ -49,6 +49,11 @@ public:
     {
         resize(init.size());
         core::copy(init, _data.begin());
+    }
+
+    vertex_array(data_type data)
+        : _data{ std::move(data) }
+    {
     }
 
     template <class U>

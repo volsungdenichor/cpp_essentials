@@ -100,15 +100,15 @@ public:
     }
 
     template <class T>
-    auto and_optional(const optional<T>& other) const
+    optional<T> and_optional(const optional<T>& other) const
     {
         return self().has_value() ? other : optional<T>{};
     }
 
     template <class T>
-    auto or_optional(const optional<T>& other) const
+    optional<T> or_optional(const optional<T>& other) const
     {
-        return self().has_value() ? self() : other;
+        return self().has_value() ? optional<T>{ self().value() } : other;
     }
 
     bool operator !() const

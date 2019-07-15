@@ -26,7 +26,7 @@ private:
     template <class Range, size_t... Index>
     auto create(Range&& range, std::index_sequence<Index...>) const
     {
-        return std::make_tuple(core::map(range, get<Index>)...);
+        return std::make_tuple(core::views::map(range, get<Index>)...);
     }
 };
 

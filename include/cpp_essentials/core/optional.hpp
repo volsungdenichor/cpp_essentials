@@ -30,6 +30,24 @@ public:
     }
 };
 
+template <class T>
+struct underlying_type
+{
+    using type = T;
+};
+
+template <class T>
+using underlying_type_t = typename underlying_type<T>::type;
+
+template <class T>
+struct underlying_type<T&> : underlying_type<T> {};
+
+
+template <class T>
+struct is_optional : std::false_type {};
+
+template <class T>
+static constexpr bool is_optional_v = is_optional<T>::value;
 
 
 namespace detail
@@ -44,6 +62,7 @@ struct is_optional : std::false_type {};
 template <class T>
 struct is_optional<optional<T>> : std::true_type {};
 
+
 template <class Adaptee>
 class optional_base
 {
@@ -52,16 +71,31 @@ private:
 
 public:
     template <class Func>
-    auto then(Func func) const
+    auto and_then(Func func) const
     {
         using type = decltype(func(self().value()));
 
-        using result_type = std::conditional_t
-            < is_optional<type>::value
-            , type
-            , optional<type>>;
+        static_assert(is_optional_v<type>, "optional return type required");
+
+        using result_type = optional<underlying_type_t<type>>;
 
         return self().has_value() ? result_type{ func(self().value()) } : result_type{};
+    }
+
+    template <class Func>
+    auto map(Func func) const
+    {
+        using type = decltype(func(self().value()));
+
+        using result_type = optional<type>;
+
+        return self().has_value() ? result_type{ func(self().value()) } : result_type{};
+    }
+
+    template <class Pred>
+    auto filter(Pred pred) const
+    {
+        return self().has_value() ? self() : self_type{};
     }
 
     template <class T>
@@ -361,18 +395,6 @@ private:
 
 
 template <class T>
-struct underlying_type
-{
-    using type = T;
-};
-
-template <class T>
-using underlying_type_t = typename underlying_type<T>::type;
-
-template <class T>
-struct underlying_type<T&> : underlying_type<T> {};
-
-template <class T>
 struct underlying_type<optional<T>>
 {
     using type = T;
@@ -385,16 +407,10 @@ struct underlying_type<std::optional<T>>
 };
 
 template <class T>
-struct is_optional : std::false_type {};
-
-template <class T>
 struct is_optional<optional<T>> : std::true_type {};
 
 template <class T>
 struct is_optional<std::optional<T>> : std::true_type {};
-
-template <class T>
-static constexpr bool is_optional_v = is_optional<T>::value;
 
 
 template <class T, class U, class = cc::EqualityCompare<T, U>>

@@ -241,6 +241,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\clamp.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\contains.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\coordinates_conversion.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\dcel.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\linear_shape.arithmetics.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\linear_shape.base.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\linear_shape.traits.hpp" />

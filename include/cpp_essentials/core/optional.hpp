@@ -73,29 +73,31 @@ public:
     template <class Func>
     auto and_then(Func func) const
     {
-        using type = decltype(func(self().value()));
+        auto f = cc::make_func(std::move(func));
+        using type = decltype(f(self().value()));
 
         static_assert(is_optional_v<type>, "optional return type required");
 
         using result_type = optional<underlying_type_t<type>>;
 
-        return self().has_value() ? result_type{ func(self().value()) } : result_type{};
+        return self().has_value() ? result_type{ f(self().value()) } : result_type{};
     }
 
     template <class Func>
     auto map(Func func) const
-    {
-        using type = decltype(func(self().value()));
+    {        
+        auto f = cc::make_func(std::move(func));
+        using type = decltype(f(self().value()));
 
         using result_type = optional<type>;
 
-        return self().has_value() ? result_type{ func(self().value()) } : result_type{};
+        return self().has_value() ? result_type{ f(self().value()) } : result_type{};
     }
 
     template <class Pred>
     auto filter(Pred pred) const
     {
-        return self().has_value() ? self() : self_type{};
+        return self().has_value() && pred(self().value()) ? self() : self_type{};
     }
 
     template <class T>
@@ -210,21 +212,27 @@ public:
 
     template <class U>
     optional(const optional<U>& other)
-        : _opt{ static_cast<std::optional<U>>(other) }
+        : _opt{ other ? optional<value_type>{ *other } : optional<value_type>{} }
     {
     }
 
-#if 1
-    optional(const std::optional<value_type>& other)
+    template <class U>
+    optional(optional<U>&& other)
+        : _opt{ other ? optional<value_type>{ std::move(*other) } : optional<value_type>{} }
+    {
+    }
+
+    template <class U>
+    optional(const std::optional<U>& other)
         : _opt{ other }
     {
     }
 
-    optional(std::optional<value_type>&& other)
+    template <class U>
+    optional(std::optional<U>&& other)
         : _opt{ std::move(other) }
     {
     }
-#endif
 
     ~optional()
     {
@@ -341,6 +349,12 @@ public:
         : optional{}
     {
         std::swap(_ptr, other._ptr);
+    }
+
+    template <class U>
+    operator optional<U>() const
+    {
+        return has_value() ? optional<U>{ value() } : optional<U>{};
     }
 
     optional& operator =(optional other)

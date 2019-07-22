@@ -6,8 +6,8 @@
 #include <map>
 #include <unordered_map>
 
-#include <cpp_essentials/core/optional.hpp>
 #include <cpp_essentials/core/map.hpp>
+#include <cpp_essentials/core/optional.hpp>
 #include <cpp_essentials/core/functors.hpp>
 
 namespace cpp_essentials::core
@@ -46,9 +46,21 @@ struct at_fn
     }
 };
 
+struct map_try_get_fn
+{
+    template <class Map, class K, CONCEPT = detail::AssociativeContainer<std::decay_t<Map>>>
+    core::optional<const typename Map::mapped_type&> operator ()(const Map& map, const K& key) const
+    {
+        using result_type = core::optional<const typename Map::mapped_type&>;
+        auto it = map.find(key);
+        return it != map.end() ? result_type{ it->second } : result_type{};
+    }
+};
+
 } /* namespace detail */
 
 static constexpr auto at = adaptable{ detail::at_fn{} };
+static constexpr auto map_try_get = detail::map_try_get_fn{};
 
 } /* namespace cpp_essentials::core */
 

@@ -6,6 +6,8 @@
 #include <cpp_essentials/core/iterator_facade.hpp>
 #include <cpp_essentials/core/optional.hpp>
 
+#include <cpp_essentials/core/detail/iterator_func_helper.hpp>
+
 namespace cpp_essentials::core
 {
 

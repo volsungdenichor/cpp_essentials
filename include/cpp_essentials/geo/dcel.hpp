@@ -8,6 +8,7 @@
 #include <cpp_essentials/geo/vertex_container.hpp>
 
 #include <cpp_essentials/core/any_range.hpp>
+#include <cpp_essentials/core/rust_range.hpp>
 #include <cpp_essentials/sq/sq.hpp>
 
 namespace cpp_essentials::geo
@@ -100,6 +101,10 @@ public:
     struct face;
     struct halfedge;
 
+    using vertex_collection = core::enumerable<vertex>;
+    using halfedge_collection = core::enumerable<halfedge>;
+    using face_collection = core::enumerable<face>;
+
     struct vertex
     {
         const dcel* _owner;
@@ -110,7 +115,7 @@ public:
             return _owner->get_location(id);
         }
 
-        core::enumerable<halfedge> out_halfedges() const
+        halfedge_collection out_halfedges() const
         {
             core::optional<halfedge> next = halfedge{ _owner, info().halfedge_id };
             const auto first_id = next->id;
@@ -122,7 +127,7 @@ public:
             });
         }
 
-        core::enumerable<halfedge> in_halfedges() const
+        halfedge_collection in_halfedges() const
         {
             core::optional<halfedge> next = halfedge{ _owner, info().halfedge_id };
             const auto first_id = next->id;
@@ -134,7 +139,7 @@ public:
             });
         }
 
-        core::enumerable<face> incident_faces() const
+        face_collection incident_faces() const
         {
             core::optional<halfedge> next = halfedge{ _owner, info().halfedge_id };
             const auto first_id = next->id;
@@ -163,7 +168,7 @@ public:
         const dcel* _owner;
         face_id id;
 
-        core::enumerable<halfedge> outer_halfedges() const
+        halfedge_collection outer_halfedges() const
         {
             core::optional<halfedge> next = halfedge{ _owner, info().halfedge_id };
             const auto first_id = next->id;
@@ -175,7 +180,7 @@ public:
             });
         }
 
-        core::enumerable<vertex> outer_vertices() const
+        vertex_collection outer_vertices() const
         {
             core::optional<halfedge> next = halfedge{ _owner, info().halfedge_id };
             const auto first_id = next->id;
@@ -184,6 +189,21 @@ public:
                 auto current = next;
                 next = next.map([](const halfedge& h) { return h.next_halfedge(); }).filter([=](const halfedge& h) { return h.id != first_id; });
                 return current.map([](const halfedge& h) { return h.vertex_from(); });
+            });
+        }
+
+        face_collection incident_faces() const
+        {
+            core::optional<halfedge> next = halfedge{ _owner, info().halfedge_id };
+            const auto first_id = next->id;
+            return core::make_rust_range([=]() mutable -> core::optional<face>
+            {
+                auto current = next;
+                do
+                {
+                    next = next.map([](const halfedge& h) { return h.next_halfedge(); }).filter([=](const halfedge& h) { return h.id != first_id; });
+                } while (next && next->incident_face());
+                return current.and_then([](const halfedge& h) { return h.incident_face(); });
             });
         }
 
@@ -291,17 +311,17 @@ public:
         }
     }
 
-    core::enumerable<vertex> vertices() const
+    vertex_collection vertices() const
     {
         return _vertices | sq::map([this](const auto& info) { return vertex{ this, info.id }; });
     }
 
-    core::enumerable<face> faces() const
+    face_collection faces() const
     {
         return _faces | sq::map([this](const auto& info) { return face{ this, info.id }; });
     }
 
-    core::enumerable<halfedge> halfedges() const
+    halfedge_collection halfedges() const
     {
         return _halfedges | sq::map([this](const auto& info) { return halfedge{ this, info.id }; });
     }

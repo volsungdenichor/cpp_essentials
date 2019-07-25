@@ -192,7 +192,7 @@ public:
             });
         }
 
-        face_collection incident_faces() const
+        face_collection adjacent_faces() const
         {
             core::optional<halfedge> next = halfedge{ _owner, info().halfedge_id };
             const auto first_id = next->id;
@@ -202,8 +202,8 @@ public:
                 do
                 {
                     next = next.map([](const halfedge& h) { return h.next_halfedge(); }).filter([=](const halfedge& h) { return h.id != first_id; });
-                } while (next && next->incident_face());
-                return current.and_then([](const halfedge& h) { return h.incident_face(); });
+                } while (next && !next->twin_halfedge().incident_face());
+                return current.and_then([](const halfedge& h) { return h.twin_halfedge().incident_face(); });
             });
         }
 

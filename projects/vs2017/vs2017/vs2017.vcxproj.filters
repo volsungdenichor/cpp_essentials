@@ -504,11 +504,11 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\rust_iterator.hpp">
       <Filter>Header Files\cpp_essentials\core\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\rust_range.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\dcel.hpp">
       <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\generator.hpp">
+      <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

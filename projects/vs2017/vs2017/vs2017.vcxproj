@@ -222,7 +222,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\replace.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\return_policy.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\reverse.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\rust_range.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\generator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\serialization.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\slice.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\stride.hpp" />

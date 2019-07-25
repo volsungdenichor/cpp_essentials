@@ -8,7 +8,7 @@
 #include <cpp_essentials/geo/vertex_container.hpp>
 
 #include <cpp_essentials/core/any_range.hpp>
-#include <cpp_essentials/core/rust_range.hpp>
+#include <cpp_essentials/core/generator.hpp>
 #include <cpp_essentials/sq/sq.hpp>
 
 namespace cpp_essentials::geo
@@ -119,7 +119,7 @@ public:
         {
             core::optional<halfedge> next = halfedge{ _owner, info().halfedge_id };
             const auto first_id = next->id;
-            return core::make_rust_range([=]() mutable -> core::optional<halfedge>
+            return core::make_generator([=]() mutable -> core::optional<halfedge>
             {
                 auto current = next;
                 next = next.map([](const halfedge& h) { return h.twin_halfedge().next_halfedge(); }).filter([=](const halfedge& h) { return h.id != first_id; });
@@ -131,7 +131,7 @@ public:
         {
             core::optional<halfedge> next = halfedge{ _owner, info().halfedge_id };
             const auto first_id = next->id;
-            return core::make_rust_range([=]() mutable -> core::optional<halfedge>
+            return core::make_generator([=]() mutable -> core::optional<halfedge>
             {
                 auto current = next;
                 next = next.map([](const halfedge& h) { return h.twin_halfedge().next_halfedge(); }).filter([=](const halfedge& h) { return h.id != first_id; });
@@ -143,7 +143,7 @@ public:
         {
             core::optional<halfedge> next = halfedge{ _owner, info().halfedge_id };
             const auto first_id = next->id;
-            return core::make_rust_range([=]() mutable->core::optional<face>
+            return core::make_generator([=]() mutable->core::optional<face>
             {
                 auto current = next;
                 next = next.map([](const halfedge& h) { return h.twin_halfedge().next_halfedge(); }).filter([=](const halfedge& h) { return h.id != first_id; });
@@ -172,7 +172,7 @@ public:
         {
             core::optional<halfedge> next = halfedge{ _owner, info().halfedge_id };
             const auto first_id = next->id;
-            return core::make_rust_range([=]() mutable -> core::optional<halfedge>
+            return core::make_generator([=]() mutable -> core::optional<halfedge>
             {
                 auto current = next;
                 next = next.map([](const halfedge& h) { return h.next_halfedge(); }).filter([=](const halfedge& h) { return h.id != first_id; });
@@ -184,7 +184,7 @@ public:
         {
             core::optional<halfedge> next = halfedge{ _owner, info().halfedge_id };
             const auto first_id = next->id;
-            return core::make_rust_range([=]() mutable -> core::optional<vertex>
+            return core::make_generator([=]() mutable -> core::optional<vertex>
             {
                 auto current = next;
                 next = next.map([](const halfedge& h) { return h.next_halfedge(); }).filter([=](const halfedge& h) { return h.id != first_id; });
@@ -196,7 +196,7 @@ public:
         {
             core::optional<halfedge> next = halfedge{ _owner, info().halfedge_id };
             const auto first_id = next->id;
-            return core::make_rust_range([=]() mutable -> core::optional<face>
+            return core::make_generator([=]() mutable -> core::optional<face>
             {
                 auto current = next;
                 do

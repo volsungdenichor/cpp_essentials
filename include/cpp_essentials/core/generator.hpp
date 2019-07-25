@@ -1,5 +1,5 @@
-#ifndef CPP_ESSENTIALS_CORE_RUST_RANGE_HPP_
-#define CPP_ESSENTIALS_CORE_RUST_RANGE_HPP_
+#ifndef CPP_ESSENTIALS_CORE_GENERATOR_HPP_
+#define CPP_ESSENTIALS_CORE_GENERATOR_HPP_
 
 #pragma once
 
@@ -12,7 +12,7 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-struct make_rust_range_fn
+struct make_generator_fn
 {
     template <class Func>
     auto operator ()(Func&& func) const
@@ -24,8 +24,8 @@ struct make_rust_range_fn
 
 } /* namespace detail */
 
-static constexpr detail::make_rust_range_fn make_rust_range = {};
+static constexpr detail::make_generator_fn make_generator = {};
 
 } /* namespace cpp_essentials::core */
 
-#endif /* CPP_ESSENTIALS_CORE_RUST_RANGE_HPP_ */
+#endif /* CPP_ESSENTIALS_CORE_GENERATOR_HPP_ */

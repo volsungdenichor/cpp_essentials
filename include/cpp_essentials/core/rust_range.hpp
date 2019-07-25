@@ -15,11 +15,10 @@ namespace detail
 struct make_rust_range_fn
 {
     template <class Func>
-    auto operator ()(Func func) const
+    auto operator ()(Func&& func) const
     {
         static_assert(core::is_optional_v<std::invoke_result_t<Func>>, "optional result required");
-        using iter = rust_iterator<Func>;
-        return core::make_range(iter{ std::move(func) }, iter{});
+        return core::make_default_ended_range(rust_iterator{ std::forward<Func>(func) });
     }
 };
 

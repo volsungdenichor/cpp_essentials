@@ -229,6 +229,15 @@ struct make_range_fn
     }
 };
 
+struct make_default_ended_range_fn
+{
+    template <class Iter, CONCEPT = cc::InputIterator<Iter>>
+    auto operator ()(Iter begin) const -> iterator_range<Iter>
+    {
+        return iterator_range<Iter>{ begin, Iter{} };
+    }
+};
+
 struct make_range_from_optional_fn
 {
     template <class T, CONCEPT = cc::Optional<T>>
@@ -243,6 +252,7 @@ struct make_range_from_optional_fn
 } /* namespace detail */
 
 static constexpr auto make_range = detail::make_range_fn{};
+static constexpr auto make_default_ended_range = detail::make_default_ended_range_fn{};
 static constexpr auto make_range_from_optional = detail::make_range_from_optional_fn{};
 
 } /* namespace cpp_essentials::core */

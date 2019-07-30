@@ -510,6 +510,9 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\generator.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\program_args.hpp">
+      <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

@@ -124,6 +124,15 @@ struct cot_fn
     }
 };
 
+struct asin_fn
+{
+    template <class T>
+    auto operator ()(T x) const
+    {
+        return std::asin(x);
+    }
+};
+
 struct acos_fn
 {
     template <class T>
@@ -201,6 +210,7 @@ static constexpr detail::sin_fn sin = {};
 static constexpr detail::cos_fn cos = {};
 static constexpr detail::tan_fn tan = {};
 static constexpr detail::cot_fn cot = {};
+static constexpr detail::asin_fn asin = {};
 static constexpr detail::acos_fn acos = {};
 static constexpr detail::atan2_fn atan2 = {};
 static constexpr detail::floor_fn floor = {};

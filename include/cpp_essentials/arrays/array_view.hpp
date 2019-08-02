@@ -78,6 +78,12 @@ public:
         : array_view(other.data(), other.size(), other.stride())
     {
     }
+
+    template <class U, CONCEPT = std::enable_if_t<std::is_const_v<T> && !std::is_const_v<U> && std::is_same_v<T, std::add_const_t<U>>>>
+    array_view(const array_view<U, D>& other)
+        : array_view(pointer(other.data()), other.size(), other.stride())
+    {
+    }
    
     void operator =(const value_type& value)
     {

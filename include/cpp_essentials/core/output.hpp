@@ -4,6 +4,7 @@
 #pragma once
 
 #include <iostream>
+#include <functional>
 #include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/algorithm.hpp>
 
@@ -13,21 +14,20 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-template <class Func>
-struct manip_t
+struct ostream_manipulator
 {
-    Func func;
+    using function_type = std::function<void(std::ostream&)>;
+    
+    function_type func;
+
+    friend std::ostream& operator <<(std::ostream& os, const ostream_manipulator& item)
+    {
+        item.func(os);
+        return os;
+    }
 };
 
-template <class Func>
-std::ostream& operator <<(std::ostream& os, const manip_t<Func>& item)
-{
-    item.func(os);
-    return os;
-}
-
-template <class Func>
-auto manip(Func func) -> manip_t<Func>
+inline auto make_ostream_manipulator(ostream_manipulator::function_type func) -> ostream_manipulator
 {
     return { std::move(func) };
 }
@@ -147,9 +147,9 @@ struct output_t<C, void>
 };
 
 template <class Iter, class C>
-auto delimit(Iter begin, Iter end, const C* separator)
+ostream_manipulator delimit(Iter begin, Iter end, const C* separator)
 {
-    return manip([=](auto& os)
+    return make_ostream_manipulator([=](std::ostream& os)
     {
         for (auto it = begin; it != end; ++it)
         {
@@ -189,7 +189,7 @@ struct delimit_fn
         < class Range
         , class C
         , CONCEPT = cc::InputRange<Range>>
-    auto operator ()(Range&& range, const C* separator) const
+    auto operator ()(Range&& range, const C* separator) const -> ostream_manipulator
     {
         return delimit(std::begin(range), std::end(range), separator);
     }
@@ -198,6 +198,9 @@ struct delimit_fn
 } /* namespace detail */
 
 using detail::make_output_iterator;
+
+using detail::ostream_manipulator;
+using detail::make_ostream_manipulator;
 
 static constexpr auto output = detail::output_fn{};
 static constexpr auto delimit = detail::delimit_fn{};

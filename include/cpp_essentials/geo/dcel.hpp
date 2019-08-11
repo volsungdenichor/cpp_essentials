@@ -296,6 +296,11 @@ public:
         build_face(vertices, nullptr);
     }
 
+    void add_boundary()
+    {
+        add_boundary(convex_hull());
+    }
+
     void divide_face(face_id face, vertex_id vertex)
     {
         auto& f = get_face(face);
@@ -324,6 +329,71 @@ public:
     halfedge_collection halfedges() const
     {
         return _halfedges | sq::map([this](const auto& info) { return halfedge{ this, info.id }; });
+    }
+
+    std::vector<vertex_id> convex_hull() const
+    {
+        std::vector<vertex_id> result;
+        
+        for (const halfedge& h : halfedges())
+        {
+            if (!h.incident_face())
+            {
+                result.push_back(h.vertex_from().id);
+            }
+        }
+
+        return convex_hull(result);
+    }
+
+    std::vector<vertex_id> convex_hull(std::vector<vertex_id> vertices) const
+    {
+        const auto get_point = [this](vertex_id id) -> const location_type&
+        {
+            return vertex{ this, id }.location();
+        };
+        
+        const auto is_ccw = [&](vertex_id p, vertex_id s, vertex_id e) -> bool
+        {
+            return orientation(get_point(p), get_point(s), get_point(e)) <= 0;
+        };
+
+        core::sort(vertices, [&](vertex_id lt, vertex_id rt) -> bool
+        {
+            const auto& lhs = get_point(lt);
+            const auto& rhs = get_point(rt);
+
+            return lhs.x() < rhs.x() || (lhs.x() == rhs.x() && lhs.y() < rhs.y());
+        });
+
+        std::vector<vertex_id> result(vertices.size() * 2);
+        core::copy(vertices, result.begin());
+
+        auto k = 0;
+
+        for (size_t i = 0; i < vertices.size(); ++i)
+        {
+            while (k >= 2 && is_ccw(vertices[i], result[k - 2], result[k - 1]))
+            {
+                k--;
+            }
+
+            result[k++] = vertices[i];
+        }
+
+        for (int i = (int)vertices.size() - 2, t = k + 1; i >= 0; --i)
+        {
+            while (k >= t && is_ccw(vertices[i], result[k - 2], result[k - 1]))
+            {
+                k--;
+            }
+
+            result[k++] = vertices[i];
+        }
+
+        result.resize(std::max(0, k - 1));
+
+        return result;
     }
 
 private:

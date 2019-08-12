@@ -13,7 +13,7 @@ template <class T>
 using any_range = iterator_range<detail::any_iterator<T>>;
 
 template <class T>
-using enumerable = any_range<T>;
+using iterable = any_range<T>;
 
 } /* cpp_essentials::core */
 

@@ -6,6 +6,7 @@
 #include <cpp_essentials/core/tagged_value.hpp>
 #include <cpp_essentials/core/map_utils.hpp>
 #include <cpp_essentials/geo/vertex_container.hpp>
+#include <cpp_essentials/geo/orientation.hpp>
 
 #include <cpp_essentials/core/any_range.hpp>
 #include <cpp_essentials/core/generator.hpp>
@@ -26,37 +27,37 @@ struct dcel_base
     struct vertex_info
     {
         vertex_id id;
-        halfedge_id halfedge_id;
+        halfedge_id halfedge;
 
         friend std::ostream& operator <<(std::ostream& os, const vertex_info& item)
         {
-            return os << "V[" << item.id << "] he=" << item.halfedge_id;
+            return os << "V[" << item.id << "] he=" << item.halfedge;
         }
     };
 
     struct face_info
     {
         face_id id;
-        halfedge_id halfedge_id;
+        halfedge_id halfedge;
 
         friend std::ostream& operator <<(std::ostream& os, const face_info& item)
         {
-            return os << "F[" << item.id << "] he=" << item.halfedge_id;
+            return os << "F[" << item.id << "] he=" << item.halfedge;
         }
     };
 
     struct halfedge_info
     {
         halfedge_id id;
-        vertex_id vertex_from_id;
-        halfedge_id twin_halfedge_id;
-        halfedge_id next_halfedge_id;
-        halfedge_id prev_halfedge_id;
-        face_id face_id;
+        vertex_id vertex_from;
+        halfedge_id twin_halfedge;
+        halfedge_id next_halfedge;
+        halfedge_id prev_halfedge;
+        face_id face;
 
         friend std::ostream& operator <<(std::ostream& os, const halfedge_info& item)
         {
-            return os << "HE[" << item.id << "] from_v=" << item.vertex_from_id << " twin_he=" << item.twin_halfedge_id << " " << item.prev_halfedge_id << ">" << item.id << ">" << item.next_halfedge_id << " F=" << item.face_id;
+            return os << "HE[" << item.id << "] from_v=" << item.vertex_from << " twin_he=" << item.twin_halfedge << " " << item.prev_halfedge << ">" << item.id << ">" << item.next_halfedge << " F=" << item.face;
         }
     };
 };
@@ -101,9 +102,9 @@ public:
     struct face;
     struct halfedge;
 
-    using vertex_collection = core::enumerable<vertex>;
-    using halfedge_collection = core::enumerable<halfedge>;
-    using face_collection = core::enumerable<face>;
+    using vertex_collection = core::iterable<vertex>;
+    using halfedge_collection = core::iterable<halfedge>;
+    using face_collection = core::iterable<face>;
 
     struct vertex
     {
@@ -117,7 +118,7 @@ public:
 
         halfedge_collection out_halfedges() const
         {
-            core::optional<halfedge> next = halfedge{ _owner, info().halfedge_id };
+            core::optional<halfedge> next = halfedge{ _owner, info().halfedge };
             const auto first_id = next->id;
             return core::make_generator([=]() mutable -> core::optional<halfedge>
             {
@@ -129,7 +130,7 @@ public:
 
         halfedge_collection in_halfedges() const
         {
-            core::optional<halfedge> next = halfedge{ _owner, info().halfedge_id };
+            core::optional<halfedge> next = halfedge{ _owner, info().halfedge };
             const auto first_id = next->id;
             return core::make_generator([=]() mutable -> core::optional<halfedge>
             {
@@ -141,7 +142,7 @@ public:
 
         face_collection incident_faces() const
         {
-            core::optional<halfedge> next = halfedge{ _owner, info().halfedge_id };
+            core::optional<halfedge> next = halfedge{ _owner, info().halfedge };
             const auto first_id = next->id;
             return core::make_generator([=]() mutable->core::optional<face>
             {
@@ -170,7 +171,7 @@ public:
 
         halfedge_collection outer_halfedges() const
         {
-            core::optional<halfedge> next = halfedge{ _owner, info().halfedge_id };
+            core::optional<halfedge> next = halfedge{ _owner, info().halfedge };
             const auto first_id = next->id;
             return core::make_generator([=]() mutable -> core::optional<halfedge>
             {
@@ -182,7 +183,7 @@ public:
 
         vertex_collection outer_vertices() const
         {
-            core::optional<halfedge> next = halfedge{ _owner, info().halfedge_id };
+            core::optional<halfedge> next = halfedge{ _owner, info().halfedge };
             const auto first_id = next->id;
             return core::make_generator([=]() mutable -> core::optional<vertex>
             {
@@ -194,7 +195,7 @@ public:
 
         face_collection adjacent_faces() const
         {
-            core::optional<halfedge> next = halfedge{ _owner, info().halfedge_id };
+            core::optional<halfedge> next = halfedge{ _owner, info().halfedge };
             const auto first_id = next->id;
             return core::make_generator([=]() mutable -> core::optional<face>
             {
@@ -232,27 +233,27 @@ public:
         core::optional<face> incident_face() const
         {
             const auto& i = info();
-            return core::eval_optional(i.face_id != face_id{ -1 }, [&]() { return face{ _owner, i.face_id }; });
+            return core::eval_optional(i.face != face_id{ -1 }, [&]() { return face{ _owner, i.face }; });
         }
 
         halfedge twin_halfedge() const
         {
-            return { _owner, info().twin_halfedge_id };
+            return { _owner, info().twin_halfedge };
         }
 
         halfedge next_halfedge() const
         {
-            return { _owner, info().next_halfedge_id };
+            return { _owner, info().next_halfedge };
         }
 
         halfedge prev_halfedge() const
         {
-            return { _owner, info().prev_halfedge_id };
+            return { _owner, info().prev_halfedge };
         }
 
         vertex vertex_from() const
         {
-            return { _owner, info().vertex_from_id };
+            return { _owner, info().vertex_from };
         }
 
         vertex vertex_to() const
@@ -308,7 +309,7 @@ public:
         circ_buffer<vertex_id> buffer{ vertices };
 
         build_face({ buffer[0], buffer[1], vertex }, &f);
-        f.halfedge_id = *find_halfedge(buffer[0], buffer[1]);
+        f.halfedge = *find_halfedge(buffer[0], buffer[1]);
 
         for (int i = 1; i < buffer.size(); ++i)
         {
@@ -335,12 +336,12 @@ private:
     std::vector<vertex_id> get_face_vertices(face_id face) const
     {
         std::vector<vertex_id> result;
-        auto halfedge = get_halfedge(get_face(face).halfedge_id);
+        auto halfedge = get_halfedge(get_face(face).halfedge);
         auto first_id = halfedge.id;
         do
         {
-            result.push_back(halfedge.vertex_from_id);
-            halfedge = get_halfedge(halfedge.next_halfedge_id);
+            result.push_back(halfedge.vertex_from);
+            halfedge = get_halfedge(halfedge.next_halfedge);
         } while (halfedge.id != first_id);
         return result;
     }
@@ -359,22 +360,22 @@ private:
             auto& h0 = get_halfedge(*find_halfedge(buffer[i + 0], buffer[i + 1]));
             auto& h1 = get_halfedge(*find_halfedge(buffer[i + 1], buffer[i + 2]));
 
-            if (auto& v = get_vertex(buffer[i]); v.halfedge_id == halfedge_id{ -1 })
+            if (auto& v = get_vertex(buffer[i]); v.halfedge == halfedge_id{ -1 })
             {
-                v.halfedge_id = h0.id;
+                v.halfedge = h0.id;
             }
 
-            h0.next_halfedge_id = h1.id;
-            h1.prev_halfedge_id = h0.id;
+            h0.next_halfedge = h1.id;
+            h1.prev_halfedge = h0.id;
 
             if (face)
             {
                 if (i == 0)
                 {
-                    face->halfedge_id = h0.id;
+                    face->halfedge = h0.id;
                 }
 
-                h0.face_id = face->id;
+                h0.face = face->id;
             }
         }
     }
@@ -399,11 +400,11 @@ private:
         auto& from_halfedge = new_halfedges.at(0);
         auto& to_halfedge = new_halfedges.at(1);
 
-        from_halfedge.vertex_from_id = from_vertex;
-        from_halfedge.twin_halfedge_id = to_halfedge.id;
+        from_halfedge.vertex_from = from_vertex;
+        from_halfedge.twin_halfedge = to_halfedge.id;
 
-        to_halfedge.vertex_from_id = to_vertex;
-        to_halfedge.twin_halfedge_id = from_halfedge.id;
+        to_halfedge.vertex_from = to_vertex;
+        to_halfedge.twin_halfedge = from_halfedge.id;
 
         _edges.emplace(std::pair{ from_vertex, to_vertex }, from_halfedge.id);
         _edges.emplace(std::pair{ to_vertex, from_vertex }, to_halfedge.id);

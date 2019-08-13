@@ -168,6 +168,8 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\arrays\slice_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\arrays\transformations.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\cc\cc.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\chrono\calendars.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\chrono\time.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\adaptor.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\algorithm.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\algorithm_ext.hpp" />
@@ -211,6 +213,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\join.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\map.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\map_utils.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\match.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\nil.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\numeric.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\optional.hpp" />

@@ -61,6 +61,9 @@
     <Filter Include="Header Files\cpp_essentials\kine">
       <UniqueIdentifier>{3adda15c-5687-4f8e-a38c-5c4d105af935}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\cpp_essentials\chrono">
+      <UniqueIdentifier>{91c1cbdb-1646-4a11-aca4-67891111807d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -512,6 +515,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\program_args.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\match.hpp">
+      <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\chrono\time.hpp">
+      <Filter>Header Files\cpp_essentials\chrono</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\chrono\calendars.hpp">
+      <Filter>Header Files\cpp_essentials\chrono</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

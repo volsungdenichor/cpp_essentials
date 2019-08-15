@@ -525,6 +525,9 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\chrono\calendars.hpp">
       <Filter>Header Files\cpp_essentials\chrono</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\triangulation.hpp">
+      <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

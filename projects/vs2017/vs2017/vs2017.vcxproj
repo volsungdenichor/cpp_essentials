@@ -264,6 +264,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\perpendicular.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\projection.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\triangle.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\triangulation.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\vertex_array.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\vertex_container.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\graphs\algorithm.hpp" />

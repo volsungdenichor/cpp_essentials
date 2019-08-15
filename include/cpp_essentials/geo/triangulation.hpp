@@ -6,6 +6,7 @@
 #include <set>
 #include <map>
 #include <vector>
+#include <cpp_essentials/core/container_helpers.hpp>
 #include <cpp_essentials/geo/dcel.hpp>
 #include <cpp_essentials/geo/bounding_box.hpp>
 #include <cpp_essentials/geo/center.hpp>

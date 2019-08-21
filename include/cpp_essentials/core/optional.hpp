@@ -7,6 +7,7 @@
 #include <iostream>
 #include <optional>
 
+#include <cpp_essentials/core/function_defs.hpp>
 #include <cpp_essentials/cc/cc.hpp>
 
 namespace cpp_essentials::core
@@ -130,9 +131,18 @@ public:
         return self().value();
     }
 
-    decltype(auto) value_or_throw(const std::string& message) const
+    decltype(auto) value_or_throw(std::string message) const
     {
-        return value_or_throw(std::runtime_error{ message });
+        return value_or_throw(std::runtime_error{ std::move(message) });
+    }
+
+    decltype(auto) value_or_throw(const function<std::string>& message_builder) const
+    {
+        if (!self().has_value())
+        {
+            throw std::runtime_error{ message_builder() };
+        }
+        return self().value();
     }
 
     template <class T>

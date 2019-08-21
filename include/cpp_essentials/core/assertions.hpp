@@ -6,7 +6,9 @@
 #include <stdexcept>
 #include <sstream>
 #include <string_view>
+
 #include <cpp_essentials/core/exceptions.hpp>
+#include <cpp_essentials/core/function_defs.hpp>
 
 namespace cpp_essentials::core
 {
@@ -53,6 +55,16 @@ struct ensures_fn
         }
 
         throw std::runtime_error{ std::move(message) };
+    }
+
+    void operator ()(bool condition, const function<std::string>& message_builder) const
+    {
+        if (condition)
+        {
+            return;
+        }
+
+        throw std::runtime_error{ message_builder() };
     }
 
     void operator ()(bool condition) const

@@ -153,6 +153,9 @@ using core::views::take_exactly;
 using core::views::drop_exactly;
 using core::views::take_back_exactly;
 using core::views::drop_back_exactly;
+using core::views::split_before;
+using core::views::split_after;
+using core::views::split;
 
 using core::views::stride;
 

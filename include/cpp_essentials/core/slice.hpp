@@ -197,6 +197,40 @@ struct drop_back_exactly_fn
     }
 };
 
+struct split_before_fn
+{
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range, cc::range_iter<Range> it) const
+    {
+        return make_range(std::begin(range), it);
+    }
+};
+
+struct split_after_fn
+{
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range, cc::range_iter<Range> it) const
+    {
+        return make_range(it, std::end(range));
+    }
+};
+
+struct split_fn
+{
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range, cc::range_iter<Range> it) const
+    {
+        auto[b, e] = make_range(range);
+        return std::make_pair(make_range(b, it), make_range(it, e));
+    }
+};
+
 } /* namespace detail */
 
 static constexpr auto slice = adaptable{ detail::slice_fn{} };
@@ -208,6 +242,9 @@ static constexpr auto take_exactly = adaptable{ detail::take_exactly_fn{} };
 static constexpr auto drop_exactly = adaptable{ detail::drop_exactly_fn{} };
 static constexpr auto take_back_exactly = adaptable{ detail::take_back_exactly_fn{} };
 static constexpr auto drop_back_exactly = adaptable{ detail::drop_back_exactly_fn{} };
+static constexpr auto split_before = adaptable{ detail::split_before_fn{} };
+static constexpr auto split_after = adaptable{ detail::split_after_fn{} };
+static constexpr auto split = adaptable{ detail::split_fn{} };
 
 } /* namespace cpp_essentials::core::views */
 

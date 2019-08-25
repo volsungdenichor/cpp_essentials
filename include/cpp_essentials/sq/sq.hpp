@@ -169,6 +169,8 @@ using core::views::take_back_until;
 using core::views::drop_back_until;
 using core::views::trim_while;
 using core::views::trim_until;
+using core::views::split_while;
+using core::views::split_until;
 
 using core::views::zip;
 using core::views::unzip;

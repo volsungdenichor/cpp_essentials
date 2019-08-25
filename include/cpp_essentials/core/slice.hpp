@@ -229,6 +229,15 @@ struct split_fn
         auto[b, e] = make_range(range);
         return std::make_pair(make_range(b, it), make_range(it, e));
     }
+
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range, std::ptrdiff_t count) const
+    {
+        auto[b, e] = make_range(range);
+        return (*this)(range, advance(b, e, count));
+    }
 };
 
 } /* namespace detail */

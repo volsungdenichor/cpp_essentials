@@ -97,6 +97,18 @@ struct return_optional_t : return_policy_base_t
     }
 };
 
+struct return_both_t : return_policy_base_t
+{
+    template <class Iter>
+    auto operator ()(Iter begin, Iter found, Iter end) const -> std::pair<iterator_range<Iter>, iterator_range<Iter>>
+    {
+        return {
+            make_range(begin, found),
+            make_range(found, end)
+        };
+    }
+};
+
 template <class T>
 using ReturnPolicy = cc::BaseOf<return_policy_base_t, T>;
 
@@ -110,6 +122,7 @@ using return_begin_next = detail::return_begin_next_t;
 using return_next_end = detail::return_next_end_t;
 using return_value = detail::return_value_t;
 using return_optional = detail::return_optional_t;
+using return_both = detail::return_both_t;
 
 using default_return_policy_t = detail::return_found_end_t;
 

@@ -195,6 +195,36 @@ struct trim_until_fn
     }
 };
 
+struct split_while_fn
+{
+    template
+        < class Range
+        , class UnaryPred
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+    auto operator ()(Range&& range, UnaryPred&& pred) const
+    {
+        auto[b, e] = make_range(range);
+        auto m = advance_while(b, e, make_func(pred));
+        return std::make_pair(make_range(b, m), make_range(m, e));
+    }
+};
+
+struct split_until_fn
+{
+    template
+        < class Range
+        , class UnaryPred
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+    auto operator ()(Range&& range, UnaryPred&& pred) const
+    {
+        auto[b, e] = make_range(range);
+        auto m = advance_while(b, e, logical_negation(make_func(pred)));
+        return std::make_pair(make_range(b, m), make_range(m, e));
+    }
+};
+
 } /* namespace detail */
 
 static constexpr auto take_while = adaptable{ detail::take_while_fn{} };
@@ -209,6 +239,9 @@ static constexpr auto drop_back_until = adaptable{ detail::drop_back_until_fn{} 
 
 static constexpr auto trim_while = adaptable{ detail::trim_while_fn{} };
 static constexpr auto trim_until = adaptable{ detail::trim_until_fn{} };
+
+static constexpr auto split_while = adaptable{ detail::split_while_fn{} };
+static constexpr auto split_until = adaptable{ detail::split_until_fn{} };
 
 } /* namespace cpp_essentials::core::views */
 

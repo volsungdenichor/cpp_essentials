@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <iomanip>
+
 #include <cpp_essentials/geo/matrix.hpp>
 #include <cpp_essentials/core/algorithm.hpp>
 
@@ -115,6 +117,12 @@ struct rgb_color
     geo::vector<byte, 3> data;
 };
 
+inline std::ostream& operator <<(std::ostream& os, const rgb_color& item)
+{
+    return os << core::delimit(core::views::map(item.data._data, core::cast<int>), ",");
+}
+
+
 
 
 inline bool operator ==(const rgb_color& lhs, const rgb_color& rhs)
@@ -152,32 +160,32 @@ inline rgb_color& operator -=(rgb_color& lhs, const rgb_proxy& rhs)
 }
 
 
-template <typename T, CONCEPT = cc::Multiply<byte, T>>
+template <typename T, CONCEPT = cc::Arithmetic<T>>
 rgb_proxy operator *(const rgb_color& lhs, T rhs)
 {
     return static_cast<rgb_proxy>(lhs) * rhs;
 }
 
-template <typename T, CONCEPT = cc::Multiply<T, byte>>
+template <typename T, CONCEPT = cc::Arithmetic<T>>
 rgb_proxy operator *(T lhs, const rgb_color& rhs)
 {
     return rhs * lhs;
 }
 
-template <typename T, CONCEPT = cc::Multiply<T, byte>>
+template <typename T, CONCEPT = cc::Arithmetic<T>>
 rgb_color& operator *=(rgb_color& lhs, T rhs)
 {
     lhs = lhs * rhs;
     return lhs;
 }
 
-template <typename T, CONCEPT = cc::Divide<byte, T>>
+template <typename T, CONCEPT = cc::Arithmetic<T>>
 rgb_proxy operator /(const rgb_color& lhs, T rhs)
 {
     return static_cast<rgb_proxy>(lhs) / rhs;
 }
 
-template <typename T, CONCEPT = cc::Divide<byte, T>>
+template <typename T, CONCEPT = cc::Arithmetic<T>>
 rgb_color& operator /=(rgb_color& lhs, T rhs)
 {
     lhs = lhs / rhs;
@@ -273,6 +281,10 @@ struct rgba_color
     geo::vector<byte, 4> data;
 };
 
+inline std::ostream& operator <<(std::ostream& os, const rgba_color& item)
+{
+    return os << core::delimit(core::views::map(item.data._data, core::cast<int>), ",");
+}
 
 inline bool operator ==(const rgba_color& lhs, const rgba_color& rhs)
 {

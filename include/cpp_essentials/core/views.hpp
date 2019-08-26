@@ -17,12 +17,18 @@ using span = iterator_range<T*>;
 template <class T>
 using const_span = iterator_range<const T*>;
 
+template <class T>
+using cspan = const_span<T>;
+
 
 template <class Container>
-using mut_view = iterator_range<cc::range_iter<Container>>;
+using view = iterator_range<cc::range_iter<Container>>;
 
 template <class Container>
-using view = iterator_range<cc::range_iter<const Container>>;
+using const_view = iterator_range<cc::range_iter<const Container>>;
+
+template <class Container>
+using cview = const_view<Container>;
 
 } /* namespace cpp_essentials/core */
 

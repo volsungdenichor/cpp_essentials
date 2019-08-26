@@ -14,17 +14,11 @@
 namespace cpp_essentials::core
 {
 
-using cstring_mut_view = span<char>;
-using cstring_view = const_span<char>;
+using cstr_view = span<char>;
+using cstr_cview = cspan<char>;
 
-using string_mut_view = mut_view<std::string>;
 using string_view = view<std::string>;
-
-inline std::ostream& operator <<(std::ostream& os, const string_mut_view& item)
-{
-    std::copy(item.begin(), item.end(), std::ostream_iterator<char>{ os });
-    return os;
-}
+using string_cview = cview<std::string>;
 
 inline std::ostream& operator <<(std::ostream& os, const string_view& item)
 {
@@ -32,13 +26,19 @@ inline std::ostream& operator <<(std::ostream& os, const string_view& item)
     return os;
 }
 
-inline std::ostream& operator <<(std::ostream& os, const cstring_mut_view& item)
+inline std::ostream& operator <<(std::ostream& os, const string_cview& item)
 {
     std::copy(item.begin(), item.end(), std::ostream_iterator<char>{ os });
     return os;
 }
 
-inline std::ostream& operator <<(std::ostream& os, const cstring_view& item)
+inline std::ostream& operator <<(std::ostream& os, const cstr_view& item)
+{
+    std::copy(item.begin(), item.end(), std::ostream_iterator<char>{ os });
+    return os;
+}
+
+inline std::ostream& operator <<(std::ostream& os, const cstr_cview& item)
 {
     std::copy(item.begin(), item.end(), std::ostream_iterator<char>{ os });
     return os;
@@ -72,53 +72,53 @@ struct trim_fn
 
 struct c_str_fn
 {
-    cstring_mut_view operator ()(char* text) const
+    cstr_view operator ()(char* text) const
     {
         EXPECTS(text != nullptr);
 
         return { text, text + std::strlen(text) };
     }
 
-    cstring_view operator ()(const char* text) const
+    cstr_cview operator ()(const char* text) const
     {
         EXPECTS(text != nullptr);
 
         return { text, text + std::strlen(text) };
     }
 
-    cstring_mut_view operator ()(cstring_mut_view text) const
+    cstr_view operator ()(cstr_view text) const
     {
         return text;
     }
 
-    cstring_view operator ()(cstring_view text) const
+    cstr_cview operator ()(cstr_cview text) const
     {
         return text;
     }
 
-    cstring_mut_view operator ()(std::string& text) const
+    cstr_view operator ()(std::string& text) const
     {
-        return { cstring_mut_view::iterator(&text[0]), cstring_mut_view::size_type(text.size()) };
+        return { cstr_view::iterator(&text[0]), cstr_view::size_type(text.size()) };
     }
 
-    cstring_view operator ()(const std::string& text) const
+    cstr_cview operator ()(const std::string& text) const
     {
-        return { cstring_view::iterator(&text[0]), cstring_mut_view::size_type(text.size()) };
+        return { cstr_cview::iterator(&text[0]), cstr_view::size_type(text.size()) };
     }
 
-    cstring_mut_view operator ()(string_mut_view text) const
+    cstr_view operator ()(string_view text) const
     {
-        return { cstring_mut_view::iterator(&text[0]), cstring_mut_view::size_type(text.size()) };
+        return { cstr_view::iterator(&text[0]), cstr_view::size_type(text.size()) };
     }
 
-    cstring_view operator ()(string_view text) const
+    cstr_cview operator ()(string_cview text) const
     {
-        return { cstring_view::iterator(&text[0]), cstring_view::size_type(text.size()) };
+        return { cstr_cview::iterator(&text[0]), cstr_cview::size_type(text.size()) };
     }
 
-    cstring_view operator ()(std::string_view text) const
+    cstr_cview operator ()(std::string_view text) const
     {
-        return { cstring_view::iterator(&text[0]), cstring_view::size_type(text.size()) };
+        return { cstr_cview::iterator(&text[0]), cstr_cview::size_type(text.size()) };
     }
 };
 
@@ -130,7 +130,7 @@ static constexpr auto c_str = detail::c_str_fn{};
 namespace literals
 {
 
-inline cstring_view operator ""_s(const char* text, size_t length)
+inline cstr_cview operator ""_s(const char* text, size_t length)
 {
     return { text, text + length };
 }
@@ -143,9 +143,9 @@ namespace std
 {
 
 template <>
-struct hash<::cpp_essentials::core::cstring_view>
+struct hash<::cpp_essentials::core::cstr_cview>
 {
-    using argument_type = ::cpp_essentials::core::cstring_view;
+    using argument_type = ::cpp_essentials::core::cstr_cview;
     using result_type = size_t;
 
     result_type operator ()(const argument_type& item) const
@@ -155,9 +155,21 @@ struct hash<::cpp_essentials::core::cstring_view>
 };
 
 template <>
-struct hash<::cpp_essentials::core::cstring_mut_view>
+struct hash<::cpp_essentials::core::cstr_view>
 {
-    using argument_type = ::cpp_essentials::core::cstring_mut_view;
+    using argument_type = ::cpp_essentials::core::cstr_view;
+    using result_type = size_t;
+
+    result_type operator ()(const argument_type& item) const
+    {
+        return ::cpp_essentials::core::string_hash(item.begin(), item.end());
+    }
+};
+
+template <>
+struct hash<::cpp_essentials::core::string_cview>
+{
+    using argument_type = ::cpp_essentials::core::string_cview;
     using result_type = size_t;
 
     result_type operator ()(const argument_type& item) const
@@ -170,18 +182,6 @@ template <>
 struct hash<::cpp_essentials::core::string_view>
 {
     using argument_type = ::cpp_essentials::core::string_view;
-    using result_type = size_t;
-
-    result_type operator ()(const argument_type& item) const
-    {
-        return ::cpp_essentials::core::string_hash(item.begin(), item.end());
-    }
-};
-
-template <>
-struct hash<::cpp_essentials::core::string_mut_view>
-{
-    using argument_type = ::cpp_essentials::core::string_mut_view;
     using result_type = size_t;
 
     result_type operator ()(const argument_type& item) const

@@ -63,9 +63,9 @@ struct format_guard
     std::ios::fmtflags _format;
 };
 
-using key_value_func = std::function<void(cstring_view, cstring_view)>;
+using key_value_func = std::function<void(cstr_cview, cstr_cview)>;
 
-void parse_term(cstring_view text, key_value_func func)
+void parse_term(cstr_cview text, key_value_func func)
 {
     if (text.empty())
     {
@@ -85,7 +85,7 @@ void parse_term(cstring_view text, key_value_func func)
     }
 }
 
-void parse_format(cstring_view text, key_value_func func)
+void parse_format(cstr_cview text, key_value_func func)
 {
     auto prev = text.begin();
 
@@ -110,7 +110,7 @@ struct format_modifier_handler
     {
     }
 
-    void format(cstring_view value) const
+    void format(cstr_cview value) const
     {
         const auto is_placeholder = [](char ch) { return ch == '0'; };
         const auto is_dot = [](char ch) { return ch == '.'; };
@@ -144,10 +144,10 @@ struct format_modifier_handler
         }
     }
 
-    void operator ()(cstring_view key, cstring_view value) const
+    void operator ()(cstr_cview key, cstr_cview value) const
     {
         using namespace literals;
-        if (key == "format"_s)
+        if (key == "format"_s || key == "fmt"_s)
         {
             format(value);
         }
@@ -223,7 +223,7 @@ struct format_modifier_handler
 };
 
 template <class T>
-void write_value(std::ostream& os, cstring_view fmt, const T& value)
+void write_value(std::ostream& os, cstr_cview fmt, const T& value)
 {
     const auto save_format = format_guard{ os };
     (void)save_format;
@@ -238,7 +238,7 @@ void write_value(std::ostream& os, cstring_view fmt, const T& value)
 
 
 template <class Arg>
-void write_argument(std::ostream& os, cstring_view fmt, int index, const Arg& arg)
+void write_argument(std::ostream& os, cstr_cview fmt, int index, const Arg& arg)
 {
     if (index == 0)
     {
@@ -251,7 +251,7 @@ void write_argument(std::ostream& os, cstring_view fmt, int index, const Arg& ar
 }
 
 template <class Arg, class... Args>
-void write_argument(std::ostream& os, cstring_view fmt, int index, const Arg& arg, const Args&... args)
+void write_argument(std::ostream& os, cstr_cview fmt, int index, const Arg& arg, const Args&... args)
 {
     if (index == 0)
     {
@@ -263,12 +263,12 @@ void write_argument(std::ostream& os, cstring_view fmt, int index, const Arg& ar
     }
 }
 
-inline void write_argument(std::ostream& /*os*/, cstring_view /*fmt*/, int /*index*/)
+inline void write_argument(std::ostream& /*os*/, cstr_cview /*fmt*/, int /*index*/)
 {
     THROW(format_error{ "argument index out of range" });
 }
 
-inline std::tuple<int, cstring_view> parse_field(cstring_view fmt)
+inline std::tuple<int, cstr_cview> parse_field(cstr_cview fmt)
 {
     auto digits_fmt = views::take_while(views::drop_while(fmt, core::is_blank), core::is_digit);
 
@@ -280,7 +280,7 @@ inline std::tuple<int, cstring_view> parse_field(cstring_view fmt)
 }
 
 template <class... Args>
-void handle_item(std::ostream& os, int argument_index, cstring_view fmt, const Args&... args)
+void handle_item(std::ostream& os, int argument_index, cstr_cview fmt, const Args&... args)
 {
     auto[field_index, field_fmt] = parse_field(fmt);
 
@@ -293,7 +293,7 @@ void handle_item(std::ostream& os, int argument_index, cstring_view fmt, const A
 }
 
 template <class... Args>
-void do_format(std::ostream& os, cstring_view fmt, const Args&... args)
+void do_format(std::ostream& os, cstr_cview fmt, const Args&... args)
 {
     int argument_index = 0;
 
@@ -315,7 +315,7 @@ void do_format(std::ostream& os, cstring_view fmt, const Args&... args)
                     THROW(format_error{ "unclosed bracket" });
                 }
 
-                handle_item(os, argument_index++, cstring_view(it + 1, e), args...);
+                handle_item(os, argument_index++, cstr_cview(it + 1, e), args...);
 
                 it = e;
             }

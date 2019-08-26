@@ -65,10 +65,10 @@ struct dcel_base
 template <class T>
 struct circ_buffer
 {
-    core::view<std::vector<T>> _range;
+    core::const_view<std::vector<T>> _range;
     int _size;
 
-    circ_buffer(core::view<std::vector<T>> range)
+    circ_buffer(core::const_view<std::vector<T>> range)
         : _range{ range }
         , _size{ (int)_range.size() }
     {
@@ -463,7 +463,7 @@ private:
         return _halfedges.back();
     }
 
-    core::mut_view<std::vector<halfedge_info>> add_halfedges(int count)
+    core::view<std::vector<halfedge_info>> add_halfedges(int count)
     {
         for (int i = 0; i < count; ++i)
         {

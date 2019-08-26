@@ -112,7 +112,7 @@ inline auto sobel(orientation dir) -> kernel_convolution_t<1>
         { -1, 0, +1 },
     };
 
-    return { { arrays::rotate(kernel_type::view_type(arrays::from(tab)), int(dir)) } };
+    return { { arrays::rotate(kernel_type::const_view_type(arrays::from(tab)), int(dir)) } };
 }
 
 inline auto sobel() -> kernel_convolution_t<2>
@@ -135,7 +135,7 @@ inline auto prewitt(orientation dir) -> kernel_convolution_t<1>
         { -1, 0, +1 },
     };
 
-    return { { arrays::rotate(kernel_type::view_type(arrays::from(tab)), int(dir)) } };
+    return { { arrays::rotate(kernel_type::const_view_type(arrays::from(tab)), int(dir)) } };
 }
 
 inline auto prewitt() -> kernel_convolution_t<2>
@@ -157,7 +157,7 @@ inline auto cross(orientation dir) -> kernel_convolution_t<1>
         {  0, -1 },
     };
 
-    return { { arrays::rotate(kernel_type::view_type(arrays::from(tab)), int(dir)) } };
+    return { { arrays::rotate(kernel_type::const_view_type(arrays::from(tab)), int(dir)) } };
 }
 
 inline auto cross() -> kernel_convolution_t<2>

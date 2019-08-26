@@ -19,7 +19,7 @@ class drawing_context
 public:
     using color_type = Color;
 
-    drawing_context(typename arrays::array<color_type, 2>::mut_view_type image)
+    drawing_context(typename arrays::array<color_type, 2>::view_type image)
         : _image(image)
         , _bounds(_image.bounds())
     {
@@ -308,18 +308,18 @@ private:
         }
     }
 
-    typename arrays::array<color_type, 2>::mut_view_type _image;
+    typename arrays::array<color_type, 2>::view_type _image;
     typename arrays::array<color_type, 2>::bounds_type _bounds;
 };
 
 struct make_drawing_context_fn
 {
-    auto operator ()(rgb_image::mut_view_type view) const -> drawing_context<gx::rgb_color>
+    auto operator ()(rgb_image::view_type view) const -> drawing_context<gx::rgb_color>
     {
         return { view };
     }
 
-    auto operator ()(byte_image::mut_view_type view) const -> drawing_context<gx::byte>
+    auto operator ()(byte_image::view_type view) const -> drawing_context<gx::byte>
     {
         return { view };
     }

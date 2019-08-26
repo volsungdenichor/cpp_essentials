@@ -23,7 +23,7 @@ size_type get_valid_size(size_type image_size, size_type kernel_size)
 template <class Tag, size_t D>
 struct convolution_t
 {
-    byte operator ()(byte_image::view_type region) const;
+    byte operator ()(byte_image::const_view_type region) const;
     size_type size() const;
 };
 
@@ -40,7 +40,7 @@ struct convolution_t<dilation_tag, 1>
     {
     }
 
-    byte operator ()(byte_image::view_type region) const
+    byte operator ()(byte_image::const_view_type region) const
     {
         auto result = core::max_value(core::make_range(region) * core::make_range(_mask));
         return result / 256;
@@ -64,7 +64,7 @@ struct convolution_t<erosion_tag, 1>
     {
     }
 
-    byte operator ()(byte_image::view_type region) const
+    byte operator ()(byte_image::const_view_type region) const
     {
         auto result = core::max_value((255 - core::make_range(region)) * core::make_range(_mask));
         return 255 - (result / 256);
@@ -89,7 +89,7 @@ struct convolution_t<percentile_tag, 1>
     {
     }
 
-    byte operator ()(byte_image::view_type region) const
+    byte operator ()(byte_image::const_view_type region) const
     {
         _vect.clear();
         core::push_back(_vect, core::make_range(region) * core::make_range(_mask) / 256);
@@ -120,7 +120,7 @@ struct convolution_t<kernel_tag, D>
         core::move(kernels, _kernels.begin());
     }
 
-    byte operator ()(byte_image::view_type region) const
+    byte operator ()(byte_image::const_view_type region) const
     {
         geo::vector<float, D> vect;
 
@@ -150,7 +150,7 @@ struct convolution_t<kernel_tag, 1>
     {
     }
 
-    byte operator ()(byte_image::view_type region) const
+    byte operator ()(byte_image::const_view_type region) const
     {
         auto sum = core::inner_product(region, _kernel, 0.F);
 

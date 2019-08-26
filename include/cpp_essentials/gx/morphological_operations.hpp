@@ -92,7 +92,7 @@ inline auto median(byte_mask mask) -> percentile_convolution_t
 
 
 template <size_t D, class Tag>
-void convolve(byte_image::view_type source, byte_image::mut_view_type dest, const convolution_t<Tag, D>& convolution)
+void convolve(byte_image::const_view_type source, byte_image::view_type dest, const convolution_t<Tag, D>& convolution)
 {
     auto kernel_size = convolution.size();
 
@@ -105,7 +105,7 @@ void convolve(byte_image::view_type source, byte_image::mut_view_type dest, cons
 }
 
 template <size_t D, class Tag>
-void convolve(rgb_image::view_type source, rgb_image::mut_view_type dest, const convolution_t<Tag, D>& convolution)
+void convolve(rgb_image::const_view_type source, rgb_image::view_type dest, const convolution_t<Tag, D>& convolution)
 {
     for (size_t i = 0; i < 3; ++i)
     {

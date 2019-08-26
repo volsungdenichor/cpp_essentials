@@ -12,10 +12,10 @@ namespace cpp_essentials::core
 {
 
 template <class T>
-using mut_span = iterator_range<T*>;
+using span = iterator_range<T*>;
 
 template <class T>
-using span = iterator_range<const T*>;
+using const_span = iterator_range<const T*>;
 
 
 template <class Container>

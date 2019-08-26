@@ -14,8 +14,8 @@
 namespace cpp_essentials::core
 {
 
-using cstring_mut_view = mut_span<char>;
-using cstring_view = span<char>;
+using cstring_mut_view = span<char>;
+using cstring_view = const_span<char>;
 
 using string_mut_view = mut_view<std::string>;
 using string_view = view<std::string>;

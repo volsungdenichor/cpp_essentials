@@ -9,6 +9,7 @@
 #include <cpp_essentials/core/algorithm.hpp>
 
 #include <cpp_essentials/gx/core.hpp>
+#include <cpp_essentials/core/map.hpp>
 
 namespace cpp_essentials::gx
 {

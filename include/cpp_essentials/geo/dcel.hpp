@@ -278,6 +278,16 @@ public:
         }
     };
 
+    dcel()
+        : _vertices{}
+        , _locations{}
+        , _faces{}
+        , _halfedges{}
+        , _edges{}
+        , _boundary_halfedge{ -1 }
+    {
+    }
+
     vertex_id add_vertex(const location_type& location)
     {
         vertex_info& v = new_vertex();
@@ -290,11 +300,6 @@ public:
         face_info& f = new_face();
         build_face(vertices, &f);
         return f.id;
-    }
-
-    void add_boundary(const std::vector<vertex_id>& vertices)
-    {
-        build_face(vertices, nullptr);
     }
 
     void add_boundary()
@@ -330,9 +335,28 @@ public:
     halfedge_collection halfedges() const
     {
         return _halfedges | sq::map([this](const auto& info) { return halfedge{ this, info.id }; });
-    }    
+    }
+
+    halfedge_collection outer_halfedges() const
+    {
+        EXPECTS(_boundary_halfedge != halfedge_id{ -1 }, "boundary not defined");
+        core::optional<halfedge> next = halfedge{ this, _boundary_halfedge };
+        const auto first_id = next->id;
+        return core::make_generator([=]() mutable -> core::optional<halfedge>
+        {
+            auto current = next;
+            next = next.map([](const halfedge& h) { return h.next_halfedge(); }).filter([=](const halfedge& h) { return h.id != first_id; });
+            return current;
+        });
+    }
+
 
 private:
+    void add_boundary(const std::vector<vertex_id>& vertices)
+    {
+        _boundary_halfedge = build_face(vertices, nullptr);
+    }
+
     std::vector<vertex_id> get_face_vertices(face_id face) const
     {
         std::vector<vertex_id> result;
@@ -346,7 +370,7 @@ private:
         return result;
     }
 
-    void build_face(const std::vector<vertex_id>& vertices, face_info* face)
+    halfedge_id build_face(const std::vector<vertex_id>& vertices, face_info* face)
     {
         circ_buffer<vertex_id> buffer{ vertices };
 
@@ -378,6 +402,8 @@ private:
                 h0.face = face->id;
             }
         }
+
+        return _edges.at(std::pair{ vertices.at(0), vertices.at(1) });
     }
 
     core::optional<halfedge_id> find_halfedge(vertex_id from, vertex_id to)
@@ -554,6 +580,7 @@ private:
     std::vector<face_info> _faces;
     std::vector<halfedge_info> _halfedges;
     std::map<std::pair<vertex_id, vertex_id>, halfedge_id> _edges;
+    halfedge_id _boundary_halfedge;
 };
 
 } /* namespace detail */

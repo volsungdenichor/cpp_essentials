@@ -181,6 +181,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\chunk.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\containers.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\container_helpers.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\debug_utils.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\any_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\chain_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\chunk_iterator.hpp" />

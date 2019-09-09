@@ -9,6 +9,7 @@
 #include <cpp_essentials/core/reverse.hpp>
 #include <cpp_essentials/core/chain.hpp>
 #include <cpp_essentials/core/chunk.hpp>
+#include <cpp_essentials/core/container_helpers.hpp>
 #include <cpp_essentials/core/containers.hpp>
 #include <cpp_essentials/core/elementwise.hpp>
 #include <cpp_essentials/core/enumerate.hpp>
@@ -50,7 +51,11 @@ using core::join;
 
 using core::group_by;
 
+using core::map_at;
+using core::map_try_get;
+using core::map_get;
 using core::at;
+using core::try_at;
 
 PULL_ADAPTABLE(front);
 PULL_ADAPTABLE(front_or_throw);

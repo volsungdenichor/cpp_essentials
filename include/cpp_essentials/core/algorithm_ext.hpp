@@ -5,10 +5,12 @@
 
 #include <algorithm>
 #include <numeric>
+#include <functional>
 
 #include <cpp_essentials/cc/cc.hpp>
 #include <cpp_essentials/core/optional.hpp>
 #include <cpp_essentials/core/return_policy.hpp>
+#include <cpp_essentials/core/function_defs.hpp>
 #include <cpp_essentials/core/functors.hpp>
 
 namespace cpp_essentials::core
@@ -89,6 +91,20 @@ struct front_or_throw_fn
     decltype(auto) operator ()(Range&& range, const std::string& message) const
     {
         return (*this)(range, std::runtime_error{ message });
+    }
+
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    decltype(auto) operator ()(Range&& range, const function<std::string>& message_builder) const
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+        if (!is_not_empty(b, e))
+        {
+            throw std::runtime_error{ message_builder() };
+        }
+        return *b;
     }
 };
 
@@ -185,6 +201,22 @@ struct single_or_throw_fn
     decltype(auto) operator ()(Range&& range, const std::string& message) const
     {
         return (*this)(range, std::runtime_error{ message });
+    }
+
+    template
+        < class Range
+        , class Exception
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::BaseOf<std::exception, Exception>>
+    decltype(auto) operator ()(Range&& range, const function<std::string>& message_builder) const
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+        if (!is_single(b, e))
+        {
+            throw std::runtime_error{ message_builder() };
+        }
+        return *b;
     }
 };
 

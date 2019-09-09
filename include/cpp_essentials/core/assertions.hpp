@@ -16,7 +16,7 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-inline void not_implemented(std::string_view file, int line, std::string_view function, std::string_view message = {})
+inline void not_implemented(const code_location& loc, std::string_view message = {})
 {
     std::stringstream ss;
 
@@ -25,10 +25,10 @@ inline void not_implemented(std::string_view file, int line, std::string_view fu
 
     std::string what = ss.str();
 
-    detail::throw_exception(std::runtime_error { what }, file, line, function);
+    detail::throw_exception(std::runtime_error { what }, loc);
 }
 
-inline void handle(bool condition, std::string_view expression, std::string_view file, int line, std::string_view function, std::string_view message = {})
+inline void handle(bool condition, std::string_view expression, const code_location& loc, std::string_view message = {})
 {
     if (condition)
     {
@@ -42,7 +42,7 @@ inline void handle(bool condition, std::string_view expression, std::string_view
 
     std::string what = ss.str();
 
-    detail::throw_exception(std::runtime_error { what }, file, line, function);
+    detail::throw_exception(std::runtime_error { what }, loc);
 }
 
 struct ensures_fn
@@ -80,22 +80,9 @@ static constexpr detail::ensures_fn ensures = {};
 
 } /* namespace cpp_essentials::core */
 
-#if defined(__MINGW32__)
-#  define NOT_IMPLEMENTED(...) ::cpp_essentials::core::detail::not_implemented(__FILE__, __LINE__, __FUNCTION__, ##__VA_ARGS__)
-#  define EXPECTS(COND, ...) ::cpp_essentials::core::detail::handle(COND, #COND, __FILE__, __LINE__, __FUNCTION__, ##__VA_ARGS__)
-#  define ENSURES(COND, ...) ::cpp_essentials::core::detail::handle(COND, #COND, __FILE__, __LINE__, __FUNCTION__, ##__VA_ARGS__)
-#elif defined(__GNUC__)
-#  define NOT_IMPLEMENTED(...) ::cpp_essentials::core::detail::not_implemented(__FILE__, __LINE__, __FUNCTION__, ##__VA_ARGS__)
-#  define EXPECTS(COND, ...) ::cpp_essentials::core::detail::handle(COND, #COND, __FILE__, __LINE__, __FUNCTION__, ##__VA_ARGS__)
-#  define ENSURES(COND, ...) ::cpp_essentials::core::detail::handle(COND, #COND, __FILE__, __LINE__, __FUNCTION__, ##__VA_ARGS__)
-#elif defined(_MSC_VER)
-#  define NOT_IMPLEMENTED(...) ::cpp_essentials::core::detail::not_implemented(__FILE__, __LINE__, __FUNCTION__, __VA_ARGS__)
-#  define EXPECTS(COND, ...) ::cpp_essentials::core::detail::handle(COND, #COND, __FILE__, __LINE__, __FUNCTION__, __VA_ARGS__)
-#  define ENSURES(COND, ...) ::cpp_essentials::core::detail::handle(COND, #COND, __FILE__, __LINE__, __FUNCTION__, __VA_ARGS__)
-#elif defined(__clang__)
-#  define NOT_IMPLEMENTED(...) ::cpp_essentials::core::detail::not_implemented(__FILE__, __LINE__, __FUNCSIG__, __VA_ARGS__)
-#  define EXPECTS(COND, ...) ::cpp_essentials::core::detail::handle(COND, #COND, __FILE__, __LINE__, __FUNCSIG__, __VA_ARGS__)
-#  define ENSURES(COND, ...) ::cpp_essentials::core::detail::handle(COND, #COND, __FILE__, __LINE__, __FUNCSIG__, __VA_ARGS__)
-#endif
+
+#define NOT_IMPLEMENTED(...) ::cpp_essentials::core::detail::not_implemented(CODE_LOCATION, __VA_ARGS__)
+#define EXPECTS(COND, ...) ::cpp_essentials::core::detail::handle(COND, #COND, CODE_LOCATION, __VA_ARGS__)
+#define ENSURES(COND, ...) ::cpp_essentials::core::detail::handle(COND, #COND, CODE_LOCATION, __VA_ARGS__)
 
 #endif /* CPP_ESSENTIALS_CORE_ASSERTIONS_HPP */

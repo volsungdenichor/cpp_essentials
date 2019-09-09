@@ -528,6 +528,9 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\triangulation.hpp">
       <Filter>Header Files\cpp_essentials\geo</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\debug_utils.hpp">
+      <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

@@ -4,6 +4,7 @@
 #pragma once
 
 #include <string_view>
+#include <sstream>
 #include <stdexcept>
 
 namespace cpp_essentials::core
@@ -30,13 +31,24 @@ decltype(auto) try_invoke(Func&& func, const code_location& loc)
     }
     catch (std::exception& ex)
     {
-        throw std::runtime_error{ core::str(ex.what(), " [", loc, "]") };
+        std::stringstream ss;
+        ss << ex.what() << " [" << loc << "]";
+        throw std::runtime_error{ ss.str() };
     }
 }
 
 } /* namespace cpp_essentials::core */
 
-#define CODE_LOCATION ::cpp_essentials::core::code_location{ __FILE__, __LINE__, __FUNCTION__ }
+#if defined(__MINGW32__)
+# define CODE_LOCATION ::cpp_essentials::core::code_location{ __FILE__, __LINE__, __FUNCTION__ }
+#elif defined(__GNUC__)
+# define CODE_LOCATION ::cpp_essentials::core::code_location{ __FILE__, __LINE__, __FUNCTION__ }
+#elif defined(_MSC_VER)
+# define CODE_LOCATION ::cpp_essentials::core::code_location{ __FILE__, __LINE__, __FUNCTION__ }
+#elif defined(__clang__)
+# define CODE_LOCATION ::cpp_essentials::core::code_location{ __FILE__, __LINE__, __FUNCSIG__ }
+#endif
+
 #define TRY_INVOKE(...) ::cpp_essentials::core::try_invoke([&]() -> decltype(auto) { return (__VA_ARGS__); }, CODE_LOCATION)
 
 #endif /* CPP_ESSENTIALS_CORE_DEBUG_UTILS_HPP_ */

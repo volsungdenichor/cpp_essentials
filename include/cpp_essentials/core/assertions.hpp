@@ -80,9 +80,22 @@ static constexpr detail::ensures_fn ensures = {};
 
 } /* namespace cpp_essentials::core */
 
-
-#define NOT_IMPLEMENTED(...) ::cpp_essentials::core::detail::not_implemented(CODE_LOCATION, __VA_ARGS__)
-#define EXPECTS(COND, ...) ::cpp_essentials::core::detail::handle(COND, #COND, CODE_LOCATION, __VA_ARGS__)
-#define ENSURES(COND, ...) ::cpp_essentials::core::detail::handle(COND, #COND, CODE_LOCATION, __VA_ARGS__)
+#if defined(__MINGW32__)
+#  define NOT_IMPLEMENTED(...) ::cpp_essentials::core::detail::not_implemented(CODE_LOCATION, ##__VA_ARGS__)
+#  define EXPECTS(COND, ...) ::cpp_essentials::core::detail::handle(COND, #COND, CODE_LOCATION, ##__VA_ARGS__)
+#  define ENSURES(COND, ...) ::cpp_essentials::core::detail::handle(COND, #COND, CODE_LOCATION, ##__VA_ARGS__)
+#elif defined(__GNUC__)
+#  define NOT_IMPLEMENTED(...) ::cpp_essentials::core::detail::not_implemented(CODE_LOCATION, ##__VA_ARGS__)
+#  define EXPECTS(COND, ...) ::cpp_essentials::core::detail::handle(COND, #COND, CODE_LOCATION, ##__VA_ARGS__)
+#  define ENSURES(COND, ...) ::cpp_essentials::core::detail::handle(COND, #COND, CODE_LOCATION, ##__VA_ARGS__)
+#elif defined(_MSC_VER)
+#  define NOT_IMPLEMENTED(...) ::cpp_essentials::core::detail::not_implemented(CODE_LOCATION, __VA_ARGS__)
+#  define EXPECTS(COND, ...) ::cpp_essentials::core::detail::handle(COND, #COND, CODE_LOCATION, __VA_ARGS__)
+#  define ENSURES(COND, ...) ::cpp_essentials::core::detail::handle(COND, #COND, CODE_LOCATION, __VA_ARGS__)
+#elif defined(__clang__)
+#  define NOT_IMPLEMENTED(...) ::cpp_essentials::core::detail::not_implemented(CODE_LOCATION, __VA_ARGS__)
+#  define EXPECTS(COND, ...) ::cpp_essentials::core::detail::handle(COND, #COND, CODE_LOCATION, __VA_ARGS__)
+#  define ENSURES(COND, ...) ::cpp_essentials::core::detail::handle(COND, #COND, CODE_LOCATION, __VA_ARGS__)
+#endif
 
 #endif /* CPP_ESSENTIALS_CORE_ASSERTIONS_HPP */

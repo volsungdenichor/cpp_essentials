@@ -4,6 +4,7 @@
 #include <cpp_essentials/core/algorithm.hpp>
 #include <cpp_essentials/core/map_utils.hpp>
 #include <cpp_essentials/cc/cc.hpp>
+#include <cpp_essentials/core/slice.hpp>
 
 namespace cpp_essentials::core
 {

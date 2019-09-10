@@ -5,6 +5,7 @@
 #include <cpp_essentials/core/map_utils.hpp>
 #include <cpp_essentials/cc/cc.hpp>
 #include <cpp_essentials/core/slice.hpp>
+#include <cpp_essentials/core/serialization.hpp>
 
 namespace cpp_essentials::core
 {
@@ -81,10 +82,20 @@ struct at_fn
     template <class Container, class Key>
     decltype(auto) operator ()(Container&& container, Key&& key) const
     {
-        using ::cpp_essentials::core::str;
+        function<std::string> message_builder = [&]()
+        {
+            if constexpr (is_associative_container_v<std::decay_t<Container>>)
+            {
+                return ::cpp_essentials::core::str("missing key ", key);
+            }
+            else
+            {
+                return ::cpp_essentials::core::str("out of bounds: index=", key, ", size=", core::size(container));
+            }
+        };        
         
         static constexpr try_at_fn _try_at{};
-        return _try_at(container, key).value_or_throw([&]() { return str("missing key '", key, "'"); });
+        return _try_at(container, key).value_or_throw(message_builder);
     }
 };
 

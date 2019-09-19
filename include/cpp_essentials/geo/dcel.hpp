@@ -72,6 +72,7 @@ struct circ_buffer
         : _range{ range }
         , _size{ (int)_range.size() }
     {
+        core::ensures(_size >= 0, "empty buffer");
     }
 
     int size() const
@@ -297,6 +298,7 @@ public:
 
     face_id add_face(const std::vector<vertex_id>& vertices)
     {
+        core::ensures(vertices.size() >= 3, "add_face: at least 3 vertices required");
         face_info& f = new_face();
         build_face(vertices, &f);
         return f.id;
@@ -403,7 +405,7 @@ private:
             }
         }
 
-        return _edges.at(std::pair{ vertices.at(0), vertices.at(1) });
+        return core::map_get(_edges, std::pair{ buffer[0], buffer[1] });
     }
 
     core::optional<halfedge_id> find_halfedge(vertex_id from, vertex_id to)
@@ -440,31 +442,37 @@ private:
 
     const vertex_info& get_vertex(vertex_id id) const
     {
+        core::ensures(core::between(id.get(), 0, _vertices.size()), "get_vertex: invalid id");
         return _vertices.at(id.get());
     }
 
     vertex_info& get_vertex(vertex_id id)
     {
+        core::ensures(core::between(id.get(), 0, _vertices.size()), "get_vertex: invalid id");
         return _vertices.at(id.get());
     }
 
     const face_info& get_face(face_id id) const
     {
+        core::ensures(core::between(id.get(), 0, _faces.size()), "get_face: invalid id");
         return _faces.at(id.get());
     }
 
     face_info& get_face(face_id id)
     {
+        core::ensures(core::between(id.get(), 0, _faces.size()), "get_face: invalid id");
         return _faces.at(id.get());
     }
 
     const halfedge_info& get_halfedge(halfedge_id id) const
     {
+        core::ensures(core::between(id.get(), 0, _halfedges.size()), "get_halfedge: invalid id");
         return _halfedges.at(id.get());
     }
 
     halfedge_info& get_halfedge(halfedge_id id)
     {
+        core::ensures(core::between(id.get(), 0, _halfedges.size()), "get_halfedge: invalid id");
         return _halfedges.at(id.get());
     }
 
@@ -501,6 +509,7 @@ private:
 
     const location_type& get_location(vertex_id id) const
     {
+        core::ensures(core::between(id.get(), 0, _locations.size()), "get_location: invalid id");
         return _locations.at(id.get());
     }
 
@@ -534,7 +543,7 @@ private:
 
         const auto is_ccw = [&](vertex_id p, vertex_id s, vertex_id e) -> bool
         {
-            return orientation(get_point(p), get_point(s), get_point(e)) <= 0;
+            return orientation(get_point(p), get_point(s), get_point(e)) < 0;
         };
 
         core::sort(vertices, [&](vertex_id lt, vertex_id rt) -> bool

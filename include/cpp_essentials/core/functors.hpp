@@ -198,7 +198,6 @@ struct dereference_fn
     template <class T>
     decltype(auto) operator ()(T&& arg) const
     {
-        EXPECTS(static_cast<bool>(arg));
         return *arg;
     }
 };

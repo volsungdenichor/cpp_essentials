@@ -308,6 +308,18 @@ struct any_fn
     }
 };
 
+struct unpack_fn
+{
+    template <class BinaryFunc>
+    auto operator ()(BinaryFunc func) const
+    {
+        return [=](auto&& tuple) -> decltype(auto)
+        {
+            return std::apply(func, tuple);
+        };
+    }
+};
+
 } /* namespace detail */
 
 static constexpr auto identity = detail::identity_fn{};
@@ -346,6 +358,8 @@ static constexpr auto hash = detail::hash_fn{};
 
 static constexpr auto all = detail::all_fn{};
 static constexpr auto any = detail::any_fn{};
+
+static constexpr auto unpack = detail::unpack_fn{};
 
 } /* namespace cpp_essentials::core */
 

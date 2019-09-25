@@ -15,7 +15,7 @@ template <class T, class Queue>
 class basic_channel
 {
 public:
-    using queue_type = Queue;    
+    using queue_type = Queue;
 
     bool empty() const
     {
@@ -27,7 +27,7 @@ protected:
     basic_channel()
         : _queue()
         , _mutex{}
-        , _condition_var{}       
+        , _condition_var{}
     {
     }    
 
@@ -52,7 +52,7 @@ public:
     {
         std::unique_lock<std::mutex> lock{ base_type::_mutex };
 
-        base_type::_condition_var.wait(lock, std::bind(&ichannel::item_available, *this));
+        base_type::_condition_var.wait(lock, std::bind(&ichannel::item_available, this));
 
         T item = std::move(base_type::_queue.front());
         base_type::_queue.pop_front();
@@ -64,7 +64,7 @@ public:
     {
         std::unique_lock<std::mutex> lock{ base_type::_mutex };
 
-        base_type::_condition_var.wait_for(lock, timeout, std::bind(&ichannel::item_available, *this));
+        base_type::_condition_var.wait_for(lock, timeout, std::bind(&ichannel::item_available, this));
 
         T item = std::move(base_type::_queue.front());
         base_type::_queue.pop_front();
@@ -83,7 +83,7 @@ public:
     {
         std::unique_lock<std::mutex> lock{ base_type::_mutex };
 
-        if (!base_type::_condition_var.wait_for(lock, timeout, std::bind(&ichannel::item_available, *this)))
+        if (!base_type::_condition_var.wait_for(lock, timeout, std::bind(&ichannel::item_available, this)))
         {
             return false;
         }
@@ -152,6 +152,9 @@ public:
     iochannel(const iochannel&) = delete;
     iochannel& operator =(const iochannel&) = delete;
 };
+
+template <class T, class Queue = std::list<T>>
+using channel = iochannel<T, Queue>;
 
 } /* namespace cpp_essentials::core */
 

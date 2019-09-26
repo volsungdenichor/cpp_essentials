@@ -1,6 +1,8 @@
 #ifndef CPP_ESSENTIALS_CORE_TAGGED_VALUE_HPP_
 #define CPP_ESSENTIALS_CORE_TAGGED_VALUE_HPP_
 
+#pragma once
+
 #include <iostream>
 #include <cpp_essentials/cc/cc.hpp>
 

@@ -531,6 +531,12 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\debug_utils.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\task_queue.hpp">
+      <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\event_aggregator.hpp">
+      <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

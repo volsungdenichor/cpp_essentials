@@ -78,7 +78,14 @@ public:
     void unsubscribe(sub_id id)
     {
         std::unique_lock<std::mutex> lock{ _mutex };
-        erase_if(_map, [=](const auto& entry) { return entry.second.id == id; });
+        erase_if(_map, [&](const auto& entry) { return entry.second.id == id; });
+    }
+
+    template <class E>
+    void unsubscribe_all()
+    {
+        const auto type = get_type<E>();
+        erase_if(_map, [&](const auto& entry) { return entry.first == type; });
     }
 
 private:

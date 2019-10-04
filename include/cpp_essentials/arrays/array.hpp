@@ -107,7 +107,8 @@ public:
         return view();
     }
 
-    void operator =(const value_type& value)
+    template <class U, CONCEPT = cc::Assignable<reference, U>>
+    void operator =(const U& value)
     {
         view() = value;
     }
@@ -310,8 +311,11 @@ public:
     }
 
 private:
-    std::vector<byte> _data;    
+    std::vector<byte> _data;
 };
+
+template <class T, size_t ElementSize = sizeof(T)>
+using array_2d = array<T, 2, ElementSize>;
 
 } /* namespace cpp_essentials::arrays */
 

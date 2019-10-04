@@ -85,7 +85,8 @@ public:
     {
     }
    
-    void operator =(const value_type& value)
+    template <class U, CONCEPT = cc::Assignable<reference, U>>
+    void operator =(const U& value)
     {
         static_assert(!std::is_const_v<T>, "array_view: cannot assign value to const array");
         core::fill(*this, value);
@@ -236,6 +237,15 @@ private:
 
     byte_pointer _ptr;
 };
+
+template <class T, size_t D = 1>
+using const_array_view = array_view<const T, D>;
+
+template <class T>
+using array_view_2d = array_view<T, 2>;
+
+template <class T>
+using const_array_view_2d = const_array_view<T, 2>;
 
 namespace detail
 {

@@ -16,6 +16,16 @@ namespace cpp_essentials::core
 namespace detail
 {
 
+template <class C>
+using string_t = std::basic_string<C, std::char_traits<C>, std::allocator<C>>;
+
+template <class C>
+using ostream_t = std::basic_ostream<C, std::char_traits<C>>;
+
+template <class C>
+using ostringstream_t = std::basic_ostringstream<C, std::char_traits<C>, std::allocator<C>>;
+
+
 template <class T>
 std::string str(const T& item)
 {
@@ -61,10 +71,10 @@ struct parse_fn
 };
 
 
-
+template <class C>
 struct ostream_guard
 {
-    std::ostream& _os;
+    ostream_t<C>& _os;
     std::ios_base::fmtflags _flags;
 
     ostream_guard() = delete;
@@ -74,7 +84,7 @@ struct ostream_guard
     ostream_guard& operator =(const ostream_guard&) = delete;
     ostream_guard& operator =(ostream_guard&&) = delete;
 
-    ostream_guard(std::ostream& os)
+    ostream_guard(ostream_t<C>& os)
         : _os{ os }
         , _flags{ os.flags() }
     {
@@ -89,10 +99,10 @@ struct ostream_guard
 
 struct serialize_fn
 {
-    template <class... Args>
-    std::ostream& operator ()(std::ostream& os, const Args&... args) const
+    template <class C, class... Args>
+    ostream_t<C>& operator ()(ostream_t<C>& os, const Args&... args) const
     {
-        ostream_guard guard{ os };
+        ostream_guard<C> guard{ os };
         (void)guard;
 
         const auto apply = [&](const auto& item) { os << item; };
@@ -101,13 +111,15 @@ struct serialize_fn
     }
 };
 
+
+template <class C>
 struct stringify_fn
 {
     template <class... Args>
-    std::string operator ()(const Args&... args) const
+    string_t<C> operator ()(const Args&... args) const
     {
         static constexpr serialize_fn _serialize = {};
-        std::ostringstream ss;
+        ostringstream_t<C> ss;
         _serialize(ss, args...);
         return ss.str();
     }
@@ -122,8 +134,12 @@ template <class T>
 static constexpr auto parse = adaptable{ detail::parse_fn<T>{} };
 
 static constexpr auto serialize = adaptable{ detail::serialize_fn{} };
-static constexpr auto stringify = adaptable{ detail::stringify_fn{} };
-static constexpr auto str = adaptable{ detail::stringify_fn{} };
+
+static constexpr auto stringify = adaptable{ detail::stringify_fn<char>{} };
+static constexpr auto str = adaptable{ detail::stringify_fn<char>{} };
+
+static constexpr auto wstringify = adaptable{ detail::stringify_fn<wchar_t>{} };
+static constexpr auto wstr = adaptable{ detail::stringify_fn<wchar_t>{} };
 
 } /* namespace cpp_essentials::core */
 

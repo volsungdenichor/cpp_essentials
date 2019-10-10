@@ -258,7 +258,7 @@ struct tie_members_fn
     {
         return [=](const auto& item)
         {
-            return std::tuple{ (cc::make_func(fields)(item))... };
+            return std::tie(cc::make_func(fields)(item)...);
         };
     }
 };

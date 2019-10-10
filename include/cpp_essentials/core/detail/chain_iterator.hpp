@@ -82,8 +82,8 @@ public:
     reference ref() const
     {
         return _iter1 != range1_end
-            ? value_type(*_iter1)
-            : value_type(*_iter2);
+            ? reference(*_iter1)
+            : reference(*_iter2);
     }
 
     bool is_equal(const chain_iterator& other) const

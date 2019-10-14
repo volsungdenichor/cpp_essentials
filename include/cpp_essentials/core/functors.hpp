@@ -263,6 +263,19 @@ struct tie_members_fn
     }
 };
 
+template <class Compare>
+struct compare_by_members_fn
+{
+    template <class... F>
+    auto operator ()(F... fields) const
+    {
+        static constexpr auto _compare = Compare{};
+        static constexpr auto _tie_members = tie_members_fn{};
+        static constexpr auto _compare_by = compare_by_fn{};
+        return _compare_by(_tie_members(std::move(fields)...), _compare);
+    }
+};
+
 struct hash_fn
 {
     template <class T>
@@ -353,6 +366,9 @@ static constexpr auto offset_of = detail::offset_of_fn{};
 static constexpr auto compose = detail::compose_fn{};
 static constexpr auto compare_by = detail::compare_by_fn{};
 static constexpr auto tie_members = detail::tie_members_fn{};
+
+static constexpr auto asc_by = detail::compare_by_members_fn<std::less<>>{};
+static constexpr auto desc_by = detail::compare_by_members_fn<std::greater<>>{};
 
 static constexpr auto hash = detail::hash_fn{};
 

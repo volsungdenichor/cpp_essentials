@@ -64,6 +64,9 @@
     <Filter Include="Header Files\cpp_essentials\chrono">
       <UniqueIdentifier>{91c1cbdb-1646-4a11-aca4-67891111807d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\cpp_essentials\carto">
+      <UniqueIdentifier>{9044c3cb-17bc-4879-8072-b2e13bec7d33}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -536,6 +539,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\event_aggregator.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\carto\coords_operations.hpp">
+      <Filter>Header Files\cpp_essentials\carto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\carto\coords.hpp">
+      <Filter>Header Files\cpp_essentials\carto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\carto\coords_array.hpp">
+      <Filter>Header Files\cpp_essentials\carto</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

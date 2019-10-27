@@ -167,6 +167,9 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\arrays\region_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\arrays\slice_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\arrays\transformations.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\carto\coords.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\carto\coords_array.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\carto\coords_operations.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\cc\cc.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\chrono\calendars.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\chrono\time.hpp" />

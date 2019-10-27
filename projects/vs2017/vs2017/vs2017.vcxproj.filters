@@ -549,6 +549,9 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\carto\coords_array.hpp">
       <Filter>Header Files\cpp_essentials\carto</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\math\binomial.hpp">
+      <Filter>Header Files\cpp_essentials\math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

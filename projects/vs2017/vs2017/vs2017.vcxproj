@@ -302,6 +302,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\kine\reverse.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\kine\sequence.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\kine\sequence_phase.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\math\binomial.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\constants.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\detail\matrix.access.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\detail\matrix.arithmetics.hpp" />

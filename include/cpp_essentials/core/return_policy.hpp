@@ -102,10 +102,7 @@ struct return_both_t : return_policy_base_t
     template <class Iter>
     auto operator ()(Iter begin, Iter found, Iter end) const -> std::pair<iterator_range<Iter>, iterator_range<Iter>>
     {
-        return {
-            make_range(begin, found),
-            make_range(found, end)
-        };
+        return make_range_pair(begin, end, found);
     }
 };
 

@@ -226,8 +226,7 @@ struct split_fn
         , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, cc::range_iter<Range> it) const
     {
-        auto[b, e] = make_range(range);
-        return std::make_pair(make_range(b, it), make_range(it, e));
+        return make_range_pair(std::forward<Range>(range), it);
     }
 
     template

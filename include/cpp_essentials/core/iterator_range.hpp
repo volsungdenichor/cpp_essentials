@@ -245,7 +245,25 @@ struct make_range_from_optional_fn
     {
         auto b = optional ? std::addressof(*optional) + 0 : nullptr;
         auto e = optional ? std::addressof(*optional) + 1 : nullptr;
-        return (*this)(b, e);
+        using Iter = decltype(b);
+        return iterator_range<Iter>{ b, e };
+    }
+};
+
+struct make_range_pair_fn
+{
+    template <class Iter, CONCEPT = cc::InputIterator<Iter>>
+    auto operator ()(Iter begin, Iter end, Iter middle) const
+    {
+        return std::make_pair(iterator_range<Iter>{begin, middle}, iterator_range<Iter>{middle, end});
+    }
+
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range, cc::range_iter<Range> middle) const
+    {
+        return (*this)(std::begin(range), std::end(range), middle);
     }
 };
 
@@ -254,6 +272,7 @@ struct make_range_from_optional_fn
 static constexpr auto make_range = detail::make_range_fn{};
 static constexpr auto make_default_ended_range = detail::make_default_ended_range_fn{};
 static constexpr auto make_range_from_optional = detail::make_range_from_optional_fn{};
+static constexpr auto make_range_pair = detail::make_range_pair_fn{};
 
 } /* namespace cpp_essentials::core */
 

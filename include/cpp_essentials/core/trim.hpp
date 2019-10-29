@@ -206,7 +206,7 @@ struct split_while_fn
     {
         auto[b, e] = make_range(range);
         auto m = advance_while(b, e, make_func(pred));
-        return std::make_pair(make_range(b, m), make_range(m, e));
+        return make_range_pair(b, e, m);
     }
 };
 
@@ -221,7 +221,7 @@ struct split_until_fn
     {
         auto[b, e] = make_range(range);
         auto m = advance_while(b, e, logical_negation(make_func(pred)));
-        return std::make_pair(make_range(b, m), make_range(m, e));
+        return make_range_pair(b, e, m);
     }
 };
 

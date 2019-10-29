@@ -67,6 +67,9 @@
     <Filter Include="Header Files\cpp_essentials\carto">
       <UniqueIdentifier>{9044c3cb-17bc-4879-8072-b2e13bec7d33}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\cpp_essentials\fmt">
+      <UniqueIdentifier>{3bbb24d2-fc1f-4bf4-bf67-0270424c3f8e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -551,6 +554,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\math\binomial.hpp">
       <Filter>Header Files\cpp_essentials\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\fmt\format.hpp">
+      <Filter>Header Files\cpp_essentials\fmt</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

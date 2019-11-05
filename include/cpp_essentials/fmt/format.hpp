@@ -22,7 +22,7 @@ struct format_error : std::runtime_error
     }
 };
 
-std::string_view make_string_view(std::string_view::iterator b, std::string_view::iterator e)
+inline std::string_view make_string_view(std::string_view::iterator b, std::string_view::iterator e)
 {
     if (b < e)
         return { std::addressof(*b), std::string_view::size_type(e - b) };
@@ -30,12 +30,12 @@ std::string_view make_string_view(std::string_view::iterator b, std::string_view
         return {};
 }
 
-void format_text(std::ostream& os, std::string_view txt)
+inline void format_text(std::ostream& os, std::string_view txt)
 {
     os << txt;
 }
 
-int parse_int(std::string_view txt)
+inline int parse_int(std::string_view txt)
 {
     int result = 0;
     for (char c : txt)
@@ -45,7 +45,7 @@ int parse_int(std::string_view txt)
     return result;
 }
 
-void apply_format_spec(std::ostream& os, std::string_view fmt)
+inline void apply_format_spec(std::ostream& os, std::string_view fmt)
 {
     using character_map = std::map<char, std::function<void(std::ostream&)>>;
     
@@ -112,7 +112,7 @@ void apply_format_spec(std::ostream& os, std::string_view fmt)
         }
     };
 
-    os << std::fixed;
+    // os << std::fixed;
 
     handle_front(alignment);
     handle_front(sign);
@@ -122,6 +122,7 @@ void apply_format_spec(std::ostream& os, std::string_view fmt)
     {
         if (!fill)
             fill = '0';
+        
         fmt = make_string_view(fmt.begin() + 1, fmt.end());
     }
 
@@ -143,7 +144,7 @@ void write_arg(std::ostream& os, std::string_view fmt, const T& item)
     os << item;
 }
 
-void write_args(std::ostream& os, int index, std::string_view fmt)
+inline void write_args(std::ostream& os, int index, std::string_view fmt)
 {
     throw format_error{ "Invalid index" };
 }
@@ -157,7 +158,7 @@ void write_args(std::ostream& os, int index, std::string_view fmt, const T& arg,
         write_args(os, index - 1, fmt, args...);
 }
 
-void format_arg(std::ostream& os, std::string_view fmt, int arg_index, const argument_extractor& arg_extractor)
+inline void format_arg(std::ostream& os, std::string_view fmt, int arg_index, const argument_extractor& arg_extractor)
 {
     const auto colon = std::find(fmt.begin(), fmt.end(), ':');
     const auto index_part = make_string_view(fmt.begin(), colon);
@@ -170,7 +171,7 @@ void format_arg(std::ostream& os, std::string_view fmt, int arg_index, const arg
     arg_extractor(os, actual_index, fmt_part);
 }
 
-void do_format(std::ostream& os, std::string_view fmt, int arg_index, const argument_extractor& arg_extractor)
+inline void do_format(std::ostream& os, std::string_view fmt, int arg_index, const argument_extractor& arg_extractor)
 {
     const auto bracket = std::find_if(fmt.begin(), fmt.end(), [](char c) { return c == '{' || c == '}'; });
     if (bracket == fmt.end())
@@ -254,7 +255,7 @@ using detail::println;
 namespace literals
 {
 
-auto operator ""_format(const char* text, std::size_t size) -> detail::format_proxy_t
+inline auto operator ""_format(const char* text, std::size_t size) -> detail::format_proxy_t
 {
     return { { text, size } };
 }

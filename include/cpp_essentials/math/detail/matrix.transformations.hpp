@@ -19,8 +19,20 @@ struct make_scale_fn
     {
         square_matrix_2d<T> result = identity;
 
-        get<0, 0>(result) = scale[0];
-        get<1, 1>(result) = scale[1];
+        get<0, 0>(result) = get<0>(scale);
+        get<1, 1>(result) = get<1>(scale);
+
+        return result;
+    }
+
+    template <class T>
+    square_matrix_3d<T> operator ()(const vector_3d<T>& scale) const
+    {
+        square_matrix_3d<T> result = identity;
+
+        get<0, 0>(result) = get<0>(scale);
+        get<1, 1>(result) = get<1>(scale);
+        get<2, 2>(result) = get<2>(scale);
 
         return result;
     }
@@ -33,8 +45,8 @@ struct make_rotation_fn
     {
         square_matrix_2d<T> result = identity;
 
-        auto c = cos(angle);
-        auto s = sin(angle);
+        const auto c = cos(angle);
+        const auto s = sin(angle);
 
         get<0, 0>(result) = c;
         get<0, 1>(result) = s;
@@ -52,8 +64,20 @@ struct make_translation_fn
     {
         square_matrix_2d<T> result = identity;
 
-        get<2, 0>(result) = offset[0];
-        get<2, 1>(result) = offset[1];
+        get<2, 0>(result) = get<0>(offset);
+        get<2, 1>(result) = get<1>(offset);
+
+        return result;
+    }
+
+    template <class T>
+    square_matrix_3d<T> operator ()(const vector_3d<T>& offset) const
+    {
+        square_matrix_3d<T> result = identity;
+
+        get<3, 0>(result) = get<0>(offset);
+        get<3, 1>(result) = get<1>(offset);
+        get<3, 2>(result) = get<2>(offset);
 
         return result;
     }

@@ -77,6 +77,9 @@ inline void apply_format_spec(std::ostream& os, std::string_view fmt)
         { 'X', [](std::ostream& s) { s << std::hex << std::uppercase; } },
     };
 
+    if (fmt.empty())
+        return;
+
     char fill = '\0';
 
     if (fmt.size() >= 2)
@@ -134,6 +137,7 @@ inline void apply_format_spec(std::ostream& os, std::string_view fmt)
 
     if (fill)
         os << std::setfill(fill);
+    
     os << std::setw(width) << std::setprecision(precision);
 }
 
@@ -200,9 +204,9 @@ inline void do_format(std::ostream& os, std::string_view fmt, int arg_index, con
 template <class... Args>
 std::string format(std::string_view fmt, const Args&... args)
 {
-    const argument_extractor arg_extractor = [&](std::ostream& s, int index, std::string_view f)
+    const argument_extractor arg_extractor = [&](std::ostream& os, int index, std::string_view f)
     {
-        write_args(s, index, f, args...);
+        write_args(os, index, f, args...);
     };
 
     std::stringstream ss;

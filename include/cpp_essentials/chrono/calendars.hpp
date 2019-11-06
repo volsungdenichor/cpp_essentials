@@ -5,6 +5,7 @@
 
 #include <iomanip>
 #include <cmath>
+#include <chrono>
 
 #include <cpp_essentials/chrono/time.hpp>
 
@@ -15,6 +16,40 @@ inline std::pair<double, double> div(double a, double b)
 {
     return { std::floor(a / b), std::fmod(a, b) };
 }
+
+inline time_point from_time_point(std::chrono::system_clock::time_point tp)
+{
+    static const double epoch = 2440587.5;
+    const auto seconds_since_epoch = std::chrono::duration_cast<std::chrono::seconds>(tp.time_since_epoch()).count();
+    return time_point{ epoch + (seconds_since_epoch / (60 * 60 * 24)) };
+}
+
+inline time_point now()
+{
+    return from_time_point(std::chrono::system_clock::now());
+}
+
+
+struct unix_time
+{
+    static const inline double epoch = 2440587.5;
+    using date = std::uint64_t;
+
+    static time_point to(date date)
+    {
+        return time_point{ epoch + (date / (60 * 60 * 24)) };
+    }
+
+    static date from(time_point tp)
+    {
+        return (date)std::round(((tp._value - epoch) * (60 * 60 * 24 * 1000)) / 1000);
+    }
+
+    static date now()
+    {
+        return from(chrono::now());
+    }
+};
 
 struct gregorian
 {
@@ -76,6 +111,11 @@ struct gregorian
 
         return { year, month, day };
     }
+
+    static date now()
+    {
+        return from(chrono::now());
+    }
 };
 
 struct iso
@@ -106,11 +146,16 @@ struct iso
         int year = gregorian::from(time_point{ tp._value - 3.0 }).year;
         if (tp >= to({ year + 1, 1, 1 }))
         {
-            year++;
+            ++year;
         }
         const char week = (char)(std::floor((tp._value - to({ year, 1, 1 })._value) / 7) + 1);
         const auto day = get_weekday(tp);
         return { year, week, day };
+    }
+
+    static date now()
+    {
+        return from(chrono::now());
     }
 
     static char get_weekday(time_point tp)
@@ -190,22 +235,10 @@ struct iso_day
         const auto day = (short)(std::floor(tp._value - gregorian::to({ year, 1, 1 })._value) + 1);
         return { year, day };
     }
-};
 
-struct unix_time
-{
-    static const inline double epoch = 2440587.5;
-    using date = std::uint64_t;
-
-    static time_point to(date date)
+    static date now()
     {
-        return time_point{ epoch + (date / (60 * 60 * 24)) };
-    }
-
-    static date from(time_point tp)
-    {
-
-        return (date)std::round(((tp._value - epoch) * (60 * 60 * 24 * 1000)) / 1000);
+        return from(chrono::now());
     }
 };
 
@@ -233,7 +266,7 @@ struct julian
         auto[year, month, day] = date;
         if (year < 1)
         {
-            year++;
+            ++year;
         }
 
         if (month <= 2)
@@ -266,6 +299,11 @@ struct julian
         }
 
         return { year, month, day };
+    }
+
+    static date now()
+    {
+        return from(chrono::now());
     }
 };
 

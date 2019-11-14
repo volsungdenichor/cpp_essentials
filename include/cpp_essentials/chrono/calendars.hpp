@@ -12,16 +12,27 @@
 namespace cpp_essentials::chrono
 {
 
+inline bool divisible_by(int value, int div)
+{
+    return (value % div) == 0;
+}
+
 inline std::pair<double, double> div(double a, double b)
 {
     return { std::floor(a / b), std::fmod(a, b) };
+}
+
+inline time_point from_unix_time(std::uint64_t unix_time)
+{
+    static const double epoch = 2440587.5;
+    return time_point{ epoch + (unix_time / 86400.0) };
 }
 
 inline time_point from_time_point(std::chrono::system_clock::time_point tp)
 {
     static const double epoch = 2440587.5;
     const auto seconds_since_epoch = std::chrono::duration_cast<std::chrono::seconds>(tp.time_since_epoch()).count();
-    return time_point{ epoch + (seconds_since_epoch / (60 * 60 * 24)) };
+    return from_unix_time(seconds_since_epoch);
 }
 
 inline time_point now()
@@ -29,25 +40,84 @@ inline time_point now()
     return from_time_point(std::chrono::system_clock::now());
 }
 
+struct time
+{
+    int hours;
+    int minutes;
+    int seconds;
+
+    time() = default;
+
+    time(int hours, int minutes, int seconds = 0)
+        : hours{ hours }
+        , minutes{ minutes }
+        , seconds{ seconds }
+    {
+    }
+
+    time(duration dur)
+    {
+        auto v = dur._value * (3600.0 * 24.0);
+        hours = (int)(v / 3600.0);
+        v -= hours * 3600.0;
+        minutes = (int)(v / 60.0);
+        v -= minutes * 60.0;
+        seconds = (int)v;
+    }
+
+    operator duration() const
+    {
+        return hours * chrono::hours + minutes * chrono::minutes + seconds * chrono::minutes;
+    }
+
+    friend std::ostream& operator <<(std::ostream& os, const time& item)
+    {
+        return os
+            << std::setfill('0') << std::setw(2) << (int)item.hours
+            << ":" << std::setfill('0') << std::setw(2) << (int)item.minutes
+            << ":" << std::setfill('0') << std::setw(2) << (int)item.seconds;
+    }
+};
+
+template <class Calendar>
+struct date_time_base
+{
+    Calendar date;
+    time time;
+
+    friend std::ostream& operator <<(std::ostream& os, const date_time_base& item)
+    {
+        return os << item.date << " " << item.time;
+    }
+};
+
 
 struct unix_time
 {
     static const inline double epoch = 2440587.5;
     using date = std::uint64_t;
 
-    static time_point to(date date)
+    using date_time = date_time_base<date>;
+
+    static time_point to_time_point(date date)
     {
-        return time_point{ epoch + (date / (60 * 60 * 24)) };
+        return from_unix_time(date);
     }
 
-    static date from(time_point tp)
+    static date get_date(time_point tp)
     {
-        return (date)std::round(((tp._value - epoch) * (60 * 60 * 24 * 1000)) / 1000);
+        return (date)std::round(((tp._value - epoch) * (86400 * 1000)) / 1000);
     }
 
-    static date now()
+    static date_time get_date_time(time_point tp)
     {
-        return from(chrono::now());
+        const auto[d, t] = split(tp);
+        return { get_date(d), time{ t } };
+    }
+
+    static date_time now()
+    {
+        return get_date_time(chrono::now());
     }
 };
 
@@ -70,13 +140,15 @@ struct gregorian
         }
     };
 
+    using date_time = date_time_base<date>;
+
     static bool is_leap(int year)
     {
-        return ((year % 4) == 0)
-            && (!(((year % 100) == 0) && ((year % 400) != 0)));
+        return divisible_by(year, 4)
+            && (divisible_by(year, 400) || !divisible_by(year, 100));
     }
 
-    static time_point to(const date& date)
+    static time_point to_time_point(const date& date)
     {
         auto[year, month, day] = date;
         return time_point{ epoch - 1
@@ -89,7 +161,7 @@ struct gregorian
             + day) };
     }
 
-    static date from(time_point tp)
+    static date get_date(time_point tp)
     {
         const auto wjd = std::floor(tp._value - 0.5) + 0.5;
         const auto depoch = wjd - epoch;
@@ -97,24 +169,32 @@ struct gregorian
         const auto[cent, dcent] = div(dqc, 36524.0);
         const auto[quad, dquad] = div(dcent, 1461.0);
         const auto yindex = std::floor(dquad / 365);
-        auto year = (int)((quadricent * 400) + (cent * 100) + (quad * 4) + yindex);
-        if (cent != 4 && yindex != 4)
+        const auto year = std::invoke([&]()
         {
-            year++;
-        }
-        const auto yearday = wjd - to({ year, 1, 1 })._value;
-        const auto leap_adj = wjd >= to({ year, 3, 1 })._value
+            const auto res = (int)((quadricent * 400) + (cent * 100) + (quad * 4) + yindex);
+            return cent != 4 && yindex != 4
+                ? res + 1
+                : res;
+        });
+        const auto yearday = wjd - to_time_point({ year, 1, 1 })._value;
+        const auto leap_adj = wjd >= to_time_point({ year, 3, 1 })._value
             ? is_leap(year) ? 1 : 2
             : 0;
         const auto month = (char)std::floor((((yearday + leap_adj) * 12) + 373) / 367);
-        const auto day = (char)((wjd - to({ year, month, 1 })._value) + 1);
+        const auto day = (char)((wjd - to_time_point({ year, month, 1 })._value) + 1);
 
         return { year, month, day };
     }
 
-    static date now()
+    static date_time get_date_time(time_point tp)
     {
-        return from(chrono::now());
+        const auto[d, t] = split(tp);
+        return { get_date(d), time{ t } };
+    }
+
+    static date_time now()
+    {
+        return get_date_time(chrono::now());
     }
 };
 
@@ -135,50 +215,53 @@ struct iso
         }
     };
 
-    static time_point to(const date& date)
+    using date_time = date_time_base<date>;
+
+    static time_point to_time_point(const date& date)
     {
         const auto[year, week, day] = date;
-        return time_point{ (double)(day + n_weeks(0, gregorian::to({ year - 1, 12, 28 }), week)) };
+        return time_point{ (double)(day + n_weeks(0, gregorian::to_time_point({ year - 1, 12, 28 }), week)) };
     }
 
-    static date from(time_point tp)
+    static date get_date(time_point tp)
     {
-        int year = gregorian::from(time_point{ tp._value - 3.0 }).year;
-        if (tp >= to({ year + 1, 1, 1 }))
+        const auto year = std::invoke([&]()
         {
-            ++year;
-        }
-        const char week = (char)(std::floor((tp._value - to({ year, 1, 1 })._value) / 7) + 1);
+            auto res = gregorian::get_date(time_point{ tp._value - 3.0 }).year;
+            return tp >= to_time_point({ res + 1, 1, 1 })
+                ? res + 1
+                : res;
+        });
+        const char week = (char)(std::floor((tp._value - to_time_point({ year, 1, 1 })._value) / 7) + 1);
         const auto day = get_weekday(tp);
         return { year, week, day };
     }
 
-    static date now()
+    static date_time get_date_time(time_point tp)
     {
-        return from(chrono::now());
+        const auto[d, t] = split(tp);
+        return { get_date(d), time{ t } };
+    }
+
+    static date_time now()
+    {
+        return get_date_time(chrono::now());
     }
 
     static char get_weekday(time_point tp)
     {
-        auto res = (char)std::fmod(std::floor((tp._value + 1.5)), 7.0);
+        const auto res = (char)std::fmod(std::floor((tp._value + 1.5)), 7.0);
         return (res + 7) % 7;
     }
 
 private:
     static int n_weeks(int weekday, time_point jd, int nthweek)
     {
-        auto j = 7 * nthweek;
+        const auto j = 7 * nthweek;
 
-        if (nthweek > 0)
-        {
-            j += previous_weekday(weekday, jd);
-        }
-        else
-        {
-            j += next_weekday(weekday, jd);
-
-        }
-        return j;
+        return nthweek > 0
+            ? j + previous_weekday(weekday, jd)
+            : j + next_weekday(weekday, jd);
     }
 
     static int previous_weekday(int weekday, time_point jd)
@@ -203,7 +286,7 @@ private:
 
     static int weekday_before(int weekday, time_point jd)
     {
-        auto res = jd - duration{ (double)(get_weekday(jd - duration{ (double)weekday })) };
+        const auto res = jd - duration{ (double)(get_weekday(jd - duration{ (double)weekday })) };
         return (int)res._value;
     }
 };
@@ -223,22 +306,30 @@ struct iso_day
         }
     };
 
-    static time_point to(const date& date)
+    using date_time = date_time_base<date>;
+
+    static time_point to_time_point(const date& date)
     {
         const auto[year, day] = date;
-        return gregorian::to({ year, 1, 1 }) + duration{ day - 1.0 };
+        return gregorian::to_time_point({ year, 1, 1 }) + duration{ day - 1.0 };
     }
 
-    static date from(time_point tp)
+    static date get_date(time_point tp)
     {
-        const auto year = gregorian::from(tp).year;
-        const auto day = (short)(std::floor(tp._value - gregorian::to({ year, 1, 1 })._value) + 1);
+        const auto year = gregorian::get_date(tp).year;
+        const auto day = (short)(std::floor(tp._value - gregorian::to_time_point({ year, 1, 1 })._value) + 1);
         return { year, day };
     }
 
-    static date now()
+    static date_time get_date_time(time_point tp)
     {
-        return from(chrono::now());
+        const auto[d, t] = split(tp);
+        return { get_date(d), time{ t } };
+    }
+
+    static date_time now()
+    {
+        return get_date_time(chrono::now());
     }
 };
 
@@ -256,12 +347,14 @@ struct julian
         }
     };
 
+    using date_time = date_time_base<date>;
+
     static bool is_leap(int year)
     {
         return year % 4 == (year > 0) ? 0 : 3;
     }
 
-    static time_point to(const date& date)
+    static time_point to_time_point(const date& date)
     {
         auto[year, month, day] = date;
         if (year < 1)
@@ -278,7 +371,7 @@ struct julian
         return time_point{ std::floor((365.25 * (year + 4716))) + std::floor((30.6001 * (month + 1))) + day - 1524.5 };
     }
 
-    static date from(time_point tp)
+    static date get_date(time_point tp)
     {
         const auto td = tp._value + 0.5;
         const auto z = std::floor(td);
@@ -292,18 +385,26 @@ struct julian
         const auto month = (char)(std::floor((e < 14) ? (e - 1) : (e - 13)));
         const auto day = (char)(b - d - std::floor(30.6001 * e));
 
-        auto year = (int)(std::floor((month > 2) ? (c - 4716) : (c - 4715)));
-        if (year < 1)
+        const auto year = std::invoke([&]()
         {
-            --year;
-        }
+            const auto res = (int)(std::floor((month > 2) ? (c - 4716) : (c - 4715)));
+            return res < 1
+                ? res - 1
+                : res;
+        });
 
         return { year, month, day };
     }
 
-    static date now()
+    static date_time get_date_time(time_point tp)
     {
-        return from(chrono::now());
+        const auto[d, t] = split(tp);
+        return { get_date(d), time{ t } };
+    }
+
+    static date_time now()
+    {
+        return get_date_time(chrono::now());
     }
 };
 

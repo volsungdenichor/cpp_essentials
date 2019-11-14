@@ -66,6 +66,7 @@ struct infinite_range_fn
 static constexpr auto range = detail::range_fn{};
 static constexpr auto inclusive_range = detail::inclusive_range_fn{};
 static constexpr auto infinite_range = detail::infinite_range_fn{};
+static constexpr auto ints = detail::infinite_range_fn{};
 
 } /* namespace cpp_essentials::core */
 

@@ -66,6 +66,11 @@ public:
         return rhs * lhs;
     }
 
+    friend double operator /(duration lhs, duration rhs)
+    {
+        return lhs._value / rhs._value;
+    }
+
     friend duration& operator /=(duration& item, double other)
     {
         item._value /= other;
@@ -152,6 +157,11 @@ public:
         return lhs -= rhs;
     }
 
+    friend duration operator -(time_point lhs, time_point rhs)
+    {
+        return duration{ lhs._value - rhs._value };
+    }
+
     friend bool operator ==(time_point lhs, time_point rhs)
     {
         return lhs._value == rhs._value;
@@ -189,6 +199,24 @@ public:
 
     double _value;
 };
+
+inline const duration days{ 1.0 };
+inline const duration hours = days / 24.0;
+inline const duration minutes = hours / 60.0;
+inline const duration seconds = minutes / 60.0;
+inline const duration weeks = days * 7.0;
+
+
+inline time_point trunc(time_point tp)
+{
+    return time_point{ std::floor(tp._value + 0.5) - 0.5 };
+}
+
+inline std::pair<time_point, duration> split(time_point tp)
+{
+    auto d = trunc(tp);
+    return std::make_pair(d, tp - d);
+}
 
 } /* namespace cpp_essentials::chrono */
 

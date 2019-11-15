@@ -5,7 +5,6 @@
 
 #include <iomanip>
 #include <cmath>
-#include <chrono>
 
 #include <cpp_essentials/chrono/time.hpp>
 
@@ -22,40 +21,22 @@ inline std::pair<double, double> div(double a, double b)
     return { std::floor(a / b), std::fmod(a, b) };
 }
 
-inline time_point from_unix_time(std::uint64_t unix_time)
-{
-    static const double epoch = 2440587.5;
-    return time_point{ epoch + (unix_time / 86400.0) };
-}
-
-inline time_point from_time_point(std::chrono::system_clock::time_point tp)
-{
-    static const double epoch = 2440587.5;
-    const auto seconds_since_epoch = std::chrono::duration_cast<std::chrono::seconds>(tp.time_since_epoch()).count();
-    return from_unix_time(seconds_since_epoch);
-}
-
-inline time_point now()
-{
-    return from_time_point(std::chrono::system_clock::now());
-}
-
-struct time
+struct time_type
 {
     int hours;
     int minutes;
     int seconds;
 
-    time() = default;
+    time_type() = default;
 
-    time(int hours, int minutes, int seconds = 0)
+    time_type(int hours, int minutes, int seconds = 0)
         : hours{ hours }
         , minutes{ minutes }
         , seconds{ seconds }
     {
     }
 
-    time(duration dur)
+    time_type(duration dur)
     {
         auto v = dur._value * (3600.0 * 24.0);
         hours = (int)(v / 3600.0);
@@ -70,7 +51,7 @@ struct time
         return hours * chrono::hours + minutes * chrono::minutes + seconds * chrono::minutes;
     }
 
-    friend std::ostream& operator <<(std::ostream& os, const time& item)
+    friend std::ostream& operator <<(std::ostream& os, const time_type& item)
     {
         return os
             << std::setfill('0') << std::setw(2) << (int)item.hours
@@ -83,13 +64,15 @@ template <class Calendar>
 struct date_time_base
 {
     Calendar date;
-    time time;
+    time_type time;
 
     friend std::ostream& operator <<(std::ostream& os, const date_time_base& item)
     {
         return os << item.date << " " << item.time;
     }
 };
+
+using time = time_type;
 
 
 struct unix_time
@@ -112,7 +95,7 @@ struct unix_time
     static date_time get_date_time(time_point tp)
     {
         const auto[d, t] = split(tp);
-        return { get_date(d), time{ t } };
+        return { get_date(d), time_type{ t } };
     }
 
     static date_time now()
@@ -189,7 +172,7 @@ struct gregorian
     static date_time get_date_time(time_point tp)
     {
         const auto[d, t] = split(tp);
-        return { get_date(d), time{ t } };
+        return { get_date(d), time_type{ t } };
     }
 
     static date_time now()
@@ -240,7 +223,7 @@ struct iso
     static date_time get_date_time(time_point tp)
     {
         const auto[d, t] = split(tp);
-        return { get_date(d), time{ t } };
+        return { get_date(d), time_type{ t } };
     }
 
     static date_time now()
@@ -324,7 +307,7 @@ struct iso_day
     static date_time get_date_time(time_point tp)
     {
         const auto[d, t] = split(tp);
-        return { get_date(d), time{ t } };
+        return { get_date(d), time_type{ t } };
     }
 
     static date_time now()
@@ -399,7 +382,7 @@ struct julian
     static date_time get_date_time(time_point tp)
     {
         const auto[d, t] = split(tp);
-        return { get_date(d), time{ t } };
+        return { get_date(d), time_type{ t } };
     }
 
     static date_time now()

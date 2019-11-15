@@ -43,6 +43,7 @@ using core::make_range;
 using core::range;
 using core::inclusive_range;
 using core::infinite_range;
+using core::ints;
 using core::repeat;
 using core::once;
 

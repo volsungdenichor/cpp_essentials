@@ -4,6 +4,7 @@
 #pragma once
 
 #include <iostream>
+#include <chrono>
 
 namespace cpp_essentials::chrono
 {
@@ -204,6 +205,7 @@ inline const duration days{ 1.0 };
 inline const duration hours = days / 24.0;
 inline const duration minutes = hours / 60.0;
 inline const duration seconds = minutes / 60.0;
+inline const duration milliseconds = seconds / 1000.0;
 inline const duration weeks = days * 7.0;
 
 
@@ -216,6 +218,23 @@ inline std::pair<time_point, duration> split(time_point tp)
 {
     auto d = trunc(tp);
     return std::make_pair(d, tp - d);
+}
+
+inline time_point from_unix_time(std::uint64_t unix_time_ms)
+{
+    static const time_point epoch{ 2440587.5 };
+    return epoch + (double)unix_time_ms * milliseconds;
+}
+
+inline time_point from_time_point(std::chrono::system_clock::time_point tp)
+{
+    const auto unix_time_ms = std::chrono::duration_cast<std::chrono::milliseconds>(tp.time_since_epoch()).count();
+    return from_unix_time(unix_time_ms);
+}
+
+inline time_point now()
+{
+    return from_time_point(std::chrono::system_clock::now());
 }
 
 } /* namespace cpp_essentials::chrono */

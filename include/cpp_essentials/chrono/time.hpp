@@ -211,7 +211,7 @@ inline const duration weeks = days * 7.0;
 
 inline time_point trunc(time_point tp)
 {
-    return time_point{ std::floor(tp._value + 0.5) - 0.5 };
+    return time_point{ std::floor(tp._value - 0.5) + 0.5 };
 }
 
 inline std::pair<time_point, duration> split(time_point tp)

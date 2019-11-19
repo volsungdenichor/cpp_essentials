@@ -17,7 +17,8 @@ struct range_fn
     template <class T>
     auto operator ()(T first, T last) const
     {
-        int step = first < last ? +1 : -1;
+        using step_type = decltype(last - first);
+        const auto step = first < last ? step_type(+1) : step_type(-1);
 
         return make_range(
             numeric_iterator{ first, step },
@@ -36,7 +37,8 @@ struct inclusive_range_fn
     template <class T>
     auto operator ()(T first, T last) const
     {
-        int step = first < last ? +1 : -1;
+        using step_type = decltype(last - first);
+        const auto step = first < last ? step_type(+1) : step_type(-1);
 
         return make_range(
             numeric_iterator{ first, step },

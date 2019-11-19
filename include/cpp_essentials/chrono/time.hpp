@@ -12,9 +12,11 @@ namespace cpp_essentials::chrono
 struct duration
 {
 public:
+    using value_type = double;
+
     duration() = default;
 
-    explicit duration(double value)
+    explicit duration(value_type value)
         : _value{ value }
     {
     }
@@ -51,34 +53,34 @@ public:
         return lhs -= rhs;
     }
 
-    friend duration& operator *=(duration& item, double other)
+    friend duration& operator *=(duration& item, value_type other)
     {
         item._value *= other;
         return item;
     }
 
-    friend duration operator *(duration lhs, double rhs)
+    friend duration operator *(duration lhs, value_type rhs)
     {
         return lhs *= rhs;
     }
 
-    friend duration operator *(double lhs, duration rhs)
+    friend duration operator *(value_type lhs, duration rhs)
     {
         return rhs * lhs;
     }
 
-    friend double operator /(duration lhs, duration rhs)
+    friend value_type operator /(duration lhs, duration rhs)
     {
         return lhs._value / rhs._value;
     }
 
-    friend duration& operator /=(duration& item, double other)
+    friend duration& operator /=(duration& item, value_type other)
     {
         item._value /= other;
         return item;
     }
 
-    friend duration operator /(duration lhs, double rhs)
+    friend duration operator /(duration lhs, value_type rhs)
     {
         return lhs /= rhs;
     }
@@ -118,15 +120,17 @@ public:
         return os << item._value;
     }
 
-    double _value;
+    value_type _value;
 };
 
 struct time_point
 {
 public:
+    using value_type = double;
+
     time_point() = default;
 
-    explicit time_point(double value)
+    explicit time_point(value_type value)
         : _value{ value }
     {
     }
@@ -161,6 +165,30 @@ public:
     friend duration operator -(time_point lhs, time_point rhs)
     {
         return duration{ lhs._value - rhs._value };
+    }
+
+    friend time_point& operator ++(time_point& item)
+    {
+        return item += duration{ 1.0 };
+    }
+
+    friend time_point operator ++(time_point& item, int)
+    {
+        time_point temp{ item };
+        ++temp;
+        return temp;
+    }
+
+    friend time_point& operator --(time_point& item)
+    {
+        return item -= duration{ 1.0 };
+    }
+
+    friend time_point operator --(time_point& item, int)
+    {
+        time_point temp{ item };
+        --temp;
+        return temp;
     }
 
     friend bool operator ==(time_point lhs, time_point rhs)
@@ -198,7 +226,7 @@ public:
         return os << item._value;
     }
 
-    double _value;
+    value_type _value;
 };
 
 inline const duration days{ 1.0 };

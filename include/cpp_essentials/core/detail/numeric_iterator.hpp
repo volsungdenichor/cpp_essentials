@@ -53,7 +53,7 @@ public:
 
     void advance(difference_type offset)
     {
-        _value += static_cast<T>(_step * offset);
+        _value += _step * (int)offset;
     }
 
     bool is_equal(const numeric_iterator& other) const
@@ -68,7 +68,7 @@ public:
 
     difference_type distance(const numeric_iterator& other) const
     {
-        return (other._value - _value) / _step;
+        return difference_type((other._value - _value) / _step);
     }
 
 private:

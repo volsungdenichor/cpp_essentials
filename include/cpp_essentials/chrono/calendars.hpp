@@ -391,6 +391,9 @@ struct julian
     }
 };
 
+using date = gregorian::date;
+using date_time = gregorian::date_time;
+
 } /* namespace cpp_essentials::chrono */
 
 #endif /* CPP_ESSENTIALS_CHRONO_CALENDARS_HPP_ */

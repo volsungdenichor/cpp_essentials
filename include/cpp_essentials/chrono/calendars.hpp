@@ -5,6 +5,7 @@
 
 #include <iomanip>
 #include <cmath>
+#include <functional>
 
 #include <cpp_essentials/chrono/time.hpp>
 
@@ -393,6 +394,47 @@ struct julian
 
 using date = gregorian::date;
 using date_time = gregorian::date_time;
+
+inline time_point get_last_day_of_month(int year, char month)
+{
+    return gregorian::to_time_point(date{ year, (char)(month + 1), (char)1 }) - 1 * days;
+}
+
+inline time_point get_last_day_of_month_if(int year, char month, const std::function<bool(time_point)>& pred)
+{
+    auto result = get_last_day_of_month(year, month);
+    while (!pred(result))
+    {
+        result -= days;
+    }
+    return result;
+}
+
+inline char get_day_of_week(time_point tp)
+{
+    return iso::get_date(tp).day;
+}
+
+inline bool is_working_day(time_point tp)
+{
+    const auto d = get_day_of_week(tp);
+    return 1 <= d && d <= 5;
+}
+
+inline bool is_weekend(time_point tp)
+{
+    return !is_working_day(tp);
+}
+
+inline time_point get_last_day_of_month(int year, char month, char day_of_week)
+{
+    return get_last_day_of_month_if(year, month, [=](time_point tp) { return get_day_of_week(tp) == day_of_week; });
+}
+
+inline time_point get_last_working_day_of_month(int year, char month)
+{
+    return get_last_day_of_month_if(year, month, is_working_day);
+}
 
 } /* namespace cpp_essentials::chrono */
 

@@ -100,6 +100,11 @@ public:
         std::transform(std::begin(container), std::end(container), std::back_inserter(_vect), [](auto&& item) { return pointer(&item); });
     }
 
+    ref_vector(std::initializer_list<std::reference_wrapper<T>> init)
+    {
+        std::transform(std::begin(init), std::end(init), std::back_inserter(_vect), [](auto&& item) { return pointer(&item.get()); });
+    }
+
     template <class Container, CONCEPT = cc::Constructible<Container, const_iterator, const_iterator>>
     operator Container() const
     {

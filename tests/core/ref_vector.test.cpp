@@ -38,3 +38,13 @@ TEST_CASE("ref_vector::ctor")
         REQUIRE(&vect[i] == &original[i]);
     }
 }
+
+TEST_CASE("ref_vector::initializer_list")
+{
+    int a = 2, b = 4, c = 9;
+    core::ref_vector<int> vect{ std::ref(a), std::ref(b), std::ref(c) };
+    REQUIRE(vect.size() == 3);
+    REQUIRE(&vect[0] == &a);
+    REQUIRE(&vect[1] == &b);
+    REQUIRE(&vect[2] == &c);
+}

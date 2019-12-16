@@ -5,6 +5,7 @@
 
 #include <cpp_essentials/core/iterator_range.hpp>
 #include <cpp_essentials/core/detail/rust_iterator.hpp>
+#include <cpp_essentials/core/detail/generating_iterator.hpp>
 
 namespace cpp_essentials::core
 {
@@ -22,9 +23,19 @@ struct make_generator_fn
     }
 };
 
+struct make_infinite_generator_fn
+{
+    template <class Func>
+    auto operator ()(Func&& func) const
+    {
+        return core::make_default_ended_range(generating_iterator{ std::move(func) });
+    }
+};
+
 } /* namespace detail */
 
 static constexpr detail::make_generator_fn make_generator = {};
+static constexpr detail::make_infinite_generator_fn make_infinite_generator = {};
 
 } /* namespace cpp_essentials::core */
 

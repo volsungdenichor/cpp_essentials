@@ -558,6 +558,9 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\fmt\format.hpp">
       <Filter>Header Files\cpp_essentials\fmt</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\generating_iterator.hpp">
+      <Filter>Header Files\cpp_essentials\core\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

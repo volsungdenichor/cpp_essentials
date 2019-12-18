@@ -54,7 +54,9 @@ struct to_string_view_fn
     {
         auto b = std::begin(range);
         auto e = std::end(range);
-        return { std::addressof(*b), std::string_view::size_type(std::distance(b, e)) };
+        return b != e
+            ? std::string_view{ std::addressof(*b), std::string_view::size_type(std::distance(b, e)) }
+            : std::string_view{};
     }
 };
 

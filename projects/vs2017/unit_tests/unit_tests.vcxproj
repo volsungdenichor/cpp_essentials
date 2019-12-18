@@ -173,6 +173,7 @@
     <ClCompile Include="..\..\..\tests\core\functors.test.cpp" />
     <ClCompile Include="..\..\..\tests\core\iterate.test.cpp" />
     <ClCompile Include="..\..\..\tests\core\map.test.cpp" />
+    <ClCompile Include="..\..\..\tests\core\map_utls.test.cpp" />
     <ClCompile Include="..\..\..\tests\core\numeric.test.cpp" />
     <ClCompile Include="..\..\..\tests\core\ptr_vector.test.cpp" />
     <ClCompile Include="..\..\..\tests\core\ref_vector.test.cpp" />

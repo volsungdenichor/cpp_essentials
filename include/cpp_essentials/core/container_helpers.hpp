@@ -106,46 +106,6 @@ struct erase_if_fn
     }
 };
 
-struct try_at_fn
-{
-    template <class Container, class Key>
-    decltype(auto) operator ()(Container&& container, Key&& key) const
-    {
-        using ::cpp_essentials::core::map_try_get;
-        
-        if constexpr (is_associative_container_v<std::decay_t<Container>>)
-        {
-            return map_try_get(container, key);
-        }
-        else
-        {
-            return core::front_or_none(core::views::drop(container, (std::ptrdiff_t)key));
-        }
-    }
-};
-
-struct at_fn
-{
-    template <class Container, class Key>
-    decltype(auto) operator ()(Container&& container, Key&& key) const
-    {
-        function<std::string> message_builder = [&]()
-        {
-            if constexpr (is_associative_container_v<std::decay_t<Container>>)
-            {
-                return ::cpp_essentials::core::str("missing key ", key);
-            }
-            else
-            {
-                return ::cpp_essentials::core::str("out of bounds: index=", key, ", size=", core::size(container));
-            }
-        };        
-        
-        static constexpr try_at_fn _try_at{};
-        return _try_at(container, key).value_or_throw(message_builder);
-    }
-};
-
 } /* namespace detail */
 
 static const auto insert = detail::insert_fn{};
@@ -153,8 +113,6 @@ static const auto push_front = detail::push_front_fn{};
 static const auto push_back = detail::push_back_fn{};
 static const auto erase = detail::erase_fn{};
 static const auto erase_if = detail::erase_if_fn{};
-static const auto try_at = adaptable{ detail::try_at_fn{} };
-static const auto at = adaptable{ detail::at_fn{} };
 
 } /* namespace cpp_essentials::core */
 

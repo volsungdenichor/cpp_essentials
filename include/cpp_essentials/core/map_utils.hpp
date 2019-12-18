@@ -38,12 +38,22 @@ static constexpr bool is_associative_container_v = is_associative_container<T>::
 template <class T>
 using AssociativeContainer = std::enable_if_t<is_associative_container_v<T>>;
 
+struct map_equal_range_fn
+{
+    template <class Map, class K, CONCEPT = AssociativeContainer<std::decay_t<Map>>>
+    auto operator ()(Map&& item, const K& key) const
+    {
+        return make_range(item.equal_range(key));
+    }
+};
+
 struct map_at_fn
 {
     template <class Map, class K, CONCEPT = AssociativeContainer<std::decay_t<Map>>>
     auto operator ()(Map&& item, const K& key) const
     {
-        return views::map(make_range(item.equal_range(key)), get_value);
+        static constexpr map_equal_range_fn _map_equal_range = {};
+        return views::map(_map_equal_range(item, key), get_value);
     }
 };
 
@@ -91,6 +101,7 @@ struct map_get_fn
 
 } /* namespace detail */
 
+static constexpr auto map_equal_range = adaptable{ detail::map_equal_range_fn{} };
 static constexpr auto map_at = adaptable{ detail::map_at_fn{} };
 static constexpr auto map_try_get = adaptable{ detail::map_try_get_fn{} };
 static constexpr auto map_get = adaptable{ detail::map_get_fn{} };

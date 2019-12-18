@@ -52,11 +52,10 @@ using core::join;
 
 using core::group_by;
 
+using core::map_equal_range;
 using core::map_at;
 using core::map_try_get;
 using core::map_get;
-using core::at;
-using core::try_at;
 
 PULL_ADAPTABLE(front);
 PULL_ADAPTABLE(front_or_throw);
@@ -71,6 +70,13 @@ PULL_ADAPTABLE(single_or);
 PULL_ADAPTABLE(single_or_default);
 PULL_ADAPTABLE(single_or_eval);
 PULL_ADAPTABLE(single_or_none);
+
+PULL_ADAPTABLE(at);
+PULL_ADAPTABLE(at_or_throw);
+PULL_ADAPTABLE(at_or);
+PULL_ADAPTABLE(at_or_default);
+PULL_ADAPTABLE(at_or_eval);
+PULL_ADAPTABLE(at_or_none);
 
 PULL_ADAPTABLE(size);
 PULL_ADAPTABLE(empty);

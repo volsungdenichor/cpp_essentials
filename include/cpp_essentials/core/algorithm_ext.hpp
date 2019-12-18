@@ -53,6 +53,13 @@ bool is_single(Iter b, Iter e)
     return b != e && std::next(b) == e;
 }
 
+template <class Range>
+auto drop(Range&& range, std::ptrdiff_t count)
+{
+    auto[b, e] = make_range(range);
+    return make_range(advance(b, e, count), e);
+}
+
 struct front_fn
 {
     template
@@ -272,6 +279,107 @@ struct single_or_none_fn
         auto b = std::begin(range);
         auto e = std::end(range);
         return eval_optional(is_single(b, e), [&]() -> decltype(auto) { return *b; });
+    }
+};
+
+struct at_fn
+{
+    static constexpr  front_fn _front = {};
+
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    decltype(auto) operator ()(Range&& range, std::ptrdiff_t count) const
+    {
+        return _front(drop(range, count));
+    }
+};
+
+struct at_or_throw_fn
+{
+    static constexpr  front_or_throw_fn _front_or_throw = {};
+
+    template
+        < class Range
+        , class Exception
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::BaseOf<std::exception, Exception>>
+    decltype(auto) operator ()(Range&& range, std::ptrdiff_t count, const Exception& exception) const
+    {
+        return _front_or_throw(drop(range, count), exception);
+    }
+
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    decltype(auto) operator ()(Range&& range, std::ptrdiff_t count, const std::string& message) const
+    {
+        return _front_or_throw(drop(range, count), message);
+    }
+
+    template
+        < class Range
+        , class Exception
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::BaseOf<std::exception, Exception>>
+    decltype(auto) operator ()(Range&& range, std::ptrdiff_t count, const function<std::string>& message_builder) const
+    {
+        return _front_or_throw(drop(range, count), message_builder);
+    }
+};
+
+struct at_or_fn
+{
+    static constexpr front_or_fn _front_or = {};
+
+    template
+        < class Range
+        , class T
+        , CONCEPT = cc::InputRange<Range>>
+    decltype(auto) operator ()(Range&& range, std::ptrdiff_t count, const T& default_value) const
+    {
+        return _front_or(drop(range, count), default_value);
+    }
+};
+
+struct at_or_default_fn
+{
+    static constexpr front_or_default_fn _front_or_default = {};
+
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    decltype(auto) operator ()(Range&& range, std::ptrdiff_t count) const
+    {
+        return _front_or_default(drop(range, count));
+    }
+};
+
+struct at_or_eval_fn
+{
+    static constexpr front_or_eval_fn _front_or_eval = {};
+
+    template
+        < class Range
+        , class Func
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::NullaryFunction<Func>>
+    decltype(auto) operator ()(Range&& range, std::ptrdiff_t count, Func func) const
+    {
+        return _front_or_eval(drop(range, count), func);
+    }
+};
+
+struct at_or_none_fn
+{
+    static constexpr front_or_none_fn _front_or_none = {};
+
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    decltype(auto) operator ()(Range&& range, std::ptrdiff_t count) const
+    {
+        return _front_or_none(drop(range, count));
     }
 };
 
@@ -507,12 +615,21 @@ static constexpr auto front_or = detail::front_or_fn{};
 static constexpr auto front_or_default = detail::front_or_default_fn{};
 static constexpr auto front_or_eval = detail::front_or_eval_fn{};
 static constexpr auto front_or_none = detail::front_or_none_fn{};
+
 static constexpr auto single = detail::single_fn{};
 static constexpr auto single_or_throw = detail::single_or_throw_fn{};
 static constexpr auto single_or = detail::single_or_fn{};
 static constexpr auto single_or_default = detail::single_or_default_fn{};
 static constexpr auto single_or_eval = detail::single_or_eval_fn{};
 static constexpr auto single_or_none = detail::single_or_none_fn{};
+
+static constexpr auto at = detail::at_fn{};
+static constexpr auto at_or_throw = detail::at_or_throw_fn{};
+static constexpr auto at_or = detail::at_or_fn{};
+static constexpr auto at_or_default = detail::at_or_default_fn{};
+static constexpr auto at_or_eval = detail::at_or_eval_fn{};
+static constexpr auto at_or_none = detail::at_or_none_fn{};
+
 static constexpr auto size = detail::size_fn{};
 static constexpr auto empty = detail::empty_fn{};
 static constexpr auto non_empty = detail::non_empty_fn{};

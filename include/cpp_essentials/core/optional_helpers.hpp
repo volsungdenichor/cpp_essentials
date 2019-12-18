@@ -91,6 +91,7 @@ struct unwrap_or_eval_fn
 } /* namespace detail */
 
 static constexpr auto then = adaptable{ detail::then_fn{} };
+
 static constexpr auto unwrap = adaptable{ detail::unwrap_fn{} };
 static constexpr auto unwrap_or_throw = adaptable{ detail::unwrap_or_throw_fn{} };
 static constexpr auto unwrap_or = adaptable{ detail::unwrap_or_fn{} };

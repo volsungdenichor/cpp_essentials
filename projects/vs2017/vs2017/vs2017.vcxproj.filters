@@ -561,6 +561,9 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\generating_iterator.hpp">
       <Filter>Header Files\cpp_essentials\core\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\lazy_evaluated.hpp">
+      <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

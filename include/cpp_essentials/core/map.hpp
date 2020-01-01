@@ -20,10 +20,10 @@ struct map_fn
         , class UnaryFunc
         , CONCEPT = cc::InputRange<Range>
         , CONCEPT = cc::UnaryFunction<UnaryFunc, cc::range_ref<Range>>>
-    auto operator ()(Range&& range, UnaryFunc func) const
+    auto operator ()(Range&& range, UnaryFunc&& func) const
     {
         using cpp_essentials::core::detail::map_iterator;
-        auto f = make_func(std::move(func));
+        auto f = make_func(std::forward<UnaryFunc>(func));
         return core::make_range(
             map_iterator{ std::begin(range), f },
             map_iterator{ std::end(range), f });

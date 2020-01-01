@@ -207,6 +207,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\filter.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\flatten.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\filter_map.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\flat_map.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\format.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\function_defs.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\exceptions.hpp" />

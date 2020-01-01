@@ -169,7 +169,7 @@
     <ClCompile Include="..\..\..\tests\core\chunk.test.cpp" />
     <ClCompile Include="..\..\..\tests\core\container_helpers.test.cpp" />
     <ClCompile Include="..\..\..\tests\core\filter.test.cpp" />
-    <ClCompile Include="..\..\..\tests\core\flat_map.test.cpp" />
+    <ClCompile Include="..\..\..\tests\core\filter_map.test.cpp" />
     <ClCompile Include="..\..\..\tests\core\functors.test.cpp" />
     <ClCompile Include="..\..\..\tests\core\iterate.test.cpp" />
     <ClCompile Include="..\..\..\tests\core\map.test.cpp" />

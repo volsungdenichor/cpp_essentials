@@ -121,13 +121,13 @@
     <ClCompile Include="..\..\..\tests\geo\intersects.test.cpp">
       <Filter>tests\geo</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\tests\core\flat_map.test.cpp">
-      <Filter>tests\core</Filter>
-    </ClCompile>
     <ClCompile Include="replace.test.cpp">
       <Filter>tests\core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\tests\core\map_utls.test.cpp">
+      <Filter>tests\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\tests\core\filter_map.test.cpp">
       <Filter>tests\core</Filter>
     </ClCompile>
   </ItemGroup>

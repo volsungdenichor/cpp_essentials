@@ -366,9 +366,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\map_utils.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\flat_map.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\math\detail\matrix.transformations.hpp">
       <Filter>Header Files\cpp_essentials\math\detail</Filter>
     </ClInclude>
@@ -562,6 +559,9 @@
       <Filter>Header Files\cpp_essentials\core\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\lazy_evaluated.hpp">
+      <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\filter_map.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
   </ItemGroup>

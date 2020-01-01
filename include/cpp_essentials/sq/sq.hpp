@@ -14,7 +14,7 @@
 #include <cpp_essentials/core/elementwise.hpp>
 #include <cpp_essentials/core/enumerate.hpp>
 #include <cpp_essentials/core/filter.hpp>
-#include <cpp_essentials/core/flat_map.hpp>
+#include <cpp_essentials/core/filter_map.hpp>
 #include <cpp_essentials/core/flatten.hpp>
 #include <cpp_essentials/core/group_by.hpp>
 #include <cpp_essentials/core/iterate.hpp>
@@ -144,7 +144,7 @@ using core::views::filter;
 using core::views::take_if;
 using core::views::drop_if;
 
-using core::views::flat_map;
+using core::views::filter_map;
 using core::views::flatten;
 
 using core::views::enumerate;

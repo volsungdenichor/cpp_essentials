@@ -1,5 +1,5 @@
-#ifndef CPP_ESSENTIALS_CORE_FLAT_MAP_HPP_
-#define CPP_ESSENTIALS_CORE_FLAT_MAP_HPP_
+#ifndef CPP_ESSENTIALS_CORE_FILTER_MAP_HPP_
+#define CPP_ESSENTIALS_CORE_FILTER_MAP_HPP_
 
 #pragma once
 
@@ -13,7 +13,7 @@ namespace cpp_essentials::core::views
 namespace detail
 {
 
-struct flat_map_fn
+struct filter_map_fn
 {
     template
         < class Range
@@ -36,8 +36,8 @@ struct flat_map_fn
 
 } /* namespace detail */
 
-static constexpr auto flat_map = adaptable{ detail::flat_map_fn{} };
+static constexpr auto filter_map = adaptable{ detail::filter_map_fn{} };
 
 } /* namespace cpp_essentials::core::views */
 
-#endif /* CPP_ESSENTIALS_CORE_FLAT_MAP_HPP_ */
+#endif /* CPP_ESSENTIALS_CORE_FILTER_MAP_HPP_ */

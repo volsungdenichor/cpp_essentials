@@ -37,7 +37,7 @@ struct replace_fn
         , CONCEPT = cc::Convertible<U, cc::range_val<Range>>>
     auto operator ()(Range&& range, const T& old_value, const U& new_value) const
     {
-        static constexpr replace_if_fn _replace_if{};
+        static constexpr auto _replace_if = replace_if_fn{};
         return _replace_if(range, core::equal_to(old_value), new_value);
     }
 };

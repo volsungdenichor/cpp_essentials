@@ -378,7 +378,7 @@ struct format_fn
     }
 };
 
-static constexpr format_fn format{};
+static constexpr auto format = format_fn{};
 
 struct print_fn
 {
@@ -395,7 +395,7 @@ struct print_fn
     }
 };
 
-static constexpr print_fn print{};
+static constexpr auto print = print_fn{};
 
 struct println_fn
 {
@@ -412,7 +412,7 @@ struct println_fn
     }
 };
 
-static constexpr println_fn println{};
+static constexpr auto println = println_fn{};
 
 } /* namespace detail */
 

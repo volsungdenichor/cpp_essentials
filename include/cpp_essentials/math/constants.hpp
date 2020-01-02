@@ -174,14 +174,14 @@ T operator -(T lhs, const constant_value<C>& rhs)
 
 } /* namespace detail */
 
-static constexpr detail::constant_value<detail::constant_type::zero> zero{};
-static constexpr detail::constant_value<detail::constant_type::one> one{};
+static constexpr auto zero = detail::constant_value<detail::constant_type::zero>{};
+static constexpr auto one = detail::constant_value<detail::constant_type::one>{};
 
-static constexpr detail::constant_value<detail::constant_type::pi> pi{};
-static constexpr detail::constant_value<detail::constant_type::two_pi> two_pi{};
-static constexpr detail::constant_value<detail::constant_type::half_pi> half_pi{};
+static constexpr auto pi = detail::constant_value<detail::constant_type::pi>{};
+static constexpr auto two_pi = detail::constant_value<detail::constant_type::two_pi>{};
+static constexpr auto half_pi = detail::constant_value<detail::constant_type::half_pi>{};
 
-static constexpr detail::constant_value<detail::constant_type::e> e{};
+static constexpr auto e = detail::constant_value<detail::constant_type::e>{};
 
 } /* namespace cpp_essentials::math */
 

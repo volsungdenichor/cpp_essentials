@@ -248,8 +248,8 @@ struct get_rect_vertex_fn
     template <class T>
     auto operator ()(const rect_2d<T>& rect) const -> vector_2d<T>
     {
-        static constexpr get_rect_side_fn<0, H> h = {};
-        static constexpr get_rect_side_fn<1, V> v = {};
+        static constexpr auto h = get_rect_side_fn<0, H>{};
+        static constexpr auto v = get_rect_side_fn<1, V>{};
 
         return { h(rect), v(rect) };
     }

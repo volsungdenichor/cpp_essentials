@@ -66,8 +66,8 @@ private:
 
 } /* namespace detail */
 
-static constexpr detail::make_intersection_fn<detail::make_intersection_tag> make_intersection = { };
-static constexpr detail::make_intersection_fn<detail::make_union_tag> make_union = { };
+static constexpr auto make_intersection = detail::make_intersection_fn<detail::make_intersection_tag>{};
+static constexpr auto make_union = detail::make_intersection_fn<detail::make_union_tag>{};
 
 } /* namespace cpp_essentials::geo */
 

@@ -80,9 +80,9 @@ struct midpoint_fn
 
 } /* namespace detail */
 
-static constexpr detail::distance_fn distance = {};
-static constexpr detail::bearing_fn bearing = {};
-static constexpr detail::midpoint_fn midpoint = {};
+static constexpr auto distance = detail::distance_fn{};
+static constexpr auto bearing = detail::bearing_fn{};
+static constexpr auto midpoint = detail::midpoint_fn{};
 
 } /* namespace cpp_essentials::carto */
 

@@ -34,7 +34,7 @@ struct perpendicular_fn
 
 } /* namespace detail */
 
-static constexpr detail::perpendicular_fn perpendicular = {};
+static constexpr auto perpendicular = detail::perpendicular_fn{};
 
 } /* namespace cpp_essentials::geo */
 

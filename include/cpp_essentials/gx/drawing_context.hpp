@@ -325,7 +325,7 @@ struct make_drawing_context_fn
     }
 };
 
-static constexpr make_drawing_context_fn make_drawing_context = {};
+static constexpr auto make_drawing_context = make_drawing_context_fn{};
 
 } /* namespace cpp_essentials::gx */
 

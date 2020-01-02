@@ -28,7 +28,7 @@ struct orientation_fn
 
 } /* namespace detail */
 
-static constexpr detail::orientation_fn orientation = {};
+static constexpr auto orientation = detail::orientation_fn{};
 
 } /* namespace cpp_essentials::geo */
 

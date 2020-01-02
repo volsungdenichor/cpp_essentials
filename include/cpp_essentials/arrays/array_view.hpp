@@ -279,7 +279,7 @@ struct from_fn
 
 } /* namespace detail */
 
-static constexpr detail::from_fn from = {};
+static constexpr auto from = detail::from_fn{};
 
 } /* namespace cpp_essentials::arrays */
 

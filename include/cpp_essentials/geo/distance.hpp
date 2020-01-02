@@ -43,8 +43,8 @@ struct length_fn
 
 } /* namespace detail */
 
-static constexpr detail::length_fn length = {};
-static constexpr detail::distance_fn distance = {};
+static constexpr auto length = detail::length_fn{};
+static constexpr auto distance = detail::distance_fn{};
 
 } /* namespace cpp_essentials::geo */
 

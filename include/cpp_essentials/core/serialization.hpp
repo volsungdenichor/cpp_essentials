@@ -58,7 +58,7 @@ struct parse_fn
     template <class String>
     T operator ()(const String& text) const
     {
-        static constexpr try_parse_fn<T> _try_parse = {};
+        static constexpr auto _try_parse = try_parse_fn<T>{};
         auto result = _try_parse(text);
         if (!result)
         {
@@ -118,7 +118,7 @@ struct stringify_fn
     template <class... Args>
     string_t<C> operator ()(const Args&... args) const
     {
-        static constexpr serialize_fn _serialize = {};
+        static constexpr auto _serialize = serialize_fn{};
         ostringstream_t<C> ss;
         _serialize(ss, args...);
         return ss.str();

@@ -206,9 +206,9 @@ struct xiaolin_wu_line_fn
 
 } /* namespace detail */
 
-static constexpr detail::bresenham_line_fn bresenham_line = {};
-static constexpr detail::bresenham_circle_fn bresenham_circle = {};
-static constexpr detail::xiaolin_wu_line_fn xiaolin_wu_line = {};
+static constexpr auto bresenham_line = detail::bresenham_line_fn{};
+static constexpr auto bresenham_circle = detail::bresenham_circle_fn{};
+static constexpr auto xiaolin_wu_line = detail::xiaolin_wu_line_fn{};
 
 } /* namespace cpp_essentials::gx */
 

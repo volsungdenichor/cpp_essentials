@@ -40,7 +40,7 @@ struct match_fn
 
 } /* namespace detail */
 
-static constexpr detail::match_fn match = {};
+static constexpr auto match = detail::match_fn{};
 
 } /* namespace cpp_essentials::core */
 

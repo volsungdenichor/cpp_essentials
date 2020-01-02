@@ -122,9 +122,9 @@ struct make_line_fn
 
 } /* namespace detail */
 
-static constexpr detail::make_segment_fn make_segment = {};
-static constexpr detail::make_ray_fn make_ray = {};
-static constexpr detail::make_line_fn make_line = {};
+static constexpr auto make_segment = detail::make_segment_fn{};
+static constexpr auto make_ray = detail::make_ray_fn{};
+static constexpr auto make_line = detail::make_line_fn{};
 
 template <class T, size_t D>
 std::ostream& operator <<(std::ostream& os, const segment<T, D>& item)

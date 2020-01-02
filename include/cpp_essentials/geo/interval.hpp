@@ -267,7 +267,7 @@ struct make_interval_fn
 
 } /* namespace detail */
 
-static constexpr detail::make_interval_fn make_interval = {};
+static constexpr auto make_interval = detail::make_interval_fn{};
 
 } /* namespace cpp_essentials::geo */
 

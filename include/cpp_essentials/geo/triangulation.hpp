@@ -172,7 +172,7 @@ struct triangulate_fn
 
 } /* namespace detail */
 
-static constexpr detail::triangulate_fn triangulate = {};
+static constexpr auto triangulate = detail::triangulate_fn{};
 
 } /* namespace cpp_essentials::geo */
 

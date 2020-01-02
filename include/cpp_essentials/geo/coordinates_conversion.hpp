@@ -41,9 +41,9 @@ struct polar_fn
         }
     };
 
-    static constexpr from_fn from = {};
-    static constexpr radius_fn radius = {};
-    static constexpr azimuth_fn azimuth = {};
+    static constexpr auto from = from_fn{};
+    static constexpr auto radius = radius_fn{};
+    static constexpr auto azimuth = azimuth_fn{};
 };
 
 
@@ -85,10 +85,10 @@ struct cylindrical_fn
         }
     };
 
-    static constexpr from_fn from = {};
-    static constexpr radius_fn radius = {};
-    static constexpr azimuth_fn azimuth = {};
-    static constexpr height_fn height = {};
+    static constexpr auto from = from_fn{};
+    static constexpr auto radius = radius_fn{};
+    static constexpr auto azimuth = azimuth_fn{};
+    static constexpr auto height = height_fn{};
 };
 
 
@@ -134,30 +134,30 @@ struct spherical_fn
         }
     };
 
-    static constexpr from_fn from = {};
-    static constexpr radius_fn radius = {};
-    static constexpr azimuth_fn azimuth = {};
-    static constexpr inclination_fn inclination = {};
+    static constexpr auto from = from_fn{};
+    static constexpr auto radius = radius_fn{};
+    static constexpr auto azimuth = azimuth_fn{};
+    static constexpr auto inclination = inclination_fn{};
 };
 
 } /* namespace detail */
 
-static constexpr detail::polar_fn polar = {};
-static constexpr detail::cylindrical_fn cylindrical = {};
+static constexpr auto polar = detail::polar_fn{};
+static constexpr auto cylindrical = detail::cylindrical_fn{};
 
-static constexpr detail::polar_fn::from_fn from_polar = {};
-static constexpr detail::polar_fn::radius_fn polar_radius = {};
-static constexpr detail::polar_fn::azimuth_fn polar_azimuth = {};
+static constexpr auto from_polar = detail::polar_fn::from_fn{};
+static constexpr auto polar_radius = detail::polar_fn::radius_fn{};
+static constexpr auto polar_azimuth = detail::polar_fn::azimuth_fn{};
 
-static constexpr detail::cylindrical_fn::from_fn from_cylindrical = {};
-static constexpr detail::cylindrical_fn::radius_fn cylindrical_radius = {};
-static constexpr detail::cylindrical_fn::azimuth_fn cylindrical_azimuth = {};
-static constexpr detail::cylindrical_fn::height_fn cylindrical_height = {};
+static constexpr auto from_cylindrical = detail::cylindrical_fn::from_fn{};
+static constexpr auto cylindrical_radius = detail::cylindrical_fn::radius_fn{};
+static constexpr auto cylindrical_azimuth = detail::cylindrical_fn::azimuth_fn{};
+static constexpr auto cylindrical_height = detail::cylindrical_fn::height_fn{};
 
-static constexpr detail::spherical_fn::from_fn from_spherical = {};
-static constexpr detail::spherical_fn::radius_fn spherical_radius = {};
-static constexpr detail::spherical_fn::azimuth_fn spherical_azimuth = {};
-static constexpr detail::spherical_fn::inclination_fn spherical_inclination = {};
+static constexpr auto from_spherical = detail::spherical_fn::from_fn{};
+static constexpr auto spherical_radius = detail::spherical_fn::radius_fn{};
+static constexpr auto spherical_azimuth = detail::spherical_fn::azimuth_fn{};
+static constexpr auto spherical_inclination = detail::spherical_fn::inclination_fn{};
 
 } /* namespace cpp_essentials::geo */
 

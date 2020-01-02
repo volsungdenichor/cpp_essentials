@@ -40,7 +40,7 @@ struct projection_fn
 
 } /* namespace detail */
 
-static constexpr detail::projection_fn projection = {};
+static constexpr auto projection = detail::projection_fn{};
 
 } /* namespace cpp_essentials::geo */
 

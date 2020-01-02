@@ -104,7 +104,7 @@ struct make_output_iterator_fn
     }
 };
 
-static constexpr make_output_iterator_fn make_output_iterator = {};
+static constexpr auto make_output_iterator = make_output_iterator_fn{};
 
 
 template <class C, class T>
@@ -177,8 +177,8 @@ struct write_fn
     template <class C, class Range, CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, std::basic_ostream<C>& os, const C* separator = nullptr) const
     {
-        static constexpr copy_fn _copy = {};
-        static constexpr output_fn _output = {};
+        static constexpr auto _copy = copy_fn{};
+        static constexpr auto _output = output_fn{};
         return _copy(range, _output(os, separator));
     }
 };

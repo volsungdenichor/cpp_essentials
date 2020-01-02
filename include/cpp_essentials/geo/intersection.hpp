@@ -32,7 +32,7 @@ struct intersection_fn
 
 } /* namespace detail */
 
-static constexpr detail::intersection_fn intersection = {};
+static constexpr auto intersection = detail::intersection_fn{};
 
 } /* namespace cpp_essentials::geo */
 

@@ -179,9 +179,9 @@ using shape = shape_base<double>;
 using path = path_base<double>;
 
 
-static constexpr detail::segment_count_fn segment_count = {};
-static constexpr detail::vertex_count_fn vertex_count = {};
-static constexpr detail::get_segment_fn get_segment = {};
-static constexpr detail::get_vertex_fn get_vertex = {};
+static constexpr auto segment_count = detail::segment_count_fn{};
+static constexpr auto vertex_count = detail::vertex_count_fn{};
+static constexpr auto get_segment = detail::get_segment_fn{};
+static constexpr auto get_vertex = detail::get_vertex_fn{};
 
 } /* namespace cpp_essentials::carto */

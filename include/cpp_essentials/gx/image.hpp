@@ -65,17 +65,17 @@ struct channel_n_fn
     template <class ImageView>
     auto operator ()(ImageView&& img) const
     {
-        static constexpr channel_fn channel = {};
+        static constexpr auto channel = channel_fn{};
         return channel(std::forward<ImageView>(img), Index);
     }
 };
 
 } /* namespace detail */
 
-static constexpr detail::channel_fn channel = {};
-static constexpr detail::channel_n_fn<0> red_channel = {};
-static constexpr detail::channel_n_fn<1> green_channel = {};
-static constexpr detail::channel_n_fn<2> blue_channel = {};
+static constexpr auto channel = detail::channel_fn{};
+static constexpr auto red_channel = detail::channel_n_fn<0>{};
+static constexpr auto green_channel = detail::channel_n_fn<1>{};
+static constexpr auto blue_channel = detail::channel_n_fn<2>{};
 
 } /* namespace cpp_essentials::gx */
 

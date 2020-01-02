@@ -42,8 +42,8 @@ struct circumcircle_fn
 
 } /* namespace detail */
 
-static constexpr detail::incircle_fn incircle = {};
-static constexpr detail::circumcircle_fn circumcircle = {};
+static constexpr auto incircle = detail::incircle_fn{};
+static constexpr auto circumcircle = detail::circumcircle_fn{};
 
 } /* namespace cpp_essentials::geo */
 

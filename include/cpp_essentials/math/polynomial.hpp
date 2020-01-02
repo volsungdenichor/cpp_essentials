@@ -299,7 +299,7 @@ struct root_fn
     }
 };
 
-static constexpr root_fn root = {};
+static constexpr auto root = root_fn{};
 
 } /* namespace cpp_essentials::math */
 

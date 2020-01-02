@@ -182,7 +182,7 @@ template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>
 struct find_fn
 {   
     template <class P>
-    static constexpr find_fn<P> as = {};
+    static constexpr auto as = find_fn<P>{};
 
     template
         < class Range
@@ -191,7 +191,7 @@ struct find_fn
         , CONCEPT = cc::EqualityCompare<cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, T&& value) const
     {
-        static constexpr Policy policy = {};
+        static constexpr auto policy = Policy{};
 
         auto[b, e] = make_range(range);
         return policy(b, std::find(b, e, value), e);
@@ -202,7 +202,7 @@ template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>
 struct find_if_fn
 {
     template <class P>
-    static constexpr find_if_fn<P> as = {};
+    static constexpr auto as = find_if_fn<P>{};
 
     template
         < class Range
@@ -211,7 +211,7 @@ struct find_if_fn
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
-        static constexpr Policy policy = {};
+        static constexpr auto policy = Policy{};
 
         auto[b, e] = make_range(range);
         return policy(b, std::find_if(b, e, make_func(pred)), e);
@@ -222,7 +222,7 @@ template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>
 struct find_if_not_fn
 {
     template <class P>
-    static constexpr find_if_not_fn<P> as = {};
+    static constexpr auto as = find_if_not_fn<P>{};
 
     template
         < class Range
@@ -231,7 +231,7 @@ struct find_if_not_fn
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
-        static constexpr Policy policy = {};
+        static constexpr auto policy = Policy{};
 
         auto[b, e] = make_range(range);
         return policy(b, std::find_if_not(b, e, make_func(pred)), e);
@@ -242,7 +242,7 @@ template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>
 struct find_end_fn
 {
     template <class P>
-    static constexpr find_end_fn<P> as = {};
+    static constexpr auto as = find_end_fn<P>{};
 
     template
         < class Range1
@@ -251,7 +251,7 @@ struct find_end_fn
         , CONCEPT = cc::ForwardRange<Range2>>
     decltype(auto) operator ()(Range1&& range1, Range2&& range2) const
     {
-        static constexpr Policy policy = {};
+        static constexpr auto policy = Policy{};
 
         auto[b, e] = make_range(range1);
         return policy(b, std::find_end(b, e, std::begin(range2), std::end(range2)), e);
@@ -262,7 +262,7 @@ template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>
 struct find_first_of_fn
 {
     template <class P>
-    static constexpr find_first_of_fn<P> as = {};
+    static constexpr auto as = find_first_of_fn<P>{};
 
     template
         < class Range1
@@ -273,7 +273,7 @@ struct find_first_of_fn
         , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     decltype(auto) operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
-        static constexpr Policy policy = {};
+        static constexpr auto policy = Policy{};
 
         auto[b, e] = make_range(range1);
         return policy(b, std::find_first_of(b, e, std::begin(range2), std::end(range2), std::move(pred)), e);
@@ -389,7 +389,7 @@ template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>
 struct is_heap_until_fn
 {
     template <class P>
-    static constexpr is_heap_until_fn<P> as = {};
+    static constexpr auto as = is_heap_until_fn<P>{};
 
     template
         < class Range
@@ -398,7 +398,7 @@ struct is_heap_until_fn
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
-        static constexpr Policy policy = {};
+        static constexpr auto policy = Policy{};
 
         auto[b, e] = make_range(range);
         return policy(b, std::is_heap_until(b, e, std::move(compare)), e);
@@ -448,7 +448,7 @@ template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>
 struct is_sorted_until_fn
 {
     template <class P>
-    static constexpr is_sorted_until_fn<P> as = {};
+    static constexpr auto as = is_sorted_until_fn<P>{};
 
     template
         < class Range
@@ -457,7 +457,7 @@ struct is_sorted_until_fn
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
-        static constexpr Policy policy = {};
+        static constexpr auto policy = Policy{};
 
         auto[b, e] = make_range(range);
         return policy(b, std::is_sorted_until(b, e, std::move(compare)), e);
@@ -488,7 +488,7 @@ template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>
 struct lower_bound_fn
 {
     template <class P>
-    static constexpr lower_bound_fn<P> as = {};
+    static constexpr auto as = lower_bound_fn<P>{};
 
     template
         < class Range
@@ -498,7 +498,7 @@ struct lower_bound_fn
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, const T& value, Compare&& compare = {}) const
     {
-        static constexpr Policy policy = {};
+        static constexpr auto policy = Policy{};
 
         auto[b, e] = make_range(range);
         return policy(b, std::lower_bound(b, e, value, std::move(compare)), e);
@@ -522,7 +522,7 @@ template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>
 struct max_element_fn
 {
     template <class P>
-    static constexpr max_element_fn<P> as = {};
+    static constexpr auto as = max_element_fn<P>{};
 
     template
         < class Range
@@ -531,7 +531,7 @@ struct max_element_fn
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
-        static constexpr Policy policy = {};
+        static constexpr auto policy = Policy{};
 
         auto[b, e] = make_range(range);
         return policy(b, std::max_element(b, e, std::move(compare)), e);
@@ -578,7 +578,7 @@ template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>
 struct minmax_element_fn
 {
     template <class P>
-    static constexpr minmax_element_fn<P> as = {};
+    static constexpr auto as = minmax_element_fn<P>{};
 
     template
         < class Range
@@ -587,7 +587,7 @@ struct minmax_element_fn
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
-        static constexpr Policy policy = {};
+        static constexpr auto policy = Policy{};
 
         auto[b, e] = make_range(range);
 
@@ -601,7 +601,7 @@ template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>
 struct min_element_fn
 {
     template <class P>
-    static constexpr min_element_fn<P> as = {};
+    static constexpr auto as = min_element_fn<P>{};
 
     template
         < class Range
@@ -610,7 +610,7 @@ struct min_element_fn
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
-        static constexpr Policy policy = {};
+        static constexpr auto policy = Policy{};
 
         auto[b, e] = make_range(range);
         return policy(b, std::min_element(b, e, std::move(compare)), e);
@@ -621,7 +621,7 @@ template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>
 struct mismatch_fn
 {
     template <class P>
-    static constexpr mismatch_fn<P> as = {};
+    static constexpr auto as = mismatch_fn<P>{};
 
     template
         < class Range1
@@ -632,7 +632,7 @@ struct mismatch_fn
         , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     auto operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
-        static constexpr Policy policy = {};
+        static constexpr auto policy = Policy{};
 
         auto[b1, e1] = make_range(range1);
         auto[b2, e2] = make_range(range2);
@@ -712,7 +712,7 @@ template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>
 struct partial_sort_copy_fn
 {
     template <class P>
-    static constexpr partial_sort_copy_fn<P> as = {};
+    static constexpr auto as = partial_sort_copy_fn<P>{};
 
     template
         < class Range1
@@ -723,7 +723,7 @@ struct partial_sort_copy_fn
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     decltype(auto) operator ()(Range1&& range1, Range2&& range2, Compare&& compare = {}) const
     {
-        static constexpr Policy policy = {};
+        static constexpr auto policy = Policy{};
 
         auto[b2, e2] = make_range(range2);
         return policy(b2, std::partial_sort_copy(std::begin(range1), std::end(range1), b2, e2, std::move(compare)), e2);
@@ -749,7 +749,7 @@ template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>
 struct partition_fn
 {
     template <class P>
-    static constexpr partition_fn<P> as = {};
+    static constexpr auto as = partition_fn<P>{};
 
     template
         < class Range
@@ -758,7 +758,7 @@ struct partition_fn
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
-        static constexpr Policy policy = {};
+        static constexpr auto policy = Policy{};
 
         auto[b, e] = make_range(range);
         return policy(b, std::partition(b, e, make_func(pred)), e);
@@ -786,7 +786,7 @@ template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>
 struct stable_partition_fn
 {
     template <class P>
-    static constexpr stable_partition_fn<P> as = {};
+    static constexpr auto as = stable_partition_fn<P>{};
 
     template
         < class Range
@@ -795,7 +795,7 @@ struct stable_partition_fn
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
-        static constexpr Policy policy = {};
+        static constexpr auto policy = Policy{};
 
         auto[b, e] = make_range(range);
         return policy(b, std::stable_partition(b, e, make_func(pred)), e);
@@ -832,7 +832,7 @@ template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>
 struct remove_fn
 {
     template <class P>
-    static constexpr remove_fn<P> as = {};
+    static constexpr auto as = remove_fn<P>{};
 
     template
         < class Range
@@ -841,7 +841,7 @@ struct remove_fn
         , CONCEPT = cc::EqualityCompare<cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, const T& value) const
     {
-        static constexpr Policy policy = {};
+        static constexpr auto policy = Policy{};
 
         auto[b, e] = make_range(range);
         return policy(b, std::remove(b, e, value), e);
@@ -852,7 +852,7 @@ template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>
 struct remove_if_fn
 {
     template <class P>
-    static constexpr remove_if_fn<P> as = {};
+    static constexpr auto as = remove_if_fn<P>{};
 
     template
         < class Range
@@ -861,7 +861,7 @@ struct remove_if_fn
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
-        static constexpr Policy policy = {};
+        static constexpr auto policy = Policy{};
 
         auto[b, e] = make_range(range);
         return policy(b, std::remove_if(b, e, make_func(pred)), e);
@@ -986,14 +986,14 @@ template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>
 struct rotate_fn
 {
     template <class P>
-    static constexpr rotate_fn<P> as = {};
+    static constexpr auto as = rotate_fn<P>{};
 
     template
         < class Range
         , CONCEPT = cc::ForwardRange<Range>>
     decltype(auto) operator ()(Range&& range, cc::range_iter<Range> middle) const
     {
-        static constexpr Policy policy = {};
+        static constexpr auto policy = Policy{};
 
         auto[b, e] = make_range(range);
         return policy(b, std::rotate(b, middle, e), e);
@@ -1017,7 +1017,7 @@ template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>
 struct search_fn
 {
     template <class P>
-    static constexpr search_fn<P> as = {};
+    static constexpr auto as = search_fn<P>{};
 
     template
         < class Range1
@@ -1028,7 +1028,7 @@ struct search_fn
         , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     decltype(auto) operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
-        static constexpr Policy policy = {};
+        static constexpr auto policy = Policy{};
 
         auto[b, e] = make_range(range1);
         return policy(b, std::search(b, e, std::begin(range2), std::end(range2), std::move(pred)), e);
@@ -1039,7 +1039,7 @@ template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>
 struct search_n_fn
 {
     template <class P>
-    static constexpr search_n_fn<P> as = {};
+    static constexpr auto as = search_n_fn<P>{};
 
     template
         < class Range
@@ -1051,7 +1051,7 @@ struct search_n_fn
         , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, Size size, const T& value, BinaryPred&& pred = {}) const
     {
-        static constexpr Policy policy = {};
+        static constexpr auto policy = Policy{};
 
         auto[b, e] = make_range(range);
         return policy(b, std::search_n(b, e, size, value, std::move(pred)), e);
@@ -1222,7 +1222,7 @@ template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>
 struct unique_fn
 {
     template <class P>
-    static constexpr unique_fn<P> as = {};
+    static constexpr auto as = unique_fn<P>{};
 
     template
         < class Range
@@ -1231,7 +1231,7 @@ struct unique_fn
         , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, BinaryPred&& pred = {}) const
     {
-        static constexpr Policy policy = {};
+        static constexpr auto policy = Policy{};
 
         auto[b, e] = make_range(range);
         return policy(b, std::unique(b, e, std::move(pred)), e);
@@ -1257,7 +1257,7 @@ template <class Policy = default_return_policy_t, CONCEPT = ReturnPolicy<Policy>
 struct upper_bound_fn
 {
     template <class P>
-    static constexpr upper_bound_fn<P> as = {};
+    static constexpr auto as = upper_bound_fn<P>{};
 
     template
         < class Range
@@ -1267,7 +1267,7 @@ struct upper_bound_fn
         , CONCEPT = cc::BinaryFunction<Compare, cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, const T& value, Compare&& compare = {}) const
     {
-        static constexpr Policy policy = {};
+        static constexpr auto policy = Policy{};
 
         auto[b, e] = make_range(range);
         return policy(b, std::upper_bound(b, e, value, std::move(compare)), e);
@@ -1276,81 +1276,81 @@ struct upper_bound_fn
 
 } /* namespace detail */
 
-static constexpr detail::accumulate_fn accumulate = {};
-static constexpr detail::adjacent_difference_fn adjacent_difference = {};
-static constexpr detail::all_of_fn all_of = {};
-static constexpr detail::any_of_fn any_of = {};
-static constexpr detail::copy_fn copy = {};
-static constexpr detail::copy_if_fn copy_if = {};
-static constexpr detail::copy_n_fn copy_n = {};
-static constexpr detail::count_fn count = {};
-static constexpr detail::count_if_fn count_if = {};
-static constexpr detail::equal_fn equal = {};
-static constexpr detail::equal_range_fn equal_range = {};
-static constexpr detail::fill_fn fill = {};
-static constexpr detail::find_fn<> find = {};
-static constexpr detail::find_if_fn<> find_if = {};
-static constexpr detail::find_if_not_fn<> find_if_not = {};
-static constexpr detail::find_end_fn<> find_end = {};
-static constexpr detail::find_first_of_fn<> find_first_of = {};
-static constexpr detail::for_each_fn for_each = {};
-static constexpr detail::generate_fn generate = {};
-static constexpr detail::generate_n_fn generate_n = {};
-static constexpr detail::includes_fn includes = {};
-static constexpr detail::inner_product_fn inner_product = {};
-static constexpr detail::iota_fn iota = {};
-static constexpr detail::is_heap_fn is_heap = {};
-static constexpr detail::is_heap_until_fn<> is_heap_until = {};
-static constexpr detail::is_partitioned_fn is_partitioned = {};
-static constexpr detail::is_permutation_fn is_permutation = {};
-static constexpr detail::is_sorted_fn is_sorted = {};
-static constexpr detail::is_sorted_until_fn<> is_sorted_until = {};
-static constexpr detail::lexicographical_compare_fn lexicographical_compare = {};
-static constexpr detail::lower_bound_fn<> lower_bound = {};
-static constexpr detail::make_heap_fn make_heap = {};
-static constexpr detail::max_element_fn<> max_element = {};
-static constexpr detail::merge_fn merge = {};
-static constexpr detail::inplace_merge_fn inplace_merge = {};
-static constexpr detail::minmax_element_fn<> minmax_element = {};
-static constexpr detail::min_element_fn<> min_element = {};
-static constexpr detail::mismatch_fn<> mismatch = {};
-static constexpr detail::move_fn move = {};
-static constexpr detail::next_permutation_fn next_permutation = {};
-static constexpr detail::none_of_fn none_of = {};
-static constexpr detail::nth_element_fn nth_element = {};
-static constexpr detail::partial_sort_fn partial_sort = {};
-static constexpr detail::partial_sort_copy_fn<> partial_sort_copy = {};
-static constexpr detail::partial_sum_fn partial_sum = {};
-static constexpr detail::partition_fn<> partition = {};
-static constexpr detail::partition_copy_fn partition_copy = {};
-static constexpr detail::stable_partition_fn<> stable_partition = {};
-static constexpr detail::prev_permutation_fn prev_permutation = {};
-static constexpr detail::push_heap_fn push_heap = {};
-static constexpr detail::remove_fn<> remove = {};
-static constexpr detail::remove_if_fn<> remove_if = {};
-static constexpr detail::remove_copy_fn remove_copy = {};
-static constexpr detail::remove_copy_if_fn remove_copy_if = {};
-static constexpr detail::replace_fn replace = {};
-static constexpr detail::replace_if_fn replace_if = {};
-static constexpr detail::replace_copy_fn replace_copy = {};
-static constexpr detail::replace_copy_if_fn replace_copy_if = {};
-static constexpr detail::reverse_fn reverse = {};
-static constexpr detail::reverse_copy_fn reverse_copy = {};
-static constexpr detail::rotate_fn<> rotate = {};
-static constexpr detail::rotate_copy_fn rotate_copy = {};
-static constexpr detail::search_fn<> search = {};
-static constexpr detail::search_n_fn<> search_n = {};
-static constexpr detail::set_difference_fn set_difference = {};
-static constexpr detail::set_intersection_fn set_intersection = {};
-static constexpr detail::set_symmetric_difference_fn set_symmetric_difference = {};
-static constexpr detail::set_union_fn set_union = {};
-static constexpr detail::shuffle_fn shuffle = {};
-static constexpr detail::sort_fn sort = {};
-static constexpr detail::stable_sort_fn stable_sort = {};
-static constexpr detail::transform_fn transform = {};
-static constexpr detail::unique_fn<> unique = {};
-static constexpr detail::unique_copy_fn unique_copy = {};
-static constexpr detail::upper_bound_fn<> upper_bound = {};
+static constexpr auto accumulate = detail::accumulate_fn{};
+static constexpr auto adjacent_difference = detail::adjacent_difference_fn{};
+static constexpr auto all_of = detail::all_of_fn{};
+static constexpr auto any_of = detail::any_of_fn{};
+static constexpr auto copy = detail::copy_fn{};
+static constexpr auto copy_if = detail::copy_if_fn{};
+static constexpr auto copy_n = detail::copy_n_fn{};
+static constexpr auto count = detail::count_fn{};
+static constexpr auto count_if = detail::count_if_fn{};
+static constexpr auto equal = detail::equal_fn{};
+static constexpr auto equal_range = detail::equal_range_fn{};
+static constexpr auto fill = detail::fill_fn{};
+static constexpr auto find = detail::find_fn<>{};
+static constexpr auto find_if = detail::find_if_fn<>{};
+static constexpr auto find_if_not = detail::find_if_not_fn<>{};
+static constexpr auto find_end = detail::find_end_fn<>{};
+static constexpr auto find_first_of = detail::find_first_of_fn<>{};
+static constexpr auto for_each = detail::for_each_fn{};
+static constexpr auto generate = detail::generate_fn{};
+static constexpr auto generate_n = detail::generate_n_fn{};
+static constexpr auto includes = detail::includes_fn{};
+static constexpr auto inner_product = detail::inner_product_fn{};
+static constexpr auto iota = detail::iota_fn{};
+static constexpr auto is_heap = detail::is_heap_fn{};
+static constexpr auto is_heap_until = detail::is_heap_until_fn<>{};
+static constexpr auto is_partitioned = detail::is_partitioned_fn{};
+static constexpr auto is_permutation = detail::is_permutation_fn{};
+static constexpr auto is_sorted = detail::is_sorted_fn{};
+static constexpr auto is_sorted_until = detail::is_sorted_until_fn<>{};
+static constexpr auto lexicographical_compare = detail::lexicographical_compare_fn{};
+static constexpr auto lower_bound = detail::lower_bound_fn<>{};
+static constexpr auto make_heap = detail::make_heap_fn{};
+static constexpr auto max_element = detail::max_element_fn<>{};
+static constexpr auto merge = detail::merge_fn{};
+static constexpr auto inplace_merge = detail::inplace_merge_fn{};
+static constexpr auto minmax_element = detail::minmax_element_fn<>{};
+static constexpr auto min_element = detail::min_element_fn<>{};
+static constexpr auto mismatch = detail::mismatch_fn<>{};
+static constexpr auto move = detail::move_fn{};
+static constexpr auto next_permutation = detail::next_permutation_fn{};
+static constexpr auto none_of = detail::none_of_fn{};
+static constexpr auto nth_element = detail::nth_element_fn{};
+static constexpr auto partial_sort = detail::partial_sort_fn{};
+static constexpr auto partial_sort_copy = detail::partial_sort_copy_fn<>{};
+static constexpr auto partial_sum = detail::partial_sum_fn{};
+static constexpr auto partition = detail::partition_fn<>{};
+static constexpr auto partition_copy = detail::partition_copy_fn{};
+static constexpr auto stable_partition = detail::stable_partition_fn<>{};
+static constexpr auto prev_permutation = detail::prev_permutation_fn{};
+static constexpr auto push_heap = detail::push_heap_fn{};
+static constexpr auto remove = detail::remove_fn<>{};
+static constexpr auto remove_if = detail::remove_if_fn<>{};
+static constexpr auto remove_copy = detail::remove_copy_fn{};
+static constexpr auto remove_copy_if = detail::remove_copy_if_fn{};
+static constexpr auto replace = detail::replace_fn{};
+static constexpr auto replace_if = detail::replace_if_fn{};
+static constexpr auto replace_copy = detail::replace_copy_fn{};
+static constexpr auto replace_copy_if = detail::replace_copy_if_fn{};
+static constexpr auto reverse = detail::reverse_fn{};
+static constexpr auto reverse_copy = detail::reverse_copy_fn{};
+static constexpr auto rotate = detail::rotate_fn<>{};
+static constexpr auto rotate_copy = detail::rotate_copy_fn{};
+static constexpr auto search = detail::search_fn<>{};
+static constexpr auto search_n = detail::search_n_fn<>{};
+static constexpr auto set_difference = detail::set_difference_fn{};
+static constexpr auto set_intersection = detail::set_intersection_fn{};
+static constexpr auto set_symmetric_difference = detail::set_symmetric_difference_fn{};
+static constexpr auto set_union = detail::set_union_fn{};
+static constexpr auto shuffle = detail::shuffle_fn{};
+static constexpr auto sort = detail::sort_fn{};
+static constexpr auto stable_sort = detail::stable_sort_fn{};
+static constexpr auto transform = detail::transform_fn{};
+static constexpr auto unique = detail::unique_fn<>{};
+static constexpr auto unique_copy = detail::unique_copy_fn{};
+static constexpr auto upper_bound = detail::upper_bound_fn<>{};
 
 } /* namespace cpp_essentials::core */
 

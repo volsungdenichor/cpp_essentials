@@ -266,8 +266,8 @@ struct elementwise_divide_fn
 
 } /* namespace detail */
 
-static constexpr detail::elementwise_multiply_fn elementwise_multiply = {};
-static constexpr detail::elementwise_divide_fn elementwise_divide = {};
+static constexpr auto elementwise_multiply = detail::elementwise_multiply_fn{};
+static constexpr auto elementwise_divide = detail::elementwise_divide_fn{};
 
 } /* namespace cpp_essentials::math */
 

@@ -30,7 +30,7 @@ struct make_unexpected_fn
 
 } /* namespace detail */
 
-static constexpr detail::make_unexpected_fn make_unexpected = {};
+static constexpr auto make_unexpected = detail::make_unexpected_fn{};
 
 template <class T, class E>
 class expected

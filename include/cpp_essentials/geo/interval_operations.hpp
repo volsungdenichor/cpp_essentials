@@ -20,7 +20,7 @@ struct make_intersection_fn
     template <class T>
     interval<T> operator ()(const interval<T>& lhs, const interval<T>& rhs) const
     {
-        static constexpr Tag tag = {};
+        static constexpr auto tag = Tag{};
         return apply(lhs, rhs, tag);
     }
 

@@ -46,7 +46,7 @@ struct orthocenter_fn
     auto operator ()(const triangle_2d<T>& value) const -> vector_2d<T>
     {
         static const T epsilon = T(0.0001);
-        static constexpr altitude_fn _altitude = {};
+        static constexpr auto _altitude = altitude_fn{};
 
         return *intersection(make_line(_altitude(value, 0)), make_line(_altitude(value, 1)), epsilon);
     }
@@ -90,11 +90,11 @@ struct incenter_fn
 
 } /* namespace detail */
 
-static constexpr detail::altitude_fn altitude = {};
-static constexpr detail::centroid_fn centroid = {};
-static constexpr detail::orthocenter_fn orthocenter = {};
-static constexpr detail::circumcenter_fn circumcenter = {};
-static constexpr detail::incenter_fn incenter = {};
+static constexpr auto altitude = detail::altitude_fn{};
+static constexpr auto centroid = detail::centroid_fn{};
+static constexpr auto orthocenter = detail::orthocenter_fn{};
+static constexpr auto circumcenter = detail::circumcenter_fn{};
+static constexpr auto incenter = detail::incenter_fn{};
 
 } /* namespace cpp_essentials::geo */
 

@@ -240,23 +240,23 @@ struct discrete_fn
 
 using detail::seed_t;
 
-static constexpr detail::normal_fn normal = {};
-static constexpr detail::uniform_fn uniform = {};
-static constexpr detail::chi_squared_fn chi_squared = {};
-static constexpr detail::bernoulli_fn bernoulli = {};
-static constexpr detail::binomial_fn binomial = {};
-static constexpr detail::negative_binomial_fn negative_binomial = {};
-static constexpr detail::geometric_fn geometric = {};
-static constexpr detail::poisson_fn poisson = {};
-static constexpr detail::exponential_fn exponential = {};
-static constexpr detail::gamma_fn gamma = {};
-static constexpr detail::weibull_fn weibull = {};
-static constexpr detail::extreme_value_fn extreme_value = {};
-static constexpr detail::lognormal_fn lognormal = {};
-static constexpr detail::cauchy_fn cauchy = {};
-static constexpr detail::fisher_f_fn fisher_f = {};
-static constexpr detail::student_t_fn student_t = {};
-static constexpr detail::discrete_fn discrete = {};
+static constexpr auto normal = detail::normal_fn{};
+static constexpr auto uniform = detail::uniform_fn{};
+static constexpr auto chi_squared = detail::chi_squared_fn{};
+static constexpr auto bernoulli = detail::bernoulli_fn{};
+static constexpr auto binomial = detail::binomial_fn{};
+static constexpr auto negative_binomial = detail::negative_binomial_fn{};
+static constexpr auto geometric = detail::geometric_fn{};
+static constexpr auto poisson = detail::poisson_fn{};
+static constexpr auto exponential = detail::exponential_fn{};
+static constexpr auto gamma = detail::gamma_fn{};
+static constexpr auto weibull = detail::weibull_fn{};
+static constexpr auto extreme_value = detail::extreme_value_fn{};
+static constexpr auto lognormal = detail::lognormal_fn{};
+static constexpr auto cauchy = detail::cauchy_fn{};
+static constexpr auto fisher_f = detail::fisher_f_fn{};
+static constexpr auto student_t = detail::student_t_fn{};
+static constexpr auto discrete = detail::discrete_fn{};
 
 } /* namespace cpp_essentials::math */
 

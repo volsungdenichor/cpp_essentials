@@ -62,7 +62,7 @@ struct tuple_printer<T, Index, Index>
 
 } /* namespace detail */
 
-static constexpr detail::visit_fn visit = {};
+static constexpr auto visit = detail::visit_fn{};
 
 } /* namespace cpp_essentials::core */
 

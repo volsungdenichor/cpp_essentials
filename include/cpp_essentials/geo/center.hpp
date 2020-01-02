@@ -43,7 +43,7 @@ struct center_fn
 
 } /* namespace detail */
 
-static constexpr detail::center_fn center = {};
+static constexpr auto center = detail::center_fn{};
 
 } /* namespace cpp_essentials::geo */
 

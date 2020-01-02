@@ -26,7 +26,7 @@ struct norm_fn
     template <class T, size_t D>
     auto operator ()(const vector<T, D>& item) const
     {
-        static constexpr dot_fn _dot = {};
+        static constexpr auto _dot = dot_fn{};
         return _dot(item, item);
     }
 };
@@ -36,7 +36,7 @@ struct length_fn
     template <class T, size_t D>
     auto operator ()(const vector<T, D>& item) const
     {
-        static constexpr norm_fn _norm = {};
+        static constexpr auto _norm = norm_fn{};
         return sqrt(_norm(item));
     }
 };
@@ -46,7 +46,7 @@ struct normalize_fn
     template <class T, size_t D>
     auto& operator ()(vector<T, D>& item) const
     {
-        static constexpr length_fn _length = {};
+        static constexpr auto _length = length_fn{};
         auto len = _length(item);
 
         if (len)
@@ -63,7 +63,7 @@ struct unit_fn
     template <class T, size_t D>
     auto operator ()(const vector<T, D>& item) const
     {
-        static constexpr normalize_fn _normalize = {};
+        static constexpr auto _normalize = normalize_fn{};
         vector<T, D> result{ item };
         _normalize(result);
         return result;
@@ -75,7 +75,7 @@ struct distance_fn
     template <class T, class U, size_t D >
     auto operator ()(const vector<T, D>& lhs, const vector<U, D>& rhs) const
     {
-        static constexpr length_fn _length = {};
+        static constexpr auto _length = length_fn{};
         return _length(rhs - lhs);
     }
 };
@@ -103,8 +103,8 @@ struct projection_fn
     template <class T, size_t D>
     auto operator ()(const vector<T, D>& lhs, const vector<T, D>& rhs) const
     {
-        static constexpr dot_fn _dot = {};
-        static constexpr norm_fn _norm = {};
+        static constexpr auto _dot = dot_fn{};
+        static constexpr auto _norm = norm_fn{};
         return rhs * (_dot(rhs, lhs) / _norm(rhs));
     }
 };
@@ -114,7 +114,7 @@ struct rejection_fn
     template <class T, size_t D>
     auto operator ()(const vector<T, D>& lhs, const vector<T, D>& rhs) const
     {
-        static constexpr projection_fn _projection = {};
+        static constexpr auto _projection = projection_fn{};
         return lhs - _projection(lhs, rhs);
     }
 };
@@ -133,8 +133,8 @@ struct angle_fn
     template <class T>
     auto operator ()(const vector_2d<T>& lhs, const vector_2d<T>& rhs) const
     {
-        static constexpr cross_fn _cross = {};
-        static constexpr dot_fn _dot = {};
+        static constexpr auto _cross = cross_fn{};
+        static constexpr auto _dot = dot_fn{};
         return atan2(_cross(lhs, rhs), _dot(lhs, rhs));
     }
 
@@ -148,8 +148,8 @@ struct angle_fn
     template <class T>
     auto operator ()(const vector_3d<T>& lhs, const vector_3d<T>& rhs) const
     {
-        static constexpr dot_fn _dot = {};
-        static constexpr length_fn _length = {};
+        static constexpr auto _dot = dot_fn{};
+        static constexpr auto _length = length_fn{};
         return acos(_dot(lhs, rhs) / (_length(lhs) * _length(rhs)));
     }
 };
@@ -159,25 +159,25 @@ struct bisector_fn
     template <class T, size_t D>
     auto operator ()(const vector<T, D>& lhs, const vector<T, D>& rhs) const
     {
-        static constexpr unit_fn _unit = {};
+        static constexpr auto _unit = unit_fn{};
         return _unit(_unit(lhs) + _unit(rhs));
     }
 };
 
 } /* namespace detail */
 
-static constexpr detail::dot_fn dot = {};
-static constexpr detail::norm_fn norm = {};
-static constexpr detail::length_fn length = {};
-static constexpr detail::normalize_fn normalize = {};
-static constexpr detail::unit_fn unit = {};
-static constexpr detail::distance_fn distance = {};
-static constexpr detail::cross_fn cross = {};
-static constexpr detail::projection_fn projection = {};
-static constexpr detail::rejection_fn rejection = {};
-static constexpr detail::perpendicular_fn perpendicular = {};
-static constexpr detail::angle_fn angle = {};
-static constexpr detail::bisector_fn bisector = {};
+static constexpr auto dot = detail::dot_fn{};
+static constexpr auto norm = detail::norm_fn{};
+static constexpr auto length = detail::length_fn{};
+static constexpr auto normalize = detail::normalize_fn{};
+static constexpr auto unit = detail::unit_fn{};
+static constexpr auto distance = detail::distance_fn{};
+static constexpr auto cross = detail::cross_fn{};
+static constexpr auto projection = detail::projection_fn{};
+static constexpr auto rejection = detail::rejection_fn{};
+static constexpr auto perpendicular = detail::perpendicular_fn{};
+static constexpr auto angle = detail::angle_fn{};
+static constexpr auto bisector = detail::bisector_fn{};
 
 } /* namespace cpp_essentials::math */
 

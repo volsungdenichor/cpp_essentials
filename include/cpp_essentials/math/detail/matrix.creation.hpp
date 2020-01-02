@@ -143,12 +143,12 @@ public:
 
 } /* namespace detail */
 
-static constexpr detail::make_vector_fn make_vector = {};
-static constexpr detail::as_tuple_fn as_tuple = {};
+static constexpr auto make_vector = detail::make_vector_fn{};
+static constexpr auto as_tuple = detail::as_tuple_fn{};
 
-static constexpr detail::identity_fn identity = {};
-static constexpr detail::matrix_builder_t<0> zeros = {};
-static constexpr detail::matrix_builder_t<1> ones = {};
+static constexpr auto identity = detail::identity_fn{};
+static constexpr auto zeros = detail::matrix_builder_t<0>{};
+static constexpr auto ones = detail::matrix_builder_t<1>{};
 
 } /* namespace cpp_essentials::math */
 

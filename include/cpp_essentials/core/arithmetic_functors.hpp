@@ -16,7 +16,7 @@ class unary_operator
 {
 public:
     using operator_type = Op;
-    static constexpr operator_type operator_instance = {};
+    static constexpr auto operator_instance = operator_type{};
 
     template <class T>
     constexpr auto operator ()(const T& item) const
@@ -35,7 +35,7 @@ class binary_operator
 {
 public:
     using operator_type = Op;
-    static constexpr operator_type operator_instance = {};
+    static constexpr auto operator_instance = operator_type{};
 
     template <class T>
     constexpr auto bind_left(const T& value) const

@@ -30,7 +30,7 @@ struct to_byte_fn
 
 } /* namespace detail */
 
-static constexpr detail::to_byte_fn to_byte = {};
+static constexpr auto to_byte = detail::to_byte_fn{};
 
 
 struct rgb_color
@@ -603,12 +603,12 @@ struct to_rgb_fn
 
 } /* namespace detail */
 
-static constexpr detail::to_hsv_fn to_hsv = {};
-static constexpr detail::to_hsl_fn to_hsl = {};
-static constexpr detail::to_cmyk_fn to_cmyk = {};
-static constexpr detail::to_yiq_fn to_yiq = {};
-static constexpr detail::to_yuv_fn to_yuv = {};
-static constexpr detail::to_rgb_fn to_rgb = {};
+static constexpr auto to_hsv = detail::to_hsv_fn{};
+static constexpr auto to_hsl = detail::to_hsl_fn{};
+static constexpr auto to_cmyk = detail::to_cmyk_fn{};
+static constexpr auto to_yiq = detail::to_yiq_fn{};
+static constexpr auto to_yuv = detail::to_yuv_fn{};
+static constexpr auto to_rgb = detail::to_rgb_fn{};
 
 
 } /* namespace cpp_essentials::gx */

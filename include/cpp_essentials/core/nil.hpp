@@ -6,7 +6,7 @@ namespace cpp_essentials
 
 struct nil_t {};
 
-static constexpr nil_t nil = {};
+static constexpr auto nil = nil_t{};
 
 } /* namespace cpp_essentials */
 

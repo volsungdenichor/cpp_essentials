@@ -180,10 +180,10 @@ struct diagonal_fn
 
 } /* namespace detail */
 
-static constexpr detail::flip_fn flip = {};
-static constexpr detail::transpose_fn transpose = {};
-static constexpr detail::rotate_fn rotate = {};
-static constexpr detail::diagonal_fn diagonal = {};
+static constexpr auto flip = detail::flip_fn{};
+static constexpr auto transpose = detail::transpose_fn{};
+static constexpr auto rotate = detail::rotate_fn{};
+static constexpr auto diagonal = detail::diagonal_fn{};
 
 } /* namespace cpp_essentials::arrays */
 

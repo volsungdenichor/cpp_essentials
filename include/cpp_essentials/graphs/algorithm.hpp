@@ -265,9 +265,9 @@ struct depth_first_fn
 
 } /* namespace detail */
 
-static constexpr detail::shortest_path_fn shortest_path = {};
-static constexpr detail::breadth_first_fn breadth_first = {};
-static constexpr detail::depth_first_fn depth_first = {};
+static constexpr auto shortest_path = detail::shortest_path_fn{};
+static constexpr auto breadth_first = detail::breadth_first_fn{};
+static constexpr auto depth_first = detail::depth_first_fn{};
 
 } /* namespace cpp_essentials::graphs */
 

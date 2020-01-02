@@ -75,8 +75,8 @@ struct ensures_fn
 
 } /* namespace detail */
 
-static constexpr detail::ensures_fn expects = {};
-static constexpr detail::ensures_fn ensures = {};
+static constexpr auto expects = detail::ensures_fn{};
+static constexpr auto ensures = detail::ensures_fn{};
 
 } /* namespace cpp_essentials::core */
 

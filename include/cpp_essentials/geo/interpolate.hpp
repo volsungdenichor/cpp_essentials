@@ -35,7 +35,7 @@ struct interpolate_fn
 
 } /* namespace detail */
 
-static constexpr detail::interpolate_fn interpolate = {};
+static constexpr auto interpolate = detail::interpolate_fn{};
 
 } /* namespace cpp_essentials::geo */
 

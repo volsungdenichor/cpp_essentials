@@ -32,7 +32,7 @@ struct default_constructible_func
 {
     static constexpr bool is_default_constructible = std::is_default_constructible_v<Func>;
 
-    using impl_type = std::conditional_t<is_default_constructible, Func, core::optional<Func>>;
+    using impl_type = std::conditional_t<is_default_constructible, Func, std::optional<Func>>;
 
     default_constructible_func() = default;
 

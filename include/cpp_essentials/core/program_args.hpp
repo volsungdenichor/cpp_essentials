@@ -30,7 +30,7 @@ struct create_program_args_fn
 } /* namespace detail */
 
 using detail::program_args;
-static constexpr detail::create_program_args_fn create_program_args = {};
+static constexpr auto create_program_args = detail::create_program_args_fn{};
 
 } /* namespace cpp_essentials::core */
 

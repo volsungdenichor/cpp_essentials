@@ -284,7 +284,7 @@ struct single_or_none_fn
 
 struct at_fn
 {
-    static constexpr  front_fn _front = {};
+    static constexpr auto _front = front_fn{};
 
     template
         < class Range
@@ -297,7 +297,7 @@ struct at_fn
 
 struct at_or_throw_fn
 {
-    static constexpr  front_or_throw_fn _front_or_throw = {};
+    static constexpr auto _front_or_throw = front_or_throw_fn{};
 
     template
         < class Range
@@ -330,7 +330,7 @@ struct at_or_throw_fn
 
 struct at_or_fn
 {
-    static constexpr front_or_fn _front_or = {};
+    static constexpr auto _front_or = front_or_fn{};
 
     template
         < class Range
@@ -344,7 +344,7 @@ struct at_or_fn
 
 struct at_or_default_fn
 {
-    static constexpr front_or_default_fn _front_or_default = {};
+    static constexpr auto _front_or_default = front_or_default_fn{};
 
     template
         < class Range
@@ -357,7 +357,7 @@ struct at_or_default_fn
 
 struct at_or_eval_fn
 {
-    static constexpr front_or_eval_fn _front_or_eval = {};
+    static constexpr auto _front_or_eval = front_or_eval_fn{};
 
     template
         < class Range
@@ -372,7 +372,7 @@ struct at_or_eval_fn
 
 struct at_or_none_fn
 {
-    static constexpr front_or_none_fn _front_or_none = {};
+    static constexpr auto _front_or_none = front_or_none_fn{};
 
     template
         < class Range

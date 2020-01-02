@@ -34,8 +34,8 @@ struct make_infinite_generator_fn
 
 } /* namespace detail */
 
-static constexpr detail::make_generator_fn make_generator = {};
-static constexpr detail::make_infinite_generator_fn make_infinite_generator = {};
+static constexpr auto make_generator = detail::make_generator_fn{};
+static constexpr auto make_infinite_generator = detail::make_infinite_generator_fn{};
 
 } /* namespace cpp_essentials::core */
 

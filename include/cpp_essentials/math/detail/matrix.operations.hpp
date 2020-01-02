@@ -75,7 +75,7 @@ struct determinant_fn
     template <class T, size_t D>
     auto operator ()(const square_matrix<T, D>& item) const
     {
-        static constexpr minor_fn _minor = {};
+        static constexpr auto _minor = minor_fn{};
 
         auto sum = T{};
 
@@ -93,7 +93,7 @@ struct is_invertible_fn
     template <class T, size_t D>
     bool operator ()(const square_matrix<T, D>& value) const
     {
-        static constexpr determinant_fn _determinant = {};
+        static constexpr auto _determinant = determinant_fn{};
         return _determinant(value);
     }
 };
@@ -103,8 +103,8 @@ struct invert_fn
     template <class T, size_t D>
     auto operator ()(const square_matrix<T, D>& value) const -> core::optional<square_matrix<T, D>>
     {
-        static constexpr determinant_fn _determinant = {};
-        static constexpr minor_fn _minor = {};
+        static constexpr auto _determinant = determinant_fn{};
+        static constexpr auto _minor = minor_fn{};
 
         auto det = _determinant(value);
 
@@ -159,12 +159,12 @@ struct transform_fn
 
 } /* namespace detail */
 
-static constexpr detail::minor_fn minor = {};
-static constexpr detail::determinant_fn determinant = {};
-static constexpr detail::is_invertible_fn is_invertible = {};
-static constexpr detail::invert_fn invert = {};
-static constexpr detail::transpose_fn transpose = {};
-static constexpr detail::transform_fn transform = {};
+static constexpr auto minor = detail::minor_fn{};
+static constexpr auto determinant = detail::determinant_fn{};
+static constexpr auto is_invertible = detail::is_invertible_fn{};
+static constexpr auto invert = detail::invert_fn{};
+static constexpr auto transpose = detail::transpose_fn{};
+static constexpr auto transform = detail::transform_fn{};
 
 } /* namespace cpp_essentials::math */
 

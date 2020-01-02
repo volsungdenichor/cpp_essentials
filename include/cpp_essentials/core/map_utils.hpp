@@ -52,7 +52,7 @@ struct map_at_fn
     template <class Map, class K, CONCEPT = AssociativeContainer<std::decay_t<Map>>>
     auto operator ()(Map&& item, const K& key) const
     {
-        static constexpr map_equal_range_fn _map_equal_range = {};
+        static constexpr auto _map_equal_range = map_equal_range_fn{};
         return views::map(_map_equal_range(item, key), get_value);
     }
 };
@@ -81,7 +81,7 @@ struct map_get_fn
     template <class Map, class K, CONCEPT = AssociativeContainer<Map>>
     const typename Map::mapped_type& operator ()(const Map& map, const K& key) const
     {
-        static constexpr map_try_get_fn _map_try_get = {};
+        static constexpr auto _map_try_get = map_try_get_fn{};
         return _map_try_get(map, key).value_or_throw([&]()
         {
             return ::cpp_essentials::core::str("Missing key '", key, "'");
@@ -91,7 +91,7 @@ struct map_get_fn
     template <class Map, class K, CONCEPT = AssociativeContainer<Map>>
     typename Map::mapped_type& operator ()(Map& map, const K& key) const
     {
-        static constexpr map_try_get_fn _map_try_get = {};
+        static constexpr auto _map_try_get = map_try_get_fn{};
         return _map_try_get(map, key).value_or_throw([&]()
         {
             return ::cpp_essentials::core::str("Missing key '", key, "'");

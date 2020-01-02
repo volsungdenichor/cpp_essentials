@@ -85,9 +85,9 @@ struct make_translation_fn
 
 } /* namespace detail */
 
-static constexpr detail::make_scale_fn make_scale = {};
-static constexpr detail::make_rotation_fn make_rotation = {};
-static constexpr detail::make_translation_fn make_translation = {};
+static constexpr auto make_scale = detail::make_scale_fn{};
+static constexpr auto make_rotation = detail::make_rotation_fn{};
+static constexpr auto make_translation = detail::make_translation_fn{};
 
 } /* namespace cpp_essentials::math */
 

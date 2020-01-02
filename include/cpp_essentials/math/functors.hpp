@@ -200,24 +200,24 @@ struct deg_fn
 
 } /* namespace detail */
 
-static constexpr detail::sgn_fn sgn = {};
-static constexpr detail::abs_fn abs = {};
-static constexpr detail::pow_fn pow = {};
-static constexpr detail::sqr_fn sqr = {};
-static constexpr detail::sqrt_fn sqrt = {};
-static constexpr detail::exp_fn exp = {};
-static constexpr detail::sin_fn sin = {};
-static constexpr detail::cos_fn cos = {};
-static constexpr detail::tan_fn tan = {};
-static constexpr detail::cot_fn cot = {};
-static constexpr detail::asin_fn asin = {};
-static constexpr detail::acos_fn acos = {};
-static constexpr detail::atan2_fn atan2 = {};
-static constexpr detail::floor_fn floor = {};
-static constexpr detail::ceil_fn ceil = {};
-static constexpr detail::round_fn round = {};
-static constexpr detail::rad_fn rad = {};
-static constexpr detail::deg_fn deg = {};
+static constexpr auto sgn = detail::sgn_fn{};
+static constexpr auto abs = detail::abs_fn{};
+static constexpr auto pow = detail::pow_fn{};
+static constexpr auto sqr = detail::sqr_fn{};
+static constexpr auto sqrt = detail::sqrt_fn{};
+static constexpr auto exp = detail::exp_fn{};
+static constexpr auto sin = detail::sin_fn{};
+static constexpr auto cos = detail::cos_fn{};
+static constexpr auto tan = detail::tan_fn{};
+static constexpr auto cot = detail::cot_fn{};
+static constexpr auto asin = detail::asin_fn{};
+static constexpr auto acos = detail::acos_fn{};
+static constexpr auto atan2 = detail::atan2_fn{};
+static constexpr auto floor = detail::floor_fn{};
+static constexpr auto ceil = detail::ceil_fn{};
+static constexpr auto round = detail::round_fn{};
+static constexpr auto rad = detail::rad_fn{};
+static constexpr auto deg = detail::deg_fn{};
 
 } /* namespace cpp_essentials::math */
 

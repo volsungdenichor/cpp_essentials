@@ -291,7 +291,7 @@ struct hash<::cpp_essentials::core::tagged_value<T, Tag>>
 
     result_type operator()(const argument_type& item) const noexcept
     {
-        static constexpr hash<T> inner_hash = {};
+        static constexpr auto inner_hash = hash<T>{};
         return inner_hash(item.get());
     }
 };

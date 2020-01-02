@@ -337,8 +337,8 @@ struct load_bitmap_fn
 
 } /* namespace detail */
 
-static constexpr detail::save_bitmap_fn save_bitmap = {};
-static constexpr detail::load_bitmap_fn load_bitmap = {};
+static constexpr auto save_bitmap = detail::save_bitmap_fn{};
+static constexpr auto load_bitmap = detail::load_bitmap_fn{};
 
 } /* namespace cpp_essentials::gx */
 

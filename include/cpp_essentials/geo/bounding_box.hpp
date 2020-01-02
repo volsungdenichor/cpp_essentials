@@ -314,20 +314,20 @@ struct make_aabb_fn
 
 } /* namespace detail */
 
-static constexpr detail::get_rect_vertex_fn<0, 0> top_left = {};
-static constexpr detail::get_rect_vertex_fn<1, 0> top_right = {};
-static constexpr detail::get_rect_vertex_fn<0, 1> bottom_left = {};
-static constexpr detail::get_rect_vertex_fn<1, 1> bottom_right = {};
+static constexpr auto top_left = detail::get_rect_vertex_fn<0, 0>{};
+static constexpr auto top_right = detail::get_rect_vertex_fn<1, 0>{};
+static constexpr auto bottom_left = detail::get_rect_vertex_fn<0, 1>{};
+static constexpr auto bottom_right = detail::get_rect_vertex_fn<1, 1>{};
 
-static constexpr detail::get_rect_side_fn<0, 0> left = {};
-static constexpr detail::get_rect_side_fn<0, 1> right = {};
-static constexpr detail::get_rect_side_fn<1, 0> top = {};
-static constexpr detail::get_rect_side_fn<1, 1> bottom = {};
+static constexpr auto left = detail::get_rect_side_fn<0, 0>{};
+static constexpr auto right = detail::get_rect_side_fn<0, 1>{};
+static constexpr auto top = detail::get_rect_side_fn<1, 0>{};
+static constexpr auto bottom = detail::get_rect_side_fn<1, 1>{};
 
-static constexpr detail::get_rect_dim_fn<0> width = {};
-static constexpr detail::get_rect_dim_fn<1> height = {};
+static constexpr auto width = detail::get_rect_dim_fn<0>{};
+static constexpr auto height = detail::get_rect_dim_fn<1>{};
 
-static constexpr detail::make_aabb_fn make_aabb = {};
+static constexpr auto make_aabb = detail::make_aabb_fn{};
 
 template <class T, size_t D>
 std::ostream& operator <<(std::ostream& os, const bounding_box<T, D>& bb)

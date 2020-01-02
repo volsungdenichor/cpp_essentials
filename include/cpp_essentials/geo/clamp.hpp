@@ -33,7 +33,7 @@ struct clamp_fn
 
 } /* namespace detail */
 
-static constexpr detail::clamp_fn clamp = {};
+static constexpr auto clamp = detail::clamp_fn{};
 
 } /* namespace cpp_essentials::geo */
 

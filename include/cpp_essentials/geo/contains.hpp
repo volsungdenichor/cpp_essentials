@@ -81,7 +81,7 @@ struct contains_fn
 
 } /* namespace detail */
 
-static constexpr detail::contains_fn contains = {};
+static constexpr auto contains = detail::contains_fn{};
 
 } /* namespace cpp_essentials::geo */
 

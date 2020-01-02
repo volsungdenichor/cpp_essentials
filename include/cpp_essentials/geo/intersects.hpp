@@ -53,7 +53,7 @@ struct intersects_fn
 
 } /* namespace detail */
 
-static constexpr detail::intersects_fn intersects = {};
+static constexpr auto intersects = detail::intersects_fn{};
 
 } /* namespace cpp_essentials::geo */
 

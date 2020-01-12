@@ -6,6 +6,8 @@
 #include <iterator>
 #include <type_traits>
 
+#include <cpp_essentials/core/detail/iterator_category.hpp>
+
 namespace cpp_essentials::core
 {
     

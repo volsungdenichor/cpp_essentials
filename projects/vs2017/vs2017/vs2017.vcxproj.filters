@@ -567,6 +567,9 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\flat_map.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\iterator_category.hpp">
+      <Filter>Header Files\cpp_essentials\core\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

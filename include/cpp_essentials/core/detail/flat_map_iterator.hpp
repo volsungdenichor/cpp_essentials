@@ -15,13 +15,13 @@ template <class Iter, class Func>
 class flat_map_iterator
     : public core::iterator_facade
     < flat_map_iterator<Iter, Func>
-    , common_iterator_category<cc::iter_cat<Iter>, std::forward_iterator_tag>
+    , common_iterator_category<std::forward_iterator_tag, cc::iter_cat<Iter>>
     , underlying_type_t<typename iterator_func_helper<Func, Iter>::type>>
 {
 public:   
     using base_type = core::iterator_facade
         < flat_map_iterator<Iter, Func>
-        , common_iterator_category<cc::iter_cat<Iter>, std::forward_iterator_tag>
+        , common_iterator_category<std::forward_iterator_tag, cc::iter_cat<Iter>>
         , underlying_type_t<typename iterator_func_helper<Func, Iter>::type>>;
 
     INHERIT_ITERATOR_FACADE_TYPES(base_type)

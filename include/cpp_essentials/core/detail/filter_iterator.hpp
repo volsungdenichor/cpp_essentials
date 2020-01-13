@@ -19,14 +19,14 @@ template <class Iter, class Pred>
 class filter_iterator
     : public core::iterator_facade
         < filter_iterator<Iter, Pred>
-        , common_iterator_category<cc::iter_cat<Iter>, std::bidirectional_iterator_tag>
+        , common_iterator_category<std::bidirectional_iterator_tag, cc::iter_cat<Iter>>
         , cc::iter_ref<Iter>
         , cc::iter_diff<Iter>>
 {
 public:
     using base_type = core::iterator_facade
         < filter_iterator<Iter, Pred>
-        , common_iterator_category<cc::iter_cat<Iter>, std::bidirectional_iterator_tag>
+        , common_iterator_category<std::bidirectional_iterator_tag, cc::iter_cat<Iter>>
         , cc::iter_ref<Iter>
         , cc::iter_diff<Iter>>;
 

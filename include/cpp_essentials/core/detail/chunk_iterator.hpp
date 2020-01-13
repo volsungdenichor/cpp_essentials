@@ -15,14 +15,14 @@ template <class Iter>
 class chunk_iterator
     : public core::iterator_facade
         < chunk_iterator<Iter>
-        , common_iterator_category<cc::iter_cat<Iter>, std::forward_iterator_tag>
+        , common_iterator_category<std::forward_iterator_tag, cc::iter_cat<Iter>>
         , core::iterator_range<Iter>
         , cc::iter_diff<Iter>>
 {
 public:
     using base_type = core::iterator_facade
         < chunk_iterator<Iter>
-        , common_iterator_category<cc::iter_cat<Iter>, std::forward_iterator_tag>
+        , common_iterator_category<std::forward_iterator_tag, cc::iter_cat<Iter>>
         , core::iterator_range<Iter>
         , cc::iter_diff<Iter>>;
 

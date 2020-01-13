@@ -72,15 +72,23 @@ struct int_to_iter_cat<4>
 template <int V>
 using int_to_iter_cat_t = typename int_to_iter_cat<V>::type;
 
+template <class... Ints>
+constexpr int _min_value(int head, Ints... tail)
+{
+    if constexpr (sizeof...(tail) == 0)
+    {
+        return head;
+    }
+    else
+    {
+        return std::min(head, _min_value(tail...));
+    }
+}
+
 template <class... Cats>
 struct _common_iterator_category
 {
-};
-
-template <class Cat0, class Cat1>
-struct _common_iterator_category<Cat0, Cat1>
-{
-    using type = int_to_iter_cat_t<std::min(iter_cat_to_int<Cat0>::value, iter_cat_to_int<Cat1>::value)>;
+    using type = int_to_iter_cat_t<_min_value(iter_cat_to_int<Cats>::value...)>;
 };
 
 } /* namespace detail */

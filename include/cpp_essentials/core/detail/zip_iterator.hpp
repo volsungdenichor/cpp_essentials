@@ -31,7 +31,7 @@ template <class Func, class... Iters>
 class zip_iterator
     : public core::iterator_facade
         < zip_iterator<Func, Iters...>
-        , std::bidirectional_iterator_tag
+        , common_iterator_category<std::bidirectional_iterator_tag, cc::iter_cat<Iters>...>
         , typename iterator_func_helper<Func, Iters...>::type>
 {
 private:
@@ -42,7 +42,7 @@ private:
 public:
     using base_type = core::iterator_facade
         < zip_iterator<Func, Iters...>
-        , std::bidirectional_iterator_tag
+        , common_iterator_category<std::bidirectional_iterator_tag, cc::iter_cat<Iters>...>
         , typename iterator_func_helper<Func, Iters...>::type>;
 
     INHERIT_ITERATOR_FACADE_TYPES(base_type)

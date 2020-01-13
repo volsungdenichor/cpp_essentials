@@ -34,13 +34,13 @@ template <class Iter1, class Iter2>
 class chain_iterator
     : public core::iterator_facade
         < chain_iterator<Iter1, Iter2>
-        , std::bidirectional_iterator_tag
+        , common_iterator_category<std::bidirectional_iterator_tag, cc::iter_cat<Iter1>, cc::iter_cat<Iter2>>
         , typename chain_iterator_helper<Iter1, Iter2>::type>
 {
 public:
     using base_type = core::iterator_facade
         < chain_iterator<Iter1, Iter2>
-        , std::bidirectional_iterator_tag
+        , common_iterator_category<std::bidirectional_iterator_tag, cc::iter_cat<Iter1>, cc::iter_cat<Iter2>>
         , typename chain_iterator_helper<Iter1, Iter2>::type>;
 
     INHERIT_ITERATOR_FACADE_TYPES(base_type)

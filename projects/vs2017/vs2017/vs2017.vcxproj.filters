@@ -570,6 +570,9 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\iterator_category.hpp">
       <Filter>Header Files\cpp_essentials\core\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\predicates.hpp">
+      <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

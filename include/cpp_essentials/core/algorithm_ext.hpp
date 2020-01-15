@@ -50,7 +50,7 @@ bool is_not_empty(Iter b, Iter e)
 template <class Iter>
 bool is_single(Iter b, Iter e)
 {
-    return b != e && std::next(b) == e;
+    return is_not_empty(b, e) && std::next(b) == e;
 }
 
 template <class Range>
@@ -515,7 +515,61 @@ struct contains_fn
         auto b1 = std::begin(range1);
         auto e1 = std::end(range1);
 
-        return std::search(b1, e1, std::begin(range2), std::end(range2), std::move(pred)) != e1;
+        auto b2 = std::begin(range2);
+        auto e2 = std::end(range2);
+
+        return std::search(b1, e1, b2, e2, std::move(pred)) != e1;
+    }
+};
+
+struct starts_with_element_fn
+{
+    template
+        < class Range
+        , class T
+        , class BinaryPred = std::equal_to<>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>, T>>
+    auto operator ()(Range&& range, const T& element, BinaryPred&& pred = {}) const
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+
+        return is_not_empty(b, e) && pred(*b, element);
+    }
+};
+
+struct ends_with_element_fn
+{
+    template
+        < class Range
+        , class T
+        , class BinaryPred = std::equal_to<>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>, T>>
+    auto operator ()(Range&& range, const T& element, BinaryPred&& pred = {}) const
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+
+        return is_not_empty(b, e) && pred(*std::prev(e), element);
+    }
+};
+
+struct contains_element_fn
+{
+    template
+        < class Range
+        , class T
+        , class BinaryPred = std::equal_to<>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>, T>>
+    auto operator ()(Range&& range, const T& element, BinaryPred&& pred = {}) const
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+
+        return std::find_if(b, e, [&](const auto& item) { return pred(item, element); }) != e;
     }
 };
 
@@ -575,9 +629,9 @@ struct min_value_fn
         , class Compare = std::less<>
         , CONCEPT = cc::InputRange<Range>
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>, cc::range_ref<Range>>>
-    auto operator ()(Range&& range, Compare compare = {}) const
+    auto operator ()(Range&& range, Compare&& compare = {}) const
     {
-        return extreme_value(std::begin(range), std::end(range), compare);
+        return extreme_value(std::begin(range), std::end(range), std::move(compare));
     }
 };
 
@@ -588,9 +642,9 @@ struct max_value_fn
         , class Compare = std::less<>
         , CONCEPT = cc::InputRange<Range>
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>, cc::range_ref<Range>>>
-    auto operator ()(Range&& range, Compare compare = {}) const
+    auto operator ()(Range&& range, Compare&& compare = {}) const
     {
-        return extreme_value(std::begin(range), std::end(range), logical_negation(compare));
+        return extreme_value(std::begin(range), std::end(range), logical_negation(std::move(compare)));
     }
 };
 
@@ -601,9 +655,24 @@ struct minmax_value_fn
         , class Compare = std::less<>
         , CONCEPT = cc::InputRange<Range>
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>, cc::range_ref<Range>>>
-    auto operator ()(Range&& range, Compare compare = {}) const
+    auto operator ()(Range&& range, Compare&& compare = {}) const
     {
-        return extreme_values(std::begin(range), std::end(range), compare);
+        return extreme_values(std::begin(range), std::end(range), std::move(compare));
+    }
+};
+
+struct all_equal_fn
+{
+    template
+        < class Range
+        , class BinaryPred = std::equal_to<>
+        , CONCEPT = cc::InputRange<Range>
+        , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>, cc::range_ref<Range>>>
+    auto operator ()(Range&& range, BinaryPred&& pred = {}) const
+    {
+        auto b = std::begin(range);
+        auto e = std::end(range);
+        return b != e && std::all_of(std::next(b), e, [&](const auto& item) { return pred(item, *b); });
     }
 };
 
@@ -636,9 +705,15 @@ static constexpr auto non_empty = detail::non_empty_fn{};
 static constexpr auto copy_while = detail::copy_while_fn{};
 static constexpr auto copy_until = detail::copy_until_fn{};
 static constexpr auto overwrite = detail::overwrite_fn{};
+
 static constexpr auto starts_with = detail::starts_with_fn{};
 static constexpr auto ends_with = detail::ends_with_fn{};
 static constexpr auto contains = detail::contains_fn{};
+static constexpr auto starts_with_element = detail::starts_with_element_fn{};
+static constexpr auto ends_with_element = detail::ends_with_element_fn{};
+static constexpr auto contains_element = detail::contains_element_fn{};
+static constexpr auto all_equal = detail::all_equal_fn{};
+
 static constexpr auto sum = detail::sum_fn{};
 static constexpr auto min_value = detail::min_value_fn{};
 static constexpr auto max_value = detail::max_value_fn{};

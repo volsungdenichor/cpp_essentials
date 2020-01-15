@@ -90,7 +90,7 @@ public:
     using const_iterator = detail::dereferenced_iterator<inner_const_iter, reference>;
     using size_type = std::size_t;
 
-    ref_vector() = default;        
+    ref_vector() = default;
     ref_vector(const ref_vector&) = default;
     ref_vector(ref_vector&&) = default;
 
@@ -98,6 +98,12 @@ public:
     ref_vector(Container&& container)
     {
         std::transform(std::begin(container), std::end(container), std::back_inserter(_vect), [](auto&& item) { return pointer(&item); });
+    }
+
+    template <class Iter, CONCEPT = cc::Reference<cc::iter_ref<Iter>>>
+    ref_vector(Iter begin, Iter end)
+    {
+        std::transform(begin, end, std::back_inserter(_vect), [](auto&& item) { return pointer(&item); });
     }
 
     ref_vector(std::initializer_list<std::reference_wrapper<T>> init)

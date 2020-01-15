@@ -52,6 +52,7 @@ using core::write;
 using core::join;
 
 using core::group_by;
+using core::group_by_as;
 
 using core::map_equal_range;
 using core::map_at;
@@ -140,6 +141,7 @@ using core::to_forward_list;
 using core::to_deque;
 using core::to_string;
 using core::to_string_view;
+using core::to_ref_vector;
 
 using core::views::filter;
 using core::views::take_if;

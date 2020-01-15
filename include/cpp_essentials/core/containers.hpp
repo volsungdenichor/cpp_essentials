@@ -5,6 +5,7 @@
 
 #include <cpp_essentials/core/iterator_range.hpp>
 #include <cpp_essentials/core/adaptor.hpp>
+#include <cpp_essentials/core/ref_vector.hpp>
 
 #include <vector>
 #include <list>
@@ -20,7 +21,6 @@ namespace detail
 
 template <class C>
 using basic_string = std::basic_string<C, std::char_traits<C>, std::allocator<C>>;
-
 
 template <template <class> class Container>
 struct to_container_fn
@@ -60,6 +60,18 @@ struct to_string_view_fn
     }
 };
 
+struct to_ref_vector_fn
+{
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range) const -> core::ref_vector<std::remove_reference_t<cc::range_ref<Range>>>
+    {
+
+        return { std::begin(range), std::end(range) };
+    }
+};
+
 } /* namespace detail */
 
 static constexpr auto to_vector = adaptable{ detail::to_container_fn<std::vector>{} };
@@ -69,6 +81,7 @@ static constexpr auto to_forward_list = adaptable{ detail::to_container_fn<std::
 static constexpr auto to_deque = adaptable{ detail::to_container_fn<std::list>{} };
 static constexpr auto to_string = adaptable{ detail::to_string_fn{} };
 static constexpr auto to_string_view = adaptable{ detail::to_string_view_fn{} };
+static constexpr auto to_ref_vector = adaptable{ detail::to_ref_vector_fn{} };
 
 } /* namespace cpp_essentials::core */
 

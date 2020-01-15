@@ -12,16 +12,14 @@ namespace cpp_essentials::core
 namespace detail
 {
 
-template <class Iter, class Func>
+template <template <class, class> class Map, class Iter, class Func>
 auto group_by(Iter begin, Iter end, Func&& func)
 {
     using key_type = std::decay_t<decltype(func(*begin))>;
-    using value_type = std::conditional_t
-        < std::is_reference_v<cc::iter_ref<Iter>>
-        , core::ref_vector<std::remove_reference_t<cc::iter_ref<Iter>>>
-        , std::vector<cc::iter_val<Iter>>>;
+    using value_type = core::vector<cc::iter_ref<Iter>>;
+    using result_type = Map<key_type, value_type>;
 
-    std::map<key_type, value_type> result;
+    result_type result;
 
     for (auto it = begin; it != end; ++it)
     {
@@ -32,6 +30,7 @@ auto group_by(Iter begin, Iter end, Func&& func)
     return result;
 }
 
+template <template <class, class> class Map>
 struct group_by_fn
 {
     template
@@ -41,13 +40,16 @@ struct group_by_fn
         , CONCEPT = cc::UnaryFunction<UnaryFunc, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryFunc func) const
     {
-        return group_by(std::begin(range), std::end(range), make_func(func));
+        return group_by<Map>(std::begin(range), std::end(range), make_func(func));
     }
 };
 
 } /* namespace detail */
 
-static constexpr auto group_by = adaptable{ detail::group_by_fn{} };
+template <template <class, class> class Map>
+static constexpr auto group_by_as = adaptable{ detail::group_by_fn<Map>{} };
+
+static constexpr auto group_by = group_by_as<std::unordered_map>;
 
 } /* namespace cpp_essentials::core */
 

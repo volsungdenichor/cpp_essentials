@@ -67,8 +67,7 @@ struct front_fn
         , CONCEPT = cc::InputRange<Range>>
     decltype(auto) operator ()(Range&& range) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         EXPECTS(is_not_empty(b, e), "empty range");
         return *b;
     }
@@ -83,8 +82,7 @@ struct front_or_throw_fn
         , CONCEPT = cc::BaseOf<std::exception, Exception>>
     decltype(auto) operator ()(Range&& range, const Exception& exception) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         if (!is_not_empty(b, e))
         {
             throw exception;
@@ -105,8 +103,7 @@ struct front_or_throw_fn
         , CONCEPT = cc::InputRange<Range>>
     decltype(auto) operator ()(Range&& range, const function<std::string>& message_builder) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         if (!is_not_empty(b, e))
         {
             throw std::runtime_error{ message_builder() };
@@ -123,8 +120,7 @@ struct front_or_fn
         , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, const T& default_value) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return is_not_empty(b, e) ? *b : default_value;
     }
 };
@@ -136,8 +132,7 @@ struct front_or_default_fn
         , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return is_not_empty(b, e) ? *b : cc::range_val<Range>{};
     }
 };
@@ -151,8 +146,7 @@ struct front_or_eval_fn
         , CONCEPT = cc::NullaryFunction<Func>>
     auto operator ()(Range&& range, Func func) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return is_not_empty(b, e) ? *b : func();
     }
 };
@@ -164,8 +158,7 @@ struct front_or_none_fn
         , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range) const -> decltype(auto)
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return eval_optional(is_not_empty(b, e), [&]() -> decltype(auto) { return *b; });
     }
 };
@@ -177,8 +170,7 @@ struct single_fn
         , CONCEPT = cc::InputRange<Range>>
     decltype(auto) operator ()(Range&& range) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         EXPECTS(is_single(b, e), "zero or more than one element");
         return *b;
     }
@@ -193,8 +185,7 @@ struct single_or_throw_fn
         , CONCEPT = cc::BaseOf<std::exception, Exception>>
     decltype(auto) operator ()(Range&& range, const Exception& exception) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         if (!is_single(b, e))
         {
             throw exception;
@@ -217,8 +208,7 @@ struct single_or_throw_fn
         , CONCEPT = cc::BaseOf<std::exception, Exception>>
     decltype(auto) operator ()(Range&& range, const function<std::string>& message_builder) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         if (!is_single(b, e))
         {
             throw std::runtime_error{ message_builder() };
@@ -235,8 +225,7 @@ struct single_or_fn
         , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range, const T& default_value) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return is_single(b, e) ? *b : default_value;
     }
 };
@@ -248,8 +237,7 @@ struct single_or_default_fn
         , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return is_single(b, e) ? *b : cc::range_val<Range>{};
     }
 };
@@ -263,8 +251,7 @@ struct single_or_eval_fn
         , CONCEPT = cc::NullaryFunction<Func>>
     auto operator ()(Range&& range, Func func) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return is_single(b, e) ? *b : func();
     }
 };
@@ -276,8 +263,7 @@ struct single_or_none_fn
         , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range) const -> decltype(auto)
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return eval_optional(is_single(b, e), [&]() -> decltype(auto) { return *b; });
     }
 };
@@ -470,10 +456,10 @@ struct starts_with_fn
         , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     auto operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
-        auto b1 = std::begin(range1);
-        auto e1 = std::end(range1);
+        auto[b1, e1] = make_range(range1);
+        auto[b2, e2] = make_range(range2);
 
-        return std::search(b1, e1, std::begin(range2), std::end(range2), std::move(pred)) == b1;
+        return std::search(b1, e1, b2, e2, std::move(pred)) == b1;
     }
 };
 
@@ -488,11 +474,8 @@ struct ends_with_fn
         , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     auto operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
-        auto b1 = std::begin(range1);
-        auto e1 = std::end(range1);
-
-        auto b2 = std::begin(range2);
-        auto e2 = std::end(range2);
+        auto[b1, e1] = make_range(range1);
+        auto[b2, e2] = make_range(range2);
 
         auto size1 = std::distance(b1, e1);
         auto size2 = std::distance(b2, e2);
@@ -512,11 +495,8 @@ struct contains_fn
         , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     auto operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
-        auto b1 = std::begin(range1);
-        auto e1 = std::end(range1);
-
-        auto b2 = std::begin(range2);
-        auto e2 = std::end(range2);
+        auto[b1, e1] = make_range(range1);
+        auto[b2, e2] = make_range(range2);
 
         return std::search(b1, e1, b2, e2, std::move(pred)) != e1;
     }
@@ -532,8 +512,7 @@ struct starts_with_element_fn
         , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>, T>>
     auto operator ()(Range&& range, const T& element, BinaryPred&& pred = {}) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
 
         return is_not_empty(b, e) && pred(*b, element);
     }
@@ -549,8 +528,7 @@ struct ends_with_element_fn
         , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>, T>>
     auto operator ()(Range&& range, const T& element, BinaryPred&& pred = {}) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
 
         return is_not_empty(b, e) && pred(*std::prev(e), element);
     }
@@ -566,8 +544,7 @@ struct contains_element_fn
         , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>, T>>
     auto operator ()(Range&& range, const T& element, BinaryPred&& pred = {}) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
 
         return std::find_if(b, e, [&](const auto& item) { return pred(item, element); }) != e;
     }
@@ -670,8 +647,7 @@ struct all_equal_fn
         , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>, cc::range_ref<Range>>>
     auto operator ()(Range&& range, BinaryPred&& pred = {}) const
     {
-        auto b = std::begin(range);
-        auto e = std::end(range);
+        auto[b, e] = make_range(range);
         return b != e && std::all_of(std::next(b), e, [&](const auto& item) { return pred(item, *b); });
     }
 };
@@ -702,6 +678,7 @@ static constexpr auto at_or_none = detail::at_or_none_fn{};
 static constexpr auto size = detail::size_fn{};
 static constexpr auto empty = detail::empty_fn{};
 static constexpr auto non_empty = detail::non_empty_fn{};
+
 static constexpr auto copy_while = detail::copy_while_fn{};
 static constexpr auto copy_until = detail::copy_until_fn{};
 static constexpr auto overwrite = detail::overwrite_fn{};

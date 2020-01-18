@@ -9,9 +9,36 @@
 namespace cpp_essentials::gx
 {
 
-using byte_image = arrays::array<byte, 2>;
-using rgb_image = arrays::array<rgb_color, 2, 3>;
-using rgba_image = arrays::array<rgba_color, 2, 4>;
+template <class T>
+struct bytes_per_pixel
+{
+    static constexpr size_t value = sizeof(T);
+};
+
+template <>
+struct bytes_per_pixel<byte>
+{
+    static constexpr size_t value = 1;
+};
+
+template <>
+struct bytes_per_pixel<rgb_color>
+{
+    static constexpr size_t value = 3;
+};
+
+template <>
+struct bytes_per_pixel<rgba_color>
+{
+    static constexpr size_t value = 4;
+};
+
+template <class T>
+using image = arrays::array<T, 2, bytes_per_pixel<T>::value>;
+
+using byte_image = image<byte>;
+using rgb_image = image<rgb_color>;
+using rgba_image = image<rgba_color>;
 
 using kernel_type = arrays::array<float, 2>;
 

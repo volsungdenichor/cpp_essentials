@@ -573,6 +573,9 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\predicates.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\gx\histogram_operations.hpp">
+      <Filter>Header Files\cpp_essentials\gx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

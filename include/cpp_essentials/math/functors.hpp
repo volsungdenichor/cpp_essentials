@@ -169,6 +169,15 @@ struct ceil_fn
     }
 };
 
+struct fractional_part_fn
+{
+    template <class T>
+    auto operator ()(T x) const
+    {
+        return x - std::floor(x);
+    }
+};
+
 struct round_fn
 {
     template <class T>
@@ -215,6 +224,7 @@ static constexpr auto acos = detail::acos_fn{};
 static constexpr auto atan2 = detail::atan2_fn{};
 static constexpr auto floor = detail::floor_fn{};
 static constexpr auto ceil = detail::ceil_fn{};
+static constexpr auto fractional_part = detail::fractional_part_fn{};
 static constexpr auto round = detail::round_fn{};
 static constexpr auto rad = detail::rad_fn{};
 static constexpr auto deg = detail::deg_fn{};

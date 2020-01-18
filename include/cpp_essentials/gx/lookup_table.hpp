@@ -116,24 +116,24 @@ inline lookup_table exposition(float value)
         : make_lut([=](int v) { return int(v * value); });
 }
 
-inline lookup_table levels_adjustment(byte input_min, byte input_max, byte output_min, byte output_max, float gamma = 1.F)
+inline lookup_table levels_adjustment(byte in_min, byte in_max, byte out_min, byte out_max, float gamma = 1.F)
 {
-    auto input_span = input_max - input_min;
-    auto output_span = output_max - output_min;
+    auto in_span = in_max - in_min;
+    auto out_span = out_max - out_min;
 
     return make_lut([=](int v) -> int
     {
-        if (v < input_min)
+        if (v < in_min)
         {
-            return output_min;
+            return out_min;
         }
 
-        if (v > input_max)
+        if (v > in_max)
         {
-            return output_max;
+            return out_max;
         }
 
-        return int(output_min + output_span * math::pow(float(v - input_min) / input_span, 1.F / gamma));
+        return int(out_min + out_span * math::pow(float(v - in_min) / in_span, 1.F / gamma));
     });
 }
 

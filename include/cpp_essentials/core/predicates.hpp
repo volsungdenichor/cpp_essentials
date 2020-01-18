@@ -1,5 +1,5 @@
-#ifndef CPP_ESSENTIALS_CORE_PREDICATES_HPP
-#define CPP_ESSENTIALS_CORE_PREDICATES_HPP
+#ifndef CPP_ESSENTIALS_CORE_PREDICATES_HPP_
+#define CPP_ESSENTIALS_CORE_PREDICATES_HPP_
 
 #pragma once
 
@@ -145,4 +145,4 @@ constexpr auto operator >=(T lhs, predicate_t<P> rhs)
 
 } /* namespace cpp_essentials::core */
 
-#endif /* CPP_ESSENTIALS_CORE_PREDICATES_HPP */
+#endif /* CPP_ESSENTIALS_CORE_PREDICATES_HPP_ */

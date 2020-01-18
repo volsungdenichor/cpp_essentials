@@ -116,30 +116,27 @@ inline lookup_table exposition(float value)
         : make_lut([=](int v) { return int(v * value); });
 }
 
-inline lookup_table levels_adjustment(byte input_min, byte input_max, byte output_min, byte output_max, float gamma = 1.F)
+inline lookup_table levels_adjustment(const geo::interval<byte>& in, const geo::interval<byte>& out, float gamma = 1.F)
 {
-    auto input_span = input_max - input_min;
-    auto output_span = output_max - output_min;
-
     return make_lut([=](int v) -> int
     {
-        if (v < input_min)
+        if (v < in.lower())
         {
-            return output_min;
+            return out.lower();
         }
 
-        if (v > input_max)
+        if (v > in.upper())
         {
-            return output_max;
+            return out.upper();
         }
 
-        return int(output_min + output_span * math::pow(float(v - input_min) / input_span, 1.F / gamma));
+        return int(out.lower() + out.size() * math::pow(float(v - in.lower()) / in.size(), 1.F / gamma));
     });
 }
 
 inline lookup_table gamma(float value)
 {
-    return levels_adjustment(0, 255, 0, 255, value);
+    return levels_adjustment({ 0, 255 }, { 0, 255 }, value);
 }
 
 } /* namespace cpp_essentials::gx */

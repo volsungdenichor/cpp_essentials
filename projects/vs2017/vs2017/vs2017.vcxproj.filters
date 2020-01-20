@@ -576,6 +576,9 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\gx\histogram_operations.hpp">
       <Filter>Header Files\cpp_essentials\gx</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\bezier.hpp">
+      <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

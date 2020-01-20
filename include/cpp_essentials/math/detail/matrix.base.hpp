@@ -221,6 +221,18 @@ private:
     }
 };
 
+template <class T>
+struct matrix_traits
+{
+};
+
+template <class T, size_t R, size_t C>
+struct matrix_traits<matrix<T, R, C>>
+{
+    static constexpr size_t rows = R;
+    static constexpr size_t columns = C;
+};
+
 template <class T, size_t D>
 using square_matrix = matrix<T, D, D>;
 

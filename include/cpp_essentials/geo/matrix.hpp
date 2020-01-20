@@ -16,6 +16,8 @@ using math::vector;
 using math::vector_2d;
 using math::vector_3d;
 
+using math::matrix_traits;
+
 using math::elementwise_divide;
 using math::elementwise_multiply;
 

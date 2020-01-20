@@ -5,6 +5,8 @@
 #include <string_view>
 #include <functional>
 #include <algorithm>
+#include <sstream>
+#include <map>
 
 namespace cpp_essentials::fmt
 {

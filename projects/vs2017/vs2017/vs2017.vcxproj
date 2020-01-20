@@ -250,6 +250,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\views.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\zip.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\fmt\format.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\bezier.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\bounding_box.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\center.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\circle.hpp" />

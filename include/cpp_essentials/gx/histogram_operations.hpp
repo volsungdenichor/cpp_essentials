@@ -43,7 +43,7 @@ struct equalize_fn
         const auto cum_hist = accumulate_histogram(histogram);
         const auto size = cum_hist.back();
 
-        const auto min_level = cum_hist | sq::drop_while(core::equal_to(0)) | sq::size();
+        const auto min_level = cum_hist | sq::take_while(core::equal_to(0)) | sq::size();
 
         return make_lut([&](int v) { return int(255 * (cum_hist[v] - min_level) / (size - min_level)); });
     }

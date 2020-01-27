@@ -41,7 +41,7 @@ public:
     bounding_box(const bounding_box<U, D>& other)
         : bounding_box { other.lower(), other.upper() }
     {
-    }   
+    }
 
 
     template <class U>

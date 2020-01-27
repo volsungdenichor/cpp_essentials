@@ -17,6 +17,9 @@ template <class Shape>
 struct vertex_container_traits { };
 
 template <class Shape>
+struct vertex_container_traits<const Shape> : vertex_container_traits<Shape>{ };
+
+template <class Shape>
 using vertex_type = typename vertex_container_traits<Shape>::vertex_type;
 
 template <class Shape>

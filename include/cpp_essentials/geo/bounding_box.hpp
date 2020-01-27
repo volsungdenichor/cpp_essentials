@@ -119,6 +119,12 @@ public:
         return as_quad<U>();
     }
 
+    template <class U = T, size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
+    operator polygon<U, D>() const
+    {
+        return as_quad<U>();
+    }
+
     std::array<interval_type, D> _data;
 };
 

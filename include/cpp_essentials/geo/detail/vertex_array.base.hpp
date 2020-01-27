@@ -70,6 +70,13 @@ public:
         core::copy(other._data, _data.begin());
     }
 
+    template <class U, size_t M, CONCEPT = std::enable_if_t<N == 0>>
+    vertex_array(const vertex_array<U, D, M, Tag>& other)
+    {
+        resize(other.size());
+        core::copy(other._data, _data.begin());
+    }
+
 
     template <class U>
     vertex_array<U, D, N, Tag> as() const

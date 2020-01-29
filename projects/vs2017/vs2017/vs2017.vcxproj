@@ -328,6 +328,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\meta\meta.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\meta\serialization_json.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\sq.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\term\term.hpp" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>

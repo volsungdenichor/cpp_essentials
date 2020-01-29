@@ -70,6 +70,9 @@
     <Filter Include="Header Files\cpp_essentials\fmt">
       <UniqueIdentifier>{3bbb24d2-fc1f-4bf4-bf67-0270424c3f8e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\cpp_essentials\term">
+      <UniqueIdentifier>{330f98e6-5dc5-4716-b941-833c376411e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -581,6 +584,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\algorithm.hpp">
       <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\term\term.hpp">
+      <Filter>Header Files\cpp_essentials\term</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

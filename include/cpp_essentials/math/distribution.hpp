@@ -43,7 +43,7 @@ inline seed_t seed(seed_t::value_type value)
     return seed_t{ value };
 }
 
-template <class Distr, class Generator = std::mt19937>
+template <class Distr, class Generator = std::default_random_engine>
 class distr_wrapper
 {
 public:

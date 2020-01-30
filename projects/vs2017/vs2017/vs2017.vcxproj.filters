@@ -73,6 +73,9 @@
     <Filter Include="Header Files\cpp_essentials\term">
       <UniqueIdentifier>{330f98e6-5dc5-4716-b941-833c376411e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\cpp_essentials\proc">
+      <UniqueIdentifier>{c9c0b8fe-f78d-4423-9ac3-551a1018e0f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -587,6 +590,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\term\term.hpp">
       <Filter>Header Files\cpp_essentials\term</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\proc\distribution.hpp">
+      <Filter>Header Files\cpp_essentials\proc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\proc\seed.hpp">
+      <Filter>Header Files\cpp_essentials\proc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\proc\perlin.hpp">
+      <Filter>Header Files\cpp_essentials\proc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

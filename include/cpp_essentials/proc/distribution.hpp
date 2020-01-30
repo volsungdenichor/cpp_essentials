@@ -1,47 +1,15 @@
-#ifndef CPP_ESSENTIALS_DISTIBUTION_HPP_
-#define CPP_ESSENTIALS_DISTIBUTION_HPP_
+#ifndef CPP_ESSENTIALS_PROC_DISTIBUTION_HPP_
+#define CPP_ESSENTIALS_PROC_DISTIBUTION_HPP_
 
 #pragma once
 
-#include <random>
+#include <cpp_essentials/proc/seed.hpp>
 
-namespace cpp_essentials::math
+namespace cpp_essentials::proc
 {
 
 namespace detail
 {
-
-class seed_t
-{
-public:
-    using value_type = std::random_device::result_type;
-
-    seed_t()
-        : seed_t{ 0 }
-    {
-    }
-
-    explicit seed_t(value_type value)
-        : _value{ value }
-    {
-    }
-
-    template <class Generator>
-    Generator to_generator() const
-    {
-        static std::random_device rd{};
-
-        return Generator{ _value != 0 ? _value : rd() };
-    }
-
-private:
-    value_type _value;
-};
-
-inline seed_t seed(seed_t::value_type value)
-{
-    return seed_t{ value };
-}
 
 template <class Distr, class Generator = std::default_random_engine>
 class distr_wrapper
@@ -70,10 +38,10 @@ private:
     mutable Generator _gen;
 };
 
-template <class Distr, class Generator = std::mt19937, class... Args>
+template <class Distr, class Generator = std::default_random_engine, class... Args>
 auto make_distr_wrapper(seed_t seed, Args&&... args) -> distr_wrapper<Distr>
 {
-    return { Distr { std::forward<Args>(args)... }, seed.to_generator<Generator>() };
+    return { Distr { std::forward<Args>(args)... }, seed.template to_generator<Generator>() };
 }
 
 template <class T>
@@ -238,8 +206,6 @@ struct discrete_fn
 
 } /* namespace detail */
 
-using detail::seed_t;
-
 static constexpr auto normal = detail::normal_fn{};
 static constexpr auto uniform = detail::uniform_fn{};
 static constexpr auto chi_squared = detail::chi_squared_fn{};
@@ -258,6 +224,6 @@ static constexpr auto fisher_f = detail::fisher_f_fn{};
 static constexpr auto student_t = detail::student_t_fn{};
 static constexpr auto discrete = detail::discrete_fn{};
 
-} /* namespace cpp_essentials::math */
+} /* namespace cpp_essentials::proc */
 
-#endif /* CPP_ESSENTIALS_DISTIBUTION_HPP_ */
+#endif /* CPP_ESSENTIALS_PROC_DISTIBUTION_HPP_ */

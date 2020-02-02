@@ -281,6 +281,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\triangulation.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\vertex_array.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\vertex_container.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\voronoi.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\graphs\algorithm.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\graphs\binary_tree.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\graphs\graph.hpp" />

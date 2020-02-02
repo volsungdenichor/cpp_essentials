@@ -600,6 +600,9 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\proc\perlin.hpp">
       <Filter>Header Files\cpp_essentials\proc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\geo\voronoi.hpp">
+      <Filter>Header Files\cpp_essentials\geo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

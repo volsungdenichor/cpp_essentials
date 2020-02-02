@@ -22,6 +22,18 @@ namespace detail
 template <class C>
 using basic_string = std::basic_string<C, std::char_traits<C>, std::allocator<C>>;
 
+template <class C>
+struct to_fn
+{
+    template
+        < class Range
+        , CONCEPT = cc::InputRange<Range>>
+    auto operator ()(Range&& range) const -> C
+    {
+        return { std::begin(range), std::end(range) };
+    }
+};
+
 template <template <class> class Container>
 struct to_container_fn
 {
@@ -73,6 +85,9 @@ struct to_ref_vector_fn
 };
 
 } /* namespace detail */
+
+template <class C>
+static constexpr auto to = adaptable{ detail::to_fn<C>{} };
 
 static constexpr auto to_vector = adaptable{ detail::to_container_fn<std::vector>{} };
 static constexpr auto to_set = adaptable{ detail::to_container_fn<std::set>{} };

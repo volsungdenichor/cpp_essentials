@@ -138,6 +138,7 @@ using core::views::slide;
 using core::views::group;
 using core::views::pairwise;
 
+using core::to;
 using core::to_vector;
 using core::to_set;
 using core::to_list;

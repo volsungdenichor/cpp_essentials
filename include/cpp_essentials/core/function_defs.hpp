@@ -14,6 +14,9 @@ using mut_action = std::function<void(Args&...)>;
 template <class R, class... Args>
 using function = std::function<R(const Args&...)>;
 
+template <class T>
+using generator = function<T>;
+
 template <class... Args>
 using action = function<void, Args...>;
 

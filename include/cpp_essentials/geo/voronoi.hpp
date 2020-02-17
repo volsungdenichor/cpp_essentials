@@ -11,7 +11,6 @@
 
 #include <cpp_essentials/geo/dcel.hpp>
 #include <cpp_essentials/geo/triangle.hpp>
-#include <cpp_essentials/geo/triangulation.hpp>
 
 namespace cpp_essentials::geo
 {
@@ -21,12 +20,6 @@ namespace detail
 
 struct voronoi_fn
 {
-    template <class T>
-    dcel<T> operator ()(const std::vector<vector_2d<T>>& points) const
-    {
-        return (*this)(triangulate(points));
-    }
-    
     template <class T>
     dcel<T> operator ()(const dcel<T>& input) const
     {

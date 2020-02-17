@@ -174,7 +174,7 @@ public:
         T amplitude = math::one;
         T f = _frequency;
 
-        for (int i = 0; i < _octaves; ++i)
+        for (auto _ : sq::range(_octaves))
         {
             sum += _inner(location * f) * amplitude;
             amplitude *= _persistence;

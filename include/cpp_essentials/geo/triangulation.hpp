@@ -45,6 +45,24 @@ struct triangulate_fn
     template <class T>
     dcel<T> operator ()(std::vector<vector_2d<T>> vertices) const
     {
+        using triangle_info = std::array<size_t, 3>;
+        using edge_info = std::array<size_t, 2>;
+
+        const auto get_vertex = [&](size_t index) -> const vector_2d<T>&
+        {
+            return vertices.at(index);
+        };
+
+        const auto get_triangle = [&](const triangle_info& t) -> triangle_2d<T>
+        {
+            return { get_vertex(t[0]), get_vertex(t[1]), get_vertex(t[2]) };
+        };
+
+        static const auto collinear = [](const triangle_2d<T>& t) -> bool
+        {
+            return core::approx_equal_to(orientation(t[0], t[1], t[2]), math::zero, 0.0);
+        };
+
         const auto bounds = make_aabb(vertices);
 
         const auto max_dimension = std::max(width(bounds), height(bounds));
@@ -52,9 +70,6 @@ struct triangulate_fn
         const auto c = center(bounds);
 
         const T delta = T(20);
-
-        using triangle_info = std::array<size_t, 3>;
-        using edge_info = std::array<size_t, 2>;
 
         std::vector<triangle_info> triangles;
 
@@ -66,29 +81,14 @@ struct triangulate_fn
 
         const triangle_info super_triangle{ s + 0, s + 1, s + 2 };
 
-        triangles.push_back(super_triangle);
-
-        const auto get_vertex = [&](size_t index)
-        {
-            return vertices.at(index);
-        };
-
-        const auto get_triangle = [&](const triangle_info& t) -> triangle_2d<T>
-        {
-            return { get_vertex(t[0]), get_vertex(t[1]), get_vertex(t[2]) };
-        };
-
-        static const auto collinear = [](const auto& t)
-        {
-            return core::approx_equal_to(orientation(t[0], t[1], t[2]), math::zero, 0.0);
-        };
+        triangles.push_back(super_triangle);        
 
         for (size_t i = 0; i < vertices.size(); ++i)
         {
             std::vector<triangle_info> invalid_triangles;
             std::vector<edge_info> edges;
 
-            for (const auto& triangle : triangles)
+            for (const triangle_info& triangle : triangles)
             {
                 if (contains(circumcircle(get_triangle(triangle)), get_vertex(i)))
                 {
@@ -133,7 +133,7 @@ struct triangulate_fn
             triangles,
             [&](const triangle_info& triangle)
         {
-            const auto t = get_triangle(triangle);
+            const triangle_2d<T> t = get_triangle(triangle);
             return core::any_of(super_triangle, [&](size_t super_triangle_vertex)
             {
                 return contains(t, get_vertex(super_triangle_vertex));
@@ -157,7 +157,7 @@ struct triangulate_fn
 
         for (triangle_info& triangle : triangles)
         {
-            const auto t = get_triangle(triangle);
+            const triangle_2d<T> t = get_triangle(triangle);
             if (cross(t[1] - t[0], t[2] - t[0]) > 0.0)
             {
                 core::reverse(triangle);

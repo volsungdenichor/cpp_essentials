@@ -48,7 +48,7 @@ public:
     template <class U>
     linear_shape<U, D, Tag> as() const
     {
-        return *this;
+        return { _data[0].as<U>(), _data[1].as<U>() };
     }   
 
     const_reference operator [](size_type index) const

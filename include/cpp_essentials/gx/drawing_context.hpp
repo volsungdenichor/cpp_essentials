@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <map>
+
 #include <cpp_essentials/arrays/array_view.hpp>
 #include <cpp_essentials/arrays/array.hpp>
 #include <cpp_essentials/gx/algorithm.hpp>
@@ -101,12 +103,32 @@ public:
     {
         for (auto y = geo::top(rect); y <= geo::bottom(rect); ++y)
         {
-            for (auto x = geo::left(rect); x <= geo::right(rect); ++x)
-            {
-                draw_pixel({ x, y }, color, alpha);
-            }
+            draw_scanline(y, geo::left(rect), geo::right(rect), color, alpha);
         }
 
+        return *this;
+    }
+
+    template <class T, size_t N>
+    drawing_context& fill(const geo::vertex_array<T, 2, N, geo::detail::polygon_tag>& shape, color_type color, byte alpha = 255)
+    {
+        std::map<int, geo::interval<int>> map;
+        for (const auto& segment : geo::get_segments(shape))
+        {
+            bresenham_line(
+                segment[0],
+                segment[1],
+                [&](const geo::vector_2d<int>& pos)
+                {
+                    auto& interval = map[pos.y()];
+                    interval = geo::make_union(interval, geo::interval<int>{ pos.x(), pos.x() + 1 });
+                });
+        }
+
+        for (const auto&[y, x] : map)
+        {
+            draw_scanline(y, x.min(), x.max(), color, alpha);
+        }
         return *this;
     }
 
@@ -152,14 +174,22 @@ private:
     template <class S>
     drawing_context& draw_segments(const S& shape, color_type color, byte alpha)
     {
-        size_t count = geo::segment_count(shape);
-        for (size_t i = 0; i < count; ++i)
+        for (const auto& segment : geo::get_segments(shape))
         {
-            draw(geo::get_segment(shape, i), color, alpha);
+            draw(segment, color, alpha);
         }
 
         return *this;
     }
+
+    void draw_scanline(int y, int x0, int x1, color_type color, byte alpha)
+    {
+        for (auto x = x0; x <= x1; ++x)
+        {
+            draw_pixel({ x, y }, color, alpha);
+        }
+    }
+
 
     void draw_char(char ch, const point& location, color_type color, byte alpha)
     {

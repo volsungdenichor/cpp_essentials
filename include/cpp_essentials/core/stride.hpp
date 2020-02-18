@@ -30,7 +30,7 @@ struct stride_fn
 
 } /* namespace detail */
 
-static constexpr auto stride = adaptable{ detail::stride_fn{} };
+static constexpr auto stride = detail::stride_fn{};
 
 } /* namespace cpp_essentials::core::views */
 

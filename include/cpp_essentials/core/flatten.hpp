@@ -30,7 +30,7 @@ struct flatten_fn
 
 } /* namespace detail */
 
-static constexpr auto flatten = adaptable{ detail::flatten_fn{} };
+static constexpr auto flatten = detail::flatten_fn{};
 
 } /* namespace cpp_essentials::core::views */
 

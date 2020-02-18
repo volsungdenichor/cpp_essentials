@@ -36,7 +36,7 @@ struct filter_map_fn
 
 } /* namespace detail */
 
-static constexpr auto filter_map = adaptable{ detail::filter_map_fn{} };
+static constexpr auto filter_map = detail::filter_map_fn{};
 
 } /* namespace cpp_essentials::core::views */
 

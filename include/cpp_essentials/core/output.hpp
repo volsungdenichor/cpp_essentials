@@ -205,7 +205,7 @@ using detail::make_ostream_manipulator;
 static constexpr auto output = detail::output_fn{};
 static constexpr auto delimit = detail::delimit_fn{};
 
-static constexpr auto write = adaptable{ detail::write_fn{} };
+static constexpr auto write = detail::write_fn{};
 
 } /* namespace cpp_essentials::core */
 

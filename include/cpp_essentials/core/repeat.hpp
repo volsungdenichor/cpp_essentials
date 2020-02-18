@@ -44,8 +44,8 @@ struct repeat_fn<0>
 
 } /* namespace detail */
 
-static constexpr auto repeat = adaptable{ detail::repeat_fn<>{} };
-static constexpr auto once = adaptable{ detail::repeat_fn<1>{} };
+static constexpr auto repeat = detail::repeat_fn<>{};
+static constexpr auto once = detail::repeat_fn<1>{};
 
 } /* namespace cpp_essentials::core */
 

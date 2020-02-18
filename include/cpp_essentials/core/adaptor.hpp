@@ -58,25 +58,14 @@ struct adaptable
     template <class... Args>
     constexpr decltype(auto) operator ()(Args&&... args) const
     {
-        if constexpr (std::is_invocable_v<adaptee_type, Args...>)
-        {
-            return _adaptee(std::forward<Args>(args)...);
-        }
-        else
+        return make_adaptor([&](auto&& item) -> decltype(auto)
         {
             static_assert(
-                !std::is_invocable_v<adaptee_type, Args...>,
-                "Ambiguous adaptee arguments");
+                std::is_invocable_v<adaptee_type, decltype(item), Args...>,
+                "Cannot create adaptor with given arguments");
 
-            return make_adaptor([&](auto&& item) -> decltype(auto)
-            {
-                static_assert(
-                    std::is_invocable_v<adaptee_type, decltype(item), Args...>,
-                    "Cannot create adaptor with given arguments");
-
-                return _adaptee(std::forward<decltype(item)>(item), args...);
-            });
-        }
+            return _adaptee(std::forward<decltype(item)>(item), args...);
+        });
     }
 };
 

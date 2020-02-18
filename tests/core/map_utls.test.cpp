@@ -16,9 +16,9 @@ TEST_CASE("map_utils::map_equal_range")
         { 3, "D" }
     };
 
-    REQUIRE(sq::map_equal_range(map, 2).size() == 2);
-    REQUIRE(sq::map_equal_range(map, 3).size() == 1);
-    REQUIRE(sq::map_equal_range(map, 4).size() == 0);
+    REQUIRE((map | sq::map_equal_range(2)).size() == 2);
+    REQUIRE((map | sq::map_equal_range(3)).size() == 1);
+    REQUIRE((map | sq::map_equal_range(4)).size() == 0);
 }
 
 TEST_CASE("map_utils::map_at")
@@ -31,7 +31,7 @@ TEST_CASE("map_utils::map_at")
     };
 
     using namespace std::string_literals;
-    REQUIRE((sq::map_at(map, 2) | sq::to_vector()) == vec("B"s, "C"s));
+    REQUIRE((map | sq::map_at(2) | sq::to_vector()) == vec("B"s, "C"s));
 }
 
 TEST_CASE("map_utils::map_try_get")
@@ -43,8 +43,8 @@ TEST_CASE("map_utils::map_try_get")
     };
 
     using namespace std::string_literals;
-    REQUIRE(sq::map_try_get(map, 2) == "B"s);
-    REQUIRE(sq::map_try_get(map, 4) == core::none);
+    REQUIRE((map | sq::map_try_get(2)) == "B"s);
+    REQUIRE((map | sq::map_try_get(4)) == core::none);
 }
 
 TEST_CASE("map_utils::map_get")
@@ -56,6 +56,6 @@ TEST_CASE("map_utils::map_get")
     };
 
     using namespace std::string_literals;
-    REQUIRE(sq::map_get(map, 2) == "B"s);
-    REQUIRE_THROWS(sq::map_get(map, 4));
+    REQUIRE((map | sq::map_get(2)) == "B"s);
+    REQUIRE_THROWS(map | sq::map_get(4));
 }

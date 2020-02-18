@@ -29,7 +29,7 @@ struct flat_map_fn
 
 } /* namespace detail */
 
-static constexpr auto flat_map = adaptable{ detail::flat_map_fn{} };
+static constexpr auto flat_map = detail::flat_map_fn{};
 
 } /* namespace cpp_essentials::core::views */
 

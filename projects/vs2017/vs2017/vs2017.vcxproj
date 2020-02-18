@@ -226,7 +226,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\nil.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\numeric.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\optional.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\optional_helpers.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\output.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\predicates.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\program_args.hpp" />

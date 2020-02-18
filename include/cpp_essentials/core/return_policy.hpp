@@ -111,15 +111,15 @@ using ReturnPolicy = cc::BaseOf<return_policy_base_t, T>;
 
 } /* detail */
 
-using return_found = detail::return_found_t;
-using return_found_end = detail::return_found_end_t;
-using return_found_next = detail::return_found_next_t;
-using return_begin_found = detail::return_begin_found_t;
-using return_begin_next = detail::return_begin_next_t;
-using return_next_end = detail::return_next_end_t;
-using return_value = detail::return_value_t;
-using return_optional = detail::return_optional_t;
-using return_both = detail::return_both_t;
+static constexpr auto return_found = detail::return_found_t{};
+static constexpr auto return_found_end = detail::return_found_end_t{};
+static constexpr auto return_found_next = detail::return_found_next_t{};
+static constexpr auto return_begin_found = detail::return_begin_found_t{};
+static constexpr auto return_begin_next = detail::return_begin_next_t{};
+static constexpr auto return_next_end = detail::return_next_end_t{};
+static constexpr auto return_value = detail::return_value_t{};
+static constexpr auto return_optional = detail::return_optional_t{};
+static constexpr auto return_both = detail::return_both_t{};
 
 using default_return_policy_t = detail::return_found_end_t;
 

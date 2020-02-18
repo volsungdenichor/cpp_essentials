@@ -50,9 +50,9 @@ struct prepend_fn
 
 } /* namespace chain */
 
-static constexpr auto chain = adaptable{ detail::append_fn{} };
-static constexpr auto append = adaptable{ detail::append_fn{} };
-static constexpr auto prepend = adaptable{ detail::prepend_fn{} };
+static constexpr auto chain = detail::append_fn{};
+static constexpr auto append = detail::append_fn{};
+static constexpr auto prepend = detail::prepend_fn{};
 
 } /* namespace cpp_essentials::core::views */
 

@@ -241,18 +241,18 @@ struct split_fn
 
 } /* namespace detail */
 
-static constexpr auto slice = adaptable{ detail::slice_fn{} };
-static constexpr auto take = adaptable{ detail::take_fn{} };
-static constexpr auto drop = adaptable{ detail::drop_fn{} };
-static constexpr auto take_back = adaptable{ detail::take_back_fn{} };
-static constexpr auto drop_back = adaptable{ detail::drop_back_fn{} };
-static constexpr auto take_exactly = adaptable{ detail::take_exactly_fn{} };
-static constexpr auto drop_exactly = adaptable{ detail::drop_exactly_fn{} };
-static constexpr auto take_back_exactly = adaptable{ detail::take_back_exactly_fn{} };
-static constexpr auto drop_back_exactly = adaptable{ detail::drop_back_exactly_fn{} };
-static constexpr auto split_before = adaptable{ detail::split_before_fn{} };
-static constexpr auto split_after = adaptable{ detail::split_after_fn{} };
-static constexpr auto split = adaptable{ detail::split_fn{} };
+static constexpr auto slice = detail::slice_fn{};
+static constexpr auto take = detail::take_fn{};
+static constexpr auto drop = detail::drop_fn{};
+static constexpr auto take_back = detail::take_back_fn{};
+static constexpr auto drop_back = detail::drop_back_fn{};
+static constexpr auto take_exactly = detail::take_exactly_fn{};
+static constexpr auto drop_exactly = detail::drop_exactly_fn{};
+static constexpr auto take_back_exactly = detail::take_back_exactly_fn{};
+static constexpr auto drop_back_exactly = detail::drop_back_exactly_fn{};
+static constexpr auto split_before = detail::split_before_fn{};
+static constexpr auto split_after = detail::split_after_fn{};
+static constexpr auto split = detail::split_fn{};
 
 } /* namespace cpp_essentials::core::views */
 

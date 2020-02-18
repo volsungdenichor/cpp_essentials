@@ -333,7 +333,7 @@ struct to_hsv_fn
     {
         auto rgb = color.data / 255.0;
 
-        auto[min, max] = core::minmax_element.as<core::return_value>(rgb._data);
+        auto[min, max] = core::minmax_element(core::return_value, rgb._data);
 
         auto span = max - min;
 
@@ -374,7 +374,7 @@ struct to_hsl_fn
 
         auto rgb = color.data / 255.0;
 
-        auto[min, max] = core::minmax_element.as<core::return_value>(rgb._data);        
+        auto[min, max] = core::minmax_element(core::return_value, rgb._data);
 
         auto span = max - min;
 

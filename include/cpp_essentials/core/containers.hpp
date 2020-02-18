@@ -87,16 +87,16 @@ struct to_ref_vector_fn
 } /* namespace detail */
 
 template <class C>
-static constexpr auto to = adaptable{ detail::to_fn<C>{} };
+static constexpr auto to = detail::to_fn<C>{};
 
-static constexpr auto to_vector = adaptable{ detail::to_container_fn<std::vector>{} };
-static constexpr auto to_set = adaptable{ detail::to_container_fn<std::set>{} };
-static constexpr auto to_list = adaptable{ detail::to_container_fn<std::list>{} };
-static constexpr auto to_forward_list = adaptable{ detail::to_container_fn<std::forward_list>{} };
-static constexpr auto to_deque = adaptable{ detail::to_container_fn<std::list>{} };
-static constexpr auto to_string = adaptable{ detail::to_string_fn{} };
-static constexpr auto to_string_view = adaptable{ detail::to_string_view_fn{} };
-static constexpr auto to_ref_vector = adaptable{ detail::to_ref_vector_fn{} };
+static constexpr auto to_vector = detail::to_container_fn<std::vector>{};
+static constexpr auto to_set = detail::to_container_fn<std::set>{};
+static constexpr auto to_list = detail::to_container_fn<std::list>{};
+static constexpr auto to_forward_list = detail::to_container_fn<std::forward_list>{};
+static constexpr auto to_deque = detail::to_container_fn<std::list>{};
+static constexpr auto to_string = detail::to_string_fn{};
+static constexpr auto to_string_view = detail::to_string_view_fn{};
+static constexpr auto to_ref_vector = detail::to_ref_vector_fn{};
 
 } /* namespace cpp_essentials::core */
 

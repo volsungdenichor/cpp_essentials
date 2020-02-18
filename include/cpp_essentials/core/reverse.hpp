@@ -39,7 +39,7 @@ struct reverse_fn
 
 } /* namespace detail */
 
-static constexpr auto reverse = adaptable{ detail::reverse_fn{} };
+static constexpr auto reverse = detail::reverse_fn{};
 
 } /* namespace cpp_essentials::core::views */
 

@@ -39,6 +39,9 @@ namespace cpp_essentials::sq
 #define PULL_ADAPTABLE(func) \
     static constexpr auto func = core::adaptable{ core::func }
 
+#define PULL_ADAPTABLE_VIEW(func) \
+    static constexpr auto func = core::adaptable{ core::views::func }
+
 using core::make_range;
 
 using core::range;
@@ -48,16 +51,18 @@ using core::ints;
 using core::repeat;
 using core::once;
 
-using core::write;
-using core::join;
+PULL_ADAPTABLE(write);
+PULL_ADAPTABLE(join);
 
-using core::group_by;
-using core::group_by_as;
+template <template <class, class> class Map>
+static constexpr auto group_by_as = core::adaptable{ core::group_by_as<Map> };
 
-using core::map_equal_range;
-using core::map_at;
-using core::map_try_get;
-using core::map_get;
+static constexpr auto group_by = group_by_as<std::unordered_map>;
+
+PULL_ADAPTABLE(map_equal_range);
+PULL_ADAPTABLE(map_at);
+PULL_ADAPTABLE(map_try_get);
+PULL_ADAPTABLE(map_get);
 
 PULL_ADAPTABLE(front);
 PULL_ADAPTABLE(front_or_throw);
@@ -127,76 +132,79 @@ PULL_ADAPTABLE(rotate_copy);
 PULL_ADAPTABLE(unique_copy);
 PULL_ADAPTABLE(upper_bound);
 
-using core::views::reverse;
+PULL_ADAPTABLE_VIEW(reverse);
 
-using core::views::chain;
-using core::views::append;
-using core::views::prepend;
+PULL_ADAPTABLE_VIEW(chain);
+PULL_ADAPTABLE_VIEW(append);
+PULL_ADAPTABLE_VIEW(prepend);
 
-using core::views::chunk;
-using core::views::slide;
-using core::views::group;
-using core::views::pairwise;
+PULL_ADAPTABLE_VIEW(chunk);
+PULL_ADAPTABLE_VIEW(slide);
+PULL_ADAPTABLE_VIEW(group);
+PULL_ADAPTABLE_VIEW(pairwise);
 
-using core::to;
-using core::to_vector;
-using core::to_set;
-using core::to_list;
-using core::to_forward_list;
-using core::to_deque;
-using core::to_string;
-using core::to_string_view;
-using core::to_ref_vector;
+template <class Container>
+static constexpr auto to = core::adaptable{ core::to<Container> };
 
-using core::views::filter;
-using core::views::take_if;
-using core::views::drop_if;
+PULL_ADAPTABLE(to_vector);
+PULL_ADAPTABLE(to_set);
+PULL_ADAPTABLE(to_list);
+PULL_ADAPTABLE(to_forward_list);
+PULL_ADAPTABLE(to_deque);
+PULL_ADAPTABLE(to_string);
+PULL_ADAPTABLE(to_string_view);
+PULL_ADAPTABLE(to_ref_vector);
 
-using core::views::filter_map;
-using core::views::flatten;
-using core::views::flat_map;
+PULL_ADAPTABLE_VIEW(filter);
+PULL_ADAPTABLE_VIEW(take_if);
+PULL_ADAPTABLE_VIEW(drop_if);
 
-using core::views::enumerate;
+PULL_ADAPTABLE_VIEW(filter_map);
+PULL_ADAPTABLE_VIEW(flatten);
+PULL_ADAPTABLE_VIEW(flat_map);
 
-using core::views::iterate;
+PULL_ADAPTABLE_VIEW(enumerate);
 
-using core::views::transform;
-using core::views::map;
-using core::views::replace_if;
-using core::views::replace;
+PULL_ADAPTABLE_VIEW(iterate);
 
-using core::views::slice;
-using core::views::take;
-using core::views::drop;
-using core::views::take_back;
-using core::views::drop_back;
-using core::views::take_exactly;
-using core::views::drop_exactly;
-using core::views::take_back_exactly;
-using core::views::drop_back_exactly;
-using core::views::split_before;
-using core::views::split_after;
-using core::views::split;
+PULL_ADAPTABLE_VIEW(transform);
+PULL_ADAPTABLE_VIEW(map);
+PULL_ADAPTABLE_VIEW(replace_if);
+PULL_ADAPTABLE_VIEW(replace);
 
-using core::views::stride;
+PULL_ADAPTABLE_VIEW(slice);
+PULL_ADAPTABLE_VIEW(take);
+PULL_ADAPTABLE_VIEW(drop);
+PULL_ADAPTABLE_VIEW(take_back);
+PULL_ADAPTABLE_VIEW(drop_back);
+PULL_ADAPTABLE_VIEW(take_exactly);
+PULL_ADAPTABLE_VIEW(drop_exactly);
+PULL_ADAPTABLE_VIEW(take_back_exactly);
+PULL_ADAPTABLE_VIEW(drop_back_exactly);
+PULL_ADAPTABLE_VIEW(split_before);
+PULL_ADAPTABLE_VIEW(split_after);
+PULL_ADAPTABLE_VIEW(split);
 
-using core::views::take_while;
-using core::views::drop_while;
-using core::views::take_until;
-using core::views::drop_until;
-using core::views::take_back_while;
-using core::views::drop_back_while;
-using core::views::take_back_until;
-using core::views::drop_back_until;
-using core::views::trim_while;
-using core::views::trim_until;
-using core::views::split_while;
-using core::views::split_until;
+PULL_ADAPTABLE_VIEW(stride);
 
-using core::views::zip;
-using core::views::unzip;
+PULL_ADAPTABLE_VIEW(take_while);
+PULL_ADAPTABLE_VIEW(drop_while);
+PULL_ADAPTABLE_VIEW(take_until);
+PULL_ADAPTABLE_VIEW(drop_until);
+PULL_ADAPTABLE_VIEW(take_back_while);
+PULL_ADAPTABLE_VIEW(drop_back_while);
+PULL_ADAPTABLE_VIEW(take_back_until);
+PULL_ADAPTABLE_VIEW(drop_back_until);
+PULL_ADAPTABLE_VIEW(trim_while);
+PULL_ADAPTABLE_VIEW(trim_until);
+PULL_ADAPTABLE_VIEW(split_while);
+PULL_ADAPTABLE_VIEW(split_until);
+
+PULL_ADAPTABLE_VIEW(zip);
+PULL_ADAPTABLE_VIEW(unzip);
 
 #undef PULL_ADAPTABLE
+#undef PULL_ADAPTABLE_VIEW
 
 } /* namespace sq */
 

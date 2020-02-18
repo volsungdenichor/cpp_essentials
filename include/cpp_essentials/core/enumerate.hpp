@@ -53,7 +53,7 @@ struct enumerate_fn
 
 } /* namespace detail */
 
-static constexpr auto enumerate = adaptable{ detail::enumerate_fn{} };
+static constexpr auto enumerate = detail::enumerate_fn{};
 
 } /* namespace cpp_essentials::core::views */
 

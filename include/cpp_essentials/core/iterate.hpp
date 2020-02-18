@@ -29,7 +29,7 @@ struct iterate_fn
 
 } /* namespace detail */
 
-static constexpr auto iterate = adaptable{ detail::iterate_fn{} };
+static constexpr auto iterate = detail::iterate_fn{};
 
 } /* namespace cpp_essentials::core::views */
 

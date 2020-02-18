@@ -128,18 +128,18 @@ struct stringify_fn
 } /* namespace detail */
 
 template <class T>
-static constexpr auto try_parse = adaptable{ detail::try_parse_fn<T>{} };
+static constexpr auto try_parse = detail::try_parse_fn<T>{};
 
 template <class T>
-static constexpr auto parse = adaptable{ detail::parse_fn<T>{} };
+static constexpr auto parse = detail::parse_fn<T>{};
 
-static constexpr auto serialize = adaptable{ detail::serialize_fn{} };
+static constexpr auto serialize = detail::serialize_fn{};
 
-static constexpr auto stringify = adaptable{ detail::stringify_fn<char>{} };
-static constexpr auto str = adaptable{ detail::stringify_fn<char>{} };
+static constexpr auto stringify = detail::stringify_fn<char>{};
+static constexpr auto str = detail::stringify_fn<char>{};
 
-static constexpr auto wstringify = adaptable{ detail::stringify_fn<wchar_t>{} };
-static constexpr auto wstr = adaptable{ detail::stringify_fn<wchar_t>{} };
+static constexpr auto wstringify = detail::stringify_fn<wchar_t>{};
+static constexpr auto wstr = detail::stringify_fn<wchar_t>{};
 
 } /* namespace cpp_essentials::core */
 

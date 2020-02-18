@@ -276,7 +276,7 @@ inline std::tuple<int, cstr_cview> parse_field(cstr_cview fmt)
         ? core::parse<int>(digits_fmt)
         : -1;
 
-    return std::make_tuple(index, core::find.as<core::return_next_end>(fmt, ':'));
+    return std::make_tuple(index, core::find(core::return_next_end, fmt, ':'));
 }
 
 template <class... Args>

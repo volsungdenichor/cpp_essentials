@@ -227,21 +227,21 @@ struct split_until_fn
 
 } /* namespace detail */
 
-static constexpr auto take_while = adaptable{ detail::take_while_fn{} };
-static constexpr auto drop_while = adaptable{ detail::drop_while_fn{} };
-static constexpr auto take_until = adaptable{ detail::take_until_fn{} };
-static constexpr auto drop_until = adaptable{ detail::drop_until_fn{} };
+static constexpr auto take_while = detail::take_while_fn{};
+static constexpr auto drop_while = detail::drop_while_fn{};
+static constexpr auto take_until = detail::take_until_fn{};
+static constexpr auto drop_until = detail::drop_until_fn{};
 
-static constexpr auto take_back_while = adaptable{ detail::take_back_while_fn{} };
-static constexpr auto drop_back_while = adaptable{ detail::drop_back_while_fn{} };
-static constexpr auto take_back_until = adaptable{ detail::take_back_until_fn{} };
-static constexpr auto drop_back_until = adaptable{ detail::drop_back_until_fn{} };
+static constexpr auto take_back_while = detail::take_back_while_fn{};
+static constexpr auto drop_back_while = detail::drop_back_while_fn{};
+static constexpr auto take_back_until = detail::take_back_until_fn{};
+static constexpr auto drop_back_until = detail::drop_back_until_fn{};
 
-static constexpr auto trim_while = adaptable{ detail::trim_while_fn{} };
-static constexpr auto trim_until = adaptable{ detail::trim_until_fn{} };
+static constexpr auto trim_while = detail::trim_while_fn{};
+static constexpr auto trim_until = detail::trim_until_fn{};
 
-static constexpr auto split_while = adaptable{ detail::split_while_fn{} };
-static constexpr auto split_until = adaptable{ detail::split_until_fn{} };
+static constexpr auto split_while = detail::split_while_fn{};
+static constexpr auto split_until = detail::split_until_fn{};
 
 } /* namespace cpp_essentials::core::views */
 

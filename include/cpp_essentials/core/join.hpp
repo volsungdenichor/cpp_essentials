@@ -26,7 +26,7 @@ struct join_fn
 
 } /* namespace detail */
 
-static constexpr auto join = adaptable{ detail::join_fn{} };
+static constexpr auto join = detail::join_fn{};
 
 } /* namespace cpp_essentials::core */
 

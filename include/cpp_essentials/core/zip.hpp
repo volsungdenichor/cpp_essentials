@@ -33,7 +33,7 @@ struct zip_fn
 
 } /* namespace detail */
 
-static constexpr auto zip = adaptable{ detail::zip_fn{} };
+static constexpr auto zip = detail::zip_fn{};
 
 } /* namespace cpp_essentials::core::views */
 

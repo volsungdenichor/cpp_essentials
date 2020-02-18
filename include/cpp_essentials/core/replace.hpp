@@ -44,8 +44,8 @@ struct replace_fn
 
 } /* namespace detail */
 
-static constexpr auto replace_if = adaptable{ detail::replace_if_fn{} };
-static constexpr auto replace = adaptable{ detail::replace_fn{} };
+static constexpr auto replace_if = detail::replace_if_fn{};
+static constexpr auto replace = detail::replace_fn{};
 
 } /* namespace cpp_essentials::core::views */
 

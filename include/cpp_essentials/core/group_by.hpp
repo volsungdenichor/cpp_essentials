@@ -47,7 +47,7 @@ struct group_by_fn
 } /* namespace detail */
 
 template <template <class, class> class Map>
-static constexpr auto group_by_as = adaptable{ detail::group_by_fn<Map>{} };
+static constexpr auto group_by_as = detail::group_by_fn<Map>{};
 
 static constexpr auto group_by = group_by_as<std::unordered_map>;
 

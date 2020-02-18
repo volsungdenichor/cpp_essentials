@@ -68,10 +68,10 @@ struct pairwise_fn
 
 } /* namespace detail */
 
-static constexpr auto chunk = adaptable{ detail::chunk_fn{} };
-static constexpr auto slide = adaptable{ detail::slide_fn{} };
-static constexpr auto group = adaptable{ detail::group_fn{} };
-static constexpr auto pairwise = adaptable{ detail::pairwise_fn{} };
+static constexpr auto chunk = detail::chunk_fn{};
+static constexpr auto slide = detail::slide_fn{};
+static constexpr auto group = detail::group_fn{};
+static constexpr auto pairwise = detail::pairwise_fn{};
 
 } /* namespace cpp_essentials::core::views */
 

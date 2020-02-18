@@ -32,7 +32,7 @@ private:
 
 } /* namespace detail */
 
-static constexpr auto unzip = adaptable{ detail::unzip_fn{} };
+static constexpr auto unzip = detail::unzip_fn{};
 
 } /* namespace cpp_essentials::core::views */
 

@@ -101,10 +101,10 @@ struct map_get_fn
 
 } /* namespace detail */
 
-static constexpr auto map_equal_range = adaptable{ detail::map_equal_range_fn{} };
-static constexpr auto map_at = adaptable{ detail::map_at_fn{} };
-static constexpr auto map_try_get = adaptable{ detail::map_try_get_fn{} };
-static constexpr auto map_get = adaptable{ detail::map_get_fn{} };
+static constexpr auto map_equal_range = detail::map_equal_range_fn{};
+static constexpr auto map_at = detail::map_at_fn{};
+static constexpr auto map_try_get = detail::map_try_get_fn{};
+static constexpr auto map_get = detail::map_get_fn{};
 
 } /* namespace cpp_essentials::core */
 

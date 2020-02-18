@@ -7,6 +7,7 @@
 #include <functional>
 #include <tuple>
 
+#include <cpp_essentials/core/core.hpp>
 #include <cpp_essentials/math/constants.hpp>
 #include <cpp_essentials/core/assertions.hpp>
 #include <cpp_essentials/core/tuple.hpp>
@@ -22,7 +23,7 @@ struct identity_fn
     template <class T>
     T&& operator ()(T&& value) const
     {
-        return std::forward<T>(value);
+        return FORWARD(value);
     }
 };
 
@@ -33,7 +34,7 @@ struct logical_negation_fn
     {
         return [this, func](auto&&... args)
         {
-            return !func(std::forward<decltype(args)>(args)...);
+            return !func(FORWARD(args)...);
         };
     }
 };
@@ -152,7 +153,7 @@ struct make_pair_fn
     template <class L, class R>
     auto operator ()(L&& lhs, R&& rhs) const
     {
-        return std::make_pair(std::forward<L>(lhs), std::forward<R>(rhs));
+        return std::make_pair(FORWARD(lhs), FORWARD(rhs));
     }
 };
 
@@ -170,7 +171,7 @@ struct tie_fn
     template <class... Args>
     auto operator ()(Args&&... args) const
     {
-        return std::tie(std::forward<Args>(args)...);
+        return std::tie(FORWARD(args)...);
     }
 };
 
@@ -180,7 +181,7 @@ struct get_fn
     template <class T>
     decltype(auto) operator ()(T&& arg) const
     {
-        return std::get<Index>(std::forward<T>(arg));
+        return std::get<Index>(FORWARD(arg));
     }
 };
 
@@ -290,7 +291,7 @@ struct all_fn
     template <class... Preds>
     auto operator ()(Preds&&... preds) const
     {
-        auto t = std::tuple<Preds...>{ std::forward<Preds>(preds)... };
+        auto t = std::tuple<Preds...>{ FORWARD(preds)... };
         return [=](auto&& item)
         {
             bool result = true;
@@ -308,7 +309,7 @@ struct any_fn
     template <class... Preds>
     auto operator ()(Preds&&... preds) const
     {
-        auto t = std::tuple<Preds...>{ std::forward<Preds>(preds)... };
+        auto t = std::tuple<Preds...>{ FORWARD(preds)... };
         return [=](auto&& item)
         {
             bool result = false;

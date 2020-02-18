@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <numeric>
 
+#include <cpp_essentials/core/core.hpp>
 #include <cpp_essentials/cc/cc.hpp>
 #include <cpp_essentials/core/return_policy.hpp>
 
@@ -200,7 +201,7 @@ struct find_fn
         , CONCEPT = cc::EqualityCompare<cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, T&& value) const
     {
-        return (*this)(default_return_policy_t{}, std::forward<Range>(range), std::forward<T>(value));
+        return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(value));
     }
 };
 
@@ -226,7 +227,7 @@ struct find_if_fn
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
-        return (*this)(default_return_policy_t{}, std::forward<Range>(range), std::forward<UnaryPred>(pred));
+        return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(pred));
     }
 };
 
@@ -252,7 +253,7 @@ struct find_if_not_fn
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
-        return (*this)(default_return_policy_t{}, std::forward<Range>(range), std::forward<UnaryPred>(pred));
+        return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(pred));
     }
 };
 
@@ -278,7 +279,7 @@ struct find_end_fn
         , CONCEPT = cc::ForwardRange<Range2>>
     decltype(auto) operator ()(Range1&& range1, Range2&& range2) const
     {
-        return (*this)(default_return_policy_t{}, std::forward<Range1>(range1), std::forward<Range2>(range2));
+        return (*this)(default_return_policy_t{}, FORWARD(range1), FORWARD(range2));
     }
 };
 
@@ -308,7 +309,7 @@ struct find_first_of_fn
         , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     decltype(auto) operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
-        return (*this)(default_return_policy_t{}, std::forward<Range1>(range1), std::forward<Range2>(range2), std::forward<BinaryPred>(pred));
+        return (*this)(default_return_policy_t{}, FORWARD(range1), FORWARD(range2), FORWARD(pred));
     }
 };
 
@@ -439,7 +440,7 @@ struct is_heap_until_fn
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
-        return (*this)(default_return_policy_t{}, std::forward<Range>(range), std::forward<Compare>(compare));
+        return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(compare));
     }
 };
 
@@ -504,7 +505,7 @@ struct is_sorted_until_fn
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
-        return (*this)(default_return_policy_t{}, std::forward<Range>(range), std::forward<Compare>(compare));
+        return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(compare));
     }
 };
 
@@ -552,7 +553,7 @@ struct lower_bound_fn
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, const T& value, Compare&& compare = {}) const
     {
-        return (*this)(default_return_policy_t{}, std::forward<Range>(range), value, std::forward<Compare>(compare));
+        return (*this)(default_return_policy_t{}, FORWARD(range), value, FORWARD(compare));
     }
 };
 
@@ -591,7 +592,7 @@ struct max_element_fn
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
-        return (*this)(default_return_policy_t{}, std::forward<Range>(range), std::forward<Compare>(compare));
+        return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(compare));
     }
 };
 
@@ -656,7 +657,7 @@ struct minmax_element_fn
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
-        return (*this)(default_return_policy_t{}, std::forward<Range>(range), std::forward<Compare>(compare));
+        return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(compare));
     }
 };
 
@@ -682,7 +683,7 @@ struct min_element_fn
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
-        return (*this)(default_return_policy_t{}, std::forward<Range>(range), std::forward<Compare>(compare));
+        return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(compare));
     }
 };
 
@@ -716,7 +717,7 @@ struct mismatch_fn
         , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     decltype(auto) operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
-        return (*this)(default_return_policy_t{}, std::forward<Range1>(range1), std::forward<Range2>(range2), std::forward<BinaryPred>(pred));
+        return (*this)(default_return_policy_t{}, FORWARD(range1), FORWARD(range2), FORWARD(pred));
     }
 };
 
@@ -811,7 +812,7 @@ struct partial_sort_copy_fn
         , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     decltype(auto) operator ()(Range1&& range1, Range2&& range2, Compare&& compare = {}) const
     {
-        return (*this)(default_return_policy_t{}, std::forward<Range1>(range1), std::forward<Range2>(range2), std::forward<Compare>(compare));
+        return (*this)(default_return_policy_t{}, FORWARD(range1), FORWARD(range2), FORWARD(compare));
     }
 };
 
@@ -852,7 +853,7 @@ struct partition_fn
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
-        return (*this)(default_return_policy_t{}, std::forward<Range>(range), std::forward<UnaryPred>(pred));
+        return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(pred));
     }
 };
 
@@ -895,7 +896,7 @@ struct stable_partition_fn
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
-        return (*this)(default_return_policy_t{}, std::forward<Range>(range), std::forward<UnaryPred>(pred));
+        return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(pred));
     }
 };
 
@@ -947,7 +948,7 @@ struct remove_fn
         , CONCEPT = cc::EqualityCompare<cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, const T& value) const
     {
-        return (*this)(default_return_policy_t{}, std::forward<Range>(range), value);
+        return (*this)(default_return_policy_t{}, FORWARD(range), value);
     }
 };
 
@@ -973,7 +974,7 @@ struct remove_if_fn
         , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
-        return (*this)(default_return_policy_t{}, std::forward<Range>(range), std::forward<UnaryPred>(pred));
+        return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(pred));
     }
 };
 
@@ -1109,7 +1110,7 @@ struct rotate_fn
         , CONCEPT = cc::ForwardRange<Range>>
     decltype(auto) operator ()(Range&& range, cc::range_iter<Range> middle) const
     {
-        return (*this)(default_return_policy_t{}, std::forward<Range>(range), middle);
+        return (*this)(default_return_policy_t{}, FORWARD(range), middle);
     }
 };
 
@@ -1152,7 +1153,7 @@ struct search_fn
         , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     decltype(auto) operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
-        return (*this)(default_return_policy_t{}, std::forward<Range1>(range1), std::forward<Range2>(range2), std::forward<BinaryPred>(pred));
+        return (*this)(default_return_policy_t{}, FORWARD(range1), FORWARD(range2), FORWARD(pred));
     }
 };
 
@@ -1184,7 +1185,7 @@ struct search_n_fn
         , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, Size size, const T& value, BinaryPred&& pred = {}) const
     {
-        return (*this)(default_return_policy_t{}, std::forward<Range>(range), size, value, std::forward<BinaryPred>(pred));
+        return (*this)(default_return_policy_t{}, FORWARD(range), size, value, FORWARD(pred));
     }
 };
 
@@ -1370,7 +1371,7 @@ struct unique_fn
         , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>>>
     decltype(auto) operator ()(Range&& range, BinaryPred&& pred = {}) const
     {
-        return (*this)(default_return_policy_t{}, std::forward<Range>(range), std::forward<BinaryPred>(pred));
+        return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(pred));
     }
 };
 
@@ -1413,7 +1414,7 @@ struct upper_bound_fn
         , CONCEPT = cc::BinaryFunction<Compare, cc::range_ref<Range>, T>>
     decltype(auto) operator ()(Range&& range, const T& value, Compare&& compare = {}) const
     {
-        return (*this)(default_return_policy_t{}, std::forward<Range>(range), value, std::forward<Compare>(compare));
+        return (*this)(default_return_policy_t{}, FORWARD(range), value, FORWARD(compare));
     }
 };
 

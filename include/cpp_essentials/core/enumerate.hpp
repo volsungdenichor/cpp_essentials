@@ -33,7 +33,7 @@ struct make_indexed_item
     template <class T>
     auto operator ()(T&& value, int index) const -> indexed_item<T>
     {
-        return { index, std::forward<T>(value) };
+        return { index, FORWARD(value) };
     }
 };
 

@@ -41,7 +41,7 @@ private:
 template <class Distr, class Generator = std::default_random_engine, class... Args>
 auto make_distr_wrapper(seed_t seed, Args&&... args) -> distr_wrapper<Distr>
 {
-    return { Distr { std::forward<Args>(args)... }, seed.template to_generator<Generator>() };
+    return { Distr { FORWARD(args)... }, seed.template to_generator<Generator>() };
 }
 
 template <class T>

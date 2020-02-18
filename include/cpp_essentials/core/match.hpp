@@ -4,6 +4,7 @@
 #pragma once
 
 #include <variant>
+#include <cpp_essentials/core/core.hpp>
 
 namespace cpp_essentials::core
 {
@@ -16,7 +17,7 @@ struct overloaded : T...
 {
     template <class ...Matchers>
     overloaded(Matchers&& ...matchers)
-        : T{ std::forward<Matchers>(matchers) }...
+        : T{ FORWARD(matchers) }...
     {
     }
 
@@ -26,7 +27,7 @@ struct overloaded : T...
 template <class... Matchers>
 auto make_overload(Matchers&&... matchers) -> overloaded<std::remove_reference_t<Matchers>...>
 {
-    return { std::forward<Matchers>(matchers)... };
+    return { FORWARD(matchers)... };
 }
 
 struct match_fn
@@ -34,7 +35,7 @@ struct match_fn
     template <class T, class... Matchers>
     decltype(auto) operator ()(T&& item, Matchers&&... matchers) const
     {
-        return std::visit(make_overload(std::forward<Matchers>(matchers)...), std::forward<T>(item));
+        return std::visit(make_overload(FORWARD(matchers)...), FORWARD(item));
     }
 };
 

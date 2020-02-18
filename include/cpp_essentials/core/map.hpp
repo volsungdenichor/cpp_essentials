@@ -23,7 +23,7 @@ struct map_fn
     auto operator ()(Range&& range, UnaryFunc&& func) const
     {
         using cpp_essentials::core::detail::map_iterator;
-        auto f = make_func(std::forward<UnaryFunc>(func));
+        auto f = make_func(FORWARD(func));
         return core::make_range(
             map_iterator{ std::begin(range), f },
             map_iterator{ std::end(range), f });

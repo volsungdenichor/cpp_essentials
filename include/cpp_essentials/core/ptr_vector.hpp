@@ -5,6 +5,7 @@
 #include <vector>
 #include <algorithm>
 
+#include <cpp_essentials/core/core.hpp>
 #include <cpp_essentials/core/iterator_facade.hpp>
 
 namespace cpp_essentials::core
@@ -144,7 +145,7 @@ public:
     template <class U = T, class... Args>
     void emplace(const_iterator pos, Args&&... args)
     {
-        insert(pos, std::make_unique<U>(std::forward<Args>(args)...));
+        insert(pos, std::make_unique<U>(FORWARD(args)...));
     }
 
     void push_back(std::unique_ptr<T> item)
@@ -155,7 +156,7 @@ public:
     template <class U = T, class... Args>
     void emplace_back(Args&&... args)
     {
-        emplace<U>(cend(), std::forward<Args>(args)...);
+        emplace<U>(cend(), FORWARD(args)...);
     }
 
 

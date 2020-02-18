@@ -23,7 +23,7 @@ struct flat_map_fn
     {
         static constexpr auto _map = map_fn{};
         static constexpr auto _flatten = flatten_fn{};
-        return _flatten(_map(std::forward<Range>(range), std::move(func)));
+        return _flatten(_map(FORWARD(range), std::move(func)));
     }
 };
 

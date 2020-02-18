@@ -19,7 +19,7 @@ struct unzip_fn
         , CONCEPT = cc::InputRange<Range>>
     auto operator ()(Range&& range) const
     {
-        return create(std::forward<Range>(range), std::make_index_sequence<std::tuple_size_v<cc::range_val<Range>>>{});
+        return create(FORWARD(range), std::make_index_sequence<std::tuple_size_v<cc::range_val<Range>>>{});
     }
 
 private:

@@ -93,7 +93,7 @@ struct channel_n_fn
     auto operator ()(ImageView&& img) const
     {
         static constexpr auto channel = channel_fn{};
-        return channel(std::forward<ImageView>(img), Index);
+        return channel(FORWARD(img), Index);
     }
 };
 

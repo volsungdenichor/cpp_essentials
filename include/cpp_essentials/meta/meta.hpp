@@ -157,14 +157,14 @@ template <class... Members>
 auto structure(std::string_view name, Members&&... members)
 {
     using members_tuple = std::tuple<Members...>;
-    return type_info<structure_type, members_tuple>{ name, members_tuple{ std::forward<Members>(members)... } };
+    return type_info<structure_type, members_tuple>{ name, members_tuple{ FORWARD(members)... } };
 }
 
 template <class... Members>
 auto enumeration(std::string_view name, Members&&... members)
 {
     using members_tuple = std::tuple<Members...>;
-    return type_info<enumeration_type, members_tuple>{ name, members_tuple{ std::forward<Members>(members)... } };
+    return type_info<enumeration_type, members_tuple>{ name, members_tuple{ FORWARD(members)... } };
 }
 
 template <class T, class Func>

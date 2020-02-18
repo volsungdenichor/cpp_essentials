@@ -19,7 +19,7 @@ struct make_generator_fn
     auto operator ()(Func&& func) const
     {
         static_assert(core::is_optional_v<std::invoke_result_t<Func>>, "optional result required");
-        return core::make_default_ended_range(rust_iterator{ std::forward<Func>(func) });
+        return core::make_default_ended_range(rust_iterator{ FORWARD(func) });
     }
 };
 

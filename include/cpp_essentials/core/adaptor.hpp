@@ -4,6 +4,7 @@
 #pragma once
 
 #include <cpp_essentials/cc/cc.hpp>
+#include <cpp_essentials/core/core.hpp>
 
 namespace cpp_essentials::core
 {
@@ -16,14 +17,14 @@ struct adaptor_t
     template <class T>
     auto operator ()(T&& item) const -> decltype(auto)
     {
-        return func(std::forward<T>(item));
+        return func(FORWARD(item));
     }
 };
 
 template <class T, class Func>
 auto operator |(T&& item, const adaptor_t<Func>& adaptor) -> decltype(auto)
 {
-    return adaptor(std::forward<T>(item));
+    return adaptor(FORWARD(item));
 }
 
 template <class Func>
@@ -64,7 +65,7 @@ struct adaptable
                 std::is_invocable_v<adaptee_type, decltype(item), Args...>,
                 "Cannot create adaptor with given arguments");
 
-            return _adaptee(std::forward<decltype(item)>(item), args...);
+            return _adaptee(FORWARD(item), FORWARD(args)...);
         });
     }
 };

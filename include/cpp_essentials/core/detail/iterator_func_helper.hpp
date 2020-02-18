@@ -8,6 +8,8 @@
 #include <type_traits>
 #include <optional>
 
+#include <cpp_essentials/core/core.hpp>
+
 namespace cpp_essentials::core
 {
 
@@ -56,11 +58,11 @@ struct default_constructible_func
     {
         if constexpr (is_default_constructible)
         {
-            return _func(std::forward<Args>(args)...);
+            return _func(FORWARD(args)...);
         }
         else
         {
-            return (*_func)(std::forward<Args>(args)...);
+            return (*_func)(FORWARD(args)...);
         }
     }
 

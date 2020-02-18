@@ -45,7 +45,7 @@ struct push_front_fn
     Container& operator ()(Container& container, Range&& range) const
     {
         static constexpr auto _insert = insert_fn{};
-        return _insert(container, std::begin(container), std::forward<Range>(range));
+        return _insert(container, std::begin(container), FORWARD(range));
     }
 };
 
@@ -58,7 +58,7 @@ struct push_back_fn
     Container& operator ()(Container& container, Range&& range) const
     {
         static constexpr auto _insert = insert_fn{};
-        return _insert(container, std::end(container), std::forward<Range>(range));
+        return _insert(container, std::end(container), FORWARD(range));
     }
 };
 

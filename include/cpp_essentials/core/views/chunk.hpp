@@ -1,5 +1,5 @@
-#ifndef CPP_ESSENTIALS_CORE_CHUNK_HPP_
-#define CPP_ESSENTIALS_CORE_CHUNK_HPP_
+#ifndef CPP_ESSENTIALS_CORE_VIEWS_CHUNK_HPP_
+#define CPP_ESSENTIALS_CORE_VIEWS_CHUNK_HPP_
 
 #pragma once
 
@@ -75,4 +75,4 @@ static constexpr auto pairwise = detail::pairwise_fn{};
 
 } /* namespace cpp_essentials::core::views */
 
-#endif /* CPP_ESSENTIALS_CORE_CHUNK_HPP_ */
+#endif /* CPP_ESSENTIALS_CORE_VIEWS_CHUNK_HPP_ */

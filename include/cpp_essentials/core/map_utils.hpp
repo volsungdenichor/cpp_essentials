@@ -6,7 +6,7 @@
 #include <map>
 #include <unordered_map>
 
-#include <cpp_essentials/core/map.hpp>
+#include <cpp_essentials/core/views/map.hpp>
 #include <cpp_essentials/core/optional.hpp>
 #include <cpp_essentials/core/functors.hpp>
 #include <cpp_essentials/core/serialization.hpp>

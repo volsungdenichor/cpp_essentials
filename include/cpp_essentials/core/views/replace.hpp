@@ -1,9 +1,9 @@
-#ifndef CPP_ESSENTIALS_CORE_REPLACE_HPP_
-#define CPP_ESSENTIALS_CORE_REPLACE_HPP_
+#ifndef CPP_ESSENTIALS_CORE_VIEWS_REPLACE_HPP_
+#define CPP_ESSENTIALS_CORE_VIEWS_REPLACE_HPP_
 
 #pragma once
 
-#include <cpp_essentials/core/map.hpp>
+#include <cpp_essentials/core/views/map.hpp>
 
 namespace cpp_essentials::core::views
 {
@@ -49,4 +49,4 @@ static constexpr auto replace = detail::replace_fn{};
 
 } /* namespace cpp_essentials::core::views */
 
-#endif /* CPP_ESSENTIALS_CORE_REPLACE_HPP_ */
+#endif /* CPP_ESSENTIALS_CORE_VIEWS_REPLACE_HPP_ */

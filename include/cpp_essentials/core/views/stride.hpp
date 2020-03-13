@@ -1,5 +1,5 @@
-#ifndef CPP_ESSENTIALS_CORE_STRIDE_HPP_
-#define CPP_ESSENTIALS_CORE_STRIDE_HPP_
+#ifndef CPP_ESSENTIALS_CORE_VIEWS_STRIDE_HPP_
+#define CPP_ESSENTIALS_CORE_VIEWS_STRIDE_HPP_
 
 #pragma once
 
@@ -34,4 +34,4 @@ static constexpr auto stride = detail::stride_fn{};
 
 } /* namespace cpp_essentials::core::views */
 
-#endif /* CPP_ESSENTIALS_CORE_STRIDE_HPP_ */
+#endif /* CPP_ESSENTIALS_CORE_VIEWS_STRIDE_HPP_ */

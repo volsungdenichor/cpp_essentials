@@ -1,5 +1,5 @@
-#ifndef CPP_ESSENTIALS_CORE_CHAIN_HPP_
-#define CPP_ESSENTIALS_CORE_CHAIN_HPP_
+#ifndef CPP_ESSENTIALS_CORE_VIEW_CHAIN_HPP_
+#define CPP_ESSENTIALS_CORE_VIEW_CHAIN_HPP_
 
 #pragma once
 
@@ -56,4 +56,4 @@ static constexpr auto prepend = detail::prepend_fn{};
 
 } /* namespace cpp_essentials::core::views */
 
-#endif /* CPP_ESSENTIALS_CORE_CHAIN_HPP_ */
+#endif /* CPP_ESSENTIALS_CORE_VIEW_CHAIN_HPP_ */

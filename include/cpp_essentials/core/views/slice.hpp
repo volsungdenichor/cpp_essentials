@@ -1,5 +1,5 @@
-#ifndef CPP_ESSENTIALS_CORE_SLICE_HPP_
-#define CPP_ESSENTIALS_CORE_SLICE_HPP_
+#ifndef CPP_ESSENTIALS_CORE_VIEWS_SLICE_HPP_
+#define CPP_ESSENTIALS_CORE_VIEWS_SLICE_HPP_
 
 #pragma once
 
@@ -256,4 +256,4 @@ static constexpr auto split = detail::split_fn{};
 
 } /* namespace cpp_essentials::core::views */
 
-#endif /* CPP_ESSENTIALS_CORE_SLICE_HPP_ */
+#endif /* CPP_ESSENTIALS_CORE_VIEWS_SLICE_HPP_ */

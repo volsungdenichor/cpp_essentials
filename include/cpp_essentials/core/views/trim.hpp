@@ -1,5 +1,5 @@
-#ifndef CPP_ESSENTIALS_CORE_TRIM_HPP_
-#define CPP_ESSENTIALS_CORE_TRIM_HPP_
+#ifndef CPP_ESSENTIALS_CORE_VIEWS_TRIM_HPP_
+#define CPP_ESSENTIALS_CORE_VIEWS_TRIM_HPP_
 
 #pragma once
 
@@ -245,4 +245,4 @@ static constexpr auto split_until = detail::split_until_fn{};
 
 } /* namespace cpp_essentials::core::views */
 
-#endif /* CPP_ESSENTIALS_CORE_TRIM_HPP_ */
+#endif /* CPP_ESSENTIALS_CORE_VIEWS_TRIM_HPP_ */

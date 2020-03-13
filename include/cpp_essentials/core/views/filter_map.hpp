@@ -1,5 +1,5 @@
-#ifndef CPP_ESSENTIALS_CORE_FILTER_MAP_HPP_
-#define CPP_ESSENTIALS_CORE_FILTER_MAP_HPP_
+#ifndef CPP_ESSENTIALS_CORE_VIEWS_FILTER_MAP_HPP_
+#define CPP_ESSENTIALS_CORE_VIEWS_FILTER_MAP_HPP_
 
 #pragma once
 
@@ -40,4 +40,4 @@ static constexpr auto filter_map = detail::filter_map_fn{};
 
 } /* namespace cpp_essentials::core::views */
 
-#endif /* CPP_ESSENTIALS_CORE_FILTER_MAP_HPP_ */
+#endif /* CPP_ESSENTIALS_CORE_VIEWS_FILTER_MAP_HPP_ */

@@ -1,5 +1,5 @@
-#ifndef CPP_ESSENTIALS_CORE_ITERATE_HPP_
-#define CPP_ESSENTIALS_CORE_ITERATE_HPP_
+#ifndef CPP_ESSENTIALS_CORE_VIEWS_ITERATE_HPP_
+#define CPP_ESSENTIALS_CORE_VIEWS_ITERATE_HPP_
 
 #pragma once
 
@@ -33,4 +33,4 @@ static constexpr auto iterate = detail::iterate_fn{};
 
 } /* namespace cpp_essentials::core::views */
 
-#endif /* CPP_ESSENTIALS_CORE_MAP_HPP_ */
+#endif /* CPP_ESSENTIALS_CORE_VIEWS_ITERATE_HPP_ */

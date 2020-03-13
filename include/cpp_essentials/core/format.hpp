@@ -8,8 +8,8 @@
 
 #include <cpp_essentials/core/string_views.hpp>
 #include <cpp_essentials/core/algorithm.hpp>
-#include <cpp_essentials/core/slice.hpp>
-#include <cpp_essentials/core/filter.hpp>
+#include <cpp_essentials/core/views/slice.hpp>
+#include <cpp_essentials/core/views/filter.hpp>
 #include <cpp_essentials/core/containers.hpp>
 #include <cpp_essentials/core/serialization.hpp>
 #include <cpp_essentials/core/string_functors.hpp>

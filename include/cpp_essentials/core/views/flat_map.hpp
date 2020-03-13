@@ -1,10 +1,10 @@
-#ifndef CPP_ESSENTIALS_CORE_FLAT_MAP_HPP_
-#define CPP_ESSENTIALS_CORE_FLAT_MAP_HPP_
+#ifndef CPP_ESSENTIALS_CORE_VIEWS_FLAT_MAP_HPP_
+#define CPP_ESSENTIALS_CORE_VIEWS_FLAT_MAP_HPP_
 
 #pragma once
 
-#include <cpp_essentials/core/map.hpp>
-#include <cpp_essentials/core/flatten.hpp>
+#include <cpp_essentials/core/views/map.hpp>
+#include <cpp_essentials/core/views/flatten.hpp>
 
 namespace cpp_essentials::core::views
 {
@@ -33,4 +33,4 @@ static constexpr auto flat_map = detail::flat_map_fn{};
 
 } /* namespace cpp_essentials::core::views */
 
-#endif /* CPP_ESSENTIALS_CORE_FLAT_MAP_HPP_ */
+#endif /* CPP_ESSENTIALS_CORE_VIEWS_FLAT_MAP_HPP_ */

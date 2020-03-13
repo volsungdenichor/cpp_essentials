@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include <cpp_essentials/core/map.hpp>
+#include <cpp_essentials/core/views/map.hpp>
 #include <cpp_essentials/core/string_views.hpp>
 
 namespace cpp_essentials::core

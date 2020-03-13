@@ -76,6 +76,9 @@
     <Filter Include="Header Files\cpp_essentials\proc">
       <UniqueIdentifier>{c9c0b8fe-f78d-4423-9ac3-551a1018e0f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\cpp_essentials\core\views">
+      <UniqueIdentifier>{d23422b4-9156-4a7f-84a3-4fdf62305225}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -138,12 +141,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\cc\cc.hpp">
       <Filter>Header Files\cpp_essentials\cc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\filter.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\slice.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\containers.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
@@ -186,34 +183,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\zip_iterator.hpp">
       <Filter>Header Files\cpp_essentials\core\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\chain.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\chunk.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\elementwise.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\flatten.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\iterate.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\map.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\numeric.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\stride.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\trim.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\zip.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\math\polynomial.hpp">
@@ -459,18 +429,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\any_range.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\unzip.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\reverse.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\enumerate.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\replace.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\kine\animation.core.hpp">
       <Filter>Header Files\cpp_essentials\kine</Filter>
     </ClInclude>
@@ -564,12 +522,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\lazy_evaluated.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\filter_map.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\flat_map.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\iterator_category.hpp">
       <Filter>Header Files\cpp_essentials\core\detail</Filter>
     </ClInclude>
@@ -606,8 +558,59 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\adjacent_difference_iterator.hpp">
       <Filter>Header Files\cpp_essentials\core\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\adjacent_difference.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\views\adjacent_difference.hpp">
+      <Filter>Header Files\cpp_essentials\core\views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\views\chain.hpp">
+      <Filter>Header Files\cpp_essentials\core\views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\views\chunk.hpp">
+      <Filter>Header Files\cpp_essentials\core\views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\views\enumerate.hpp">
+      <Filter>Header Files\cpp_essentials\core\views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\views\filter.hpp">
+      <Filter>Header Files\cpp_essentials\core\views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\views\filter_map.hpp">
+      <Filter>Header Files\cpp_essentials\core\views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\views\flat_map.hpp">
+      <Filter>Header Files\cpp_essentials\core\views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\views\flatten.hpp">
+      <Filter>Header Files\cpp_essentials\core\views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\views\iterate.hpp">
+      <Filter>Header Files\cpp_essentials\core\views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\views\map.hpp">
+      <Filter>Header Files\cpp_essentials\core\views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\views\replace.hpp">
+      <Filter>Header Files\cpp_essentials\core\views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\views\reverse.hpp">
+      <Filter>Header Files\cpp_essentials\core\views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\views\stride.hpp">
+      <Filter>Header Files\cpp_essentials\core\views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\views\trim.hpp">
+      <Filter>Header Files\cpp_essentials\core\views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\views\unzip.hpp">
+      <Filter>Header Files\cpp_essentials\core\views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\views\zip.hpp">
+      <Filter>Header Files\cpp_essentials\core\views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\views\slice.hpp">
+      <Filter>Header Files\cpp_essentials\core\views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\views\elementwise.hpp">
+      <Filter>Header Files\cpp_essentials\core\views</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

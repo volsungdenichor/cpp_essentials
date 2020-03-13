@@ -1,5 +1,5 @@
-#ifndef CPP_ESSENTIALS_CORE_FLATTEN_HPP_
-#define CPP_ESSENTIALS_CORE_FLATTEN_HPP_
+#ifndef CPP_ESSENTIALS_CORE_VIEWS_FLATTEN_HPP_
+#define CPP_ESSENTIALS_CORE_VIEWS_FLATTEN_HPP_
 
 #include <cpp_essentials/core/iterator_range.hpp>
 #include <cpp_essentials/core/adaptor.hpp>
@@ -34,4 +34,4 @@ static constexpr auto flatten = detail::flatten_fn{};
 
 } /* namespace cpp_essentials::core::views */
 
-#endif /* CPP_ESSENTIALS_CORE_FLATTEN_HPP_ */
+#endif /* CPP_ESSENTIALS_CORE_VIEWS_FLATTEN_HPP_ */

@@ -1,5 +1,5 @@
-#ifndef CPP_ESSENTIALS_CORE_MAP_HPP_
-#define CPP_ESSENTIALS_CORE_MAP_HPP_
+#ifndef CPP_ESSENTIALS_CORE_VIEWS_MAP_HPP_
+#define CPP_ESSENTIALS_CORE_VIEWS_MAP_HPP_
 
 #pragma once
 
@@ -37,4 +37,4 @@ static constexpr auto map = detail::map_fn{};
 
 } /* namespace cpp_essentials::core::views */
 
-#endif /* CPP_ESSENTIALS_CORE_MAP_HPP_ */
+#endif /* CPP_ESSENTIALS_CORE_VIEWS_MAP_HPP_ */

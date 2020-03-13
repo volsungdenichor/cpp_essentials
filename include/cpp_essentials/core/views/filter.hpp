@@ -1,5 +1,5 @@
-#ifndef CPP_ESSENTIALS_CORE_FILTER_HPP_
-#define CPP_ESSENTIALS_CORE_FILTER_HPP_
+#ifndef CPP_ESSENTIALS_CORE_VIEWS_FILTER_HPP_
+#define CPP_ESSENTIALS_CORE_VIEWS_FILTER_HPP_
 
 #pragma once
 
@@ -57,4 +57,4 @@ static constexpr auto drop_if = detail::drop_if_fn{};
 
 } /* namespace cpp_essentials::core::views */
 
-#endif /* CPP_ESSENTIALS_CORE_FILTER_HPP_ */
+#endif /* CPP_ESSENTIALS_CORE_VIEWS_FILTER_HPP_ */

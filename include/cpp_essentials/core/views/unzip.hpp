@@ -1,9 +1,9 @@
-#ifndef CPP_ESSENTIALS_CORE_UNZIP_HPP_
-#define CPP_ESSENTIALS_CORE_UNZIP_HPP_
+#ifndef CPP_ESSENTIALS_CORE_VIEWS_UNZIP_HPP_
+#define CPP_ESSENTIALS_CORE_VIEWS_UNZIP_HPP_
 
 #pragma once
 
-#include <cpp_essentials/core/map.hpp>
+#include <cpp_essentials/core/views/map.hpp>
 #include <cpp_essentials/core/functors.hpp>
 
 namespace cpp_essentials::core::views
@@ -36,4 +36,4 @@ static constexpr auto unzip = detail::unzip_fn{};
 
 } /* namespace cpp_essentials::core::views */
 
-#endif /* CPP_ESSENTIALS_CORE_UNZIP_HPP_ */
+#endif /* CPP_ESSENTIALS_CORE_VIEWS_UNZIP_HPP_ */

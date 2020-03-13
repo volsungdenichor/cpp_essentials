@@ -1,7 +1,7 @@
-#pragma once
-
 #ifndef CPP_ESSENTIALS_CORE_VIEWS_ADJACENT_DIFFERENCE_HPP_
 #define CPP_ESSENTIALS_CORE_VIEWS_ADJACENT_DIFFERENCE_HPP_
+
+#pragma once
 
 #include <cpp_essentials/core/detail/adjacent_difference_iterator.hpp>
 #include <cpp_essentials/core/iterator_range.hpp>

@@ -6,7 +6,7 @@
 #include <cpp_essentials/geo/bounding_box.hpp>
 #include <cpp_essentials/geo/linear_shape.hpp>
 #include <cpp_essentials/geo/detail/linear_shape.traits.hpp>
-#include <cpp_essentials/core/zip.hpp>
+#include <cpp_essentials/core/views/zip.hpp>
 
 namespace cpp_essentials::geo
 {

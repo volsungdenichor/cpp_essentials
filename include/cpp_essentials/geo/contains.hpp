@@ -8,7 +8,7 @@
 #include <cpp_essentials/geo/vertex_array.hpp>
 #include <cpp_essentials/geo/orientation.hpp>
 #include <cpp_essentials/geo/vertex_container.hpp>
-#include <cpp_essentials/core/zip.hpp>
+#include <cpp_essentials/core/views/zip.hpp>
 
 namespace cpp_essentials::geo
 {

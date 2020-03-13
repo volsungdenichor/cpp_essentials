@@ -9,7 +9,7 @@
 #include <string_view>
 
 #include <cpp_essentials/core/views.hpp>
-#include <cpp_essentials/core/trim.hpp>
+#include <cpp_essentials/core/views/trim.hpp>
 
 namespace cpp_essentials::core
 {

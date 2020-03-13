@@ -6,6 +6,7 @@
 #include <cpp_essentials/core/adaptor.hpp>
 #include <cpp_essentials/core/algorithm.hpp>
 #include <cpp_essentials/core/algorithm_ext.hpp>
+#include <cpp_essentials/core/adjacent_difference.hpp>
 #include <cpp_essentials/core/reverse.hpp>
 #include <cpp_essentials/core/chain.hpp>
 #include <cpp_essentials/core/chunk.hpp>
@@ -132,6 +133,8 @@ PULL_ADAPTABLE(rotate_copy);
 PULL_ADAPTABLE(unique_copy);
 PULL_ADAPTABLE(upper_bound);
 
+PULL_ADAPTABLE_VIEW(adjacent_difference);
+
 PULL_ADAPTABLE_VIEW(reverse);
 
 PULL_ADAPTABLE_VIEW(chain);
@@ -200,7 +203,8 @@ PULL_ADAPTABLE_VIEW(trim_until);
 PULL_ADAPTABLE_VIEW(split_while);
 PULL_ADAPTABLE_VIEW(split_until);
 
-PULL_ADAPTABLE_VIEW(zip);
+using core::views::zip;
+
 PULL_ADAPTABLE_VIEW(unzip);
 
 #undef PULL_ADAPTABLE

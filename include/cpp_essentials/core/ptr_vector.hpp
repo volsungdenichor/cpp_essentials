@@ -80,6 +80,11 @@ public:
         return _iter < other._iter;
     }
 
+    difference_type distance(const ptr_vector_iterator& other) const
+    {
+        return std::distance(_iter, other._iter);
+    }
+
     Iter _iter;
 };
 

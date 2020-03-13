@@ -9,5 +9,5 @@ TEST_CASE("views::zip")
 {
     auto vect = vec(2, 4, 5);
     auto other = vec(2, 5, 1, 3);
-    REQUIRE((vect | sq::zip(other, std::plus<>{})) == vec(4, 9, 6));
+    REQUIRE((sq::zip(vect, other, std::plus<>{})) == vec(4, 9, 6));
 }

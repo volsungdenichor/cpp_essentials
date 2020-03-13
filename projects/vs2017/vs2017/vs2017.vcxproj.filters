@@ -603,6 +603,12 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\core.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\adjacent_difference_iterator.hpp">
+      <Filter>Header Files\cpp_essentials\core\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\adjacent_difference.hpp">
+      <Filter>Header Files\cpp_essentials\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

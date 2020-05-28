@@ -330,6 +330,9 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\math\regression.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\meta\meta.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\meta\serialization_json.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\ph\ph.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\ph\quantities.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\ph\vectors.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\proc\distribution.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\proc\perlin.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\proc\seed.hpp" />

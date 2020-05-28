@@ -79,6 +79,9 @@
     <Filter Include="Header Files\cpp_essentials\core\views">
       <UniqueIdentifier>{d23422b4-9156-4a7f-84a3-4fdf62305225}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\cpp_essentials\ph">
+      <UniqueIdentifier>{deaf6035-d010-4bf3-8c5c-2f227c2308b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -611,6 +614,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\views\elementwise.hpp">
       <Filter>Header Files\cpp_essentials\core\views</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\ph\ph.hpp">
+      <Filter>Header Files\cpp_essentials\ph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\ph\quantities.hpp">
+      <Filter>Header Files\cpp_essentials\ph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\ph\vectors.hpp">
+      <Filter>Header Files\cpp_essentials\ph</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

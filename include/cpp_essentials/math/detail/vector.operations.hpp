@@ -51,7 +51,7 @@ struct normalize_fn
 
         if (len)
         {
-            item /= len;
+            core::transform((item / len)._data, item._data.begin(), core::cast<T>);
         }
 
         return item;

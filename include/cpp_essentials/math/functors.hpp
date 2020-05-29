@@ -19,7 +19,14 @@ struct abs_fn
     template <class T>
     auto operator ()(T x) const
     {
-        return std::abs(x);
+        if constexpr (std::is_arithmetic_v<T>)
+        {
+            return std::abs(x);
+        }
+        else
+        {
+            return absolute_value(x);
+        }
     }
 };
 
@@ -75,7 +82,14 @@ struct sqrt_fn
     template <class T>
     auto operator ()(const T& v) const
     {
-        return std::sqrt(v);
+        if constexpr (std::is_arithmetic_v<T>)
+        {
+            return std::sqrt(v);
+        }
+        else
+        {
+            return square_root(v);
+        }
     }
 };
 

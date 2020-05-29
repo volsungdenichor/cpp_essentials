@@ -338,6 +338,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\proc\seed.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\sq.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\term\term.hpp" />
+    <ClInclude Include="..\..\..\include\ess\core\measurement.hpp" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>

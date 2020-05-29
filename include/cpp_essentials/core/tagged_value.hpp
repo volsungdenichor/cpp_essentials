@@ -271,19 +271,6 @@ namespace std
 {
 
 template <class T, class Tag>
-struct is_floating_point<::cpp_essentials::core::tagged_value<T, Tag>> : std::is_floating_point<T> {};
-
-template <class T, class Tag>
-struct is_integral<::cpp_essentials::core::tagged_value<T, Tag>> : std::is_integral<T> {};
-
-template <class T, class Tag>
-struct is_signed<::cpp_essentials::core::tagged_value<T, Tag>> : std::is_signed<T> {};
-
-template <class T, class Tag>
-struct is_unsigned<::cpp_essentials::core::tagged_value<T, Tag>> : std::is_unsigned<T> {};
-
-
-template <class T, class Tag>
 struct hash<::cpp_essentials::core::tagged_value<T, Tag>>
 {
     using argument_type = ::cpp_essentials::core::tagged_value<T, Tag>;

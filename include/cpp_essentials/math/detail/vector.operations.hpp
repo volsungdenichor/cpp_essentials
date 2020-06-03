@@ -44,14 +44,14 @@ struct length_fn
 struct normalize_fn
 {
     template <class T, size_t D>
-    auto& operator ()(vector<T, D>& item) const
+    auto& operator ()(vector<T, D>& item, T expected = T{ 1 }) const
     {
         static constexpr auto _length = length_fn{};
         auto len = _length(item);
 
         if (len)
         {
-            core::transform((item / len)._data, item._data.begin(), core::cast<T>);
+            item = item * expected / len;
         }
 
         return item;
@@ -61,12 +61,25 @@ struct normalize_fn
 struct unit_fn
 {
     template <class T, size_t D>
-    auto operator ()(const vector<T, D>& item) const
+    auto operator ()(const vector<T, D>& item, T expected = T{ 1 }) const
     {
         static constexpr auto _normalize = normalize_fn{};
         vector<T, D> result{ item };
-        _normalize(result);
+        _normalize(result, expected);
         return result;
+    }
+};
+
+struct clamp_fn
+{
+    template <class T, size_t D>
+    auto operator ()(const vector<T, D>& v, T dest) const
+    {
+        static constexpr auto _length = length_fn{};
+        const auto len = _length(v);
+        return len < dest
+            ? v
+            : (v * dest / len);
     }
 };
 
@@ -171,6 +184,7 @@ static constexpr auto norm = detail::norm_fn{};
 static constexpr auto length = detail::length_fn{};
 static constexpr auto normalize = detail::normalize_fn{};
 static constexpr auto unit = detail::unit_fn{};
+static constexpr auto clamp = detail::clamp_fn{};
 static constexpr auto distance = detail::distance_fn{};
 static constexpr auto cross = detail::cross_fn{};
 static constexpr auto projection = detail::projection_fn{};

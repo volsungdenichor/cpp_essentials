@@ -46,6 +46,7 @@ using math::dot;
 using math::norm;
 using math::normalize;
 using math::unit;
+using math::clamp;
 using math::cross;
 using math::rejection;
 using math::angle;

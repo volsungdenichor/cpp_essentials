@@ -33,6 +33,15 @@ using rect = bounding_box<Quant, T, 2>;
 template <class Quant, class T>
 using rect_2d = rect<Quant, T>;
 
+template <class Quant, class T, size_t D>
+using segment = geo::vector<quantity<Quant, T>, D>;
+
+template <class Quant, class T>
+using segment_2d = segment<Quant, T, 2>;
+
+template <class Quant, class T>
+using segment_3d = segment<Quant, T, 3>;
+
 } /* namespace cpp_essentials::ph */
 
 #endif /* CPP_ESSENTIALS_PH_VECTORS_HPP_ */

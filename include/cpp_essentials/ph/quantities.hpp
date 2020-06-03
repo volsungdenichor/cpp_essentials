@@ -213,19 +213,19 @@ using quantity = core::tagged_value<T, Quant>;
 
 
 template <class Quant, class T>
-auto square_root(quantity<Quant, T> item)
+auto sqrt(quantity<Quant, T> item)
 {
     return quantity<detail::sqr_root<Quant>, T>{ math::sqrt(item.get()) };
 }
 
 template <class Quant, class T>
-auto square(quantity<Quant, T> item)
+auto sqr(quantity<Quant, T> item)
 {
     return quantity<detail::pow<Quant, 2>, T>{ math::sqr(item.get()) };
 }
 
 template <class Quant, class T>
-auto absolute_value(quantity<Quant, T> item)
+auto abs(quantity<Quant, T> item)
 {
     return quantity<Quant, T>{ math::abs(item.get()) };
 }
@@ -235,9 +235,9 @@ auto absolute_value(quantity<Quant, T> item)
 namespace cpp_essentials::core
 {
 
-using ::cpp_essentials::ph::absolute_value;
-using ::cpp_essentials::ph::square_root;
-using ::cpp_essentials::ph::square;
+using ::cpp_essentials::ph::abs;
+using ::cpp_essentials::ph::sqrt;
+using ::cpp_essentials::ph::sqr;
 
 } /* namespace cpp_essentials::core */
 

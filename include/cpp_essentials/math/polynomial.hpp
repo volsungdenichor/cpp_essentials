@@ -204,7 +204,7 @@ auto& operator -=(polynomial<T, D1>& lhs, const polynomial<U, D2>& rhs)
 template <class T, class U, size_t D, CONCEPT = cc::Multiply<T, U>>
 auto& operator *=(polynomial<T, D>& lhs, U rhs)
 {
-    core::transform(lhs._data, lhs._data.begin(), math::multiplies(rhs));
+    core::transform(lhs._data, lhs._data.begin(), core::multiplies(rhs));
     return lhs;
 }
 
@@ -212,7 +212,7 @@ template <class T, class U, size_t D, CONCEPT = cc::Multiply<T, U>>
 auto operator *(const polynomial<T, D>& lhs, U rhs) -> polynomial<cc::Multiply<T, U>, D>
 {
     polynomial<cc::Multiply<T, U>, D> result;
-    core::transform(lhs._data, result._data.begin(), math::multiplies(rhs));
+    core::transform(lhs._data, result._data.begin(), core::multiplies(rhs));
     return result;
 }
 
@@ -227,7 +227,7 @@ auto operator *(T lhs, const polynomial<T, D>& rhs) -> polynomial<cc::Multiply<T
 template <class T, class U, size_t D, CONCEPT = cc::Divide<T, U>>
 auto& operator /=(polynomial<T, D>& lhs, U rhs)
 {
-    core::transform(lhs._data, lhs._data.begin(), math::divides(rhs));
+    core::transform(lhs._data, lhs._data.begin(), core::divides(rhs));
     return lhs;
 }
 
@@ -235,7 +235,7 @@ template <class T, class U, size_t D, CONCEPT = cc::Divide<T, U>>
 auto operator /(const polynomial<T, D>& lhs, U rhs) -> polynomial<cc::Divide<T, U>, D>
 {
     polynomial<cc::Divide<T, U>, D> result;
-    core::transform(lhs._data, result._data.begin(), math::divides(rhs));
+    core::transform(lhs._data, result._data.begin(), core::divides(rhs));
     return result;
 }
 

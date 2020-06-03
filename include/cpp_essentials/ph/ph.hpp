@@ -15,6 +15,7 @@ namespace quantities
 using scalar = detail::scalar;
 
 using length = detail::quantity_type<1, 0, 0, 0, 0, 0, 0, 0, 0, 0>;
+using location = length;
 using mass = detail::quantity_type<0, 1, 0, 0, 0, 0, 0, 0, 0, 0>;
 using time = detail::quantity_type<0, 0, 1, 0, 0, 0, 0, 0, 0, 0>;
 using coords = detail::quantity_type<0, 0, 0, 1, 0, 0, 0, 0, 0, 0>;
@@ -35,6 +36,8 @@ using momentum = detail::mul<mass, velocity>;
 using force = detail::mul<mass, acceleration>;
 using energy = detail::mul<force, length>;
 using power = detail::div<energy, time>;
+
+using mass_flow_rate = detail::div<mass, time>;
 
 using pressure = detail::div<force, area>;
 using frequency = detail::inv<time>;
@@ -151,6 +154,7 @@ auto operator "" _##NAME(unsigned long long v)          \
 DEFINE_QUANTITY(scalar)
 
 DEFINE_QUANTITY(length)
+DEFINE_QUANTITY(location)
 DEFINE_QUANTITY(mass)
 DEFINE_QUANTITY(time)
 DEFINE_QUANTITY(coords)
@@ -171,6 +175,8 @@ DEFINE_QUANTITY(momentum)
 DEFINE_QUANTITY(force)
 DEFINE_QUANTITY(energy)
 DEFINE_QUANTITY(power)
+
+DEFINE_QUANTITY(mass_flow_rate)
 
 DEFINE_QUANTITY(pressure)
 DEFINE_QUANTITY(frequency)
@@ -210,6 +216,7 @@ template <class T>                                  \
 using NAME##_3d = vector_3d<quantities::NAME, T>;   \
 
 DEFINE_VECTOR(coords)
+DEFINE_VECTOR(location)
 DEFINE_VECTOR(length)
 DEFINE_VECTOR(velocity)
 DEFINE_VECTOR(acceleration)

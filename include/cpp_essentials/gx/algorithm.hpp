@@ -147,7 +147,7 @@ struct xiaolin_wu_line_fn
         auto dx = x1 - x0;
         auto dy = y1 - y0;
         auto gradient = static_cast<float>(dy) / dx;
-        if (dx = 0)
+        if (dx == 0)
         {
             gradient = 1.F;
         }

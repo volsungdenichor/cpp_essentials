@@ -39,6 +39,9 @@ using power = detail::div<energy, time>;
 
 using mass_flow_rate = detail::div<mass, time>;
 
+using linear_density = detail::div<mass, length>;
+using area_density = detail::div<mass, area>;
+using density = detail::div<mass, volume>;
 using pressure = detail::div<force, area>;
 using frequency = detail::inv<time>;
 
@@ -178,6 +181,9 @@ DEFINE_QUANTITY(power)
 
 DEFINE_QUANTITY(mass_flow_rate)
 
+DEFINE_QUANTITY(linear_density)
+DEFINE_QUANTITY(area_density)
+DEFINE_QUANTITY(density)
 DEFINE_QUANTITY(pressure)
 DEFINE_QUANTITY(frequency)
 

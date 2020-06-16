@@ -82,12 +82,6 @@
     <Filter Include="Header Files\cpp_essentials\ph">
       <UniqueIdentifier>{deaf6035-d010-4bf3-8c5c-2f227c2308b3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\ess">
-      <UniqueIdentifier>{33cb6c25-5f67-4e1b-8fe0-3ab96a681417}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\ess\core">
-      <UniqueIdentifier>{92cd4b19-e98c-4c65-9f3e-ca1c383712dc}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -629,9 +623,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\ph\vectors.hpp">
       <Filter>Header Files\cpp_essentials\ph</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\ess\core\measurement.hpp">
-      <Filter>Header Files\ess\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

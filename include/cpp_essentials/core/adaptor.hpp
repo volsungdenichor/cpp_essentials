@@ -34,11 +34,11 @@ auto make_adaptor(Func func) -> adaptor_t<Func>
 }
 
 template <class F1, class F2>
-auto operator >>(const adaptor_t<F1>& lhs, const adaptor_t<F2>& rhs)
+auto operator *(adaptor_t<F1> lhs, adaptor_t<F2> rhs)
 {
-    return make_adaptor([=](auto&& item)
+    return make_adaptor([=](auto&& item) -> decltype(auto)
     {
-        return item | lhs | rhs;
+        return rhs(lhs(FORWARD(item)));
     });
 }
 

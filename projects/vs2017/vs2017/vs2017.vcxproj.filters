@@ -624,6 +624,9 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\ph\vectors.hpp">
       <Filter>Header Files\cpp_essentials\ph</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\core\views\advance.hpp">
+      <Filter>Header Files\cpp_essentials\core\views</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

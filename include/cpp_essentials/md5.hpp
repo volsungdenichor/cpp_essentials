@@ -9,10 +9,113 @@
 #include <array>
 #include <tuple>
 #include <iterator>
-#include <algorithm>
+#include <optional>
 
 namespace md5
 {
+
+using size_type = unsigned int;
+
+using u8 = unsigned char;
+using u32 = std::uint32_t;
+
+template <class T>
+class span
+{
+public:
+    using iterator = T*;
+
+    constexpr span() noexcept
+        : _begin{}
+        , _end{}
+    {
+    }
+
+    constexpr span(iterator begin, iterator end) noexcept
+        : _begin{ begin }
+        , _end{ end }
+    {
+    }
+
+    constexpr span(iterator begin, size_type size) noexcept
+        : span{ begin, begin + size }
+    {
+    }
+
+    template <class U, std::size_t N>
+    constexpr span(std::array<U, N>& array)
+        : span{ array.data(), (size_type)array.size() }
+    {
+    }
+
+    template <class U, std::size_t N>
+    constexpr span(const std::array<U, N>& array)
+        : span{ array.data(), (size_type)array.size() }
+    {
+    }
+
+    template <class U>
+    constexpr span(span<U> other) noexcept
+        : span{ other.begin(), other.end() }
+    {
+    }
+
+    template <class Type = T, class = std::enable_if_t<!std::is_void_v<T>>>
+    constexpr const void* data() const noexcept
+    {
+        return (const void*)_begin;
+    }
+
+    template <class Type = T, class = std::enable_if_t<!std::is_void_v<T>>>
+    constexpr void* data() noexcept
+    {
+        return (void*)_begin;
+    }
+
+    constexpr iterator begin() const noexcept
+    {
+        return _begin;
+    }
+
+    constexpr iterator end() const noexcept
+    {
+        return _end;
+    }
+
+    constexpr size_type size() const noexcept
+    {
+        return (size_type)(end() - begin());
+    }
+
+    constexpr size_type size_bytes() const noexcept
+    {
+        return size() * sizeof(T);
+    }
+
+    template <class Type = T, class = std::enable_if_t<!std::is_void_v<T>>>
+    T& operator[](size_type index) const noexcept
+    {
+        return _begin[index];
+    }    
+
+    T* _begin;
+    T* _end;
+};
+
+template <class T>
+using const_span = span<const T>;
+
+template <class T>
+constexpr const_span<u8> as_bytes(span<T> span) noexcept
+{
+    return { (const u8*)span.data(), span.size_bytes() };
+}
+
+template <class T>
+constexpr span<u8> as_writable_bytes(span<T> span) noexcept
+{
+    return { (u8*)span.data(), span.size_bytes() };
+}
 
 template <class T, class = void>
 struct handler;
@@ -35,12 +138,8 @@ public:
     static const inline auto s_41 = 6;
     static const inline auto s_42 = 10;
     static const inline auto s_43 = 15;
-    static const inline auto s_44 = 21;
-
-    using u8 = unsigned char;
-    using u32 = std::uint32_t;
-
-    using size_type = unsigned int;
+    static const inline auto s_44 = 21;    
+    
     using digest_type = std::array<u8, 16>;
 
     struct result_type
@@ -59,25 +158,29 @@ public:
 
         friend std::ostream& operator <<(std::ostream& os, const result_type& item)
         {
-            os << std::hex << std::setfill('0') << std::setw(2);
-
-            std::copy(
-                item.digest.begin(),
-                item.digest.end(),
-                std::ostream_iterator<int>{ os, "" });
+            for (int ch : item.digest)
+            {
+                os << std::hex << std::setfill('0') << std::setw(2) << ch;
+            }
 
             return os;
         }
     };
 
     generator()
+        : _finalized{ false }
+        , _count{ { 0, 1 } }
+        , _state{ { 0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476 } }
+        , _buffer{}
+        , _digest{}
     {
-        init();
     }
 
-    void update(const u8* input, size_type length)
+    void update(const_span<u8> input)
     {
-        size_type index = _count[0] / 8 % blocksize;
+        size_type index = _count[0] / 8 % block_size;
+
+        const auto length = input.size();
 
         if ((_count[0] += (length << 3)) < (length << 3))
             _count[1]++;
@@ -90,11 +193,11 @@ public:
 
         if (length >= firstpart)
         {
-            memcpy(&_buffer[index], input, firstpart);
-            transform(_buffer.data());
+            std::memcpy(&_buffer[index], input.data(), firstpart);
+            transform(_buffer);
 
-            for (i = firstpart; i + blocksize <= length; i += blocksize)
-                transform(&input[i]);
+            for (i = firstpart; i + block_size <= length; i += block_size)
+                transform({ &input[i], block_size });
 
             index = 0;
         }
@@ -103,12 +206,7 @@ public:
             i = 0;
         }
 
-        memcpy(&_buffer[index], &input[i], length - i);
-    }
-
-    void update(const void* input, size_type length)
-    {
-        update((const u8*)input, length);
+        std::memcpy(&_buffer[index], &input[i], length - i);
     }
 
     template <class... Args>
@@ -120,33 +218,34 @@ public:
 
     generator& finalize()
     {
-        static u8 padding[64] = {
-          0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        static std::array<u8, 64> padding = {
+          0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+          0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+          0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+          0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
         };
 
         if (!_finalized)
         {
-            u8 bits[8];
-            encode(bits, _count.data(), 8);
+            std::array<u8, 8> bits;
+            encode(bits, _count);
 
             size_type index = _count[0] / 8 % 64;
-            size_type padLen = (index < 56) ? (56 - index) : (120 - index);
-            update(padding, padLen);
+            size_type pad_len = (index < 56) ? (56 - index) : (120 - index);
+            update(const_span<u8>{ padding.data(), pad_len });
 
-            update(bits, 8);
+            update(bits);
 
-            encode(_digest.data(), _state.data(), 16);
+            encode(_digest, _state);
 
-            memset(_buffer.data(), 0, sizeof(_buffer));
-            memset(_count.data(), 0, sizeof(_count));
+            std::memset(_buffer.data(), 0, sizeof(_buffer));
+            std::memset(_count.data(), 0, sizeof(_count));
 
             _finalized = true;
         }
 
         return *this;
-    }    
+    }
 
     result_type digest()
     {
@@ -155,26 +254,16 @@ public:
     }
 
 private:
-    static constexpr auto blocksize = 64;
+    static constexpr size_type block_size = 64;
 
-    void init()
+    void transform(const_span<u8> block)
     {
-        _finalized = false;
+        u32 a = _state[0],
+            b = _state[1],
+            c = _state[2],
+            d = _state[3];
 
-        _count[0] = 0;
-        _count[1] = 0;
-
-        _state[0] = 0x67452301;
-        _state[1] = 0xefcdab89;
-        _state[2] = 0x98badcfe;
-        _state[3] = 0x10325476;
-    }    
-
-    void transform(const u8 block[blocksize])
-    {
-        u32 a = _state[0], b = _state[1], c = _state[2], d = _state[3];
-        std::array<u32, 16> x;
-        decode(x.data(), block, blocksize);
+        std::array<u32, 16> x = decode(block);
 
         /* Round 1 */
         calc_ff(a, b, c, d, x[0], s_11, 0xd76aa478); /* 1 */
@@ -253,23 +342,31 @@ private:
         _state[2] += c;
         _state[3] += d;
 
-        memset(x.data(), 0, sizeof(x));
+        std::memset(x.data(), 0, sizeof(x));
     }
 
-    static void decode(u32* output, const u8* input, size_type len)
+    static void decode(span<u32> output, const_span<u8> input)
     {
+        const auto len = input.size();
+
         for (unsigned int i = 0, j = 0; j < len; i++, j += 4)
             output[i] = ((u32)input[j]) | (((u32)input[j + 1]) << 8) | (((u32)input[j + 2]) << 16) | (((u32)input[j + 3]) << 24);
     }
 
-    static void encode(u8* output, const u32* input, size_type len)
+    static std::array<u32, 16> decode(const_span<u8> input)
     {
+        std::array<u32, 16> result{};
+        decode(result, input);
+        return result;
+    }
+
+    static void encode(span<u8> output, const_span<u32> input)
+    {
+        const auto len = output.size();
         for (size_type i = 0, j = 0; j < len; i++, j += 4)
         {
-            output[j + 0] = (input[i] >> 0) & 0xff;
-            output[j + 1] = (input[i] >> 8) & 0xff;
-            output[j + 2] = (input[i] >> 16) & 0xff;
-            output[j + 3] = (input[i] >> 24) & 0xff;
+            for (int k = 0; k < 4; ++k)
+                output[j + k] = (input[i] >> (8 * k)) & 0xff;
         }
     }
 
@@ -319,9 +416,9 @@ private:
     }
 
     bool _finalized;
-    std::array<u8, blocksize> _buffer;
     std::array<u32, 2> _count;
     std::array<u32, 4> _state;
+    std::array<u8, block_size> _buffer;
     digest_type _digest;
 };
 
@@ -338,7 +435,7 @@ struct handler<T, std::enable_if_t<std::is_arithmetic_v<T>>>
 {
     void operator ()(generator& gen, const T& item) const
     {
-        gen.update(std::addressof(item), (generator::size_type)sizeof(item));
+        gen.update(as_bytes(const_span<T>{ std::addressof(item), 1 }));
     }
 };
 
@@ -383,6 +480,18 @@ struct handler<T, std::void_t<decltype(std::begin(std::declval<T>()))>>
     {
         for (const auto& elem : item)
             gen(elem);
+    }
+};
+
+template <class T>
+struct handler<std::optional<T>>
+{
+    void operator ()(generator& gen, const std::optional<T>& item) const
+    {
+        if (item)
+            gen(true, *item);
+        else
+            gen(false);
     }
 };
 

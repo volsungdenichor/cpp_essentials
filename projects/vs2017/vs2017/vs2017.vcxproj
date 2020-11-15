@@ -329,6 +329,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\math\matrix.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\polynomial.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\regression.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\md5.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\meta\meta.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\meta\serialization_json.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\ph\ph.hpp" />
@@ -339,6 +340,27 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\proc\seed.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\sq.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\term\term.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\algorithm.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\detail\default_constructible_func.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\detail\iterator_helpers.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\detail\return_policy.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\functors.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\iterators\any_iterator.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\iterators\chain_iterator.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\iterators\filter_iterator.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\iterators\filter_map_iterator.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\iterators\flat_map_iterator.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\iterators\iterate_iterator.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\iterators\map_iterator.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\iterators\numeric_iterator.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\iterators\owning_iterator.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\iterators\repeat_iterator.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\iterators\zip_iterator.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\iterator_facade.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\iterator_range.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\macros.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\return_policy.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\type_traits.hpp" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>

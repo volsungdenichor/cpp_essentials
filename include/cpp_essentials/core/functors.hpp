@@ -223,7 +223,7 @@ struct offset_of_fn
     }
 };
 
-struct pipe_fn
+struct compose_fn
 {
     template <class Func, class... Tail>
     auto operator ()(Func&& func, Tail&&... tail) const
@@ -234,7 +234,7 @@ struct pipe_fn
         }
         else
         {
-            return [=](auto&& item) { return (*this)(std::move(tail)...)(func(item)); };
+            return [=](auto&& item) { return (*this)(tail...)(func(item)); };
         }
     }
 };
@@ -364,7 +364,7 @@ template <class Type>
 static constexpr auto cast = detail::cast_fn<Type>{};
 
 static constexpr auto offset_of = detail::offset_of_fn{};
-static constexpr auto pipe = detail::pipe_fn{};
+static constexpr auto compose = detail::compose_fn{};
 static constexpr auto compare_by = detail::compare_by_fn{};
 static constexpr auto tie_members = detail::tie_members_fn{};
 

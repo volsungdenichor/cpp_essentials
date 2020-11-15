@@ -234,7 +234,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\tuple.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\views.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\views\adjacent_difference.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\views\advance.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\views\chain.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\views\chunk.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\views\elementwise.hpp" />

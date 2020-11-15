@@ -31,7 +31,6 @@
 #include <cpp_essentials/core/views/trim.hpp>
 #include <cpp_essentials/core/views/unzip.hpp>
 #include <cpp_essentials/core/views/zip.hpp>
-#include <cpp_essentials/core/views/advance.hpp>
 
 #include <cpp_essentials/core/output.hpp>
 
@@ -203,10 +202,6 @@ PULL_ADAPTABLE_VIEW(trim_while);
 PULL_ADAPTABLE_VIEW(trim_until);
 PULL_ADAPTABLE_VIEW(split_while);
 PULL_ADAPTABLE_VIEW(split_until);
-
-PULL_ADAPTABLE_VIEW(advance);
-PULL_ADAPTABLE_VIEW(advance_while);
-PULL_ADAPTABLE_VIEW(advance_until);
 
 using core::views::zip;
 

@@ -696,18 +696,21 @@
     <ClInclude Include="..\..\..\include\millrind\core\macros.hpp">
       <Filter>Header Files\millrind\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\return_policy.hpp">
-      <Filter>Header Files\millrind\core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\millrind\core\type_traits.hpp">
       <Filter>Header Files\millrind\core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\md5.hpp">
       <Filter>Header Files\cpp_essentials</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\millrind\core\iterators.hpp">
+      <Filter>Header Files\millrind\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_main.tmp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

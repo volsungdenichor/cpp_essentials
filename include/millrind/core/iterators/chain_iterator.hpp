@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../iterator_facade.hpp"
-#include "../functors.hpp"
+#include <millrind/core/iterator_facade.hpp>
+#include <millrind/core/functors.hpp>
 
-namespace core
+namespace millrind::core
 {
 
 template <class Iter1, class Iter2>
@@ -39,7 +39,7 @@ public:
             ++_iter2;
     }
 
-    template <class It1 = Iter1, class It2 = Iter2, class = bidirectional_iter <It1>, class = bidirectional_iter <It2>>
+    template <class It1 = Iter1, class It2 = Iter2, class = BidirectionalIterator<It1>, class = BidirectionalIterator<It2>>
     void dec()
     {
         if (_iter2 != _range2_begin)
@@ -61,6 +61,6 @@ private:
     Iter2 _range2_begin;
 };
 
-} // namespace core
+} // namespace millrind::core
 
-CORE_ITERATOR_TRAIRS(::core::chain_iterator)
+CORE_ITERATOR_TRAIRS(::millrind::core::chain_iterator)

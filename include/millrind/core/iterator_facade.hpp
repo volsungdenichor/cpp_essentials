@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iterator>
-#include "type_traits.hpp"
+#include <millrind/core/type_traits.hpp>
 
 namespace millrind::core
 {
@@ -299,9 +299,9 @@ struct iterator_traits
     using iterator_category = std::conditional_t<detail::is_random_access<Iter>,
         std::random_access_iterator_tag,
         std::conditional_t<
-        detail::is_bidirectional<Iter>,
-        std::bidirectional_iterator_tag,
-        std::forward_iterator_tag>>;
+            detail::is_bidirectional<Iter>,
+            std::bidirectional_iterator_tag,
+            std::forward_iterator_tag>>;
 };
 
 } // namespace millrind::core

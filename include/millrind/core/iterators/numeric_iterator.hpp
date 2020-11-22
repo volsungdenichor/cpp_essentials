@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../iterator_facade.hpp"
-#include "../functors.hpp"
+#include <millrind/core/iterator_facade.hpp>
+#include <millrind/core/functors.hpp>
 
-namespace core
+namespace millrind::core
 {
 
 template <class T>
@@ -46,6 +46,6 @@ private:
     T _value;
 };
 
-} // namespace core
+} // namespace millrind::core
 
-CORE_ITERATOR_TRAIRS(::core::numeric_iterator)
+CORE_ITERATOR_TRAIRS(::millrind::core::numeric_iterator)

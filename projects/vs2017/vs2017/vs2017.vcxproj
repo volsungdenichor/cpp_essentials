@@ -345,6 +345,7 @@
     <ClInclude Include="..\..\..\include\millrind\core\detail\iterator_helpers.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\detail\return_policy.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\functors.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\iterators.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\iterators\any_iterator.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\iterators\chain_iterator.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\iterators\filter_iterator.hpp" />
@@ -359,12 +360,12 @@
     <ClInclude Include="..\..\..\include\millrind\core\iterator_facade.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\iterator_range.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\macros.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\return_policy.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\type_traits.hpp" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="_main.tmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

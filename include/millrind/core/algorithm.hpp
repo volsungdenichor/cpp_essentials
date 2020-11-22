@@ -19,9 +19,9 @@ struct accumulate_fn
         , class BinaryFunc = std::plus<>
         , class = InputRange<Range>
         , class = BinaryFunction<BinaryFunc, T, range_ref<Range>>>
-    auto operator ()(Range&& range, T init, BinaryFunc&& func = {}) const -> T
+        auto operator ()(Range&& range, T init, BinaryFunc&& func = {}) const -> T
     {
-        return std::accumulate(std::begin(range), std::end(range), init, std::move(func));
+        return std::accumulate(std::begin(range), std::end(range), init, wrap_func(FORWARD(func)));
     }
 };
 
@@ -34,9 +34,9 @@ struct adjacent_difference_fn
         , class = InputRange<Range>
         , class = OutputIterator<OutputIter>
         , class = BinaryFunction<BinaryFunc, range_ref<Range>, range_ref<Range>>>
-    auto operator ()(Range&& range, OutputIter output, BinaryFunc&& func = {}) const -> OutputIter
+        auto operator ()(Range&& range, OutputIter output, BinaryFunc&& func = {}) const -> OutputIter
     {
-        return std::adjacent_difference(std::begin(range), std::end(range), output, std::move(func));
+        return std::adjacent_difference(std::begin(range), std::end(range), output, wrap_func(FORWARD(func)));
     }
 };
 
@@ -47,9 +47,9 @@ struct all_of_fn
         , class UnaryPred
         , class = InputRange<Range>
         , class = UnaryPredicate<UnaryPred, range_ref<Range>>>
-    auto operator ()(Range&& range, UnaryPred&& pred) const -> bool
+        auto operator ()(Range&& range, UnaryPred&& pred) const -> bool
     {
-        return std::all_of(std::begin(range), std::end(range), make_func(pred));
+        return std::all_of(std::begin(range), std::end(range), wrap_func(FORWARD(pred)));
     }
 };
 
@@ -60,9 +60,9 @@ struct any_of_fn
         , class UnaryPred
         , class = InputRange<Range>
         , class = UnaryPredicate<UnaryPred, range_ref<Range>>>
-    auto operator ()(Range&& range, UnaryPred&& pred) const -> bool
+        auto operator ()(Range&& range, UnaryPred&& pred) const -> bool
     {
-        return std::any_of(std::begin(range), std::end(range), make_func(pred));
+        return std::any_of(std::begin(range), std::end(range), wrap_func(FORWARD(pred)));
     }
 };
 
@@ -73,7 +73,7 @@ struct copy_fn
         , class OutputIter
         , class = InputRange<Range>
         , class = OutputIterator<OutputIter>>
-    auto operator ()(Range&& range, OutputIter output) const -> OutputIter
+        auto operator ()(Range&& range, OutputIter output) const -> OutputIter
     {
         return std::copy(std::begin(range), std::end(range), output);
     }
@@ -88,9 +88,9 @@ struct copy_if_fn
         , class = InputRange<Range>
         , class = OutputIterator<OutputIter>
         , class = UnaryPredicate<UnaryPred, range_ref<Range>>>
-    auto operator ()(Range&& range, OutputIter output, UnaryPred&& pred) const -> OutputIter
+        auto operator ()(Range&& range, OutputIter output, UnaryPred&& pred) const -> OutputIter
     {
-        return std::copy_if(std::begin(range), std::end(range), output, make_func(pred));
+        return std::copy_if(std::begin(range), std::end(range), output, wrap_func(FORWARD(pred)));
     }
 };
 
@@ -103,7 +103,7 @@ struct copy_n_fn
         , class = InputRange<Range>
         , class = Integral<Size>
         , class = OutputIterator<OutputIter>>
-    auto operator ()(Range&& range, Size size, OutputIter output) const -> OutputIter
+        auto operator ()(Range&& range, Size size, OutputIter output) const -> OutputIter
     {
         return std::copy_n(std::begin(range), size, output);
     }
@@ -115,7 +115,7 @@ struct count_fn
         < class Range
         , class T
         , class = InputRange<Range>>
-    auto operator ()(Range&& range, T&& value) const
+        auto operator ()(Range&& range, T&& value) const
     {
         return std::count(std::begin(range), std::end(range), value);
     }
@@ -128,9 +128,9 @@ struct count_if_fn
         , class UnaryPred
         , class = InputRange<Range>
         , class = UnaryPredicate<UnaryPred, range_ref<Range>>>
-    auto operator ()(Range&& range, UnaryPred&& pred) const
+        auto operator ()(Range&& range, UnaryPred&& pred) const
     {
-        return std::count_if(std::begin(range), std::end(range), make_func(pred));
+        return std::count_if(std::begin(range), std::end(range), wrap_func(FORWARD(pred)));
     }
 };
 
@@ -143,9 +143,9 @@ struct equal_fn
         , class = InputRange<Range1>
         , class = InputRange<Range2>
         , class = BinaryPredicate<BinaryPred, range_ref<Range1>, range_ref<Range2>>>
-    auto operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const -> bool
+        auto operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const -> bool
     {
-        return std::equal(std::begin(range1), std::end(range1), std::begin(range2), std::end(range2), std::move(pred));
+        return std::equal(std::begin(range1), std::end(range1), std::begin(range2), std::end(range2), FORWARD(pred));
     }
 };
 
@@ -157,9 +157,9 @@ struct equal_range_fn
         , class Compare = std::less<>
         , class = ForwardRange<Range>
         , class = BinaryPredicate<Compare, range_ref<Range>>>
-    auto operator ()(Range&& range, const T& value, Compare&& compare = {}) const
+        auto operator ()(Range&& range, const T& value, Compare&& compare = {}) const
     {
-        return make_range(std::equal_range(std::begin(range), std::end(range), value, std::move(compare)));
+        return make_range(std::equal_range(std::begin(range), std::end(range), value, FORWARD(compare)));
     }
 };
 
@@ -170,14 +170,14 @@ struct fill_fn
         , class T
         , class = InputRange<Range>
         , class = Assignable<range_ref<Range>, T>>
-    void operator ()(Range&& range, const T& value) const
+        void operator ()(Range&& range, const T& value) const
     {
         std::fill(std::begin(range), std::end(range), value);
     }
 };
 
 struct find_fn
-{   
+{
     template
         < class Policy
         , class Range
@@ -185,9 +185,9 @@ struct find_fn
         , class = ReturnPolicy<Policy>
         , class = InputRange<Range>
         , class = EqualityCompare<range_ref<Range>, T>>
-    decltype(auto) operator ()(Policy policy, Range&& range, T&& value) const
+        decltype(auto) operator ()(Policy policy, Range&& range, const T& value) const
     {
-        auto[b, e] = make_range(range);
+        auto [b, e] = make_range(range);
         return policy(b, std::find(b, e, value), e);
     }
 
@@ -196,7 +196,7 @@ struct find_fn
         , class T
         , class = InputRange<Range>
         , class = EqualityCompare<range_ref<Range>, T>>
-    decltype(auto) operator ()(Range&& range, T&& value) const
+        decltype(auto) operator ()(Range&& range, T&& value) const
     {
         return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(value));
     }
@@ -211,10 +211,10 @@ struct find_if_fn
         , class = ReturnPolicy<Policy>
         , class = InputRange<Range>
         , class = UnaryPredicate<UnaryPred, range_ref<Range>>>
-    decltype(auto) operator ()(Policy policy, Range&& range, UnaryPred&& pred) const
+        decltype(auto) operator ()(Policy policy, Range&& range, UnaryPred&& pred) const
     {
-        auto[b, e] = make_range(range);
-        return policy(b, std::find_if(b, e, make_func(pred)), e);
+        auto [b, e] = make_range(range);
+        return policy(b, std::find_if(b, e, wrap_func(FORWARD(pred))), e);
     }
 
     template
@@ -222,7 +222,7 @@ struct find_if_fn
         , class UnaryPred
         , class = InputRange<Range>
         , class = UnaryPredicate<UnaryPred, range_ref<Range>>>
-    decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
+        decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
         return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(pred));
     }
@@ -237,10 +237,10 @@ struct find_if_not_fn
         , class = ReturnPolicy<Policy>
         , class = InputRange<Range>
         , class = UnaryPredicate<UnaryPred, range_ref<Range>>>
-    decltype(auto) operator ()(Policy policy, Range&& range, UnaryPred&& pred) const
+        decltype(auto) operator ()(Policy policy, Range&& range, UnaryPred&& pred) const
     {
-        auto[b, e] = make_range(range);
-        return policy(b, std::find_if_not(b, e, make_func(pred)), e);
+        auto [b, e] = make_range(range);
+        return policy(b, std::find_if_not(b, e, wrap_func(FORWARD(pred))), e);
     }
 
     template
@@ -248,7 +248,7 @@ struct find_if_not_fn
         , class UnaryPred
         , class = InputRange<Range>
         , class = UnaryPredicate<UnaryPred, range_ref<Range>>>
-    decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
+        decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
         return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(pred));
     }
@@ -263,9 +263,9 @@ struct find_end_fn
         , class = ReturnPolicy<Policy>
         , class = ForwardRange<Range1>
         , class = ForwardRange<Range2>>
-    decltype(auto) operator ()(Policy policy, Range1&& range1, Range2&& range2) const
+        decltype(auto) operator ()(Policy policy, Range1&& range1, Range2&& range2) const
     {
-        auto[b, e] = make_range(range1);
+        auto [b, e] = make_range(range1);
         return policy(b, std::find_end(b, e, std::begin(range2), std::end(range2)), e);
     }
 
@@ -274,7 +274,7 @@ struct find_end_fn
         , class Range2
         , class = ForwardRange<Range1>
         , class = ForwardRange<Range2>>
-    decltype(auto) operator ()(Range1&& range1, Range2&& range2) const
+        decltype(auto) operator ()(Range1&& range1, Range2&& range2) const
     {
         return (*this)(default_return_policy_t{}, FORWARD(range1), FORWARD(range2));
     }
@@ -291,10 +291,10 @@ struct find_first_of_fn
         , class = InputRange<Range1>
         , class = ForwardRange<Range2>
         , class = BinaryPredicate<BinaryPred, range_ref<Range1>, range_ref<Range2>>>
-    decltype(auto) operator ()(Policy policy, Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
+        decltype(auto) operator ()(Policy policy, Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
-        auto[b, e] = make_range(range1);
-        return policy(b, std::find_first_of(b, e, std::begin(range2), std::end(range2), std::move(pred)), e);
+        auto [b, e] = make_range(range1);
+        return policy(b, std::find_first_of(b, e, std::begin(range2), std::end(range2), FORWARD(pred)), e);
     }
 
     template
@@ -304,7 +304,7 @@ struct find_first_of_fn
         , class = InputRange<Range1>
         , class = ForwardRange<Range2>
         , class = BinaryPredicate<BinaryPred, range_ref<Range1>, range_ref<Range2>>>
-    decltype(auto) operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
+        decltype(auto) operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
         return (*this)(default_return_policy_t{}, FORWARD(range1), FORWARD(range2), FORWARD(pred));
     }
@@ -317,9 +317,9 @@ struct for_each_fn
         , class UnaryFunc
         , class = InputRange<Range>
         , class = UnaryFunction<UnaryFunc, range_ref<Range>>>
-    auto operator ()(Range&& range, UnaryFunc&& func) const
+        auto operator ()(Range&& range, UnaryFunc&& func) const
     {
-        return std::for_each(std::begin(range), std::end(range), make_func(func));
+        return std::for_each(std::begin(range), std::end(range), wrap_func(FORWARD(func)));
     }
 };
 
@@ -330,9 +330,9 @@ struct generate_fn
         , class Generator
         , class = ForwardRange<Range>
         , class = NullaryFunction<Generator>>
-    void operator ()(Range&& range, Generator&& generator) const
+        void operator ()(Range&& range, Generator&& generator) const
     {
-        std::generate(std::begin(range), std::end(range), std::move(generator));
+        std::generate(std::begin(range), std::end(range), FORWARD(generator));
     }
 };
 
@@ -345,9 +345,9 @@ struct generate_n_fn
         , class = OutputIterator<OutputIter>
         , class = Integral<Size>
         , class = NullaryFunction<Generator>>
-    void operator ()(OutputIter output, Size size, Generator&& generator) const
+        void operator ()(OutputIter output, Size size, Generator&& generator) const
     {
-        std::generate_n(output, size, std::move(generator));
+        std::generate_n(output, size, FORWARD(generator));
     }
 };
 
@@ -360,14 +360,14 @@ struct includes_fn
         , class = InputRange<Range1>
         , class = InputRange<Range2>
         , class = BinaryPredicate<Compare, range_ref<Range1>, range_ref<Range2>>>
-    auto operator ()(Range1&& range1, Range2&& range2, Compare&& compare = {}) const -> bool
+        auto operator ()(Range1&& range1, Range2&& range2, Compare&& compare = {}) const -> bool
     {
         return std::includes(
             std::begin(range1),
             std::end(range1),
             std::begin(range2),
             std::end(range2),
-            std::move(compare));
+            FORWARD(compare));
     }
 };
 
@@ -381,11 +381,11 @@ struct inner_product_fn
         , class BinaryFunc2 = std::multiplies<>
         , class = InputRange<Range1>
         , class = InputRange<Range2>
-        , class = BinaryFunction<BinaryFunc1, T, std::invoke_result_t<BinaryFunc2, range_ref<Range1>, range_ref<Range2>>>
+        , class = BinaryFunction<BinaryFunc1, T, invoke_result<BinaryFunc2, range_ref<Range1>, range_ref<Range2>>>
         , class = BinaryFunction<BinaryFunc2, range_ref<Range1>, range_ref<Range2>>>
-    auto operator ()(Range1&& range1, Range2&& range2, T init, BinaryFunc1&& func1 = {}, BinaryFunc2&& func2 = {}) const -> T
+        auto operator ()(Range1&& range1, Range2&& range2, T init, BinaryFunc1&& func1 = {}, BinaryFunc2&& func2 = {}) const -> T
     {
-        return std::inner_product(std::begin(range1), std::end(range1), std::begin(range2), init, std::move(func1), std::move(func2));
+        return std::inner_product(std::begin(range1), std::end(range1), std::begin(range2), init, FORWARD(func1), FORWARD(func2));
     }
 };
 
@@ -396,7 +396,7 @@ struct iota_fn
         , class T
         , class = ForwardRange<Range>
         , class = Arithmetic<T>>
-    void operator ()(Range&& range, T value) const
+        void operator ()(Range&& range, T value) const
     {
         std::iota(std::begin(range), std::end(range), value);
     }
@@ -409,9 +409,9 @@ struct is_heap_fn
         , class Compare = std::less<>
         , class = RandomAccessRange<Range>
         , class = BinaryPredicate<Compare, range_ref<Range>>>
-    auto operator ()(Range&& range, Compare&& compare = {}) const -> bool
+        auto operator ()(Range&& range, Compare&& compare = {}) const -> bool
     {
-        return std::is_heap(std::begin(range), std::end(range), std::move(compare));
+        return std::is_heap(std::begin(range), std::end(range), FORWARD(compare));
     }
 };
 
@@ -424,10 +424,10 @@ struct is_heap_until_fn
         , class = ReturnPolicy<Policy>
         , class = RandomAccessRange<Range>
         , class = BinaryPredicate<Compare, range_ref<Range>>>
-    decltype(auto) operator ()(Policy policy, Range&& range, Compare&& compare = {}) const
+        decltype(auto) operator ()(Policy policy, Range&& range, Compare&& compare = {}) const
     {
-        auto[b, e] = make_range(range);
-        return policy(b, std::is_heap_until(b, e, std::move(compare)), e);
+        auto [b, e] = make_range(range);
+        return policy(b, std::is_heap_until(b, e, FORWARD(compare)), e);
     }
 
     template
@@ -435,7 +435,7 @@ struct is_heap_until_fn
         , class Compare = std::less<>
         , class = RandomAccessRange<Range>
         , class = BinaryPredicate<Compare, range_ref<Range>>>
-    decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
+        decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
         return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(compare));
     }
@@ -448,9 +448,9 @@ struct is_partitioned_fn
         , class UnaryPred
         , class = InputRange<Range>
         , class = UnaryPredicate<UnaryPred, range_ref<Range>>>
-    auto operator ()(Range&& range, UnaryPred&& pred) const -> bool
+        auto operator ()(Range&& range, UnaryPred&& pred) const -> bool
     {
-        return std::is_partitioned(std::begin(range), std::end(range), make_func(pred));
+        return std::is_partitioned(std::begin(range), std::end(range), wrap_func(FORWARD(pred)));
     }
 };
 
@@ -461,7 +461,7 @@ struct is_permutation_fn
         , class Range2
         , class = ForwardRange<Range1>
         , class = ForwardRange<Range2>>
-    auto operator ()(Range1&& range1, Range2&& range2) const -> bool
+        auto operator ()(Range1&& range1, Range2&& range2) const -> bool
     {
         return std::is_permutation(std::begin(range1), std::end(range1), std::begin(range2));
     }
@@ -474,9 +474,9 @@ struct is_sorted_fn
         , class Compare = std::less<>
         , class = ForwardRange<Range>
         , class = BinaryPredicate<Compare, range_ref<Range>>>
-    auto operator ()(Range&& range, Compare&& compare = {}) const -> bool
+        auto operator ()(Range&& range, Compare&& compare = {}) const -> bool
     {
-        return std::is_sorted(std::begin(range), std::end(range), std::move(compare));
+        return std::is_sorted(std::begin(range), std::end(range), FORWARD(compare));
     }
 };
 
@@ -489,10 +489,10 @@ struct is_sorted_until_fn
         , class = ReturnPolicy<Policy>
         , class = ForwardRange<Range>
         , class = BinaryPredicate<Compare, range_ref<Range>>>
-    decltype(auto) operator ()(Policy policy, Range&& range, Compare&& compare = {}) const
+        decltype(auto) operator ()(Policy policy, Range&& range, Compare&& compare = {}) const
     {
-        auto[b, e] = make_range(range);
-        return policy(b, std::is_sorted_until(b, e, std::move(compare)), e);
+        auto [b, e] = make_range(range);
+        return policy(b, std::is_sorted_until(b, e, FORWARD(compare)), e);
     }
 
     template
@@ -500,7 +500,7 @@ struct is_sorted_until_fn
         , class Compare = std::less<>
         , class = ForwardRange<Range>
         , class = BinaryPredicate<Compare, range_ref<Range>>>
-    decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
+        decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
         return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(compare));
     }
@@ -515,14 +515,14 @@ struct lexicographical_compare_fn
         , class = InputRange<Range1>
         , class = InputRange<Range2>
         , class = BinaryPredicate<Compare, range_ref<Range1>, range_ref<Range2>>>
-    auto operator ()(Range1&& range1, Range2&& range2, Compare&& compare = {}) const -> bool
+        auto operator ()(Range1&& range1, Range2&& range2, Compare&& compare = {}) const -> bool
     {
         return std::lexicographical_compare(
             std::begin(range1),
             std::end(range1),
             std::begin(range2),
             std::end(range2),
-            std::move(compare));
+            FORWARD(compare));
     }
 };
 
@@ -536,10 +536,10 @@ struct lower_bound_fn
         , class = ReturnPolicy<Policy>
         , class = ForwardRange<Range>
         , class = BinaryPredicate<Compare, range_ref<Range>, T>>
-    decltype(auto) operator ()(Policy policy, Range&& range, const T& value, Compare&& compare = {}) const
+        decltype(auto) operator ()(Policy policy, Range&& range, const T& value, Compare&& compare = {}) const
     {
-        auto[b, e] = make_range(range);
-        return policy(b, std::lower_bound(b, e, value, std::move(compare)), e);
+        auto [b, e] = make_range(range);
+        return policy(b, std::lower_bound(b, e, value, FORWARD(compare)), e);
     }
 
     template
@@ -548,7 +548,7 @@ struct lower_bound_fn
         , class Compare = std::less<>
         , class = ForwardRange<Range>
         , class = BinaryPredicate<Compare, range_ref<Range>, T>>
-    decltype(auto) operator ()(Range&& range, const T& value, Compare&& compare = {}) const
+        decltype(auto) operator ()(Range&& range, const T& value, Compare&& compare = {}) const
     {
         return (*this)(default_return_policy_t{}, FORWARD(range), value, FORWARD(compare));
     }
@@ -561,9 +561,9 @@ struct make_heap_fn
         , class Compare = std::less<>
         , class = RandomAccessRange<Range>
         , class = BinaryPredicate<Compare, range_ref<Range>>>
-    void operator ()(Range&& range, Compare&& compare = {}) const
+        void operator ()(Range&& range, Compare&& compare = {}) const
     {
-        std::make_heap(std::begin(range), std::end(range), std::move(compare));
+        std::make_heap(std::begin(range), std::end(range), FORWARD(compare));
     }
 };
 
@@ -576,10 +576,10 @@ struct max_element_fn
         , class = ReturnPolicy<Policy>
         , class = ForwardRange<Range>
         , class = BinaryPredicate<Compare, range_ref<Range>>>
-    decltype(auto) operator ()(Policy policy, Range&& range, Compare&& compare = {}) const
+        decltype(auto) operator ()(Policy policy, Range&& range, Compare&& compare = {}) const
     {
-        auto[b, e] = make_range(range);
-        return policy(b, std::max_element(b, e, std::move(compare)), e);
+        auto [b, e] = make_range(range);
+        return policy(b, std::max_element(b, e, FORWARD(compare)), e);
     }
 
     template
@@ -587,7 +587,7 @@ struct max_element_fn
         , class Compare = std::less<>
         , class = ForwardRange<Range>
         , class = BinaryPredicate<Compare, range_ref<Range>>>
-    decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
+        decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
         return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(compare));
     }
@@ -604,7 +604,7 @@ struct merge_fn
         , class = InputRange<Range2>
         , class = OutputIterator<OutputIter>
         , class = BinaryPredicate<Compare, range_ref<Range1>, range_ref<Range2>>>
-    auto operator ()(Range1&& range1, Range2&& range2, OutputIter output, Compare&& compare = {}) const -> OutputIter
+        auto operator ()(Range1&& range1, Range2&& range2, OutputIter output, Compare&& compare = {}) const -> OutputIter
     {
         return std::merge(
             std::begin(range1),
@@ -612,7 +612,7 @@ struct merge_fn
             std::begin(range2),
             std::end(range2),
             output,
-            std::move(compare));
+            FORWARD(compare));
     }
 };
 
@@ -623,9 +623,9 @@ struct inplace_merge_fn
         , class Compare = std::less<>
         , class = BidirectionalRange<Range>
         , class = BinaryPredicate<Compare, range_ref<Range>>>
-    void operator ()(Range&& range, range_iter<Range> middle, Compare&& compare = {}) const
+        void operator ()(Range&& range, range_iter<Range> middle, Compare&& compare = {}) const
     {
-        std::inplace_merge(std::begin(range), middle, std::end(range), std::move(compare));
+        std::inplace_merge(std::begin(range), middle, std::end(range), FORWARD(compare));
     }
 };
 
@@ -638,11 +638,11 @@ struct minmax_element_fn
         , class = ReturnPolicy<Policy>
         , class = ForwardRange<Range>
         , class = BinaryPredicate<Compare, range_ref<Range>>>
-    decltype(auto) operator ()(Policy policy, Range&& range, Compare&& compare = {}) const
+        decltype(auto) operator ()(Policy policy, Range&& range, Compare&& compare = {}) const
     {
-        auto[b, e] = make_range(range);
+        auto [b, e] = make_range(range);
 
-        auto[min, max] = std::minmax_element(b, e, std::move(compare));
+        auto [min, max] = std::minmax_element(b, e, FORWARD(compare));
 
         return std::make_pair(policy(b, min, e), policy(b, max, e));
     }
@@ -652,7 +652,7 @@ struct minmax_element_fn
         , class Compare = std::less<>
         , class = ForwardRange<Range>
         , class = BinaryPredicate<Compare, range_ref<Range>>>
-    decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
+        decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
         return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(compare));
     }
@@ -667,10 +667,10 @@ struct min_element_fn
         , class = ReturnPolicy<Policy>
         , class = ForwardRange<Range>
         , class = BinaryPredicate<Compare, range_ref<Range>>>
-    decltype(auto) operator ()(Policy policy, Range&& range, Compare&& compare = {}) const
+        decltype(auto) operator ()(Policy policy, Range&& range, Compare&& compare = {}) const
     {
-        auto[b, e] = make_range(range);
-        return policy(b, std::min_element(b, e, std::move(compare)), e);
+        auto [b, e] = make_range(range);
+        return policy(b, std::min_element(b, e, FORWARD(compare)), e);
     }
 
     template
@@ -678,7 +678,7 @@ struct min_element_fn
         , class Compare = std::less<>
         , class = ForwardRange<Range>
         , class = BinaryPredicate<Compare, range_ref<Range>>>
-    decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
+        decltype(auto) operator ()(Range&& range, Compare&& compare = {}) const
     {
         return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(compare));
     }
@@ -695,14 +695,14 @@ struct mismatch_fn
         , class = InputRange<Range1>
         , class = InputRange<Range2>
         , class = BinaryPredicate<BinaryPred, range_ref<Range1>, range_ref<Range2>>>
-    decltype(auto) operator ()(Policy policy, Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
+        decltype(auto) operator ()(Policy policy, Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
-        auto[b1, e1] = make_range(range1);
-        auto[b2, e2] = make_range(range2);
+        auto [b1, e1] = make_range(range1);
+        auto [b2, e2] = make_range(range2);
 
-        auto result = std::mismatch(b1, e1, b2, std::move(pred));
+        auto [b, e] = std::mismatch(b1, e1, b2, FORWARD(pred));
 
-        return std::make_pair(policy(b1, std::get<0>(result), e1), policy(b2, std::get<1>(result), e2));
+        return std::make_pair(policy(b1, b, e1), policy(b2, e, e2));
     }
 
     template
@@ -712,7 +712,7 @@ struct mismatch_fn
         , class = InputRange<Range1>
         , class = InputRange<Range2>
         , class = BinaryPredicate<BinaryPred, range_ref<Range1>, range_ref<Range2>>>
-    decltype(auto) operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
+        decltype(auto) operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
         return (*this)(default_return_policy_t{}, FORWARD(range1), FORWARD(range2), FORWARD(pred));
     }
@@ -725,7 +725,7 @@ struct move_fn
         , class OutputIter
         , class = InputRange<Range>
         , class = OutputIterator<OutputIter>>
-    auto operator ()(Range&& range, OutputIter output) const -> OutputIter
+        auto operator ()(Range&& range, OutputIter output) const -> OutputIter
     {
         return std::move(std::begin(range), std::end(range), output);
     }
@@ -738,9 +738,9 @@ struct next_permutation_fn
         , class Compare = std::less<>
         , class = BidirectionalRange<Range>
         , class = BinaryPredicate<Compare, range_ref<Range>>>
-    auto operator ()(Range&& range, Compare&& compare = {}) const -> bool
+        auto operator ()(Range&& range, Compare&& compare = {}) const -> bool
     {
-        return std::next_permutation(std::begin(range), std::end(range), std::move(compare));
+        return std::next_permutation(std::begin(range), std::end(range), FORWARD(compare));
     }
 };
 
@@ -751,9 +751,9 @@ struct none_of_fn
         , class UnaryPred
         , class = InputRange<Range>
         , class = UnaryPredicate<UnaryPred, range_ref<Range>>>
-    auto operator ()(Range&& range, UnaryPred&& pred) const -> bool
+        auto operator ()(Range&& range, UnaryPred&& pred) const -> bool
     {
-        return std::none_of(std::begin(range), std::end(range), make_func(pred));
+        return std::none_of(std::begin(range), std::end(range), wrap_func(FORWARD(pred)));
     }
 };
 
@@ -764,9 +764,9 @@ struct nth_element_fn
         , class Compare = std::less<>
         , class = RandomAccessRange<Range>
         , class = BinaryPredicate<Compare, range_ref<Range>>>
-    void operator ()(Range&& range, range_iter<Range> middle, Compare&& compare = {}) const
+        void operator ()(Range&& range, range_iter<Range> middle, Compare&& compare = {}) const
     {
-        std::nth_element(std::begin(range), middle, std::end(range), std::move(compare));
+        std::nth_element(std::begin(range), middle, std::end(range), FORWARD(compare));
     }
 };
 
@@ -777,9 +777,9 @@ struct partial_sort_fn
         , class Compare = std::less<>
         , class = RandomAccessRange<Range>
         , class = BinaryPredicate<Compare, range_ref<Range>>>
-    void operator ()(Range&& range, range_iter<Range> middle, Compare&& compare = {}) const
+        void operator ()(Range&& range, range_iter<Range> middle, Compare&& compare = {}) const
     {
-        std::partial_sort(std::begin(range), middle, std::end(range), std::move(compare));
+        std::partial_sort(std::begin(range), middle, std::end(range), FORWARD(compare));
     }
 };
 
@@ -794,10 +794,10 @@ struct partial_sort_copy_fn
         , class = RandomAccessRange<Range1>
         , class = RandomAccessRange<Range2>
         , class = BinaryPredicate<Compare, range_ref<Range1>, range_ref<Range2>>>
-    decltype(auto) operator ()(Policy policy, Range1&& range1, Range2&& range2, Compare&& compare = {}) const
+        decltype(auto) operator ()(Policy policy, Range1&& range1, Range2&& range2, Compare&& compare = {}) const
     {
-        auto[b2, e2] = make_range(range2);
-        return policy(b2, std::partial_sort_copy(std::begin(range1), std::end(range1), b2, e2, std::move(compare)), e2);
+        auto [b2, e2] = make_range(range2);
+        return policy(b2, std::partial_sort_copy(std::begin(range1), std::end(range1), b2, e2, FORWARD(compare)), e2);
     }
 
     template
@@ -807,7 +807,7 @@ struct partial_sort_copy_fn
         , class = RandomAccessRange<Range1>
         , class = RandomAccessRange<Range2>
         , class = BinaryPredicate<Compare, range_ref<Range1>, range_ref<Range2>>>
-    decltype(auto) operator ()(Range1&& range1, Range2&& range2, Compare&& compare = {}) const
+        decltype(auto) operator ()(Range1&& range1, Range2&& range2, Compare&& compare = {}) const
     {
         return (*this)(default_return_policy_t{}, FORWARD(range1), FORWARD(range2), FORWARD(compare));
     }
@@ -822,9 +822,9 @@ struct partial_sum_fn
         , class = InputRange<Range>
         , class = OutputIterator<OutputIter>
         , class = BinaryFunction<BinaryFunc, range_val<Range>, range_ref<Range>>>
-    auto operator ()(Range&& range, OutputIter output, BinaryFunc&& func = {}) const -> OutputIter
+        auto operator ()(Range&& range, OutputIter output, BinaryFunc&& func = {}) const -> OutputIter
     {
-        return std::partial_sum(std::begin(range), std::end(range), output, std::move(func));
+        return std::partial_sum(std::begin(range), std::end(range), output, FORWARD(func));
     }
 };
 
@@ -834,13 +834,13 @@ struct partition_fn
         < class Policy
         , class Range
         , class UnaryPred
-        , class = ReturnPolicy<Policy> 
+        , class = ReturnPolicy<Policy>
         , class = ForwardRange<Range>
         , class = UnaryPredicate<UnaryPred, range_ref<Range>>>
-    decltype(auto) operator ()(Policy policy, Range&& range, UnaryPred&& pred) const
+        decltype(auto) operator ()(Policy policy, Range&& range, UnaryPred&& pred) const
     {
-        auto[b, e] = make_range(range);
-        return policy(b, std::partition(b, e, make_func(pred)), e);
+        auto [b, e] = make_range(range);
+        return policy(b, std::partition(b, e, wrap_func(FORWARD(pred))), e);
     }
 
     template
@@ -848,7 +848,7 @@ struct partition_fn
         , class UnaryPred
         , class = ForwardRange<Range>
         , class = UnaryPredicate<UnaryPred, range_ref<Range>>>
-    decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
+        decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
         return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(pred));
     }
@@ -865,9 +865,9 @@ struct partition_copy_fn
         , class = OutputIterator<OutputIter1>
         , class = OutputIterator<OutputIter2>
         , class = UnaryPredicate<UnaryPred, range_ref<Range>>>
-    auto operator ()(Range&& range, OutputIter1 result_true, OutputIter2 result_false, UnaryPred&& pred) const
+        auto operator ()(Range&& range, OutputIter1 result_true, OutputIter2 result_false, UnaryPred&& pred) const
     {
-        return std::partition_copy(std::begin(range), std::end(range), result_true, result_false, make_func(pred));
+        return std::partition_copy(std::begin(range), std::end(range), result_true, result_false, wrap_func(FORWARD(pred)));
     }
 };
 
@@ -880,10 +880,10 @@ struct stable_partition_fn
         , class = ReturnPolicy<Policy>
         , class = BidirectionalRange<Range>
         , class = UnaryPredicate<UnaryPred, range_ref<Range>>>
-    decltype(auto) operator ()(Policy policy, Range&& range, UnaryPred&& pred) const
+        decltype(auto) operator ()(Policy policy, Range&& range, UnaryPred&& pred) const
     {
-        auto[b, e] = make_range(range);
-        return policy(b, std::stable_partition(b, e, make_func(pred)), e);
+        auto [b, e] = make_range(range);
+        return policy(b, std::stable_partition(b, e, wrap_func(FORWARD(pred))), e);
     }
 
     template
@@ -891,7 +891,7 @@ struct stable_partition_fn
         , class UnaryPred
         , class = BidirectionalRange<Range>
         , class = UnaryPredicate<UnaryPred, range_ref<Range>>>
-    decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
+        decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
         return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(pred));
     }
@@ -904,9 +904,9 @@ struct prev_permutation_fn
         , class Compare = std::less<>
         , class = BidirectionalRange<Range>
         , class = BinaryPredicate<Compare, range_ref<Range>>>
-    auto operator ()(Range&& range, Compare&& compare = {}) const -> bool
+        auto operator ()(Range&& range, Compare&& compare = {}) const -> bool
     {
-        return std::prev_permutation(std::begin(range), std::end(range), std::move(compare));
+        return std::prev_permutation(std::begin(range), std::end(range), FORWARD(compare));
     }
 };
 
@@ -917,9 +917,9 @@ struct push_heap_fn
         , class Compare = std::less<>
         , class = RandomAccessRange<Range>
         , class = BinaryPredicate<Compare, range_ref<Range>>>
-    void operator ()(Range&& range, Compare&& compare = {}) const
+        void operator ()(Range&& range, Compare&& compare = {}) const
     {
-        std::push_heap(std::begin(range), std::end(range), std::move(compare));
+        std::push_heap(std::begin(range), std::end(range), FORWARD(compare));
     }
 };
 
@@ -932,9 +932,9 @@ struct remove_fn
         , class = ReturnPolicy<Policy>
         , class = ForwardRange<Range>
         , class = EqualityCompare<range_ref<Range>, T>>
-    decltype(auto) operator ()(Policy policy, Range&& range, const T& value) const
+        decltype(auto) operator ()(Policy policy, Range&& range, const T& value) const
     {
-        auto[b, e] = make_range(range);
+        auto [b, e] = make_range(range);
         return policy(b, std::remove(b, e, value), e);
     }
 
@@ -943,7 +943,7 @@ struct remove_fn
         , class T
         , class = ForwardRange<Range>
         , class = EqualityCompare<range_ref<Range>, T>>
-    decltype(auto) operator ()(Range&& range, const T& value) const
+        decltype(auto) operator ()(Range&& range, const T& value) const
     {
         return (*this)(default_return_policy_t{}, FORWARD(range), value);
     }
@@ -958,10 +958,10 @@ struct remove_if_fn
         , class = ReturnPolicy<Policy>
         , class = ForwardRange<Range>
         , class = UnaryPredicate<UnaryPred, range_ref<Range>>>
-    decltype(auto) operator ()(Policy policy, Range&& range, UnaryPred&& pred) const
+        decltype(auto) operator ()(Policy policy, Range&& range, UnaryPred&& pred) const
     {
-        auto[b, e] = make_range(range);
-        return policy(b, std::remove_if(b, e, make_func(pred)), e);
+        auto [b, e] = make_range(range);
+        return policy(b, std::remove_if(b, e, wrap_func(FORWARD(pred))), e);
     }
 
     template
@@ -969,7 +969,7 @@ struct remove_if_fn
         , class UnaryPred
         , class = ForwardRange<Range>
         , class = UnaryPredicate<UnaryPred, range_ref<Range>>>
-    decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
+        decltype(auto) operator ()(Range&& range, UnaryPred&& pred) const
     {
         return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(pred));
     }
@@ -984,7 +984,7 @@ struct remove_copy_fn
         , class = InputRange<Range>
         , class = OutputIterator<OutputIter>
         , class = EqualityCompare<range_ref<Range>, T>>
-    auto operator ()(Range&& range, OutputIter output, const T& value) const -> OutputIter
+        auto operator ()(Range&& range, OutputIter output, const T& value) const -> OutputIter
     {
         return std::remove_copy(std::begin(range), std::end(range), output, value);
     }
@@ -999,9 +999,9 @@ struct remove_copy_if_fn
         , class = InputRange<Range>
         , class = OutputIterator<OutputIter>
         , class = UnaryPredicate<UnaryPred, range_ref<Range>>>
-    auto operator ()(Range&& range, OutputIter output, UnaryPred&& pred) const -> OutputIter
+        auto operator ()(Range&& range, OutputIter output, UnaryPred&& pred) const -> OutputIter
     {
-        return std::remove_copy_if(std::begin(range), std::end(range), output, make_func(pred));
+        return std::remove_copy_if(std::begin(range), std::end(range), output, wrap_func(FORWARD(pred)));
     }
 };
 
@@ -1012,7 +1012,7 @@ struct replace_fn
         , class T
         , class = ForwardRange<Range>
         , class = EqualityCompare<range_ref<Range>, T>>
-    void operator ()(Range&& range, const T& old_value, const T& new_value) const
+        void operator ()(Range&& range, const T& old_value, const T& new_value) const
     {
         std::replace(std::begin(range), std::end(range), old_value, new_value);
     }
@@ -1027,9 +1027,9 @@ struct replace_if_fn
         , class = ForwardRange<Range>
         , class = UnaryPredicate<UnaryPred, range_ref<Range>>
         , class = Assignable<range_ref<Range>, T>>
-    void operator ()(Range&& range, UnaryPred&& pred, const T& new_value) const
+        void operator ()(Range&& range, UnaryPred&& pred, const T& new_value) const
     {
-        std::replace_if(std::begin(range), std::end(range), make_func(pred), new_value);
+        std::replace_if(std::begin(range), std::end(range), wrap_func(FORWARD(pred)), new_value);
     }
 };
 
@@ -1042,7 +1042,7 @@ struct replace_copy_fn
         , class = InputRange<Range>
         , class = OutputIterator<OutputIter>
         , class = EqualityCompare<range_ref<Range>, T>>
-    auto operator ()(Range&& range, OutputIter output, const T& old_value, const T& new_value) const -> OutputIter
+        auto operator ()(Range&& range, OutputIter output, const T& old_value, const T& new_value) const -> OutputIter
     {
         return std::replace_copy(std::begin(range), std::end(range), output, old_value, new_value);
     }
@@ -1059,9 +1059,9 @@ struct replace_copy_if_fn
         , class = OutputIterator<OutputIter>
         , class = UnaryPredicate<UnaryPred, range_ref<Range>>
         , class = EqualityCompare<range_ref<Range>, T>>
-    auto operator ()(Range&& range, OutputIter output, UnaryPred&& pred, const T& new_value) const -> OutputIter
+        auto operator ()(Range&& range, OutputIter output, UnaryPred&& pred, const T& new_value) const -> OutputIter
     {
-        return std::replace_copy_if(std::begin(range), std::end(range), output, make_func(pred), new_value);
+        return std::replace_copy_if(std::begin(range), std::end(range), output, wrap_func(FORWARD(pred)), new_value);
     }
 };
 
@@ -1070,7 +1070,7 @@ struct reverse_fn
     template
         < class Range
         , class = BidirectionalRange<Range>>
-    void operator ()(Range&& range) const
+        void operator ()(Range&& range) const
     {
         std::reverse(std::begin(range), std::end(range));
     }
@@ -1083,7 +1083,7 @@ struct reverse_copy_fn
         , class OutputIter
         , class = BidirectionalRange<Range>
         , class = OutputIterator<OutputIter>>
-    auto operator()(Range&& range, OutputIter output) const -> OutputIter
+        auto operator()(Range&& range, OutputIter output) const -> OutputIter
     {
         return std::reverse_copy(std::begin(range), std::end(range), output);
     }
@@ -1096,16 +1096,16 @@ struct rotate_fn
         , class Range
         , class = ReturnPolicy<Policy>
         , class = ForwardRange<Range>>
-    decltype(auto) operator ()(Policy policy, Range&& range, range_iter<Range> middle) const
+        decltype(auto) operator ()(Policy policy, Range&& range, range_iter<Range> middle) const
     {
-        auto[b, e] = make_range(range);
+        auto [b, e] = make_range(range);
         return policy(b, std::rotate(b, middle, e), e);
     }
 
     template
         < class Range
         , class = ForwardRange<Range>>
-    decltype(auto) operator ()(Range&& range, range_iter<Range> middle) const
+        decltype(auto) operator ()(Range&& range, range_iter<Range> middle) const
     {
         return (*this)(default_return_policy_t{}, FORWARD(range), middle);
     }
@@ -1118,7 +1118,7 @@ struct rotate_copy_fn
         , class OutputIter
         , class = ForwardRange<Range>
         , class = OutputIterator<OutputIter>>
-    auto operator ()(Range&& range, range_iter<Range> middle, OutputIter output) const -> OutputIter
+        auto operator ()(Range&& range, range_iter<Range> middle, OutputIter output) const -> OutputIter
     {
         return std::rotate_copy(std::begin(range), middle, std::end(range), output);
     }
@@ -1135,10 +1135,10 @@ struct search_fn
         , class = ForwardRange<Range1>
         , class = ForwardRange<Range2>
         , class = BinaryPredicate<BinaryPred, range_ref<Range1>, range_ref<Range2>>>
-    decltype(auto) operator ()(Policy policy, Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
+        decltype(auto) operator ()(Policy policy, Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
-        auto[b, e] = make_range(range1);
-        return policy(b, std::search(b, e, std::begin(range2), std::end(range2), std::move(pred)), e);
+        auto [b, e] = make_range(range1);
+        return policy(b, std::search(b, e, std::begin(range2), std::end(range2), FORWARD(pred)), e);
     }
 
     template
@@ -1148,7 +1148,7 @@ struct search_fn
         , class = ForwardRange<Range1>
         , class = ForwardRange<Range2>
         , class = BinaryPredicate<BinaryPred, range_ref<Range1>, range_ref<Range2>>>
-    decltype(auto) operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
+        decltype(auto) operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
         return (*this)(default_return_policy_t{}, FORWARD(range1), FORWARD(range2), FORWARD(pred));
     }
@@ -1166,10 +1166,10 @@ struct search_n_fn
         , class = ForwardRange<Range>
         , class = Integral<Size>
         , class = BinaryPredicate<BinaryPred, range_ref<Range>, T>>
-    decltype(auto) operator ()(Policy policy, Range&& range, Size size, const T& value, BinaryPred&& pred = {}) const
+        decltype(auto) operator ()(Policy policy, Range&& range, Size size, const T& value, BinaryPred&& pred = {}) const
     {
-        auto[b, e] = make_range(range);
-        return policy(b, std::search_n(b, e, size, value, std::move(pred)), e);
+        auto [b, e] = make_range(range);
+        return policy(b, std::search_n(b, e, size, value, FORWARD(pred)), e);
     }
 
     template
@@ -1180,7 +1180,7 @@ struct search_n_fn
         , class = ForwardRange<Range>
         , class = Integral<Size>
         , class = BinaryPredicate<BinaryPred, range_ref<Range>, T>>
-    decltype(auto) operator ()(Range&& range, Size size, const T& value, BinaryPred&& pred = {}) const
+        decltype(auto) operator ()(Range&& range, Size size, const T& value, BinaryPred&& pred = {}) const
     {
         return (*this)(default_return_policy_t{}, FORWARD(range), size, value, FORWARD(pred));
     }
@@ -1197,7 +1197,7 @@ struct set_difference_fn
         , class = InputRange<Range2>
         , class = OutputIterator<OutputIter>
         , class = BinaryPredicate<Compare, range_ref<Range1>, range_ref<Range2>>>
-    auto operator ()(Range1&& range1, Range2&& range2, OutputIter output, Compare&& compare = {}) const -> OutputIter
+        auto operator ()(Range1&& range1, Range2&& range2, OutputIter output, Compare&& compare = {}) const -> OutputIter
     {
         return std::set_difference(
             std::begin(range1),
@@ -1205,7 +1205,7 @@ struct set_difference_fn
             std::begin(range2),
             std::end(range2),
             output,
-            std::move(compare));
+            FORWARD(compare));
     }
 };
 
@@ -1220,7 +1220,7 @@ struct set_intersection_fn
         , class = InputRange<Range2>
         , class = OutputIterator<OutputIter>
         , class = BinaryPredicate<Compare, range_ref<Range1>, range_ref<Range2>>>
-    auto operator ()(Range1&& range1, Range2&& range2, OutputIter output, Compare&& compare = {}) const -> OutputIter
+        auto operator ()(Range1&& range1, Range2&& range2, OutputIter output, Compare&& compare = {}) const -> OutputIter
     {
         return std::set_intersection(
             std::begin(range1),
@@ -1228,7 +1228,7 @@ struct set_intersection_fn
             std::begin(range2),
             std::end(range2),
             output,
-            std::move(compare));
+            FORWARD(compare));
     }
 };
 
@@ -1243,7 +1243,7 @@ struct set_symmetric_difference_fn
         , class = InputRange<Range2>
         , class = OutputIterator<OutputIter>
         , class = BinaryPredicate<Compare, range_ref<Range1>, range_ref<Range2>>>
-    auto operator ()(Range1&& range1, Range2&& range2, OutputIter output, Compare&& compare = {}) const -> OutputIter
+        auto operator ()(Range1&& range1, Range2&& range2, OutputIter output, Compare&& compare = {}) const -> OutputIter
     {
         return std::set_symmetric_difference(
             std::begin(range1),
@@ -1251,7 +1251,7 @@ struct set_symmetric_difference_fn
             std::begin(range2),
             std::end(range2),
             output,
-            std::move(compare));
+            FORWARD(compare));
     }
 };
 
@@ -1266,7 +1266,7 @@ struct set_union_fn
         , class = InputRange<Range2>
         , class = OutputIterator<OutputIter>
         , class = BinaryPredicate<Compare, range_ref<Range1>, range_ref<Range2>>>
-    auto operator ()(Range1&& range1, Range2&& range2, OutputIter output, Compare&& compare = {}) const -> OutputIter
+        auto operator ()(Range1&& range1, Range2&& range2, OutputIter output, Compare&& compare = {}) const -> OutputIter
     {
         return std::set_union(
             std::begin(range1),
@@ -1274,7 +1274,7 @@ struct set_union_fn
             std::begin(range2),
             std::end(range2),
             output,
-            std::move(compare));
+            FORWARD(compare));
     }
 };
 
@@ -1285,9 +1285,9 @@ struct shuffle_fn
         , class RandomNumberGenerator
         , class = RandomAccessRange<Range>
         , class = NullaryFunction<RandomNumberGenerator>>
-    void operator ()(Range&& range, RandomNumberGenerator&& generator) const
+        void operator ()(Range&& range, RandomNumberGenerator&& generator) const
     {
-        std::shuffle(std::begin(range), std::end(range), std::move(generator));
+        std::shuffle(std::begin(range), std::end(range), FORWARD(generator));
     }
 };
 
@@ -1298,9 +1298,9 @@ struct sort_fn
         , class Compare = std::less<>
         , class = RandomAccessRange<Range>
         , class = BinaryPredicate<Compare, range_ref<Range>>>
-    void operator ()(Range&& range, Compare&& compare = {}) const
+        void operator ()(Range&& range, Compare&& compare = {}) const
     {
-        std::sort(std::begin(range), std::end(range), std::move(compare));
+        std::sort(std::begin(range), std::end(range), FORWARD(compare));
     }
 };
 
@@ -1311,9 +1311,9 @@ struct stable_sort_fn
         , class Compare = std::less<>
         , class = RandomAccessRange<Range>
         , class = BinaryFunction<Compare, range_ref<Range>>>
-    void operator ()(Range&& range, Compare&& compare = {}) const
+        void operator ()(Range&& range, Compare&& compare = {}) const
     {
-        std::stable_sort(std::begin(range), std::end(range), std::move(compare));
+        std::stable_sort(std::begin(range), std::end(range), FORWARD(compare));
     }
 };
 
@@ -1326,9 +1326,9 @@ struct transform_fn
         , class = InputRange<Range>
         , class = OutputIterator<OutputIter>
         , class = UnaryFunction<UnaryFunc, range_ref<Range>>>
-    auto operator ()(Range&& range, OutputIter output, UnaryFunc&& func) const -> OutputIter
+        auto operator ()(Range&& range, OutputIter output, UnaryFunc&& func) const -> OutputIter
     {
-        return std::transform(std::begin(range), std::end(range), output, make_func(func));
+        return std::transform(std::begin(range), std::end(range), output, wrap_func(FORWARD(func)));
     }
 
     template
@@ -1340,9 +1340,9 @@ struct transform_fn
         , class = InputRange<Range2>
         , class = OutputIterator<OutputIter>
         , class = BinaryFunction<BinaryFunc, range_ref<Range1>, range_ref<Range2>>>
-    auto operator ()(Range1&& range1, Range2&& range2, OutputIter output, BinaryFunc&& func) const -> OutputIter
+        auto operator ()(Range1&& range1, Range2&& range2, OutputIter output, BinaryFunc&& func) const -> OutputIter
     {
-        return std::transform(std::begin(range1), std::end(range1), std::begin(range2), output, std::move(func));
+        return std::transform(std::begin(range1), std::end(range1), std::begin(range2), output, FORWARD(func));
     }
 };
 
@@ -1355,10 +1355,10 @@ struct unique_fn
         , class = ReturnPolicy<Policy>
         , class = ForwardRange<Range>
         , class = BinaryPredicate<BinaryPred, range_ref<Range>>>
-    decltype(auto) operator ()(Policy policy, Range&& range, BinaryPred&& pred = {}) const
+        decltype(auto) operator ()(Policy policy, Range&& range, BinaryPred&& pred = {}) const
     {
-        auto[b, e] = make_range(range);
-        return policy(b, std::unique(b, e, std::move(pred)), e);
+        auto [b, e] = make_range(range);
+        return policy(b, std::unique(b, e, FORWARD(pred)), e);
     }
 
     template
@@ -1366,7 +1366,7 @@ struct unique_fn
         , class BinaryPred = std::equal_to<>
         , class = ForwardRange<Range>
         , class = BinaryPredicate<BinaryPred, range_ref<Range>>>
-    decltype(auto) operator ()(Range&& range, BinaryPred&& pred = {}) const
+        decltype(auto) operator ()(Range&& range, BinaryPred&& pred = {}) const
     {
         return (*this)(default_return_policy_t{}, FORWARD(range), FORWARD(pred));
     }
@@ -1381,9 +1381,9 @@ struct unique_copy_fn
         , class = InputRange<Range>
         , class = OutputIterator<OutputIter>
         , class = BinaryPredicate<BinaryPred, range_ref<Range>>>
-    auto operator ()(Range&& range, OutputIter output, BinaryPred&& pred = {}) const -> OutputIter
+        auto operator ()(Range&& range, OutputIter output, BinaryPred&& pred = {}) const -> OutputIter
     {
-        return std::unique_copy(std::begin(range), std::end(range), output, std::move(pred));
+        return std::unique_copy(std::begin(range), std::end(range), output, FORWARD(pred));
     }
 };
 
@@ -1397,10 +1397,10 @@ struct upper_bound_fn
         , class = ReturnPolicy<Policy>
         , class = ForwardRange<Range>
         , class = BinaryFunction<Compare, range_ref<Range>, T>>
-    decltype(auto) operator ()(Policy policy, Range&& range, const T& value, Compare&& compare = {}) const
+        decltype(auto) operator ()(Policy policy, Range&& range, const T& value, Compare&& compare = {}) const
     {
-        auto[b, e] = make_range(range);
-        return policy(b, std::upper_bound(b, e, value, std::move(compare)), e);
+        auto [b, e] = make_range(range);
+        return policy(b, std::upper_bound(b, e, value, FORWARD(compare)), e);
     }
 
     template
@@ -1409,7 +1409,7 @@ struct upper_bound_fn
         , class Compare = std::less<>
         , class = ForwardRange<Range>
         , class = BinaryFunction<Compare, range_ref<Range>, T>>
-    decltype(auto) operator ()(Range&& range, const T& value, Compare&& compare = {}) const
+        decltype(auto) operator ()(Range&& range, const T& value, Compare&& compare = {}) const
     {
         return (*this)(default_return_policy_t{}, FORWARD(range), value, FORWARD(compare));
     }

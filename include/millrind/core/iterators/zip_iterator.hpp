@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../iterator_facade.hpp"
-#include "../functors.hpp"
+#include <millrind/core/iterator_facade.hpp>
+#include <millrind/core/functors.hpp>
 
-namespace core
+namespace millrind::core
 {
 
 template <class Func, class... Iters>
@@ -44,7 +44,7 @@ private:
     template <std::size_t... I>
     decltype(auto) deref(std::index_sequence<I...>) const
     {
-        return _func(*std::get<I>(_iters)...);
+        return invoke_func(_func, *std::get<I>(_iters)...);
     }
 
     template <std::size_t... I>
@@ -58,6 +58,6 @@ private:
     detail::default_constructible_func <Func> _func;
 };
 
-} // namespace core
+} // namespace millrind::core
 
-CORE_ITERATOR_TRAIRS(::core::zip_iterator)
+CORE_ITERATOR_TRAIRS(::millrind::core::zip_iterator)

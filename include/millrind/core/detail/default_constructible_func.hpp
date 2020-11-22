@@ -39,11 +39,11 @@ struct default_constructible_func
     {
         if constexpr (is_default_constructible)
         {
-            return _func(FORWARD(args)...);
+            return invoke_func(_func, FORWARD(args)...);
         }
         else
         {
-            return (*_func)(FORWARD(args)...);
+            return invoke_func(*_func, FORWARD(args)...);
         }
     }
 

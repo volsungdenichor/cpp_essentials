@@ -1,10 +1,11 @@
 #pragma once
 
-#include "../iterator_facade.hpp"
-#include "../functors.hpp"
+#include <millrind/core/iterator_facade.hpp>
+#include <millrind/core/functors.hpp>
+#if 0
 #include "../optional.hpp"
 
-namespace core
+namespace millrind::core
 {
 
 template <class Func, class Iter>
@@ -64,6 +65,7 @@ private:
     optional_type _current;
 };
 
-} // namespace core
+} // namespace millrind::core
 
-CORE_ITERATOR_TRAIRS(::core::filter_map_iterator)
+CORE_ITERATOR_TRAIRS(::millrind::core::filter_map_iterator)
+#endif

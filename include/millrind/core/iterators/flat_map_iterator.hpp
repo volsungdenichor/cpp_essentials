@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../iterator_facade.hpp"
-#include "../functors.hpp"
+#include <millrind/core/iterator_facade.hpp>
+#include <millrind/core/functors.hpp>
 
-namespace core
+namespace millrind::core
 {
 
-template <class Func, class Outer, class Inner = range_iter <std::invoke_result_t<Func, iter_ref < Outer>>>>
+template <class Func, class Outer, class Inner = range_iter<std::invoke_result_t<Func, iter_ref<Outer>>>>
 
 class flat_map_iterator : public iterator_facade<flat_map_iterator<Func, Outer, Inner>>
 {
@@ -22,7 +22,7 @@ public:
     {
         if (_outer != _outer_end)
         {
-            auto res = _func(*_outer);
+            auto res = invoke_func(_func, *_outer);
             _inner = std::begin(res);
             _inner_end = std::end(res);
             update();
@@ -49,7 +49,7 @@ public:
     bool is_equal(const flat_map_iterator& other) const
     {
         return _outer == other._outer
-               && (_outer == _outer_end || other._outer == other._outer_end || _inner == other._inner);
+            && (_outer == _outer_end || other._outer == other._outer_end || _inner == other._inner);
     }
 
 private:
@@ -59,20 +59,20 @@ private:
         {
             if (++_outer != _outer_end)
             {
-                auto res = _func(*_outer);
+                auto res = invoke_func(_func, *_outer);
                 _inner = std::begin(res);
                 _inner_end = std::end(res);
             }
         }
     }
 
-    detail::default_constructible_func <Func> _func;
+    detail::default_constructible_func<Func> _func;
     Outer _outer;
     Outer _outer_end;
     Inner _inner;
     Inner _inner_end;
 };
 
-} // namespace core
+} // namespace millrind::core
 
-CORE_ITERATOR_TRAIRS(::core::flat_map_iterator)
+CORE_ITERATOR_TRAIRS(::millrind::core::flat_map_iterator)

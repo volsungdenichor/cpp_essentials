@@ -1,9 +1,10 @@
 #pragma once
 
 #include <memory>
-#include "../iterator_facade.hpp"
 
-namespace core
+#include <millrind/core/iterator_facade.hpp>
+
+namespace millrind::core
 {
 
 template <class T>
@@ -89,6 +90,6 @@ private:
     std::unique_ptr<impl> _impl;
 };
 
-} // namespace core
+} // namespace millrind::core
 
-CORE_ITERATOR_TRAIRS(::core::any_iterator)
+CORE_ITERATOR_TRAIRS(::millrind::core::any_iterator)

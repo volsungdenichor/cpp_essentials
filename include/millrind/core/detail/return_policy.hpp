@@ -1,7 +1,6 @@
 #pragma once
 
 #include <millrind/core/type_traits.hpp>
-//#include <cpp_essentials/core/optional.hpp>
 #include <millrind/core/iterator_range.hpp>
 #include <tuple>
 

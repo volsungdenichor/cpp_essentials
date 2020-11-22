@@ -5,6 +5,8 @@
 #include <iterator>
 #include <iostream>
 
+#include <millrind/core/macros.hpp>
+
 
 namespace millrind::core
 {
@@ -118,7 +120,7 @@ using HasIstreamOperator = decltype(std::declval<std::istream>() >> std::declval
 
 template <class T>
 using Iterator = std::void_t
-    < typename std::iterator_traits<T>::value_type
+< typename std::iterator_traits<T>::value_type
     , typename std::iterator_traits<T>::reference
     , typename std::iterator_traits<T>::pointer
     , typename std::iterator_traits<T>::iterator_category
@@ -147,17 +149,38 @@ constexpr bool _is_non_const_reference = std::is_lvalue_reference<T>::value && !
 
 } /* namespace detail */
 
-template <class Type, class T>
-auto make_func(Type T::* ptr)
+template <class Func, class... Args>
+constexpr decltype(auto) invoke_func(Func&& func, Args&&... args)
 {
-    return std::mem_fn(ptr);
+    return std::invoke(FORWARD(func), FORWARD(args)...);
 }
 
 template <class Func>
-auto make_func(Func func)
+struct function_wrapper
+{
+    Func func;
+
+    template <class... Args>
+    constexpr decltype(auto) operator()(Args&&... args) const
+    {
+        return invoke_func(func, FORWARD(args)...);
+    }
+};
+
+template <class Func>
+auto wrap_func(Func func) -> function_wrapper<Func>
+{
+    return { std::move(func) };
+}
+
+template <class Func>
+auto wrap_func(function_wrapper<Func> func) -> function_wrapper<Func>
 {
     return func;
 }
+
+template <class Func, class... Args>
+using invoke_result = std::invoke_result_t<function_wrapper<Func>, Args...>;
 
 
 template <class T>
@@ -173,9 +196,7 @@ template <class T>
 using RandomAccessIterator = detail::iterator_of_category<std::random_access_iterator_tag, T>;
 
 template <class T>
-using OutputIterator = std::void_t
-    < Iterator<T>
-    , std::enable_if_t<detail::_is_non_const_reference<decltype(*std::declval<T>())>>>;
+using OutputIterator = std::void_t<Iterator<T> , std::enable_if_t<detail::_is_non_const_reference<decltype(*std::declval<T>())>>>;
 
 
 template <class T>
@@ -195,10 +216,10 @@ template <class T>
 using NullaryFunction = decltype(std::declval<T>()());
 
 template <class T, class A>
-using UnaryFunction = decltype(make_func(std::declval<T>())(std::declval<A>()));
+using UnaryFunction = decltype(wrap_func(std::declval<T>())(std::declval<A>()));
 
 template <class T, class A, class B = A>
-using BinaryFunction = decltype(make_func(std::declval<T>())(std::declval<A>(), std::declval<B>()));
+using BinaryFunction = decltype(wrap_func(std::declval<T>())(std::declval<A>(), std::declval<B>()));
 
 template <class T, class A>
 using UnaryPredicate = std::enable_if_t<std::is_convertible_v<UnaryFunction<T, A>, bool>>;

@@ -37,7 +37,7 @@ struct advance_iterator_while_fn
 	template <class Iter, class UnaryPred, class Diff>
 	auto operator ()(Iter b, Iter e, UnaryPred pred, Diff diff = {}) const -> Iter
 	{
-		while (b != e && pred(*b))
+		while (b != e && invoke_func(pred, *b))
 		{
 			++b;
 		}
@@ -46,24 +46,6 @@ struct advance_iterator_while_fn
 };
 
 static constexpr auto advance_iterator_while = advance_iterator_while_fn{};
-
-struct make_reverse_iterator_fn
-{
-
-	template <class Iter>
-	auto operator ()(Iter iter) const -> std::reverse_iterator<Iter>
-	{
-		return std::make_reverse_iterator(iter);
-	}
-
-	template <class Iter>
-	auto operator ()(std::reverse_iterator<Iter> iter) const -> Iter
-	{
-		return iter.base();
-	}
-};
-
-static constexpr auto make_reverse_iterator = make_reverse_iterator_fn{};
 
 } // namespace detail
 

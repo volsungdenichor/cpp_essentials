@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../iterator_facade.hpp"
-#include "../functors.hpp"
+#include <millrind/core/iterator_facade.hpp>
+#include <millrind/core/functors.hpp>
 
-namespace core
+namespace millrind::core
 {
 
 template <class T>
@@ -42,6 +42,6 @@ private:
     std::ptrdiff_t _index;
 };
 
-} // namespace core
+} // namespace millrind::core
 
-CORE_ITERATOR_TRAIRS(::core::repeat_iterator)
+CORE_ITERATOR_TRAIRS(::millrind::core::repeat_iterator)

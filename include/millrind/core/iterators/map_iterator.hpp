@@ -1,6 +1,7 @@
 #pragma once
 
 #include <millrind/core/iterator_facade.hpp>
+#include <millrind/core/functors.hpp>
 #include <millrind/core/detail/default_constructible_func.hpp>
 
 namespace millrind::core
@@ -24,7 +25,7 @@ public:
 
 	decltype(auto) deref() const
 	{
-		return _func(*_iter);
+		return invoke_func(_func, *_iter);
 	}
 
 	void inc()
@@ -62,7 +63,7 @@ public:
 	}
 
 private:
-	detail::default_constructible_func <Func> _func;
+	detail::default_constructible_func<Func> _func;
 	Iter _iter;
 };
 

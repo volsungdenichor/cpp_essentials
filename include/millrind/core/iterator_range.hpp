@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <numeric>
 
+#include <millrind/core/opt.hpp>
 #include <millrind/core/type_traits.hpp>
 #include <millrind/core/detail/iterator_helpers.hpp>
 
@@ -98,7 +99,7 @@ public:
     constexpr operator Container() const
     {
         return to<Container>();
-    }    
+    }
 
     template <template<class...> class Container>
     constexpr Container<value_type> to() const
@@ -146,19 +147,17 @@ public:
         return reverse().front();
     }
 
-#if 0
-    core::optional<reference> first() const
+    opt<reference> first() const
     {
         return !empty()
-            ? core::optional<reference>{ front() }
-        : core::none;
+            ? opt<reference>{ front() }
+        : none;
     }
 
-    core::optional<reference> get(size_type index) const
+    opt<reference> get(size_type index) const
     {
         return drop(index).first();
     }
-#endif
 
     iterator_range<reverse_iterator> reverse() const
     {
@@ -318,6 +317,14 @@ public:
         return filter(logical_negation(std::move(pred)));
     }
 
+    template <class Func>
+    auto filter_map(Func func) const
+    {
+        return make_range(
+            make_filter_map_iterator(func, begin(), end()),
+            make_filter_map_iterator(func, end(), end()));
+    }
+
     auto iterate() const
     {
         return make_range(
@@ -361,18 +368,6 @@ private:
         return detail::advance_iterator(begin(), end(), count);
     }
 
-#if 0    
-    template <class Func>
-    auto filter_map(Func func) const
-    {
-        using iter = filter_map_iterator<decltype(func), iterator>;
-        return iterator_range<iter>{
-            { func, begin(), end() },
-            { func, end(), end() }
-        };
-    }
-#endif
-
 public:
     iterator _begin, _end;
 };
@@ -396,8 +391,8 @@ using const_view = iterator_range<range_iter<const Container>>;
 template <class Container>
 using cview = const_view<Container>;
 
-//template <class T>
-//using iterable = iterator_range<any_iterator<T>>;
+template <class T>
+using iterable = iterator_range<any_iterator<T>>;
 
 
 struct range_fn
@@ -435,7 +430,7 @@ struct repeat_fn
     {
         return make_range(
             make_repeat_iterator(value, 0),
-            make_repeat_iterator(value, std::numeric_limits<std::ptrdiff_t>::max()));        
+            make_repeat_iterator(value, std::numeric_limits<std::ptrdiff_t>::max()));
     }
 };
 
@@ -468,10 +463,22 @@ struct owned_fn
     }
 };
 
+struct make_generator_fn
+{
+    template <class Func>
+    auto operator ()(Func&& func) const
+    {
+        return make_range(
+            make_generating_iterator(FORWARD(func)),
+            {});
+    }
+};
+
 static constexpr inline auto range = range_fn{};
 static constexpr inline auto zip = zip_fn{};
 static constexpr inline auto repeat = repeat_fn{};
 static constexpr inline auto once = once_fn{};
 static constexpr inline auto owned = owned_fn{};
+static constexpr inline auto make_generator = make_generator_fn{};
 
 } // namespace millrind::core

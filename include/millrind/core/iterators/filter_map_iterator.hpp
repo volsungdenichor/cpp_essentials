@@ -2,8 +2,7 @@
 
 #include <millrind/core/iterator_facade.hpp>
 #include <millrind/core/functors.hpp>
-#if 0
-#include "../optional.hpp"
+#include <millrind/core/opt.hpp>
 
 namespace millrind::core
 {
@@ -12,7 +11,7 @@ template <class Func, class Iter>
 class filter_map_iterator : public iterator_facade<filter_map_iterator<Func, Iter>>
 {
 private:
-    using optional_type = std::invoke_result_t<Func, core::iter_ref<Iter>>;
+    using optional_type = invoke_result<Func, iter_ref<Iter>>;
 
 public:
     filter_map_iterator() = default;
@@ -51,7 +50,7 @@ private:
     {
         while (_iter != _end)
         {
-            if (_current = _func(*_iter); _current)
+            if (_current = invoke_func(_func, *_iter); _current)
             {
                 return;
             }
@@ -59,7 +58,7 @@ private:
         }
     }
 
-    detail::default_constructible_func <Func> _func;
+    detail::default_constructible_func<Func> _func;
     Iter _iter;
     Iter _end;
     optional_type _current;
@@ -68,4 +67,3 @@ private:
 } // namespace millrind::core
 
 CORE_ITERATOR_TRAIRS(::millrind::core::filter_map_iterator)
-#endif

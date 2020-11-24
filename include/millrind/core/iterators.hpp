@@ -1,11 +1,13 @@
 #pragma once
 
+#include <millrind/core/iterators/any_iterator.hpp>
 #include <millrind/core/iterators/map_iterator.hpp>
 #include <millrind/core/iterators/filter_iterator.hpp>
 #include <millrind/core/iterators/iterate_iterator.hpp>
 #include <millrind/core/iterators/chain_iterator.hpp>
 #include <millrind/core/iterators/filter_map_iterator.hpp>
 #include <millrind/core/iterators/flat_map_iterator.hpp>
+#include <millrind/core/iterators/generating_iterator.hpp>
 #include <millrind/core/iterators/zip_iterator.hpp>
 #include <millrind/core/iterators/repeat_iterator.hpp>
 #include <millrind/core/iterators/owning_iterator.hpp>
@@ -22,7 +24,7 @@ struct make_map_iterator_fn
     {
         using result_type = map_iterator<Func, Iter>;
         return result_type{ std::move(func), std::move(iter) };
-    }
+    }    
 };
 
 static constexpr auto make_map_iterator = make_map_iterator_fn{};
@@ -62,6 +64,18 @@ struct make_flat_map_iterator_fn
 };
 
 static constexpr auto make_flat_map_iterator = make_flat_map_iterator_fn{};
+
+struct make_filter_map_iterator_fn
+{
+    template <class Func, class Iter>
+    auto operator()(Func func, Iter iter, Iter end) const
+    {
+        using result_type = filter_map_iterator<Func, Iter>;
+        return result_type{ std::move(func), std::move(iter), std::move(end) };
+    }
+};
+
+static constexpr auto make_filter_map_iterator = make_filter_map_iterator_fn{};
 
 struct make_chain_iterator_fn
 {
@@ -142,5 +156,17 @@ struct make_repeat_iterator_fn
 };
 
 static constexpr auto make_repeat_iterator = make_repeat_iterator_fn{};
+
+struct make_generating_iterator_fn
+{
+    template <class Func>
+    auto operator()(Func func) const
+    {
+        using result_type = generating_iterator<Func>;
+        return result_type{ std::move(func) };
+    }
+};
+
+static constexpr auto make_generating_iterator = make_generating_iterator_fn{};
 
 } // namespace millrind::core

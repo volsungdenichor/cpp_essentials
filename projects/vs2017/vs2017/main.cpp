@@ -16,14 +16,24 @@ opt<double> square_root(double x)
         return none;
 }
 
+void show(iterable<int> range)
+{
+    range.for_each(LAMBDA(std::cout << _ << std::endl));
+}
+
 void run()
 {
-    opt<double> a = some(5.0);
-    opt<double> b = some(10.0);
-    opt<double> c = some(20.0);
-
-    std::cout << (a & b & c) << std::endl;
-    std::cout << (a | b | c) << std::endl;
+    std::vector<int> vect = { 1,2,3,4,5,6,7,8 };
+    int index = 0;
+    show(make_generator([&vect, index]() mutable -> opt<int&>
+        {
+            if (index >= vect.size())
+                return none;
+            
+            int& res = vect[index];
+            index += 2;
+            return std::ref(res);
+        }).take(2));
 }
 
 int main()

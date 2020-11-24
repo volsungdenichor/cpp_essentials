@@ -82,7 +82,7 @@ public:
     {
         static_assert(
             has_deref_v<self_type>,
-            "iterator_facade: ref() method required");
+            "iterator_facade: deref() method required");
 
         return self().deref();
     }

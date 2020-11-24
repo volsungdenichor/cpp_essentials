@@ -352,6 +352,7 @@
     <ClInclude Include="..\..\..\include\millrind\core\iterators\filter_iterator.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\iterators\filter_map_iterator.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\iterators\flat_map_iterator.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\iterators\generating_iterator.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\iterators\iterate_iterator.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\iterators\map_iterator.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\iterators\numeric_iterator.hpp" />

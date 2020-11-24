@@ -344,6 +344,7 @@
     <ClInclude Include="..\..\..\include\millrind\core\detail\default_constructible_func.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\detail\iterator_helpers.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\detail\return_policy.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\detail\storage.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\functors.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\iterators.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\iterators\any_iterator.hpp" />
@@ -360,7 +361,9 @@
     <ClInclude Include="..\..\..\include\millrind\core\iterator_facade.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\iterator_range.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\macros.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\opt.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\type_traits.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\wrappers.hpp" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>

@@ -75,7 +75,7 @@ constexpr auto opt_or_else(Opt&& item, Func&& func)
 
     return item
         ? type{ *FORWARD(item) }
-        : type{ invoke_func(FORWARD(func)) };
+    : type{ invoke_func(FORWARD(func)) };
 }
 
 template <class Exception, class = std::enable_if_t<std::is_base_of_v<std::exception, Exception>>>
@@ -106,7 +106,6 @@ constexpr decltype(auto) opt_value_or_throw(Opt&& item, Exception&& exception)
 
     return *FORWARD(item);
 }
-
 
 } // namespace detail
 
@@ -310,13 +309,13 @@ private:
     storage_type _storage;
 };
 
-template <class T, class U>
+template <class T, class U, class = EqualityCompare<T, U>>
 constexpr bool operator==(const opt<T>& lhs, const opt<U>& rhs)
 {
     return (!lhs && !rhs) || (lhs && rhs && lhs == rhs);
 }
 
-template <class T, class U>
+template <class T, class U, class = EqualityCompare<T, U>>
 constexpr bool operator!=(const opt<T>& lhs, const opt<U>& rhs)
 {
     return !(lhs == rhs);
@@ -344,6 +343,28 @@ template <class T>
 constexpr bool operator!=(std::nullptr_t, const opt<T>& rhs)
 {
     return rhs;
+}
+
+template <class T, class U>
+constexpr auto operator|(const opt<T>& lhs, const opt<U>& rhs)
+{
+    using R = std::common_type_t<T, U>;
+
+    if (lhs)
+        return opt<R>{ lhs };
+    else
+        return opt<R>{ rhs };
+}
+
+template <class T, class U>
+constexpr auto operator&(const opt<T>& lhs, const opt<U>& rhs)
+{
+    using R = std::common_type_t<T, U>;
+
+    if (!lhs)
+        return opt<R>{ lhs };
+    else
+        return opt<R>{ rhs };
 }
 
 template <class T>

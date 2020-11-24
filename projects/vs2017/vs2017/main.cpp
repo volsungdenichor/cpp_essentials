@@ -6,11 +6,7 @@
 #include <millrind/core/opt.hpp>
 
 
-#define LAMBDA(...) [](auto&& _) -> decltype(__VA_ARGS__) { return (__VA_ARGS__); }
-
 using namespace millrind::core;
-
-static constexpr auto sqr = [](auto x) { return x * x; };
 
 opt<double> square_root(double x)
 {
@@ -22,17 +18,12 @@ opt<double> square_root(double x)
 
 void run()
 {
-    double x = 11;
-    opt<double&> value = some(std::ref(x));
+    opt<double> a = some(5.0);
+    opt<double> b = some(10.0);
+    opt<double> c = some(20.0);
 
-    auto res = value
-        .filter_map(square_root)
-        .map(sqr)
-        .filter(LAMBDA(_ > 100))
-        .or_else([] { return some(99.0); })
-        .value_or_throw([] { return "Dupa"; });
-
-    std::cout << res << std::endl;
+    std::cout << (a & b & c) << std::endl;
+    std::cout << (a | b | c) << std::endl;
 }
 
 int main()

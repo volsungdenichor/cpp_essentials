@@ -16,7 +16,7 @@ opt<double> square_root(double x)
         return none;
 }
 
-void show(iterable<int> range)
+void show(iterable<double> range)
 {
     range.for_each(LAMBDA(std::cout << _ << std::endl));
 }
@@ -32,8 +32,9 @@ void run()
             
             int& res = vect[index];
             index += 2;
-            return std::ref(res);
-        }).take(2));
+            return some(&res);
+        })
+        .filter_map(square_root));
 }
 
 int main()

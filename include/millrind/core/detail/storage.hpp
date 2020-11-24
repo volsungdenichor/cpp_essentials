@@ -178,6 +178,11 @@ struct optional_storage<T&>
 
     constexpr optional_storage() = default;
 
+    constexpr optional_storage(T* value)
+        : _value{ value }
+    {
+    }
+
     constexpr optional_storage(T& value)
         : _value{ &value }
     {

@@ -389,6 +389,12 @@ struct some_fn
     {
         return { value.get() };
     }
+
+    template <class T>
+    constexpr opt<T&> operator()(T* ptr) const
+    {
+        return { *ptr };
+    }
 };
 
 static constexpr auto some = some_fn{};

@@ -34,7 +34,7 @@ public:
 
     void advance(std::ptrdiff_t offset)
     {
-        _value += offset;
+        _value += static_cast<T>(offset);
     }
 
     auto distance_to(const numeric_iterator& other) const

@@ -178,10 +178,12 @@ struct optional_storage<T&>
 
     constexpr optional_storage() = default;
 
+#if 0
     constexpr optional_storage(T* value)
         : _value{ value }
     {
     }
+#endif
 
     constexpr optional_storage(T& value)
         : _value{ &value }
@@ -192,6 +194,10 @@ struct optional_storage<T&>
         : optional_storage{ value.get() }
     {
     }
+
+    constexpr optional_storage(const optional_storage&) = default;
+    
+    constexpr optional_storage(optional_storage&&) = default;
 
     constexpr bool has_value() const
     {

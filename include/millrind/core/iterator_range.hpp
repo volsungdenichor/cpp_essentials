@@ -33,6 +33,12 @@ struct make_range_fn
         return { std::move(begin), std::move(end) };
     }
 
+    template <class Iter>
+    auto operator ()(std::pair<Iter, Iter> pair) const -> iterator_range<Iter>
+    {
+        return (*this)(std::get<0>(pair), std::get<1>(pair));
+    }
+
     template <class Range>
     auto operator ()(Range&& range) const
     {
@@ -57,7 +63,7 @@ public:
     using value_type = iter_val<iterator>;
     using size_type = std::size_t;
     using difference_type = std::ptrdiff_t;
-    using reverse_iterator = decltype(make_reverse_iterator(std::declval<iterator>()));
+    using reverse_iterator = decltype(make_reverse_iterators(std::declval<iterator>(), std::declval<iterator>()));
 
     constexpr iterator_range() = default;
 
@@ -76,7 +82,7 @@ public:
 
     constexpr iterator_range(iterator_range&&) = default;
 
-    template <class Range>
+    template <class Range, class = InputRange<Range>>
     constexpr iterator_range(Range&& range)
         : iterator_range{ std::begin(range), std::end(range) }
     {
@@ -127,53 +133,51 @@ public:
         return begin() == end();
     }
 
-    reference operator [](size_type index) const
+    constexpr reference operator [](size_type index) const
     {
         return *std::next(begin(), index);
     }
 
-    reference at(size_type index) const
+    constexpr reference at(size_type index) const
     {
         return *std::next(begin(), index);
     }
 
-    reference front() const
+    constexpr reference front() const
     {
         return *begin();
     }
 
-    reference back() const
+    constexpr reference back() const
     {
         return reverse().front();
     }
 
-    opt<reference> first() const
+    constexpr opt<reference> first() const
     {
         return !empty()
             ? opt<reference>{ front() }
-        : none;
+        : opt<reference>{};
     }
 
-    opt<reference> get(size_type index) const
+    constexpr opt<reference> get(size_type index) const
     {
         return drop(index).first();
     }
 
-    iterator_range<reverse_iterator> reverse() const
+    constexpr iterator_range<reverse_iterator> reverse() const
     {
-        return make_range(
-            make_reverse_iterator(end()),
-            make_reverse_iterator(begin()));
+        return make_range(make_reverse_iterators(begin(), end()));
     }
 
-    iterator_range take(size_type count) const
+    constexpr iterator_range take(size_type count) const
     {
         return make_range(
             begin(),
             advance(count));
     }
 
-    iterator_range drop(size_type count) const
+    constexpr iterator_range drop(size_type count) const
     {
         return make_range(
             advance(count),
@@ -181,7 +185,7 @@ public:
     }
 
     template <class Pred>
-    iterator_range take_while(Pred&& pred, difference_type offset = {}) const
+    constexpr iterator_range take_while(Pred&& pred, difference_type offset = {}) const
     {
         return make_range(
             begin(),
@@ -189,13 +193,13 @@ public:
     }
 
     template <class Pred>
-    iterator_range take_until(Pred&& pred, difference_type offset = {}) const
+    constexpr iterator_range take_until(Pred&& pred, difference_type offset = {}) const
     {
         return take_while(logical_negation(wrap_func(FORWARD(pred))), offset);
     }
 
     template <class Pred>
-    iterator_range drop_while(Pred&& pred, difference_type offset = {}) const
+    constexpr iterator_range drop_while(Pred&& pred, difference_type offset = {}) const
     {
         return make_range(
             find_if(FORWARD(pred), offset),
@@ -203,167 +207,185 @@ public:
     }
 
     template <class Pred>
-    iterator_range drop_until(Pred&& pred, difference_type offset = {}) const
+    constexpr iterator_range drop_until(Pred&& pred, difference_type offset = {}) const
     {
         return drop_while(logical_negation(wrap_func(FORWARD(pred))), offset);
     }
 
-    iterator_range take_back(size_type count) const
+    constexpr iterator_range take_back(size_type count) const
     {
-        return reverse().take(count).reverse();
+        return reverse()
+            .take(count)
+            .reverse();
     }
 
-    iterator_range drop_back(size_type count) const
+    constexpr iterator_range drop_back(size_type count) const
     {
-        return reverse().drop(count).reverse();
+        return reverse()
+            .drop(count)
+            .reverse();
     }
 
     template <class Pred>
-    iterator_range take_back_while(Pred&& pred, difference_type offset = {}) const
+    constexpr iterator_range take_back_while(Pred&& pred, difference_type offset = {}) const
     {
-        return reverse().take_while(wrap_func(FORWARD(pred)), offset).reverse();
+        return reverse()
+            .take_while(wrap_func(FORWARD(pred)), offset)
+            .reverse();
     }
 
     template <class Pred>
-    iterator_range take_back_until(Pred&& pred, difference_type offset = {}) const
+    constexpr iterator_range take_back_until(Pred&& pred, difference_type offset = {}) const
     {
         return take_back_while(logical_negation(wrap_func(FORWARD(pred))), offset);
     }
 
     template <class Pred>
-    iterator_range drop_back_while(Pred&& pred, difference_type offset = {}) const
+    constexpr iterator_range drop_back_while(Pred&& pred, difference_type offset = {}) const
     {
-        return reverse().drop_while(wrap_func(FORWARD(pred)), offset).reverse();
+        return reverse()
+            .drop_while(wrap_func(FORWARD(pred)), offset)
+            .reverse();
     }
 
     template <class Pred>
-    iterator_range drop_back_until(Pred&& pred, difference_type offset = {}) const
+    constexpr iterator_range drop_back_until(Pred&& pred, difference_type offset = {}) const
     {
         return drop_back_while(logical_negation(wrap_func(FORWARD(pred))), offset);
     }
 
-    iterator_range trim(size_type count) const
+    constexpr iterator_range trim(size_type count) const
     {
-        return drop(count).reverse().drop(count).reverse();
+        return drop(count)
+            .reverse()
+            .drop(count)
+            .reverse();
     }
 
     template <class Pred>
-    iterator_range trim_while(Pred&& pred, difference_type offset = {}) const
+    constexpr iterator_range trim_while(Pred&& pred, difference_type offset = {}) const
     {
-        return drop_while(pred, offset).reverse().drop_while(pred, offset).reverse();
+        return drop_while(pred, offset)
+            .reverse()
+            .drop_while(pred, offset)
+            .reverse();
     }
 
     template <class Pred>
-    iterator_range trim_until(Pred&& pred, difference_type offset = {}) const
+    constexpr iterator_range trim_until(Pred&& pred, difference_type offset = {}) const
     {
         return trim_while(logical_negation(wrap_func(FORWARD(pred))), offset);
     }
 
     template <class Pred>
-    bool all_of(Pred&& pred) const
+    constexpr bool matches(Pred&& pred) const
+    {
+        return invoke_func(FORWARD(pred), *this);
+    }
+
+    template <class Pred>
+    constexpr bool all_of(Pred&& pred) const
     {
         return std::all_of(begin(), end(), wrap_func(FORWARD(pred)));
     }
 
     template <class Pred>
-    bool any_of(Pred&& pred) const
+    constexpr bool any_of(Pred&& pred) const
     {
         return std::any_of(begin(), end(), wrap_func(FORWARD(pred)));
     }
 
     template <class Pred>
-    bool none_of(Pred&& pred) const
+    constexpr bool none_of(Pred&& pred) const
     {
         return std::none_of(begin(), end(), wrap_func(FORWARD(pred)));
     }
 
     template <class Func>
-    void for_each(Func&& func) const
+    constexpr void for_each(Func&& func) const
     {
         std::for_each(begin(), end(), wrap_func(FORWARD(func)));
     }
 
     template <class Output>
-    Output copy(Output output) const
+    constexpr Output copy(Output output) const
     {
         return std::copy(begin(), end(), std::move(output));
     }
 
     template <class Func>
-    auto map(Func func) const
+    constexpr auto map(Func&& func) const
     {
-        return make_range(
-            make_map_iterator(func, begin()),
-            make_map_iterator(func, end()));
+        return make_range(make_map_iterators(FORWARD(func), begin(), end()));
     }
 
     template <class Pred>
-    auto filter(Pred pred) const
+    constexpr auto filter(Pred&& pred) const
     {
-        return make_range(
-            make_filter_iterator(pred, begin(), end()),
-            make_filter_iterator(pred, end(), end()));
+        return make_range(make_filter_iterators(FORWARD(pred), begin(), end()));
     }
 
     template <class Pred>
-    auto take_if(Pred pred) const
+    constexpr auto take_if(Pred&& pred) const
     {
-        return filter(std::move(pred));
+        return filter(FORWARD(pred));
     }
 
     template <class Pred>
-    auto drop_if(Pred pred) const
+    constexpr auto drop_if(Pred&& pred) const
     {
-        return filter(logical_negation(std::move(pred)));
+        return filter(logical_negation(FORWARD(pred)));
     }
 
     template <class Func>
-    auto filter_map(Func func) const
+    constexpr auto filter_map(Func&& func) const
     {
-        return make_range(
-            make_filter_map_iterator(func, begin(), end()),
-            make_filter_map_iterator(func, end(), end()));
+        return make_range(make_filter_map_iterators(FORWARD(func), begin(), end()));
     }
 
-    auto iterate() const
+    constexpr auto iterate() const
     {
-        return make_range(
-            make_iterate_iterator(begin()),
-            make_iterate_iterator(end()));
+        return make_range(make_iterate_iterators(begin(), end()));
+    }
+
+    const auto enumerate() const
+    {
+        return make_range(make_enumerating_iterators(begin(), end()));
     }
 
     template <class Func>
-    auto flat_map(Func func) const
+    constexpr auto flat_map(Func&& func) const
     {
-        return make_range(
-            make_flat_map_iterator(func, begin(), end()),
-            make_flat_map_iterator(func, end(), end()));
+        return make_range(make_flat_map_iterators(FORWARD(func), begin(), end()));
     }
 
-    auto flatten() const
+#if 0
+    constexpr auto flatten() const
     {
-        return flat_map(core::identity);
+        return make_range(make_flatten_iterators(begin(), end()));
     }
+#endif
 
     template <class Range>
     auto chain(Range&& r) const
     {
-        auto b = std::begin(r);
-        auto e = std::end(r);
+        return make_range(make_chain_iterators(begin(), end(), std::begin(r), std::end(r)));
+    }
 
-        return make_range(
-            make_chain_iterator(begin(), b, end(), e),
-            make_chain_iterator(end(), e, end(), b));
+    template <class Func, class T>
+    T accumulate(Func&& func, T init) const
+    {
+        return std::accumulate(begin(), end(), std::move(init), FORWARD(func));
     }
 
 private:
     template <class Pred>
-    iterator find_if(Pred&& pred, difference_type offset) const
+    constexpr iterator find_if(Pred&& pred, difference_type offset) const
     {
         return detail::advance_iterator_while(begin(), end(), wrap_func(FORWARD(pred)), offset);
     }
 
-    iterator advance(difference_type count) const
+    constexpr iterator advance(difference_type count) const
     {
         return detail::advance_iterator(begin(), end(), count);
     }
@@ -400,9 +422,7 @@ struct range_fn
     template <class T>
     auto operator ()(T lo, T up) const
     {
-        return make_range(
-            make_iterate_iterator(lo),
-            make_iterate_iterator(up));
+        return make_range(make_numeric_iterators(lo, up));
     }
 
     template <class T>
@@ -414,12 +434,18 @@ struct range_fn
 
 struct zip_fn
 {
-    template <typename Func, typename... Ranges>
-    auto operator ()(Func&& func, Ranges&& ... ranges) const
+    template <class Range1, class Range2, class Func>
+    auto operator ()(Range1&& range1, Range2&& range2, Func&& func) const
     {
-        return make_range(
-            make_zip_iterator(func, std::begin(ranges)...),
-            make_zip_iterator(func, std::end(ranges)...));
+        return make_range(make_zip_iterators(func, FORWARD(range1), FORWARD(range2)));
+    }
+
+    template <class Range1, class Range2>
+    auto operator ()(Range1&& range1, Range2&& range2) const
+    {
+        using type1 = range_ref<Range1>;
+        using type2 = range_ref<Range2>;
+        return (*this)(FORWARD(range1), FORWARD(range2), [](type1 lt, type2 rt) { return std::pair<type1, type2>{ FORWARD(lt), FORWARD(rt) }; });
     }
 };
 
@@ -428,9 +454,7 @@ struct repeat_fn
     template <class T>
     auto operator ()(T value) const
     {
-        return make_range(
-            make_repeat_iterator(value, 0),
-            make_repeat_iterator(value, std::numeric_limits<std::ptrdiff_t>::max()));
+        return make_range(make_repeat_iterators(std::move(value), std::numeric_limits<std::ptrdiff_t>::max()));
     }
 };
 
@@ -439,9 +463,7 @@ struct once_fn
     template <class T>
     auto operator ()(T value) const
     {
-        return make_range(
-            make_repeat_iterator(value, 0),
-            make_repeat_iterator(value, 1));
+        return make_range(make_repeat_iterators(std::move(value), 1));
     }
 };
 
@@ -450,10 +472,7 @@ struct owned_fn
     template <class Container>
     auto operator ()(Container container) const
     {
-        auto ptr = std::make_shared<Container>(std::move(container));
-        return make_range(
-            make_owning_iterator(ptr, std::begin(*ptr)),
-            make_owning_iterator(ptr, std::end(*ptr)));
+        return make_range(make_owning_iterators(std::move(container)));
     }
 
     template <class T>
@@ -468,9 +487,7 @@ struct make_generator_fn
     template <class Func>
     auto operator ()(Func&& func) const
     {
-        return make_range(
-            make_generating_iterator(FORWARD(func)),
-            {});
+        return make_range(make_generating_iterators(FORWARD(func)));
     }
 };
 

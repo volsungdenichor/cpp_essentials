@@ -8,6 +8,7 @@
 #include <millrind/core/iterators/filter_map_iterator.hpp>
 #include <millrind/core/iterators/flat_map_iterator.hpp>
 #include <millrind/core/iterators/generating_iterator.hpp>
+#include <millrind/core/iterators/enumerating_iterator.hpp>
 #include <millrind/core/iterators/zip_iterator.hpp>
 #include <millrind/core/iterators/repeat_iterator.hpp>
 #include <millrind/core/iterators/owning_iterator.hpp>
@@ -17,156 +18,163 @@
 namespace millrind::core
 {
 
-struct make_map_iterator_fn
+template <class Func, class Iter>
+auto make_map_iterators(Func func, Iter begin, Iter end)
 {
-    template <class Func, class Iter>
-    auto operator()(Func func, Iter iter) const
-    {
-        using result_type = map_iterator<Func, Iter>;
-        return result_type{ std::move(func), std::move(iter) };
-    }    
-};
+    using result_type = map_iterator<Func, Iter>;
+    return std::pair{
+        result_type{ func, std::move(begin) },
+            result_type{ func, std::move(end) }
+    };
+}
 
-static constexpr auto make_map_iterator = make_map_iterator_fn{};
-
-struct make_filter_iterator_fn
+template <class Pred, class Iter>
+auto make_filter_iterators(Pred pred, Iter begin, Iter end)
 {
-    template <class Pred, class Iter>
-    auto operator()(Pred pred, Iter iter, Iter end) const
-    {
-        using result_type = filter_iterator<Pred, Iter>;
-        return result_type{ std::move(pred), std::move(iter), std::move(end) };
-    }
-};
+    using result_type = filter_iterator<Pred, Iter>;
+    return std::pair{
+        result_type{ pred, begin, end },
+            result_type{ pred, end, end }
+    };
+}
 
-static constexpr auto make_filter_iterator = make_filter_iterator_fn{};
-
-struct make_iterate_iterator_fn
+template <class Iter>
+auto make_iterate_iterators(Iter begin, Iter end)
 {
-    template <class Iter>
-    auto operator()(Iter iter) const
-    {
-        using result_type = iterate_iterator<Iter>;
-        return result_type{ std::move(iter) };
-    }
-};
+    using result_type = iterate_iterator<Iter>;
+    return std::pair{
+        result_type{ std::move(begin) },
+            result_type{ std::move(end) }
+    };
+}
 
-static constexpr auto make_iterate_iterator = make_iterate_iterator_fn{};
-
-struct make_flat_map_iterator_fn
+template <class Func, class Iter>
+auto make_flat_map_iterators(Func func, Iter begin, Iter end)
 {
-    template <class Func, class Iter>
-    auto operator()(Func func, Iter iter, Iter end) const
-    {
-        using result_type = flat_map_iterator<Func, Iter>;
-        return result_type{ std::move(func), std::move(iter), std::move(end) };
-    }
-};
+    using result_type = flat_map_iterator<Func, Iter>;
+    return std::pair{
+        result_type{ func, begin, end },
+            result_type{ func, end, end }
+    };
+}
 
-static constexpr auto make_flat_map_iterator = make_flat_map_iterator_fn{};
-
-struct make_filter_map_iterator_fn
+template <class Func, class Iter>
+auto make_filter_map_iterators(Func func, Iter begin, Iter end)
 {
-    template <class Func, class Iter>
-    auto operator()(Func func, Iter iter, Iter end) const
-    {
-        using result_type = filter_map_iterator<Func, Iter>;
-        return result_type{ std::move(func), std::move(iter), std::move(end) };
-    }
-};
+    using result_type = filter_map_iterator<Func, Iter>;
+    return std::pair{
+        result_type{ func, begin, end },
+            result_type{ func, end, end }
+    };
+}
 
-static constexpr auto make_filter_map_iterator = make_filter_map_iterator_fn{};
-
-struct make_chain_iterator_fn
+template <class Iter1, class Iter2>
+auto make_chain_iterators(Iter1 begin1, Iter1 end1, Iter2 begin2, Iter2 end2)
 {
-    template <class Iter1, class Iter2>
-    auto operator()(Iter1 iter1, Iter2 iter2, Iter1 end1, Iter2 begin2) const
-    {
-        using result_type = chain_iterator<Iter1, Iter2>;
-        return result_type{ std::move(iter1), std::move(iter2), std::move(end1), std::move(begin2) };
-    }
-};
+    using result_type = chain_iterator<Iter1, Iter2>;
+    return std::pair{
+        result_type{ begin1, begin2, end1, end2 },
+            result_type{ end1, end2, end1, end2 }
+    };
+}
 
-static constexpr auto make_chain_iterator = make_chain_iterator_fn{};
-
-struct make_zip_iterator_fn
+template <class Func, class... Ranges>
+auto make_zip_iterators(Func func, Ranges&&... ranges)
 {
-
-    template <class Func, class... Iters>
-    auto operator()(Func func, Iters... args) const
+    static const auto make = [&func](auto... args)
     {
-        using result_type = zip_iterator<Func, Iters...>;
-        return result_type{ std::move(func), std::move(args)... };
-    }
-};
+        using result_type = zip_iterator<Func, decltype(args)...>;
+        return result_type{ func, std::move(args)... };
+    };
 
-static constexpr auto make_zip_iterator = make_zip_iterator_fn{};
+    return std::pair{
+        make(std::begin(ranges)...),
+        make(std::end(ranges)...)
+    };
+}
 
-struct make_owning_iterator_fn
+template <class Container>
+auto make_owning_iterators(Container container)
 {
-    template <class Container, class Iter>
-    auto operator()(std::shared_ptr<Container> container, Iter iter) const
-    {
-        using result_type = owning_iterator<Iter, Container>;
-        return result_type{ std::move(iter), std::move(container) };
-    }
-};
+    auto ptr = std::make_shared<Container>(std::move(container));
+    auto begin = std::begin(*ptr);
+    auto end = std::end(*ptr);
 
-static constexpr auto make_owning_iterator = make_owning_iterator_fn{};
+    using result_type = owning_iterator<decltype(begin), Container>;
 
-struct make_reverse_iterator_fn
+    return std::pair{
+        result_type{ std::move(begin), ptr },
+            result_type{ std::move(end), ptr }
+    };
+}
+
+template <class Iter>
+auto make_reverse_iterators(Iter begin, Iter end)
 {
-    template <class Iter>
-    auto operator()(Iter iter) const
-    {
-        using result_type = std::reverse_iterator<Iter>;
-        return result_type{ iter };
-    }
+    using result_type = std::reverse_iterator<Iter>;
+    return std::pair{
+        result_type{ end },
+            result_type{ begin }
+    };
+}
 
-    template <class Iter>
-    auto operator()(std::reverse_iterator<Iter> iter) const
-    {
-        using result_type = Iter;
-        return result_type{ iter.base() };
-    }
-};
-
-static constexpr auto make_reverse_iterator = make_reverse_iterator_fn{};
-
-struct make_numeric_iterator_fn
+template <class Iter>
+auto make_reverse_iterators(std::reverse_iterator<Iter> begin, std::reverse_iterator<Iter> end)
 {
-    template <class T>
-    auto operator()(T value) const
-    {
-        using result_type = numeric_iterator<T>;
-        return result_type{ value };
-    }
-};
+    using result_type = Iter;
+    return std::pair{
+        result_type{ end.base() },
+            result_type{ begin.base() }
+    };
+}
 
-static constexpr auto make_numeric_iterator = make_numeric_iterator_fn{};
-
-struct make_repeat_iterator_fn
+template <class T>
+auto make_numeric_iterators(T lo, T up)
 {
-    template <class T>
-    auto operator()(T value, std::ptrdiff_t index) const
-    {
-        using result_type = repeat_iterator<T>;
-        return result_type{ std::move(value), index };
-    }
-};
+    using result_type = numeric_iterator<T>;
+    return std::pair{
+        result_type{ lo },
+            result_type{ up }
+    };
+}
 
-static constexpr auto make_repeat_iterator = make_repeat_iterator_fn{};
-
-struct make_generating_iterator_fn
+template <class T>
+auto make_repeat_iterators(T value, std::ptrdiff_t count)
 {
-    template <class Func>
-    auto operator()(Func func) const
-    {
-        using result_type = generating_iterator<Func>;
-        return result_type{ std::move(func) };
-    }
-};
+    using result_type = repeat_iterator<T>;
+    return std::pair{
+        result_type{ value, 0 },
+            result_type{ value, count },
+    };
+}
 
-static constexpr auto make_generating_iterator = make_generating_iterator_fn{};
+template <class Func>
+auto make_generating_iterators(Func func)
+{
+    using result_type = generating_iterator<Func>;
+    return std::pair{
+        result_type{ std::move(func) },
+            result_type{ },
+    };
+}
+
+template <class Iter>
+auto make_enumerating_iterators(Iter begin, Iter end)
+{
+    using result_type = enumerating_iterator<Iter>;
+
+    if constexpr (is_detected_v<RandomAccessIterator, Iter>)
+    {
+        return std::pair{
+            result_type{ begin, 0 },
+                result_type{ end, std::distance(begin, end) } };
+    }
+    else
+    {
+        return std::pair{
+            result_type{ begin, 0 },
+                result_type{ end, 0 } };
+    }
+}
 
 } // namespace millrind::core

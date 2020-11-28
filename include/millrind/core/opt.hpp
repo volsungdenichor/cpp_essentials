@@ -25,7 +25,7 @@ template <class Func, class Opt>
 constexpr auto opt_map(Func&& func, Opt&& item)
 {
     using type = decltype(invoke_func(FORWARD(func), *FORWARD(item)));
-    if (item)
+    if (!!item)
         return opt<type>{ invoke_func(FORWARD(func), *FORWARD(item)) };
     else
         return opt<type>{};
@@ -34,7 +34,7 @@ constexpr auto opt_map(Func&& func, Opt&& item)
 template <class O, class Pred, class Opt>
 constexpr auto opt_filter(Pred&& pred, Opt&& item)
 {
-    if (item && invoke_func(FORWARD(pred), *FORWARD(item)))
+    if (!!item && invoke_func(FORWARD(pred), *FORWARD(item)))
         return O{ FORWARD(item) };
     else
         return O{};
@@ -45,7 +45,7 @@ constexpr auto opt_filter_map(Func&& func, Opt&& item)
 {
     using type = decltype(invoke_func(FORWARD(func), *FORWARD(item)));
     static_assert(is_opt<type>{}, "opt result required");
-    if (item)
+    if (!!item)
         return type{ invoke_func(FORWARD(func), *FORWARD(item)) };
     else
         return type{};
@@ -54,7 +54,7 @@ constexpr auto opt_filter_map(Func&& func, Opt&& item)
 template <class Opt, class T>
 constexpr decltype(auto) opt_value_or(Opt&& item, T&& default_value)
 {
-    return item
+    return !!item
         ? *FORWARD(item)
         : FORWARD(default_value);
 }
@@ -62,7 +62,7 @@ constexpr decltype(auto) opt_value_or(Opt&& item, T&& default_value)
 template <class Opt, class Func>
 constexpr decltype(auto) opt_value_or_else(Opt&& item, Func&& func)
 {
-    return item
+    return !!item
         ? *FORWARD(item)
         : invoke_func(FORWARD(func));
 }
@@ -73,7 +73,7 @@ constexpr auto opt_or_else(Opt&& item, Func&& func)
     using type = decltype(invoke_func(FORWARD(func)));
     static_assert(is_opt<type>{}, "opt result required");
 
-    return item
+    return !!item
         ? type{ *FORWARD(item) }
     : type{ invoke_func(FORWARD(func)) };
 }
@@ -132,17 +132,17 @@ public:
     {
     }
 
-    template <class U>
+    template <class U, class = std::enable_if_t<std::is_constructible_v<storage_type, U>>>
     constexpr opt(U&& value)
         : _storage{ FORWARD(value) }
     {
     }
 
     template <class U>
-    constexpr opt(opt<U> other)
+    constexpr opt(const opt<U>& other)
         : _storage{ other ? storage_type{ std::move(*other) } : storage_type{} }
     {
-    }
+    }    
 
     template <class U>
     constexpr opt(std::optional<U> other)
@@ -160,7 +160,7 @@ public:
         return *this;
     }
 
-    constexpr operator bool() const
+    constexpr explicit operator bool() const
     {
         return _storage.has_value();
     }
@@ -196,6 +196,12 @@ public:
     constexpr bool has_value() const
     {
         return *this;
+    }
+
+    template <class Pred>
+    constexpr bool matches(Pred&& pred) const
+    {
+        return *this && invoke_func(FORWARD(pred), **this);
     }
 
 
@@ -290,6 +296,30 @@ public:
     constexpr auto filter(Pred&& pred)&&
     {
         return detail::opt_filter<opt>(FORWARD(pred), std::move(*this));
+    }
+
+    template <class Pred>
+    constexpr auto take_if(Pred&& pred) const&
+    {
+        return filter(FORWARD(pred));
+    }
+
+    template <class Pred>
+    constexpr auto take_if(Pred&& pred)&&
+    {
+        return filter(FORWARD(pred));
+    }
+
+    template <class Pred>
+    constexpr auto drop_if(Pred&& pred) const&
+    {
+        return filter(logical_negation(FORWARD(pred)));
+    }
+
+    template <class Pred>
+    constexpr auto drop_if(Pred&& pred)&&
+    {
+        return filter(logical_negation(FORWARD(pred)));
     }
 
 

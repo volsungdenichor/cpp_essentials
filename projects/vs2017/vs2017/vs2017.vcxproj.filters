@@ -717,6 +717,9 @@
     <ClInclude Include="..\..\..\include\millrind\core\iterators\generating_iterator.hpp">
       <Filter>Header Files\millrind\core\iterators</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\millrind\core\iterators\enumerating_iterator.hpp">
+      <Filter>Header Files\millrind\core\iterators</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

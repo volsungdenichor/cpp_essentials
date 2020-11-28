@@ -349,6 +349,7 @@
     <ClInclude Include="..\..\..\include\millrind\core\iterators.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\iterators\any_iterator.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\iterators\chain_iterator.hpp" />
+    <ClInclude Include="..\..\..\include\millrind\core\iterators\enumerating_iterator.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\iterators\filter_iterator.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\iterators\filter_map_iterator.hpp" />
     <ClInclude Include="..\..\..\include\millrind\core\iterators\flat_map_iterator.hpp" />

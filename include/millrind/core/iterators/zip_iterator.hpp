@@ -35,6 +35,11 @@ public:
         inc(index_seq{});
     }
 
+    void dec()
+    {
+        dec(index_seq{});
+    }
+
     bool is_equal(const zip_iterator& other) const
     {
         return std::get<0>(_iters) == std::get<0>(other._iters);
@@ -50,8 +55,18 @@ private:
     template <std::size_t... I>
     void inc(std::index_sequence<I...>)
     {
-        auto ignore = { ++std::get<I>(_iters)... };
-        (void) ignore;
+        ignore(++std::get<I>(_iters)...);
+    }
+
+    template <std::size_t... I>
+    void dec(std::index_sequence<I...>)
+    {
+        ignore(--std::get<I>(_iters)...);
+    }
+
+    template <class... T>
+    void ignore(T&&...)
+    {
     }
 
     std::tuple<Iters...> _iters;

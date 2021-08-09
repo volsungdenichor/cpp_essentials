@@ -25,7 +25,7 @@ struct abs_fn
         }
         else
         {
-            return core::abs(x);
+            return std::abs(x);
         }
     }
 };
@@ -88,7 +88,7 @@ struct sqrt_fn
         }
         else
         {
-            return core::sqrt(v);
+            return std::sqrt(v);
         }
     }
 };

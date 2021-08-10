@@ -138,7 +138,8 @@ public:
 
         constexpr iterator& operator ++()
         {
-            _current = _next();
+            _current.~opt_type();
+            new(&_current)opt_type{ _next() };
             return *this;
         }
 
@@ -161,7 +162,7 @@ public:
 
     private:
         next_fn _next;
-        opt<T> _current;
+        opt_type _current;
     };
 
     using value_type = typename iterator::value_type;
@@ -550,11 +551,10 @@ struct zip_fn
         {
             auto n = self.next();
             auto o = other.next();
-            if (!n || !o)
-            {
+            if (n && o)
+                return std::invoke(func, *n, *o);
+            else
                 return std::nullopt;
-            }
-            return std::invoke(func, *n, *o);
         } };
     }
 };
@@ -588,25 +588,24 @@ struct flatten_fn
             {
                 if (!inner_iter)
                 {
-                    auto outer = self.next();
-                    if (!outer)
+                    if (auto outer = self.next(); !outer)
                     {
                         return std::nullopt;
                     }
-
-                    inner_iter = from(*outer);
-                    continue;
+                    else
+                    {
+                        inner_iter = from(*outer);
+                        continue;
+                    }
                 }
 
-                auto n = inner_iter->next();
-
-                if (n)
+                if (auto n = inner_iter->next(); n)
                 {
                     return *n;
                 }
                 else
                 {
-                    inner_iter = {};
+                    inner_iter = std::nullopt;
                     continue;
                 }
             }
@@ -653,7 +652,9 @@ struct once_fn
     template <class T>
     constexpr auto operator ()(T item) const
     {
-        return take_fn{}(repeat_fn{}(std::move(item)), 1);
+        constexpr auto take = take_fn{};
+        constexpr auto repeat = repeat_fn{};
+        return take(repeat(std::move(item)), 1);
     }
 };
 
@@ -714,6 +715,34 @@ struct join_fn
     }
 };
 
+struct intersperse_fn
+{
+    template <class T, class U>
+    auto operator ()(iterable<T> self, const U& separator) const
+    {
+        using ref = std::common_type_t<T, U>;
+        bool counter = true;
+        auto prev = self.next();
+        return iterable<ref>{ [=]() mutable -> opt<ref>
+        {
+            counter = !counter;
+            if (counter && prev)
+            {
+                return ref{ separator };
+            }
+            else
+            {
+                auto next = prev;
+                prev = self.next();
+                if (next)
+                    return ref{ *next };
+                else
+                    return std::nullopt;
+            }
+        } };
+    }
+};
+
 
 static constexpr inline auto range = range_fn{};
 static constexpr inline auto infinite_range = infinite_range_fn{};
@@ -754,5 +783,7 @@ static constexpr inline auto empty = empty_fn<T>{};
 static constexpr inline auto for_each = with_fn<for_each_fn>{};
 static constexpr inline auto copy = with_fn<copy_fn>{};
 static constexpr inline auto join = with_fn<join_fn>{};
+
+static constexpr inline auto intersperse = with_fn<intersperse_fn>{};
 
 } // namespace iterables

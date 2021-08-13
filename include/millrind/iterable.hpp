@@ -5,6 +5,7 @@
 #include <functional>
 #include <memory>
 #include <sstream>
+#include <algorithm>
 
 namespace iterables
 {
@@ -16,22 +17,46 @@ template <class T>
 class opt : public std::optional<T>
 {
 public:
-    using std::optional<T>::optional;
+    using base_type = std::optional<T>;
+    using base_type::optional;
+
+    template <class U>
+    constexpr operator opt<U>() const
+    {
+        if (base_type::has_value())
+            return base_type::operator *();
+        else
+            return std::nullopt;
+    }
+
+    constexpr opt& operator =(opt other)
+    {
+        std::swap(static_cast<base_type&>(*this), static_cast<base_type&>(other));
+        return *this;
+    }
 };
 
 template <class T>
 class opt<T&>
 {
 public:
-    constexpr opt() = default;
+    constexpr opt()
+        : _value{ nullptr }
+    {
+    }
 
     constexpr opt(std::nullopt_t)
-        : opt()
+        : opt{}
     {
     }
 
     constexpr opt(T& value)
         : _value{ &value }
+    {
+    }
+
+    constexpr opt(std::reference_wrapper<T> value)
+        : opt{ value.get() }
     {
     }
 
@@ -48,6 +73,15 @@ public:
     constexpr explicit operator bool() const
     {
         return _value;
+    }
+
+    template <class U>
+    constexpr operator opt<U>() const
+    {
+        if (*this)
+            return **this;
+        else
+            return std::nullopt;
     }
 
     constexpr T& operator *() const
@@ -71,6 +105,66 @@ private:
     T* _value;
 };
 
+template <class T, class U>
+constexpr bool operator ==(const opt<T>& lhs, const opt<U>& rhs)
+{
+    return (!lhs && !rhs) || (lhs && rhs && *lhs == *rhs);
+}
+
+template <class T, class U>
+constexpr bool operator !=(const opt<T>& lhs, const opt<U>& rhs)
+{
+    return !(lhs == rhs);
+}
+
+template <class T>
+constexpr bool operator ==(const opt<T>& lhs, std::nullopt_t)
+{
+    return !lhs;
+}
+
+template <class T>
+constexpr bool operator !=(const opt<T>& lhs, std::nullopt_t)
+{
+    return lhs;
+}
+
+template <class T>
+constexpr bool operator ==(std::nullopt_t, const opt<T>& rhs)
+{
+    return !rhs;
+}
+
+template <class T>
+constexpr bool operator !=(std::nullopt_t, const opt<T>& rhs)
+{
+    return rhs;
+}
+
+template <class T, class U>
+constexpr bool operator ==(const opt<T>& lhs, const U& rhs)
+{
+    return lhs && *lhs == rhs;
+}
+
+template <class T, class U>
+constexpr bool operator !=(const opt<T>& lhs, const U& rhs)
+{
+    return !(lhs == rhs);
+}
+
+template <class T, class U>
+constexpr bool operator ==(const T& lhs, const opt<U>& rhs)
+{
+    return rhs == lhs;
+}
+
+template <class T, class U>
+constexpr bool operator !=(const T& lhs, const opt<U>& rhs)
+{
+    return !(lhs == rhs);
+}
+
 template <class T>
 std::ostream& operator <<(std::ostream& os, const opt<T>& item)
 {
@@ -90,6 +184,17 @@ struct proxy_type
         return &value;
     }
 };
+
+struct invoke_fn
+{
+    template <class Func, class... Args>
+    constexpr decltype(auto) operator ()(Func&& func, Args&& ... args) const
+    {
+        return std::invoke(std::forward<Func>(func), std::forward<Args>(args)...);
+    }
+};
+
+static constexpr inline auto invoke = invoke_fn{};
 
 template <class T>
 class iterable
@@ -118,6 +223,13 @@ public:
         constexpr iterator(const iterator&) = default;
 
         constexpr iterator(iterator&&) = default;
+
+        constexpr iterator& operator =(iterator other)
+        {
+            std::swap(_next, other._next);
+            std::swap(_current, other._next);
+            return *this;
+        }
 
         constexpr reference operator *() const
         {
@@ -173,6 +285,22 @@ public:
     {
     }
 
+    constexpr iterable(const iterable&) = default;
+
+    constexpr iterable(iterable&&) = default;
+
+    template <class U>
+    constexpr iterable(iterable<U> other)
+        : iterable{ [other = std::move(other)]() mutable -> opt_type { return static_cast<opt_type>(other.next()); } }
+    {
+    }
+
+    constexpr iterable& operator =(iterable other)
+    {
+        std::swap(_next, other._next);
+        return *this;
+    }
+
     constexpr iterator begin() const
     {
         return { _next };
@@ -194,10 +322,25 @@ public:
         return { begin(), end() };
     }
 
-
 private:
     next_fn _next;
 };
+
+template <class T>
+std::ostream& operator <<(std::ostream& os, iterable<T> item)
+{
+    os << "[";
+    if (auto n = item.next())
+    {
+        os << *n;
+    }
+    while (auto n = item.next())
+    {
+        os << "," << *n;
+    }
+    os << "]";
+    return os;
+}
 
 template <class T>
 using iterator_t = decltype(std::begin(std::declval<T>()));
@@ -222,13 +365,13 @@ struct adaptor
     template <class T>
     constexpr decltype(auto) operator ()(T&& item) const&
     {
-        return std::invoke(func, std::forward<T>(item));
+        return invoke(func, std::forward<T>(item));
     }
 
     template <class T>
     constexpr decltype(auto) operator ()(T&& item)&&
     {
-        return std::invoke(std::move(func), std::forward<T>(item));
+        return invoke(std::move(func), std::forward<T>(item));
     }
 };
 
@@ -256,6 +399,7 @@ constexpr decltype(auto) operator |(adaptor<L> lhs, adaptor <R> rhs)
     return make_adaptor([=](auto&& item) { return rhs(lhs(item)); });
 }
 
+
 template <class Parent>
 struct with_fn
 {
@@ -282,7 +426,7 @@ struct with_fn
     template <class... Args>
     constexpr auto operator ()(Args... args) const
     {
-        return make_adaptor(impl<Args...>{ std::move(args)... });
+        return make_adaptor(impl<Args...>{ { std::move(args)... } });
     }
 };
 
@@ -383,12 +527,12 @@ struct map_fn
     template <class T, class Func>
     constexpr auto operator ()(iterable<T> self, Func func) const
     {
-        using ref = decltype(std::invoke(func, *self.next()));
+        using ref = decltype(invoke(func, *self.next()));
 
         return iterable<ref>{ [=]() mutable -> opt<ref>
         {
             if (auto n = self.next())
-                return std::invoke(func, *n);
+                return invoke(func, *n);
             else
                 return std::nullopt;
         } };
@@ -406,7 +550,7 @@ struct filter_fn
         {
             while (true)
             {
-                if (auto n = self.next(); !n || std::invoke(pred, *n))
+                if (auto n = self.next(); !n || invoke(pred, *n))
                 {
                     return n;
                 }
@@ -423,7 +567,7 @@ struct take_while_fn
         using ref = T;
         return iterable<ref>{ [=]() mutable -> opt<ref>
         {
-            if (auto n = self.next(); std::invoke(pred, *n))
+            if (auto n = self.next(); invoke(pred, *n))
             {
                 return n;
             }
@@ -442,7 +586,7 @@ struct drop_while_fn
         {
             while (auto n = self.next())
             {
-                if (!std::invoke(pred, *n))
+                if (!invoke(pred, *n))
                 {
                     return n;
                 }
@@ -490,6 +634,28 @@ struct drop_fn
     }
 };
 
+struct slice_fn
+{
+    template <class T>
+    constexpr auto operator ()(iterable<T> self, std::ptrdiff_t start, std::ptrdiff_t stop) const
+    {
+        constexpr auto take = take_fn{};
+        constexpr auto drop = drop_fn{};
+        const auto size = std::max(std::ptrdiff_t{ 0 }, stop - start);
+        return take(drop(std::move(self), start), size);
+    }
+};
+
+struct tail_fn
+{
+    template <class T>
+    constexpr auto operator ()(iterable<T> self) const
+    {
+        constexpr auto drop = drop_fn{};
+        return drop(std::move(self), 1);
+    }
+};
+
 struct step_fn
 {
     template <class T>
@@ -531,6 +697,7 @@ struct chain_fn
     }
 };
 
+
 template <class T, class U>
 struct make_tuple
 {
@@ -546,13 +713,13 @@ struct zip_fn
     template <class T, class U, class Func = make_tuple<T, U>>
     constexpr auto operator ()(iterable<T> self, iterable<U> other, Func func = {}) const
     {
-        using ref = decltype(std::invoke(func, *self.next(), *other.next()));
+        using ref = decltype(invoke(func, *self.next(), *other.next()));
         return iterable<ref>{ [=]() mutable -> opt<ref>
         {
             auto n = self.next();
             auto o = other.next();
             if (n && o)
-                return std::invoke(func, *n, *o);
+                return invoke(func, *n, *o);
             else
                 return std::nullopt;
         } };
@@ -629,7 +796,7 @@ struct nth_fn
     template <class T>
     constexpr auto operator ()(iterable<T> self, std::ptrdiff_t count) const
     {
-        constexpr auto dro = drop_fn{};
+        constexpr auto drop = drop_fn{};
         return drop(std::move(self), count).next();
     }
 };
@@ -743,6 +910,63 @@ struct intersperse_fn
     }
 };
 
+struct chunk_fn
+{
+    template <class T>
+    auto operator ()(iterable<T> self, std::ptrdiff_t count, std::ptrdiff_t step) const
+    {
+        using ref = iterable<T>;
+        constexpr auto take = take_fn{};
+        constexpr auto drop = drop_fn{};
+        return iterable<ref>{ [=]() mutable -> opt<ref>
+        {
+            if (self.begin() == self.end())
+                return std::nullopt;
+
+            auto temp = self;
+            self = drop(self, step);
+            return take(temp, count);
+        } };
+    }
+};
+
+template <class T>
+using wrapped_type = std::conditional_t<std::is_reference_v<T>, std::reference_wrapper<std::remove_reference_t<T>>, T>;
+
+template <class T>
+auto wrap(iterable<T> self) -> std::vector<wrapped_type<T>>
+{
+    return std::move(self);
+}
+
+struct cache_fn
+{
+    template <class T>
+    auto operator ()(iterable<T> self) const -> iterable<T>
+    {
+        constexpr auto owned = owned_fn{};
+        return owned(wrap(std::move(self)));
+    }
+};
+
+struct reverse_fn
+{
+    template <class T>
+    auto operator ()(iterable<T> self) const -> iterable<T>
+    {
+        constexpr auto owned = owned_fn{};
+        auto vect = wrap(std::move(self));
+        std::reverse(std::begin(vect), std::end(vect));
+        return owned(std::move(vect));
+    }
+};
+
+template <class T, class U>
+constexpr auto operator +(iterable<T> lhs, iterable<U> rhs)
+{
+    constexpr auto chain = chain_fn{};
+    return chain(std::move(lhs), std::move(rhs));
+}
 
 static constexpr inline auto range = range_fn{};
 static constexpr inline auto infinite_range = infinite_range_fn{};
@@ -758,6 +982,8 @@ static constexpr inline auto drop_while = with_fn<drop_while_fn>{};
 
 static constexpr inline auto take = with_fn<take_fn>{};
 static constexpr inline auto drop = with_fn<drop_fn>{};
+static constexpr inline auto slice = with_fn<slice_fn>{};
+static constexpr inline auto tail = with_fn<tail_fn>{};
 
 static constexpr inline auto step = with_fn<step_fn>{};
 
@@ -785,5 +1011,9 @@ static constexpr inline auto copy = with_fn<copy_fn>{};
 static constexpr inline auto join = with_fn<join_fn>{};
 
 static constexpr inline auto intersperse = with_fn<intersperse_fn>{};
+static constexpr inline auto chunk = with_fn<chunk_fn>{};
+
+static constexpr inline auto cache = with_fn<cache_fn>{};
+static constexpr inline auto reverse = with_fn<reverse_fn>{};
 
 } // namespace iterables

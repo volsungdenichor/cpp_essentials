@@ -1,5 +1,5 @@
-#ifndef CPP_ESSENTIALS_CORE_CHANNEL_HPP_
-#define CPP_ESSENTIALS_CORE_CHANNEL_HPP_
+#ifndef CPP_ESSENTIALS_ASYNC_CHANNEL_HPP_
+#define CPP_ESSENTIALS_ASYNC_CHANNEL_HPP_
 
 #pragma once
 
@@ -8,7 +8,7 @@
 #include <thread>
 #include <mutex>
 
-namespace cpp_essentials::core
+namespace cpp_essentials::async
 {
 
 template <class T, class Queue>
@@ -156,6 +156,6 @@ public:
 template <class T, class Queue = std::list<T>>
 using channel = iochannel<T, Queue>;
 
-} /* namespace cpp_essentials::core */
+} /* namespace cpp_essentials::async */
 
-#endif /* CPP_ESSENTIALS_CORE_CHANNEL_HPP_ */
+#endif /* CPP_ESSENTIALS_ASYNC_CHANNEL_HPP_ */

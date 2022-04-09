@@ -1,21 +1,22 @@
-#ifndef CPP_ESSENTIALS_CORE_TASK_QUEUE_HPP_
-#define CPP_ESSENTIALS_CORE_TASK_QUEUE_HPP_
+#ifndef CPP_ESSENTIALS_ASYNC_TASK_QUEUE_HPP_
+#define CPP_ESSENTIALS_ASYNC_TASK_QUEUE_HPP_
 
 #pragma once
 
 #include <atomic>
+#include <functional>
 #include <thread>
 
-#include <cpp_essentials/core/channel.hpp>
 #include <cpp_essentials/core/function_defs.hpp>
+#include <cpp_essentials/async/channel.hpp>
 
-namespace cpp_essentials::core
+namespace cpp_essentials::async
 {
 
 class task_queue
 {
 public:
-    using task_t = action<>;
+    using task_t = core::action<>;
 
     task_queue(std::chrono::milliseconds timeout = std::chrono::milliseconds{ 10 })
         : _running{ true }
@@ -76,6 +77,6 @@ private:
     std::atomic<bool> _running;
 };
 
-} /* namespace cpp_essentials::core */
+} /* namespace cpp_essentials::async */
 
-#endif /* CPP_ESSENTIALS_CORE_TASK_QUEUE_HPP_ */
+#endif /* CPP_ESSENTIALS_ASYNC_TASK_QUEUE_HPP_ */

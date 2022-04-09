@@ -82,6 +82,9 @@
     <Filter Include="Header Files\cpp_essentials\ph">
       <UniqueIdentifier>{deaf6035-d010-4bf3-8c5c-2f227c2308b3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\cpp_essentials\async">
+      <UniqueIdentifier>{363a5e8b-43bd-460e-ac7a-5708614791b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -321,9 +324,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\gx\defs.hpp">
       <Filter>Header Files\cpp_essentials\gx</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\channel.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\group_by.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
@@ -495,12 +495,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\debug_utils.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\task_queue.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\event_aggregator.hpp">
-      <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\carto\coords_operations.hpp">
       <Filter>Header Files\cpp_essentials\carto</Filter>
     </ClInclude>
@@ -626,6 +620,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\md5.hpp">
       <Filter>Header Files\cpp_essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\async\channel.hpp">
+      <Filter>Header Files\cpp_essentials\async</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\async\event_aggregator.hpp">
+      <Filter>Header Files\cpp_essentials\async</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\cpp_essentials\async\task_queue.hpp">
+      <Filter>Header Files\cpp_essentials\async</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

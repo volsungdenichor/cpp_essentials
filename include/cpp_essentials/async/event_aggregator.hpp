@@ -1,5 +1,5 @@
-#ifndef CPP_ESSENTIALS_CORE_EVENT_AGGREGATOR_HPP_
-#define CPP_ESSENTIALS_CORE_EVENT_AGGREGATOR_HPP_
+#ifndef CPP_ESSENTIALS_ASYNC_EVENT_AGGREGATOR_HPP_
+#define CPP_ESSENTIALS_ASYNC_EVENT_AGGREGATOR_HPP_
 
 #pragma once
 
@@ -7,17 +7,17 @@
 #include <mutex>
 #include <typeindex>
 
-#include <cpp_essentials/core/task_queue.hpp>
+#include <cpp_essentials/async/task_queue.hpp>
 #include <cpp_essentials/core/container_helpers.hpp>
 
-namespace cpp_essentials::core
+namespace cpp_essentials::async
 {
 
 class event_aggregator
 {
 public:
     using sub_id = int;
-    using handler_t = action<const void*>;
+    using handler_t = core::action<const void*>;
 
     event_aggregator(std::chrono::milliseconds timeout = std::chrono::milliseconds{ 10 })
         : _map{}
@@ -31,7 +31,7 @@ public:
     event_aggregator(event_aggregator&&) = delete;
 
     template <class E>
-    sub_id subscribe(sub_id id, action<E> event_handler)
+    sub_id subscribe(sub_id id, core::action<E> event_handler)
     {
         handler_t handler = [=](const void* e)
         {
@@ -44,7 +44,7 @@ public:
     }
 
     template <class E>
-    sub_id subscribe(action<E> event_handler)
+    sub_id subscribe(core::action<E> event_handler)
     {
         return subscribe(acquire_id(), std::move(event_handler));
     }
@@ -78,14 +78,14 @@ public:
     void unsubscribe(sub_id id)
     {
         std::unique_lock<std::mutex> lock{ _mutex };
-        erase_if(_map, [&](const auto& entry) { return entry.second.id == id; });
+        core::erase_if(_map, [&](const auto& entry) { return entry.second.id == id; });
     }
 
     template <class E>
     void unsubscribe_all()
     {
         const auto type = get_type<E>();
-        erase_if(_map, [&](const auto& entry) { return entry.first == type; });
+        core::erase_if(_map, [&](const auto& entry) { return entry.first == type; });
     }
 
 private:
@@ -107,6 +107,6 @@ private:
     std::mutex _mutex;
 };
 
-} /* namespace cpp_essentials::core */
+} /* namespace cpp_essentials::async */
 
-#endif /* CPP_ESSENTIALS_CORE_EVENT_AGGREGATOR_HPP_ */
+#endif /* CPP_ESSENTIALS_ASYNC_EVENT_AGGREGATOR_HPP_ */

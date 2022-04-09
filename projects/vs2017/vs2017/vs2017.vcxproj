@@ -167,6 +167,9 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\arrays\region_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\arrays\slice_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\arrays\transformations.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\async\channel.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\async\event_aggregator.hpp" />
+    <ClInclude Include="..\..\..\include\cpp_essentials\async\task_queue.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\carto\coords.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\carto\coords_array.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\carto\coords_operations.hpp" />
@@ -179,7 +182,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\any_range.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\arithmetic_functors.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\assertions.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\channel.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\containers.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\container_helpers.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\core.hpp" />
@@ -202,7 +204,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\stride_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\zip_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\event.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\event_aggregator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\expected.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\format.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\function_defs.hpp" />
@@ -230,7 +231,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\string_functors.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\string_views.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\tagged_value.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\core\task_queue.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\tuple.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\views.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\views\adjacent_difference.hpp" />

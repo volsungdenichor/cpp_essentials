@@ -6,6 +6,7 @@
 #include <cpp_essentials/gx/image.hpp>
 #include <cpp_essentials/sq/sq.hpp>
 #include <cpp_essentials/core/container_helpers.hpp>
+#include <cpp_essentials/core/views/elementwise.hpp>
 
 namespace cpp_essentials::gx
 {
@@ -17,7 +18,7 @@ namespace detail
 
 size_type get_valid_size(size_type image_size, size_type kernel_size)
 {
-    return image_size - kernel_size + size_type { 1, 1 };
+    return image_size - kernel_size + size_type{ 1, 1 };
 }
 
 template <class Tag, size_t D>
@@ -42,7 +43,7 @@ struct convolution_t<dilation_tag, 1>
 
     byte operator ()(byte_image::const_view_type region) const
     {
-        auto result = core::max_value(core::make_range(region) * core::make_range(_mask));
+        auto result = core::max_value(core::views::zip(region, _mask, core::multiplies));
         return result / 256;
     }
 
@@ -66,7 +67,11 @@ struct convolution_t<erosion_tag, 1>
 
     byte operator ()(byte_image::const_view_type region) const
     {
-        auto result = core::max_value((255 - core::make_range(region)) * core::make_range(_mask));
+        auto result = core::max_value(
+            core::views::zip(
+                core::views::map(region, core::minus.bind_left(255)),
+                _mask,
+                core::multiplies));
         return 255 - (result / 256);
     }
 
@@ -92,7 +97,7 @@ struct convolution_t<percentile_tag, 1>
     byte operator ()(byte_image::const_view_type region) const
     {
         _vect.clear();
-        core::push_back(_vect, core::make_range(region) * core::make_range(_mask) / 256);
+        core::push_back(_vect, core::views::map(core::views::zip(region, _mask, core::multiplies), core::divides(256)));
 
         auto index = _vect.size() * _rank / 100;
         std::nth_element(_vect.begin(), _vect.begin() + index, _vect.end());

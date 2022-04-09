@@ -23,32 +23,32 @@
     <ProjectGuid>{4F62A6CC-25E1-4270-BEE6-BE7DF2EBED0B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>vs2017</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -324,7 +324,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\math\detail\matrix.operations.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\detail\matrix.transformations.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\detail\vector.operations.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\math\distribution.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\functors.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\matrix.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\polynomial.hpp" />
@@ -340,37 +339,10 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\proc\seed.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\sq.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\term\term.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\algorithm.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\detail\default_constructible_func.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\detail\iterator_helpers.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\detail\return_policy.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\detail\storage.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\functors.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\iterators.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\any_iterator.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\chain_iterator.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\enumerating_iterator.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\filter_iterator.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\filter_map_iterator.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\flat_map_iterator.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\generating_iterator.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\iterate_iterator.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\map_iterator.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\numeric_iterator.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\owning_iterator.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\repeat_iterator.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\zip_iterator.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\iterator_facade.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\iterator_range.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\macros.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\opt.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\type_traits.hpp" />
-    <ClInclude Include="..\..\..\include\millrind\core\wrappers.hpp" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="_main.tmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

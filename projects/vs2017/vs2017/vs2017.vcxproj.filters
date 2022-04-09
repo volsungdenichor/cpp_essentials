@@ -82,18 +82,6 @@
     <Filter Include="Header Files\cpp_essentials\ph">
       <UniqueIdentifier>{deaf6035-d010-4bf3-8c5c-2f227c2308b3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\millrind">
-      <UniqueIdentifier>{333bed5f-e6f9-4511-a1b1-935819aad2a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\millrind\core">
-      <UniqueIdentifier>{697ced71-7b21-4279-9999-dcdae7ddac2f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\millrind\core\detail">
-      <UniqueIdentifier>{635f68a8-a2d5-4943-b7b7-53d227c4bc9c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\millrind\core\iterators">
-      <UniqueIdentifier>{63794122-b16e-4319-8574-88d7b7cce10d}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -432,9 +420,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\event.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\math\distribution.hpp">
-      <Filter>Header Files\cpp_essentials\math</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\gx\filters.hpp">
       <Filter>Header Files\cpp_essentials\gx</Filter>
     </ClInclude>
@@ -639,93 +624,12 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\views\advance.hpp">
       <Filter>Header Files\cpp_essentials\core\views</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\detail\default_constructible_func.hpp">
-      <Filter>Header Files\millrind\core\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\detail\iterator_helpers.hpp">
-      <Filter>Header Files\millrind\core\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\detail\return_policy.hpp">
-      <Filter>Header Files\millrind\core\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\any_iterator.hpp">
-      <Filter>Header Files\millrind\core\iterators</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\chain_iterator.hpp">
-      <Filter>Header Files\millrind\core\iterators</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\filter_iterator.hpp">
-      <Filter>Header Files\millrind\core\iterators</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\filter_map_iterator.hpp">
-      <Filter>Header Files\millrind\core\iterators</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\flat_map_iterator.hpp">
-      <Filter>Header Files\millrind\core\iterators</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\iterate_iterator.hpp">
-      <Filter>Header Files\millrind\core\iterators</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\map_iterator.hpp">
-      <Filter>Header Files\millrind\core\iterators</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\numeric_iterator.hpp">
-      <Filter>Header Files\millrind\core\iterators</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\owning_iterator.hpp">
-      <Filter>Header Files\millrind\core\iterators</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\repeat_iterator.hpp">
-      <Filter>Header Files\millrind\core\iterators</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\zip_iterator.hpp">
-      <Filter>Header Files\millrind\core\iterators</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\algorithm.hpp">
-      <Filter>Header Files\millrind\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\functors.hpp">
-      <Filter>Header Files\millrind\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\iterator_facade.hpp">
-      <Filter>Header Files\millrind\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\iterator_range.hpp">
-      <Filter>Header Files\millrind\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\macros.hpp">
-      <Filter>Header Files\millrind\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\type_traits.hpp">
-      <Filter>Header Files\millrind\core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\md5.hpp">
       <Filter>Header Files\cpp_essentials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\iterators.hpp">
-      <Filter>Header Files\millrind\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\detail\storage.hpp">
-      <Filter>Header Files\millrind\core\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\opt.hpp">
-      <Filter>Header Files\millrind\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\wrappers.hpp">
-      <Filter>Header Files\millrind\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\generating_iterator.hpp">
-      <Filter>Header Files\millrind\core\iterators</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\millrind\core\iterators\enumerating_iterator.hpp">
-      <Filter>Header Files\millrind\core\iterators</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_main.tmp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

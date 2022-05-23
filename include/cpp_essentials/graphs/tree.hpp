@@ -821,7 +821,7 @@ public:
 
     iterator root() const
     {
-        return iterator { _root };
+        return iterator { _root.get() };
     }
 
     iterator root(const value_type& data)
@@ -962,7 +962,7 @@ public:
 
     iterator begin() const
     {
-        return iterator { _root };
+        return iterator { _root.get() };
     }
 
     iterator end() const
@@ -1007,6 +1007,22 @@ private:
 
     std::unique_ptr<data_type> _root;
 };
+
+template <class T, class... Children>
+tree<T> node(T value, Children... children)
+{
+    tree<T> result;
+    auto it = result.root(std::move(value));
+
+    const auto insert = [&](auto& child)
+    {
+        result.append_child(it, child.root());
+    };
+
+    (..., insert(children));
+
+    return result;
+}
 
 } /* namespace cpp_essentials::graphs */
 

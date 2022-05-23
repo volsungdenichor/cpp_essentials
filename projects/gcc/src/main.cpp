@@ -3,26 +3,13 @@
 #include <cpp_essentials/graphs/tree.hpp>
 #include <cpp_essentials/sq/sq.hpp>
 
-template <class T, class... Children>
-cpp_essentials::graphs::tree<T> node(T value, Children... children)
-{
-    cpp_essentials::graphs::tree<T> result;
-    auto it = result.root(std::move(value));
-
-    const auto insert = [&](auto& child)
-    {
-        result.append_child(it, child.root());
-    };
-
-    (..., insert(children));
-
-    return result;
-}
 
 void run()
 {
     using namespace std::string_literals;
     using namespace cpp_essentials;
+
+    using graphs::node;
 
     graphs::tree<std::string> t = node("Europe"s,
         node("France"s),

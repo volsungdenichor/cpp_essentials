@@ -22,6 +22,21 @@ void run()
             node("Bayern"s,
                 node("Munchen"s))));
 
+    auto poland = core::find(t.begin().children(), "Poland"s).begin();
+
+    t.append_child(
+        poland,
+        node("Malopolskie"s,
+            node("Krakow"s),
+            node("Wadowice"s)));
+
+
+    t.prepend_child(
+        poland,
+        node("Slaskie"s,
+            node("Katowic"s),
+            node("Gliwice"s)));
+
     for (auto it : core::views::iterate(t))
     {
         std::cout << std::string(it.depth() * 4, ' ') << *it << std::endl;

@@ -804,6 +804,11 @@ public:
         return *this;
     }
 
+    operator iterator() const
+    {
+        return begin();
+    }
+
     void swap(tree& other)
     {
         std::swap(_root, other._root);
@@ -870,7 +875,7 @@ public:
         {
             if (empty())
             {
-                return set_root(std::make_unique<data_type>(data).release());
+                return set_root(std::make_unique<data_type>(data));
             }
             else
             {

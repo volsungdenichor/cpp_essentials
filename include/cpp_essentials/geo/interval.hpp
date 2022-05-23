@@ -62,7 +62,7 @@ public:
     constexpr interval()
         : interval{ value_type {}, value_type {} }
     {
-    }   
+    }
 
 
     const value_type& operator [](size_t index) const
@@ -179,7 +179,7 @@ template
     < class T
     , class U
     , CONCEPT = cc::Multiply<T, U>>
-auto operator *(T lhs, const interval<T>& rhs) -> interval<cc::Multiply<T, U>>
+auto operator *(T lhs, const interval<U>& rhs) -> interval<cc::Multiply<T, U>>
 {
     return rhs * lhs;
 }

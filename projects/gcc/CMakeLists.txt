@@ -7,5 +7,5 @@ include_directories("${PROJECT_SOURCE_DIR}")
 include_directories("${PROJECT_SOURCE_DIR}/../../include")
 
 file(GLOB SOURCES "src/*.cpp")
-add_executable(playground ${SOURCES} src/maybe.hpp ../../include/millrind/iterable.hpp)
+add_executable(playground ${SOURCES})
 

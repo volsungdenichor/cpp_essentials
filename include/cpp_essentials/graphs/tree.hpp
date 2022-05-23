@@ -38,14 +38,14 @@ public:
 
     tree_node_struct* clone() const
     {
-        auto result = new tree_node_struct(data());
+        auto result = std::make_unique<tree_node_struct>(data());
 
         for (auto i = first_child(); i; i = i->next_sibling())
         {
             result->append_child(i->clone());
         }
 
-        return result;
+        return result.release();
     }
 
     const T& data() const
@@ -575,7 +575,7 @@ public:
     using data_type = tree_node_struct<T, 0>;
     using base_type = core::iterator_facade<tree_iterator<T, 0, Traversal>, std::forward_iterator_tag, T>;
 
-    INHERIT_ITERATOR_FACADE_TYPES(base_type)   
+    INHERIT_ITERATOR_FACADE_TYPES(base_type)
 
     tree_iterator(data_type* data)
         : _impl {}
@@ -641,7 +641,7 @@ public:
     {
         return _data ? _data->children_count() : 0;
     }
-   
+
     size_t descendants_count() const
     {
         return _data ? _data->descendants_count() : 0;
@@ -828,7 +828,7 @@ public:
     {
         clear();
 
-        return set_root(new data_type { data });
+        return set_root(std::make_unique<data_type>(data));
     }
 
     iterator root(iterator iter)
@@ -848,7 +848,7 @@ public:
         {
             if (empty())
             {
-                return set_root(new data_type { data });
+                return set_root(std::make_unique<data_type>(data));
             }
             else
             {
@@ -856,12 +856,12 @@ public:
             }
         }
 
-        return insert_sibling_after(iter, new data_type { data });
+        return insert_sibling_after(iter, std::make_unique<data_type>(data).release());
     }
 
     iterator insert_before(iterator iter, const value_type& data)
     {
-        return insert_sibling_before(new data_type { data });
+        return insert_sibling_before(std::make_unique<data_type>(data).release());
     }
 
     iterator append_child(iterator iter, const value_type& data)
@@ -870,7 +870,7 @@ public:
         {
             if (empty())
             {
-                return set_root(new data_type{ data });
+                return set_root(std::make_unique<data_type>(data).release());
             }
             else
             {
@@ -878,12 +878,12 @@ public:
             }
         }
 
-        return append_child(iter, new data_type { data });
+        return append_child(iter, std::make_unique<data_type>(data).release());
     }
 
     iterator prepend_child(iterator iter, const value_type& data)
     {
-        return prepend_child(iter, new data_type { data });
+        return prepend_child(iter, std::make_unique<data_type>(data).release());
     }
 
     iterator insert(iterator iter, iterator other)
@@ -928,7 +928,6 @@ public:
 
     void clear()
     {
-        delete _root;
         _root = nullptr;
     }
 
@@ -972,9 +971,9 @@ public:
     }
 
 private:
-    iterator set_root(data_type* new_data)
+    iterator set_root(std::unique_ptr<data_type> new_data)
     {
-        _root = new_data;
+        _root = std::move(new_data);
         return root();
     }
 
@@ -1006,7 +1005,7 @@ private:
         return iterator { new_data };
     }
 
-    data_type* _root;
+    std::unique_ptr<data_type> _root;
 };
 
 } /* namespace cpp_essentials::graphs */

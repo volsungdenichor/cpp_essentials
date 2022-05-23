@@ -226,9 +226,21 @@ auto sqr(quantity<Quant, T> item) -> quantity<detail::pow<Quant, 2>, T>
 }
 
 template <class Quant, class T>
-auto abs(quantity<Quant, T> item)
+auto abs(quantity<Quant, T> item) -> quantity<Quant, T>
 {
-    return quantity<Quant, T>{ math::abs(item.get()) };
+    return quantity<Quant, T>{ std::abs(item.get()) };
+}
+
+template <class Quant, class T>
+auto floor(quantity<Quant, T> item) -> quantity<Quant, T>
+{
+    return quantity<Quant, T>{ std::floor(item.get()) };
+}
+
+template <class Quant, class T>
+auto ceil(quantity<Quant, T> item) -> quantity<Quant, T>
+{
+    return quantity<Quant, T>{ std::ceil(item.get()) };
 }
 
 } /* namespace cpp_essentials::ph */
@@ -239,6 +251,8 @@ namespace cpp_essentials::core
 using ::cpp_essentials::ph::abs;
 using ::cpp_essentials::ph::sqrt;
 using ::cpp_essentials::ph::sqr;
+using ::cpp_essentials::ph::floor;
+using ::cpp_essentials::ph::ceil;
 
 } /* namespace cpp_essentials::core */
 

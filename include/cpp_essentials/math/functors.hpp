@@ -64,7 +64,7 @@ struct pow_fn
 struct sqr_fn
 {
     template <class T>
-    auto operator ()(const T& v) const
+    auto operator ()(T v) const
     {
         return v * v;
     }
@@ -73,9 +73,9 @@ struct sqr_fn
 struct sqrt_fn
 {
     template <class T>
-    auto operator ()(const T& v) const
+    auto operator ()(T v) const
     {
-        return std::sqrt(v);
+        return sqrt(v);
     }
 };
 

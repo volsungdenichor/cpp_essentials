@@ -241,4 +241,20 @@ using ::cpp_essentials::ph::sqr;
 
 } /* namespace cpp_essentials::core */
 
+namespace std
+{
+template <class Quant, class T>
+auto sqrt(::cpp_essentials::ph::quantity<Quant, T> item)
+{
+    return ::cpp_essentials::ph::sqrt(item);
+}
+
+template <class Quant, class T>
+auto abs(::cpp_essentials::ph::quantity<Quant, T> item)
+{
+    return ::cpp_essentials::ph::abs(item);
+}
+
+} /* namespace std */
+
 #endif /* CPP_ESSENTIALS_PH_QUANTITIES_HPP_ */

@@ -90,7 +90,7 @@ public:
         const auto rel_pos = geo::vector_3d<T>{ location._data | sq::map(math::fractional_part) };
         const auto p = geo::vector_3d<T>{ rel_pos._data | sq::map(fade) };
 
-        const auto vert = std::invoke([&]()
+        const auto vert = std::invoke([&]() -> std::array<int, 4>
         {
             std::array<int, 2> v;
             sq::range(2) | sq::map([&](int i) { return _permutation[pos[0] + i] + pos[1]; }) | sq::overwrite(v);
@@ -136,7 +136,7 @@ private:
         int h = hash & 0xF;
 
         T u = h < 0x08 ? x : y;
-        T v = h < 4 ? y : h == 0x0c || h == 0x0e ? x : z;
+        T v = h < 0x04 ? y : h == 0x0c || h == 0x0e ? x : z;
 
         return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
     }

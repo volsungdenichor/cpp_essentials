@@ -19,3 +19,5 @@
 /projects/gcc/out/build
 /projects/vs2017/.vs/vs2017/v16
 /projects/vs2017/.vs/vs2017
+projects/gcc/build/
+.vscode/

@@ -113,7 +113,7 @@ struct as_fn
         return{ get(item.lower()), get(item.upper()) };
     }
 
-    template <class Quant, class T, size_t D>
+    template <class T, size_t D>
     constexpr auto operator ()(const geo::bounding_box<T, D>& item) const -> bounding_box<Quant, T, D>
     {
         return{ get(item.lower()), get(item.upper()) };

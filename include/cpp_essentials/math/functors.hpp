@@ -19,7 +19,7 @@ struct abs_fn
     template <class T>
     auto operator ()(T x) const
     {
-        return std::abs(x);
+        return abs(x);
     }
 };
 
@@ -64,7 +64,7 @@ struct pow_fn
 struct sqr_fn
 {
     template <class T>
-    auto operator ()(const T& v) const
+    auto operator ()(T v) const
     {
         return v * v;
     }
@@ -73,9 +73,9 @@ struct sqr_fn
 struct sqrt_fn
 {
     template <class T>
-    auto operator ()(const T& v) const
+    auto operator ()(T v) const
     {
-        return std::sqrt(v);
+        return sqrt(v);
     }
 };
 
@@ -84,7 +84,7 @@ struct exp_fn
     template <class T>
     auto operator ()(T x) const
     {
-        return std::exp(x);
+        return exp(x);
     }
 };
 
@@ -93,7 +93,7 @@ struct sin_fn
     template <class T>
     auto operator ()(T x) const
     {
-        return std::sin(x);
+        return sin(x);
     }
 };
 
@@ -102,7 +102,7 @@ struct cos_fn
     template <class T>
     auto operator ()(T x) const
     {
-        return std::cos(x);
+        return cos(x);
     }
 };
 
@@ -111,7 +111,7 @@ struct tan_fn
     template <class T>
     auto operator ()(T x) const
     {
-        return std::tan(x);
+        return tan(x);
     }
 };
 
@@ -120,7 +120,7 @@ struct cot_fn
     template <class T>
     auto operator ()(T x) const
     {
-        return T(1) / std::tan(x);
+        return T(1) / tan(x);
     }
 };
 
@@ -129,7 +129,7 @@ struct asin_fn
     template <class T>
     auto operator ()(T x) const
     {
-        return std::asin(x);
+        return asin(x);
     }
 };
 
@@ -138,7 +138,7 @@ struct acos_fn
     template <class T>
     auto operator ()(T x) const
     {
-        return std::acos(x);
+        return acos(x);
     }
 };
 
@@ -147,7 +147,7 @@ struct atan2_fn
     template <class T>
     auto operator ()(T y, T x) const
     {
-        return std::atan2(y, x);
+        return atan2(y, x);
     }
 };
 
@@ -156,7 +156,7 @@ struct floor_fn
     template <class T>
     auto operator ()(T x) const
     {
-        return std::floor(x);
+        return floor(x);
     }
 };
 
@@ -165,7 +165,7 @@ struct ceil_fn
     template <class T>
     auto operator ()(T x) const
     {
-        return std::ceil(x);
+        return ceil(x);
     }
 };
 
@@ -174,7 +174,7 @@ struct fractional_part_fn
     template <class T>
     auto operator ()(T x) const
     {
-        return x - std::floor(x);
+        return x - floor(x);
     }
 };
 
@@ -183,7 +183,7 @@ struct round_fn
     template <class T>
     auto operator ()(T x) const
     {
-        return std::round(x);
+        return round(x);
     }
 };
 

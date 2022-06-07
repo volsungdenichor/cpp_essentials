@@ -167,15 +167,7 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\arrays\region_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\arrays\slice_iterator.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\arrays\transformations.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\async\channel.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\async\event_aggregator.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\async\task_queue.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\carto\coords.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\carto\coords_array.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\carto\coords_operations.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\cc\cc.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\chrono\calendars.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\chrono\time.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\adaptor.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\algorithm.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\algorithm_ext.hpp" />
@@ -252,7 +244,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\views\trim.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\views\unzip.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\core\views\zip.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\fmt\format.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\algorithm.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\bezier.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\bounding_box.hpp" />
@@ -285,11 +276,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\vertex_array.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\vertex_container.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\voronoi.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\graphs\algorithm.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\graphs\binary_tree.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\graphs\graph.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\graphs\tree.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\graphs\tree_base.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\gx\algorithm.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\gx\bitmap.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\gx\colors.hpp" />
@@ -304,17 +290,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\gx\kernels.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\gx\lookup_table.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\gx\morphological_operations.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\animation.core.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\animation.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\ease.detail.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\ease.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\constant.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\repeat.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\phase.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\gradual.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\reverse.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\sequence.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\sequence_phase.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\binomial.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\constants.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\detail\matrix.access.hpp" />
@@ -328,9 +303,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\math\matrix.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\polynomial.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\math\regression.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\md5.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\meta\meta.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\meta\serialization_json.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\ph\ph.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\ph\quantities.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\ph\vectors.hpp" />
@@ -338,7 +310,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\proc\perlin.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\proc\seed.hpp" />
     <ClInclude Include="..\..\..\include\cpp_essentials\sq\sq.hpp" />
-    <ClInclude Include="..\..\..\include\cpp_essentials\term\term.hpp" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>

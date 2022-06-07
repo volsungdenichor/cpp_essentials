@@ -49,29 +49,8 @@
     <Filter Include="Header Files\cpp_essentials\gx">
       <UniqueIdentifier>{fe408fa1-ced6-4a6d-bd1c-db78a52a0781}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\cpp_essentials\meta">
-      <UniqueIdentifier>{f32afa56-67d2-4e82-ba04-0ff671a1f756}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\cpp_essentials\gx\detail">
       <UniqueIdentifier>{ea5d5bce-ae9c-40b7-b97e-899b8d462c3f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\cpp_essentials\graphs">
-      <UniqueIdentifier>{42000d89-6f61-4877-af4a-285aca5072e6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\cpp_essentials\kine">
-      <UniqueIdentifier>{3adda15c-5687-4f8e-a38c-5c4d105af935}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\cpp_essentials\chrono">
-      <UniqueIdentifier>{91c1cbdb-1646-4a11-aca4-67891111807d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\cpp_essentials\carto">
-      <UniqueIdentifier>{9044c3cb-17bc-4879-8072-b2e13bec7d33}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\cpp_essentials\fmt">
-      <UniqueIdentifier>{3bbb24d2-fc1f-4bf4-bf67-0270424c3f8e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\cpp_essentials\term">
-      <UniqueIdentifier>{330f98e6-5dc5-4716-b941-833c376411e6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\cpp_essentials\proc">
       <UniqueIdentifier>{c9c0b8fe-f78d-4423-9ac3-551a1018e0f1}</UniqueIdentifier>
@@ -81,9 +60,6 @@
     </Filter>
     <Filter Include="Header Files\cpp_essentials\ph">
       <UniqueIdentifier>{deaf6035-d010-4bf3-8c5c-2f227c2308b3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\cpp_essentials\async">
-      <UniqueIdentifier>{363a5e8b-43bd-460e-ac7a-5708614791b8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -336,12 +312,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\detail\linear_shape.traits.hpp">
       <Filter>Header Files\cpp_essentials\geo\detail</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\meta\meta.hpp">
-      <Filter>Header Files\cpp_essentials\meta</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\meta\serialization_json.hpp">
-      <Filter>Header Files\cpp_essentials\meta</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\map_utils.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
@@ -402,21 +372,6 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\expected.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\graphs\graph.hpp">
-      <Filter>Header Files\cpp_essentials\graphs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\graphs\algorithm.hpp">
-      <Filter>Header Files\cpp_essentials\graphs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\graphs\binary_tree.hpp">
-      <Filter>Header Files\cpp_essentials\graphs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\graphs\tree.hpp">
-      <Filter>Header Files\cpp_essentials\graphs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\graphs\tree_base.hpp">
-      <Filter>Header Files\cpp_essentials\graphs</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\event.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
@@ -428,39 +383,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\any_range.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\animation.core.hpp">
-      <Filter>Header Files\cpp_essentials\kine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\animation.hpp">
-      <Filter>Header Files\cpp_essentials\kine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\ease.detail.hpp">
-      <Filter>Header Files\cpp_essentials\kine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\ease.hpp">
-      <Filter>Header Files\cpp_essentials\kine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\phase.hpp">
-      <Filter>Header Files\cpp_essentials\kine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\sequence.hpp">
-      <Filter>Header Files\cpp_essentials\kine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\sequence_phase.hpp">
-      <Filter>Header Files\cpp_essentials\kine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\reverse.hpp">
-      <Filter>Header Files\cpp_essentials\kine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\repeat.hpp">
-      <Filter>Header Files\cpp_essentials\kine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\constant.hpp">
-      <Filter>Header Files\cpp_essentials\kine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\kine\gradual.hpp">
-      <Filter>Header Files\cpp_essentials\kine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\orientation.hpp">
       <Filter>Header Files\cpp_essentials\geo</Filter>
@@ -483,32 +405,14 @@
     <ClInclude Include="..\..\..\include\cpp_essentials\core\match.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\chrono\time.hpp">
-      <Filter>Header Files\cpp_essentials\chrono</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\chrono\calendars.hpp">
-      <Filter>Header Files\cpp_essentials\chrono</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\triangulation.hpp">
       <Filter>Header Files\cpp_essentials\geo</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\debug_utils.hpp">
       <Filter>Header Files\cpp_essentials\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\carto\coords_operations.hpp">
-      <Filter>Header Files\cpp_essentials\carto</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\carto\coords.hpp">
-      <Filter>Header Files\cpp_essentials\carto</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\carto\coords_array.hpp">
-      <Filter>Header Files\cpp_essentials\carto</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\math\binomial.hpp">
       <Filter>Header Files\cpp_essentials\math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\fmt\format.hpp">
-      <Filter>Header Files\cpp_essentials\fmt</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\detail\generating_iterator.hpp">
       <Filter>Header Files\cpp_essentials\core\detail</Filter>
@@ -530,9 +434,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\geo\algorithm.hpp">
       <Filter>Header Files\cpp_essentials\geo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\term\term.hpp">
-      <Filter>Header Files\cpp_essentials\term</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\proc\distribution.hpp">
       <Filter>Header Files\cpp_essentials\proc</Filter>
@@ -617,18 +518,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\cpp_essentials\core\views\advance.hpp">
       <Filter>Header Files\cpp_essentials\core\views</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\md5.hpp">
-      <Filter>Header Files\cpp_essentials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\async\channel.hpp">
-      <Filter>Header Files\cpp_essentials\async</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\async\event_aggregator.hpp">
-      <Filter>Header Files\cpp_essentials\async</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\cpp_essentials\async\task_queue.hpp">
-      <Filter>Header Files\cpp_essentials\async</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

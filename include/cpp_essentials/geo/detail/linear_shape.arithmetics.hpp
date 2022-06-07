@@ -13,7 +13,7 @@ template
     , class U
     , size_t D
     , class Tag
-    , CONCEPT = cc::Add<T, U>>
+    , class = cc::Add<T, U>>
 auto& operator +=(linear_shape<T, D, Tag>& lhs, const vector<U, D>& rhs)
 {
     core::transform(lhs._data, lhs._data.begin(), core::plus(rhs));
@@ -25,7 +25,7 @@ template
     , class U
     , size_t D
     , class Tag
-    , CONCEPT = cc::Add<T, U>>
+    , class = cc::Add<T, U>>
 auto operator +(const linear_shape<T, D, Tag>& lhs, const vector<U, D>& rhs) -> linear_shape<cc::Add<T, U>, D, Tag>
 {
     linear_shape<cc::Add<T, U>, D, Tag> result;
@@ -38,7 +38,7 @@ template
     , class U
     , size_t D
     , class Tag
-    , CONCEPT = cc::Add<T, U>>
+    , class = cc::Add<T, U>>
 auto operator +(const vector<T, D>& lhs, const linear_shape<U, D, Tag>& rhs) -> linear_shape<cc::Add<T, U>, D, Tag>
 {
     return rhs + lhs;
@@ -51,7 +51,7 @@ template
     , class U
     , size_t D
     , class Tag
-    , CONCEPT = cc::Subtract<T, U>>
+    , class = cc::Subtract<T, U>>
 auto& operator -=(linear_shape<T, D, Tag>& lhs, const vector<U, D>& rhs)
 {
     core::transform(lhs._data, lhs._data.begin(), core::minus(rhs));
@@ -63,7 +63,7 @@ template
     , class U
     , size_t D
     , class Tag
-    , CONCEPT = cc::Subtract<T, U>>
+    , class = cc::Subtract<T, U>>
 auto operator -(const linear_shape<T, D, Tag>& lhs, const vector<U, D>& rhs) -> linear_shape<cc::Subtract<T, U>, D, Tag>
 {
     linear_shape<cc::Subtract<T, U>, D, Tag> result;
@@ -78,7 +78,7 @@ template
     , class U
     , size_t D
     , class Tag
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto& operator *=(linear_shape<T, D, Tag>& lhs, const square_matrix<U, D>& rhs)
 {
     core::transform(lhs._data, lhs._data.begin(), core::multiplies(rhs));
@@ -90,7 +90,7 @@ template
     , class U
     , size_t D
     , class Tag
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto operator *(const linear_shape<T, D, Tag>& lhs, const square_matrix<U, D>& rhs) -> linear_shape<cc::Multiply<T, U>, D, Tag>
 {
     linear_shape<cc::Multiply<T, U>, D, Tag> result;
@@ -103,7 +103,7 @@ template
     , class U
     , size_t D
     , class Tag
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto operator *(const square_matrix<U, D>& lhs, const linear_shape<T, D, Tag>& rhs) -> linear_shape<cc::Multiply<T, U>, D, Tag>
 {
     return rhs * lhs;
@@ -116,7 +116,7 @@ template
     , class U
     , size_t D
     , class Tag
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto& operator *=(linear_shape<T, D, Tag>& lhs, const square_matrix<U, D + 1>& rhs)
 {
     core::transform(lhs._data, lhs._data.begin(), core::multiplies(rhs));
@@ -128,7 +128,7 @@ template
     , class U
     , size_t D
     , class Tag
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto operator *(const linear_shape<T, D, Tag>& lhs, const square_matrix<U, D + 1>& rhs) -> linear_shape<cc::Multiply<T, U>, D, Tag>
 {
     linear_shape<cc::Multiply<T, U>, D, Tag> result;
@@ -141,7 +141,7 @@ template
     , class U
     , size_t D
     , class Tag
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto operator *(const square_matrix<U, D + 1>& lhs, const linear_shape<T, D, Tag>& rhs) -> linear_shape<cc::Multiply<T, U>, D, Tag>
 {
     return rhs * lhs;

@@ -17,7 +17,7 @@ struct join_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range, const char* separator) const -> std::string
     {
         return stringify(core::delimit(range, separator));

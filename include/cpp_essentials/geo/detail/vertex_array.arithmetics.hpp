@@ -29,7 +29,7 @@ template
     , size_t D
     , size_t N
     , class Tag
-    , CONCEPT = cc::Add<T, U>>
+    , class = cc::Add<T, U>>
 auto& operator +=(vertex_array<T, D, N, Tag>& lhs, const vector<U, D>& rhs)
 {
     core::transform(lhs._data, lhs._data.begin(), core::plus(rhs));
@@ -42,7 +42,7 @@ template
     , size_t D
     , size_t N
     , class Tag
-    , CONCEPT = cc::Add<T, U>>
+    , class = cc::Add<T, U>>
 auto operator +(const vertex_array<T, D, N, Tag>& lhs, const vector<U, D>& rhs) -> vertex_array<cc::Add<T, U>, D, N, Tag>
 {
     vertex_array<cc::Add<T, U>, D, N, Tag> result(lhs.size());
@@ -57,7 +57,7 @@ template
     , size_t D
     , size_t N
     , class Tag
-    , CONCEPT = cc::Subtract<T, U>>
+    , class = cc::Subtract<T, U>>
 auto& operator -=(vertex_array<T, D, N, Tag>& lhs, const vector<U, D>& rhs)
 {
     core::transform(lhs._data, lhs._data.begin(), core::minus(rhs));
@@ -70,7 +70,7 @@ template
     , size_t D
     , size_t N
     , class Tag
-    , CONCEPT = cc::Subtract<T, U>>
+    , class = cc::Subtract<T, U>>
 auto operator -(const vertex_array<T, D, N, Tag>& lhs, const vector<U, D>& rhs) -> vertex_array<cc::Subtract<T, U>, D, N, Tag>
 {
     vertex_array<cc::Subtract<T, U>, D, N, Tag> result(lhs.size());
@@ -85,7 +85,7 @@ template
     , size_t D
     , size_t N
     , class Tag
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto& operator *=(vertex_array<T, D, N, Tag>& lhs, const square_matrix<U, D>& rhs)
 {
     core::transform(lhs._data, lhs._data.begin(), core::multiplies(rhs));
@@ -98,7 +98,7 @@ template
     , size_t D
     , size_t N
     , class Tag
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto operator *(const vertex_array<T, D, N, Tag>& lhs, const square_matrix<U, D>& rhs) -> vertex_array<cc::Multiply<T, U>, D, N, Tag>
 {
     vertex_array<cc::Multiply<T, U>, D, N, Tag> result(lhs.size());
@@ -112,7 +112,7 @@ template
     , size_t D
     , size_t N
     , class Tag
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto operator *(const square_matrix<T, D>& lhs, const vertex_array<U, D, N, Tag>& rhs) -> vertex_array<cc::Multiply<T, U>, D, N, Tag>
 {
     return rhs * lhs;
@@ -125,7 +125,7 @@ template
     , size_t D
     , size_t N
     , class Tag
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto& operator *=(vertex_array<T, D, N, Tag>& lhs, const square_matrix<U, D + 1>& rhs)
 {
     core::transform(lhs, lhs._data.begin(), core::multiplies(rhs));
@@ -138,7 +138,7 @@ template
     , size_t D
     , size_t N
     , class Tag
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto operator *(const vertex_array<T, D, N, Tag>& lhs, const square_matrix<U, D + 1>& rhs) -> vertex_array<cc::Multiply<T, U>, D, N, Tag>
 {
     vertex_array<cc::Multiply<T, U>, D, N, Tag> result(lhs.size());
@@ -152,7 +152,7 @@ template
     , size_t D
     , size_t N
     , class Tag
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto operator *(const square_matrix<T, D + 1>& lhs, const vertex_array<U, D, N, Tag>& rhs) -> vertex_array<cc::Multiply<T, U>, D, N, Tag>
 {
     return rhs * lhs;

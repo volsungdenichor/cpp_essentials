@@ -28,8 +28,8 @@ struct take_if_fn
     template
         < class Range
         , class UnaryPred
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , class = cc::InputRange<Range>
+        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred pred) const
     {
         return make_filtered_range(std::begin(range), std::end(range), make_func(pred));
@@ -41,8 +41,8 @@ struct drop_if_fn
     template
         < class Range
         , class UnaryPred
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , class = cc::InputRange<Range>
+        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred pred) const
     {
         return make_filtered_range(std::begin(range), std::end(range), logical_negation(make_func(pred)));

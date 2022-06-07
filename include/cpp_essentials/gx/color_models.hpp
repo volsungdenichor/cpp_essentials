@@ -161,32 +161,32 @@ inline rgb_color& operator -=(rgb_color& lhs, const rgb_proxy& rhs)
 }
 
 
-template <typename T, CONCEPT = cc::Arithmetic<T>>
+template <typename T, class = cc::Arithmetic<T>>
 rgb_proxy operator *(const rgb_color& lhs, T rhs)
 {
     return static_cast<rgb_proxy>(lhs) * rhs;
 }
 
-template <typename T, CONCEPT = cc::Arithmetic<T>>
+template <typename T, class = cc::Arithmetic<T>>
 rgb_proxy operator *(T lhs, const rgb_color& rhs)
 {
     return rhs * lhs;
 }
 
-template <typename T, CONCEPT = cc::Arithmetic<T>>
+template <typename T, class = cc::Arithmetic<T>>
 rgb_color& operator *=(rgb_color& lhs, T rhs)
 {
     lhs = lhs * rhs;
     return lhs;
 }
 
-template <typename T, CONCEPT = cc::Arithmetic<T>>
+template <typename T, class = cc::Arithmetic<T>>
 rgb_proxy operator /(const rgb_color& lhs, T rhs)
 {
     return static_cast<rgb_proxy>(lhs) / rhs;
 }
 
-template <typename T, CONCEPT = cc::Arithmetic<T>>
+template <typename T, class = cc::Arithmetic<T>>
 rgb_color& operator /=(rgb_color& lhs, T rhs)
 {
     lhs = lhs / rhs;

@@ -174,7 +174,7 @@ struct output_fn
 
 struct write_fn
 {
-    template <class C, class Range, CONCEPT = cc::InputRange<Range>>
+    template <class C, class Range, class = cc::InputRange<Range>>
     auto operator ()(Range&& range, std::basic_ostream<C>& os, const C* separator = nullptr) const
     {
         static constexpr auto _copy = copy_fn{};
@@ -188,7 +188,7 @@ struct delimit_fn
     template
         < class Range
         , class C
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range, const C* separator) const -> ostream_manipulator
     {
         return delimit(std::begin(range), std::end(range), separator);

@@ -74,8 +74,8 @@ struct get<9, quantity_type<D0, D1, D2, D3, D4, D5, D6, D7, D8, D9>> { static co
 template
     < class Quant1
     , class Quant2
-    , CONCEPT = is_quantity<Quant1>
-    , CONCEPT = is_quantity<Quant2>>
+    , class = is_quantity<Quant1>
+    , class = is_quantity<Quant2>>
 struct mul_result
 {
     using type = quantity_type
@@ -94,8 +94,8 @@ struct mul_result
 template
     < class Quant1
     , class Quant2
-    , CONCEPT = is_quantity<Quant1>
-    , CONCEPT = is_quantity<Quant2>>
+    , class = is_quantity<Quant1>
+    , class = is_quantity<Quant2>>
 struct div_result
 {
     using type = quantity_type
@@ -115,7 +115,7 @@ template
     < class Quant
     , int N
     , int D
-    , CONCEPT = is_quantity<Quant>>
+    , class = is_quantity<Quant>>
 struct pow_result
 {
     using type = quantity_type
@@ -185,19 +185,19 @@ using sqr_root = typename pow_result<Quant, 1, 2>::type;
 
 using scalar = quantity_type<0, 0, 0, 0, 0, 0, 0, 0, 0, 0>;
 
-template <class Quant1, class Quant2, CONCEPT = is_quantity<Quant1>, CONCEPT = is_quantity<Quant2>>
+template <class Quant1, class Quant2, class = is_quantity<Quant1>, class = is_quantity<Quant2>>
 auto operator *(Quant1, Quant2) -> mul<Quant1, Quant2>
 {
     return {};
 }
 
-template <class Quant1, class Quant2, CONCEPT = is_quantity<Quant1>, CONCEPT = is_quantity<Quant2>>
+template <class Quant1, class Quant2, class = is_quantity<Quant1>, class = is_quantity<Quant2>>
 auto operator /(Quant1, Quant2) -> div<Quant1, Quant2>
 {
     return {};
 }
 
-template <class Quant, CONCEPT = is_quantity<Quant>>
+template <class Quant, class = is_quantity<Quant>>
 auto operator /(int, Quant) -> inv<Quant>
 {
     return {};
@@ -208,8 +208,8 @@ auto operator /(int, Quant) -> inv<Quant>
 template
     < class Quant
     , class T
-    , CONCEPT = detail::is_quantity<Quant>
-    , CONCEPT = cc::Arithmetic<T>>
+    , class = detail::is_quantity<Quant>
+    , class = cc::Arithmetic<T>>
 using quantity = core::tagged_value<T, Quant>;
 
 

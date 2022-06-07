@@ -8,8 +8,6 @@
 
 #pragma once
 
-#define CONCEPT class
-
 namespace cc
 {
 

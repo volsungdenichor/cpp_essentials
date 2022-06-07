@@ -16,7 +16,7 @@ struct unzip_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range) const
     {
         return create(FORWARD(range), std::make_index_sequence<std::tuple_size_v<cc::range_val<Range>>>{});

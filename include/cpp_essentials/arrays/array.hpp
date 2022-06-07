@@ -107,7 +107,7 @@ public:
         return view();
     }
 
-    template <class U, CONCEPT = cc::Assignable<reference, U>>
+    template <class U, class = cc::Assignable<reference, U>>
     void operator =(const U& value)
     {
         view() = value;
@@ -210,37 +210,37 @@ public:
     }
 #endif
 
-    template <size_t N, size_t Dim = D, CONCEPT = std::enable_if_t<(Dim > 1)>>
+    template <size_t N, size_t Dim = D, class = std::enable_if_t<(Dim > 1)>>
     const_slice_type slice(location_value_type index) const
     {
         return view().slice<N>(index);
     }
 
-    template <size_t N, size_t Dim = D, CONCEPT = std::enable_if_t<(Dim > 1)>>
+    template <size_t N, size_t Dim = D, class = std::enable_if_t<(Dim > 1)>>
     slice_type slice(location_value_type index)
     {
         return view().slice<N>(index);
     }
 
-    template <size_t N, size_t Dim = D, CONCEPT = std::enable_if_t<(Dim > 1)>>
+    template <size_t N, size_t Dim = D, class = std::enable_if_t<(Dim > 1)>>
     const_slice_range_type slice_range() const
     {
         return view().template slice_range<N>();
     }
 
-    template <size_t N, size_t Dim = D, CONCEPT = std::enable_if_t<(Dim > 1)>>
+    template <size_t N, size_t Dim = D, class = std::enable_if_t<(Dim > 1)>>
     slice_range_type slice_range()
     {
         return view().template slice_range<N>();
     }
 
-    template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim > 1)>>
+    template <size_t Dim = D, class = std::enable_if_t<(Dim > 1)>>
     const_slice_type operator [](location_value_type index) const
     {
         return view()[index];
     }
 
-    template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim > 1)>>
+    template <size_t Dim = D, class = std::enable_if_t<(Dim > 1)>>
     slice_type operator [](location_value_type index)
     {
         return view()[index];
@@ -256,49 +256,49 @@ public:
         return view().region_range(size);
     }
 
-    template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
+    template <size_t Dim = D, class = std::enable_if_t<(Dim == 2)>>
     const_slice_type row(location_value_type index) const
     {
         return view().row(index);
     }
 
-    template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
+    template <size_t Dim = D, class = std::enable_if_t<(Dim == 2)>>
     slice_type row(location_value_type index)
     {
         return view().row(index);
     }
 
-    template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
+    template <size_t Dim = D, class = std::enable_if_t<(Dim == 2)>>
     const_slice_range_type row_range() const
     {
         return view().row_range();
     }
 
-    template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
+    template <size_t Dim = D, class = std::enable_if_t<(Dim == 2)>>
     slice_range_type row_range()
     {
         return view().row_range();
     }
 
-    template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
+    template <size_t Dim = D, class = std::enable_if_t<(Dim == 2)>>
     const_slice_type column(location_value_type index) const
     {
         return view().column(index);
     }
 
-    template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
+    template <size_t Dim = D, class = std::enable_if_t<(Dim == 2)>>
     slice_type column(location_value_type index)
     {
         return view().column(index);
     }
 
-    template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
+    template <size_t Dim = D, class = std::enable_if_t<(Dim == 2)>>
     const_slice_range_type column_range() const
     {
         return view().column_range();
     }
 
-    template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
+    template <size_t Dim = D, class = std::enable_if_t<(Dim == 2)>>
     slice_range_type column_range()
     {
         return view().column_range();

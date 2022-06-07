@@ -128,31 +128,31 @@ public:
         return { size_type {}, size() };
     }
 
-    template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
+    template <size_t Dim = D, class = std::enable_if_t<(Dim == 2)>>
     size_value_type width() const
     {
         return _size.x();
     }
 
-    template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
+    template <size_t Dim = D, class = std::enable_if_t<(Dim == 2)>>
     size_value_type height() const
     {
         return _size.y();
     }
 
-    template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
+    template <size_t Dim = D, class = std::enable_if_t<(Dim == 2)>>
     size_value_type slice_count() const
     {
         return _size.template get<Dim>();
     }
 
-    template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
+    template <size_t Dim = D, class = std::enable_if_t<(Dim == 2)>>
     size_value_type column_count() const
     {
         return slice_count<0>();
     }
 
-    template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
+    template <size_t Dim = D, class = std::enable_if_t<(Dim == 2)>>
     size_value_type row_count() const
     {
         return slice_count<1>();

@@ -17,7 +17,7 @@ namespace detail
 
 template
     < class Exception
-    , CONCEPT = cc::BaseOf<std::exception, Exception>>
+    , class = cc::BaseOf<std::exception, Exception>>
 class exception_wrapper : public Exception
 {
 public:

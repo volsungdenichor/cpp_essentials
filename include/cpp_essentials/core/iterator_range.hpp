@@ -62,7 +62,7 @@ auto advance_back_exactly(Iter begin, Iter end, Diff n) -> Iter
 }
 
 
-template <class Iter, CONCEPT = cc::InputIterator<Iter>>
+template <class Iter, class = cc::InputIterator<Iter>>
 class iterator_range
 {
 public:
@@ -90,7 +90,7 @@ public:
     {
     }
 
-    template <class Range, CONCEPT = cc::InputRange<Range>>
+    template <class Range, class = cc::InputRange<Range>>
     iterator_range(Range&& range)
         : iterator_range{ std::begin(range), std::end(range) }
     {
@@ -143,7 +143,7 @@ public:
         return *it;
     }
 
-    template <class Container, CONCEPT = cc::Constructible<Container, iterator, iterator>>
+    template <class Container, class = cc::Constructible<Container, iterator, iterator>>
     operator Container() const
     {
         return { begin(), end() };
@@ -169,37 +169,37 @@ private:
 
 
 
-template <class Iter, class Range, CONCEPT = cc::InputRange<Range>>
+template <class Iter, class Range, class = cc::InputRange<Range>>
 auto operator ==(const iterator_range<Iter>& lhs, Range&& rhs) -> bool
 {
     return std::equal(std::begin(rhs), std::end(rhs), lhs.begin(), lhs.end());
 }
 
-template <class Iter, class Range, CONCEPT = cc::InputRange<Range>>
+template <class Iter, class Range, class = cc::InputRange<Range>>
 auto operator !=(const iterator_range<Iter>& lhs, Range&& rhs) -> bool
 {
     return !(lhs == rhs);
 }
 
-template <class Iter, class Range, CONCEPT = cc::InputRange<Range>>
+template <class Iter, class Range, class = cc::InputRange<Range>>
 auto operator <(const iterator_range<Iter>& lhs, Range&& rhs) -> bool
 {
     return std::lexicographical_compare(lhs.begin(), lhs.end(), std::begin(rhs), std::end(rhs));
 }
 
-template <class Iter, class Range, CONCEPT = cc::InputRange<Range>>
+template <class Iter, class Range, class = cc::InputRange<Range>>
 auto operator >(const iterator_range<Iter>& lhs, Range&& rhs) -> bool
 {
     return rhs < lhs;
 }
 
-template <class Iter, class Range, CONCEPT = cc::InputRange<Range>>
+template <class Iter, class Range, class = cc::InputRange<Range>>
 auto operator <=(const iterator_range<Iter>& lhs, Range&& rhs) -> bool
 {
     return !(lhs > rhs);
 }
 
-template <class Iter, class Range, CONCEPT = cc::InputRange<Range>>
+template <class Iter, class Range, class = cc::InputRange<Range>>
 auto operator >=(const iterator_range<Iter>& lhs, Range&& rhs) -> bool
 {
     return !(lhs < rhs);
@@ -210,19 +210,19 @@ namespace detail
 
 struct make_range_fn
 {
-    template <class Iter, CONCEPT = cc::InputIterator<Iter>>
+    template <class Iter, class = cc::InputIterator<Iter>>
     auto operator ()(Iter begin, Iter end) const -> iterator_range<Iter>
     {
         return iterator_range<Iter>{ begin, end };
     }
 
-    template <class Iter, CONCEPT = cc::InputIterator<Iter>>
+    template <class Iter, class = cc::InputIterator<Iter>>
     auto operator ()(const std::pair<Iter, Iter>& pair) const -> iterator_range<Iter>
     {
         return (*this)(std::get<0>(pair), std::get<1>(pair));
     }
 
-    template <class Range, CONCEPT = cc::InputRange<Range>>
+    template <class Range, class = cc::InputRange<Range>>
     auto operator ()(Range&& range) const
     {
         return (*this)(std::begin(range), std::end(range));
@@ -231,7 +231,7 @@ struct make_range_fn
 
 struct make_default_ended_range_fn
 {
-    template <class Iter, CONCEPT = cc::InputIterator<Iter>>
+    template <class Iter, class = cc::InputIterator<Iter>>
     auto operator ()(Iter begin) const -> iterator_range<Iter>
     {
         return iterator_range<Iter>{ begin, Iter{} };
@@ -240,7 +240,7 @@ struct make_default_ended_range_fn
 
 struct make_range_from_optional_fn
 {
-    template <class T, CONCEPT = cc::Optional<T>>
+    template <class T, class = cc::Optional<T>>
     auto operator ()(T& optional) const
     {
         auto b = optional ? std::addressof(*optional) + 0 : nullptr;
@@ -252,7 +252,7 @@ struct make_range_from_optional_fn
 
 struct make_range_pair_fn
 {
-    template <class Iter, CONCEPT = cc::InputIterator<Iter>>
+    template <class Iter, class = cc::InputIterator<Iter>>
     auto operator ()(Iter begin, Iter end, Iter middle) const
     {
         return std::make_pair(iterator_range<Iter>{begin, middle}, iterator_range<Iter>{middle, end});
@@ -260,7 +260,7 @@ struct make_range_pair_fn
 
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range, cc::range_iter<Range> middle) const
     {
         return (*this)(std::begin(range), std::end(range), middle);

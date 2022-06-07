@@ -42,7 +42,7 @@ struct enumerate_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range, int start = 0) const
     {
         using cpp_essentials::core::views::zip;

@@ -94,13 +94,13 @@ public:
     ref_vector(const ref_vector&) = default;
     ref_vector(ref_vector&&) = default;
 
-    template <class Container, CONCEPT = cc::Reference<cc::range_ref<Container>>>
+    template <class Container, class = cc::Reference<cc::range_ref<Container>>>
     ref_vector(Container&& container)
     {
         std::transform(std::begin(container), std::end(container), std::back_inserter(_vect), [](auto&& item) { return pointer(&item); });
     }
 
-    template <class Iter, CONCEPT = cc::Reference<cc::iter_ref<Iter>>>
+    template <class Iter, class = cc::Reference<cc::iter_ref<Iter>>>
     ref_vector(Iter begin, Iter end)
     {
         std::transform(begin, end, std::back_inserter(_vect), [](auto&& item) { return pointer(&item); });
@@ -111,7 +111,7 @@ public:
         std::transform(std::begin(init), std::end(init), std::back_inserter(_vect), [](auto&& item) { return pointer(&item.get()); });
     }
 
-    template <class Container, CONCEPT = cc::Constructible<Container, const_iterator, const_iterator>>
+    template <class Container, class = cc::Constructible<Container, const_iterator, const_iterator>>
     operator Container() const
     {
         return { begin(), end() };

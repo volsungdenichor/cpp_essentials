@@ -16,7 +16,7 @@ struct advance_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
         const auto b = std::begin(range);
@@ -36,8 +36,8 @@ struct advance_while_fn
     template
         < class Range
         , class UnaryPred
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , class = cc::InputRange<Range>
+        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const
     {
         const auto b = std::begin(range);
@@ -56,8 +56,8 @@ struct advance_until_fn
     template
         < class Range
         , class UnaryPred
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , class = cc::InputRange<Range>
+        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const
     {
         const auto b = std::begin(range);

@@ -81,19 +81,19 @@ struct as_fn
     template <class T>
     using quant = quantity<Quant, T>;
 
-    template <class T, CONCEPT = cc::Arithmetic<T>>
+    template <class T, class = cc::Arithmetic<T>>
     constexpr auto operator ()(T value) const -> quantity<Quant, T>
     {
         return get(value);
     }
 
-    template <class T, CONCEPT = cc::Arithmetic<T>>
+    template <class T, class = cc::Arithmetic<T>>
     constexpr auto operator ()(T x, T y) const -> vector_2d<Quant, T>
     {
         return { get(x), get(y) };
     }
 
-    template <class T, CONCEPT = cc::Arithmetic<T>>
+    template <class T, class = cc::Arithmetic<T>>
     constexpr auto operator ()(T x, T y, T z) const -> vector_3d<Quant, T>
     {
         return { get(x), get(y), get(z) };

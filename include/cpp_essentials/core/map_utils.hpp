@@ -40,7 +40,7 @@ using AssociativeContainer = std::enable_if_t<is_associative_container_v<T>>;
 
 struct map_equal_range_fn
 {
-    template <class Map, class K, CONCEPT = AssociativeContainer<std::decay_t<Map>>>
+    template <class Map, class K, class = AssociativeContainer<std::decay_t<Map>>>
     auto operator ()(Map&& item, const K& key) const
     {
         return make_range(item.equal_range(key));
@@ -49,7 +49,7 @@ struct map_equal_range_fn
 
 struct map_at_fn
 {
-    template <class Map, class K, CONCEPT = AssociativeContainer<std::decay_t<Map>>>
+    template <class Map, class K, class = AssociativeContainer<std::decay_t<Map>>>
     auto operator ()(Map&& item, const K& key) const
     {
         static constexpr auto _map_equal_range = map_equal_range_fn{};
@@ -59,7 +59,7 @@ struct map_at_fn
 
 struct map_try_get_fn
 {
-    template <class Map, class K, CONCEPT = AssociativeContainer<Map>>
+    template <class Map, class K, class = AssociativeContainer<Map>>
     core::optional<const typename Map::mapped_type&> operator ()(const Map& map, const K& key) const
     {
         using result_type = core::optional<const typename Map::mapped_type&>;
@@ -67,7 +67,7 @@ struct map_try_get_fn
         return it != map.end() ? result_type{ it->second } : result_type{};
     }
 
-    template <class Map, class K, CONCEPT = AssociativeContainer<Map>>
+    template <class Map, class K, class = AssociativeContainer<Map>>
     core::optional<typename Map::mapped_type&> operator ()(Map& map, const K& key) const
     {
         using result_type = core::optional<typename Map::mapped_type&>;
@@ -78,7 +78,7 @@ struct map_try_get_fn
 
 struct map_get_fn
 {
-    template <class Map, class K, CONCEPT = AssociativeContainer<Map>>
+    template <class Map, class K, class = AssociativeContainer<Map>>
     const typename Map::mapped_type& operator ()(const Map& map, const K& key) const
     {
         static constexpr auto _map_try_get = map_try_get_fn{};
@@ -88,7 +88,7 @@ struct map_get_fn
         });
     }
 
-    template <class Map, class K, CONCEPT = AssociativeContainer<Map>>
+    template <class Map, class K, class = AssociativeContainer<Map>>
     typename Map::mapped_type& operator ()(Map& map, const K& key) const
     {
         static constexpr auto _map_try_get = map_try_get_fn{};

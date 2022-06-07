@@ -99,7 +99,7 @@ public:
         return _data.at(index);
     }    
 
-    template <class U = T, size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
+    template <class U = T, size_t Dim = D, class = std::enable_if_t<(Dim == 2)>>
     quad<U, 2> as_quad() const
     {
         const auto lo = min();
@@ -113,13 +113,13 @@ public:
         };
     }
 
-    template <class U, size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
+    template <class U, size_t Dim = D, class = std::enable_if_t<(Dim == 2)>>
     operator quad<U, 2>() const
     {
         return as_quad<U>();
     }
 
-    template <class U = T, size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
+    template <class U = T, size_t Dim = D, class = std::enable_if_t<(Dim == 2)>>
     operator polygon<U, D>() const
     {
         return as_quad<U>();
@@ -142,7 +142,7 @@ template
     < class T
     , class U
     , size_t D
-    , CONCEPT = cc::Add<T, U>>
+    , class = cc::Add<T, U>>
 auto& operator +=(bounding_box<T, D>& lhs, const vector<U, D>& rhs)
 {
     for (size_t d = 0; d < D; ++d)
@@ -156,7 +156,7 @@ template
     < class T
     , class U
     , size_t D
-    , CONCEPT = cc::Add<T, U>>
+    , class = cc::Add<T, U>>
 auto operator +(const bounding_box<T, D>& lhs, const vector<U, D>& rhs) -> bounding_box<cc::Add<T, U>, D>
 {
     bounding_box<cc::Add<T, U>, D> result;
@@ -170,7 +170,7 @@ auto operator +(const bounding_box<T, D>& lhs, const vector<U, D>& rhs) -> bound
 template
 < class T
     , class U
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto operator *(const rect_2d<T>& lhs, const square_matrix_2d<U>& rhs) -> quad_2d<cc::Multiply<T, U>>
 {
     return static_cast<quad<T, 2>>(lhs) * rhs;
@@ -179,7 +179,7 @@ auto operator *(const rect_2d<T>& lhs, const square_matrix_2d<U>& rhs) -> quad_2
 template
     < class T
     , class U
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto operator *(const square_matrix_2d<T>& lhs, const rect_2d<U>& rhs) -> quad_2d<cc::Multiply<T, U>>
 {
     return rhs * lhs;
@@ -192,7 +192,7 @@ template
     < class T
     , class U
     , size_t D
-    , CONCEPT = cc::Subtract<T, U>>
+    , class = cc::Subtract<T, U>>
 auto& operator -=(bounding_box<T, D>& lhs, const vector<U, D>& rhs)
 {
     for (size_t d = 0; d < D; ++d)
@@ -206,7 +206,7 @@ template
     < class T
     , class U
     , size_t D
-    , CONCEPT = cc::Subtract<T, U>>
+    , class = cc::Subtract<T, U>>
 auto operator -(const bounding_box<T, D>& lhs, const vector<U, D>& rhs) -> bounding_box<cc::Subtract<T, U>, D>
 {
     bounding_box<cc::Subtract<T, U>, D> result;

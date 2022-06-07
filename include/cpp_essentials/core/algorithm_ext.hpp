@@ -64,7 +64,7 @@ struct front_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     decltype(auto) operator ()(Range&& range) const
     {
         auto[b, e] = make_range(range);
@@ -78,8 +78,8 @@ struct front_or_throw_fn
     template
         < class Range
         , class Exception
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::BaseOf<std::exception, Exception>>
+        , class = cc::InputRange<Range>
+        , class = cc::BaseOf<std::exception, Exception>>
     decltype(auto) operator ()(Range&& range, const Exception& exception) const
     {
         auto[b, e] = make_range(range);
@@ -92,7 +92,7 @@ struct front_or_throw_fn
 
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     decltype(auto) operator ()(Range&& range, const std::string& message) const
     {
         return (*this)(range, std::runtime_error{ message });
@@ -100,7 +100,7 @@ struct front_or_throw_fn
 
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     decltype(auto) operator ()(Range&& range, const function<std::string>& message_builder) const
     {
         auto[b, e] = make_range(range);
@@ -117,7 +117,7 @@ struct front_or_fn
     template
         < class Range
         , class T
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range, const T& default_value) const
     {
         auto[b, e] = make_range(range);
@@ -129,7 +129,7 @@ struct front_or_default_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range) const
     {
         auto[b, e] = make_range(range);
@@ -142,8 +142,8 @@ struct front_or_eval_fn
     template
         < class Range
         , class Func
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::NullaryFunction<Func>>
+        , class = cc::InputRange<Range>
+        , class = cc::NullaryFunction<Func>>
     auto operator ()(Range&& range, Func func) const
     {
         auto[b, e] = make_range(range);
@@ -155,7 +155,7 @@ struct front_or_none_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range) const -> decltype(auto)
     {
         auto[b, e] = make_range(range);
@@ -167,7 +167,7 @@ struct single_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     decltype(auto) operator ()(Range&& range) const
     {
         auto[b, e] = make_range(range);
@@ -181,8 +181,8 @@ struct single_or_throw_fn
     template
         < class Range
         , class Exception
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::BaseOf<std::exception, Exception>>
+        , class = cc::InputRange<Range>
+        , class = cc::BaseOf<std::exception, Exception>>
     decltype(auto) operator ()(Range&& range, const Exception& exception) const
     {
         auto[b, e] = make_range(range);
@@ -195,7 +195,7 @@ struct single_or_throw_fn
 
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     decltype(auto) operator ()(Range&& range, const std::string& message) const
     {
         return (*this)(range, std::runtime_error{ message });
@@ -204,8 +204,8 @@ struct single_or_throw_fn
     template
         < class Range
         , class Exception
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::BaseOf<std::exception, Exception>>
+        , class = cc::InputRange<Range>
+        , class = cc::BaseOf<std::exception, Exception>>
     decltype(auto) operator ()(Range&& range, const function<std::string>& message_builder) const
     {
         auto[b, e] = make_range(range);
@@ -222,7 +222,7 @@ struct single_or_fn
     template
         < class Range
         , class T
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range, const T& default_value) const
     {
         auto[b, e] = make_range(range);
@@ -234,7 +234,7 @@ struct single_or_default_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range) const
     {
         auto[b, e] = make_range(range);
@@ -247,8 +247,8 @@ struct single_or_eval_fn
     template
         < class Range
         , class Func
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::NullaryFunction<Func>>
+        , class = cc::InputRange<Range>
+        , class = cc::NullaryFunction<Func>>
     auto operator ()(Range&& range, Func func) const
     {
         auto[b, e] = make_range(range);
@@ -260,7 +260,7 @@ struct single_or_none_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range) const -> decltype(auto)
     {
         auto[b, e] = make_range(range);
@@ -274,7 +274,7 @@ struct at_fn
 
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     decltype(auto) operator ()(Range&& range, std::ptrdiff_t count) const
     {
         return _front(drop(range, count));
@@ -288,8 +288,8 @@ struct at_or_throw_fn
     template
         < class Range
         , class Exception
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::BaseOf<std::exception, Exception>>
+        , class = cc::InputRange<Range>
+        , class = cc::BaseOf<std::exception, Exception>>
     decltype(auto) operator ()(Range&& range, std::ptrdiff_t count, const Exception& exception) const
     {
         return _front_or_throw(drop(range, count), exception);
@@ -297,7 +297,7 @@ struct at_or_throw_fn
 
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     decltype(auto) operator ()(Range&& range, std::ptrdiff_t count, const std::string& message) const
     {
         return _front_or_throw(drop(range, count), message);
@@ -306,8 +306,8 @@ struct at_or_throw_fn
     template
         < class Range
         , class Exception
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::BaseOf<std::exception, Exception>>
+        , class = cc::InputRange<Range>
+        , class = cc::BaseOf<std::exception, Exception>>
     decltype(auto) operator ()(Range&& range, std::ptrdiff_t count, const function<std::string>& message_builder) const
     {
         return _front_or_throw(drop(range, count), message_builder);
@@ -321,7 +321,7 @@ struct at_or_fn
     template
         < class Range
         , class T
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     decltype(auto) operator ()(Range&& range, std::ptrdiff_t count, const T& default_value) const
     {
         return _front_or(drop(range, count), default_value);
@@ -334,7 +334,7 @@ struct at_or_default_fn
 
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     decltype(auto) operator ()(Range&& range, std::ptrdiff_t count) const
     {
         return _front_or_default(drop(range, count));
@@ -348,8 +348,8 @@ struct at_or_eval_fn
     template
         < class Range
         , class Func
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::NullaryFunction<Func>>
+        , class = cc::InputRange<Range>
+        , class = cc::NullaryFunction<Func>>
     decltype(auto) operator ()(Range&& range, std::ptrdiff_t count, Func func) const
     {
         return _front_or_eval(drop(range, count), func);
@@ -362,7 +362,7 @@ struct at_or_none_fn
 
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     decltype(auto) operator ()(Range&& range, std::ptrdiff_t count) const
     {
         return _front_or_none(drop(range, count));
@@ -373,7 +373,7 @@ struct size_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range) const
     {
         return std::distance(std::begin(range), std::end(range));
@@ -384,7 +384,7 @@ struct empty_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range) const
     {
         return std::begin(range) == std::end(range);
@@ -395,7 +395,7 @@ struct non_empty_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range) const
     {
         return std::begin(range) != std::end(range);
@@ -408,9 +408,9 @@ struct copy_while_fn
         < class Range
         , class OutputIter
         , class UnaryPred
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::OutputIterator<OutputIter>
-        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , class = cc::InputRange<Range>
+        , class = cc::OutputIterator<OutputIter>
+        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, OutputIter output, UnaryPred&& pred) const
     {
         return copy_while(std::begin(range), std::end(range), output, make_func(pred));
@@ -422,8 +422,8 @@ struct overwrite_fn
     template
         < class Range
         , class Dest
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::Range<Dest>>
+        , class = cc::InputRange<Range>
+        , class = cc::Range<Dest>>
     auto operator ()(Range&& range, Dest&& dest) const
     {
         return overwrite(std::begin(range), std::end(range), std::begin(dest), std::end(dest));
@@ -436,9 +436,9 @@ struct copy_until_fn
         < class Range
         , class OutputIter
         , class UnaryPred
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::OutputIterator<OutputIter>
-        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , class = cc::InputRange<Range>
+        , class = cc::OutputIterator<OutputIter>
+        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, OutputIter output, UnaryPred&& pred) const
     {
         return copy_while(std::begin(range), std::end(range), output, logical_negation(make_func(pred)));
@@ -451,9 +451,9 @@ struct starts_with_fn
         < class Range1
         , class Range2
         , class BinaryPred = std::equal_to<>
-        , CONCEPT = cc::InputRange<Range1>
-        , CONCEPT = cc::InputRange<Range2>
-        , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
+        , class = cc::InputRange<Range1>
+        , class = cc::InputRange<Range2>
+        , class = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     auto operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
         auto[b1, e1] = make_range(range1);
@@ -469,9 +469,9 @@ struct ends_with_fn
         < class Range1
         , class Range2
         , class BinaryPred = std::equal_to<>
-        , CONCEPT = cc::InputRange<Range1>
-        , CONCEPT = cc::InputRange<Range2>
-        , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
+        , class = cc::InputRange<Range1>
+        , class = cc::InputRange<Range2>
+        , class = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     auto operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
         auto[b1, e1] = make_range(range1);
@@ -490,9 +490,9 @@ struct contains_fn
         < class Range1
         , class Range2
         , class BinaryPred = std::equal_to<>
-        , CONCEPT = cc::InputRange<Range1>
-        , CONCEPT = cc::InputRange<Range2>
-        , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
+        , class = cc::InputRange<Range1>
+        , class = cc::InputRange<Range2>
+        , class = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range1>, cc::range_ref<Range2>>>
     auto operator ()(Range1&& range1, Range2&& range2, BinaryPred&& pred = {}) const
     {
         auto[b1, e1] = make_range(range1);
@@ -508,8 +508,8 @@ struct starts_with_element_fn
         < class Range
         , class T
         , class BinaryPred = std::equal_to<>
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>, T>>
+        , class = cc::InputRange<Range>
+        , class = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>, T>>
     auto operator ()(Range&& range, const T& element, BinaryPred&& pred = {}) const
     {
         auto[b, e] = make_range(range);
@@ -524,8 +524,8 @@ struct ends_with_element_fn
         < class Range
         , class T
         , class BinaryPred = std::equal_to<>
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>, T>>
+        , class = cc::InputRange<Range>
+        , class = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>, T>>
     auto operator ()(Range&& range, const T& element, BinaryPred&& pred = {}) const
     {
         auto[b, e] = make_range(range);
@@ -540,8 +540,8 @@ struct contains_element_fn
         < class Range
         , class T
         , class BinaryPred = std::equal_to<>
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>, T>>
+        , class = cc::InputRange<Range>
+        , class = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>, T>>
     auto operator ()(Range&& range, const T& element, BinaryPred&& pred = {}) const
     {
         auto[b, e] = make_range(range);
@@ -554,7 +554,7 @@ struct sum_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range) const
     {
         using result_type = cc::Add<cc::range_val<Range>, cc::range_val<Range>>;
@@ -604,8 +604,8 @@ struct min_value_fn
     template
         < class Range
         , class Compare = std::less<>
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>, cc::range_ref<Range>>>
+        , class = cc::InputRange<Range>
+        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range>, cc::range_ref<Range>>>
     auto operator ()(Range&& range, Compare&& compare = {}) const
     {
         return extreme_value(std::begin(range), std::end(range), std::move(compare));
@@ -617,8 +617,8 @@ struct max_value_fn
     template
         < class Range
         , class Compare = std::less<>
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>, cc::range_ref<Range>>>
+        , class = cc::InputRange<Range>
+        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range>, cc::range_ref<Range>>>
     auto operator ()(Range&& range, Compare&& compare = {}) const
     {
         return extreme_value(std::begin(range), std::end(range), logical_negation(std::move(compare)));
@@ -630,8 +630,8 @@ struct minmax_value_fn
     template
         < class Range
         , class Compare = std::less<>
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::BinaryPredicate<Compare, cc::range_ref<Range>, cc::range_ref<Range>>>
+        , class = cc::InputRange<Range>
+        , class = cc::BinaryPredicate<Compare, cc::range_ref<Range>, cc::range_ref<Range>>>
     auto operator ()(Range&& range, Compare&& compare = {}) const
     {
         return extreme_values(std::begin(range), std::end(range), std::move(compare));
@@ -643,8 +643,8 @@ struct all_equal_fn
     template
         < class Range
         , class BinaryPred = std::equal_to<>
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>, cc::range_ref<Range>>>
+        , class = cc::InputRange<Range>
+        , class = cc::BinaryPredicate<BinaryPred, cc::range_ref<Range>, cc::range_ref<Range>>>
     auto operator ()(Range&& range, BinaryPred&& pred = {}) const
     {
         auto[b, e] = make_range(range);

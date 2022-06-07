@@ -79,13 +79,13 @@ public:
     {
     }
 
-    template <class U, CONCEPT = std::enable_if_t<std::is_const_v<T> && !std::is_const_v<U> && std::is_same_v<T, std::add_const_t<U>>>>
+    template <class U, class = std::enable_if_t<std::is_const_v<T> && !std::is_const_v<U> && std::is_same_v<T, std::add_const_t<U>>>>
     array_view(const array_view<U, D>& other)
         : array_view(pointer(other.data()), other.size(), other.stride())
     {
     }
    
-    template <class U, CONCEPT = cc::Assignable<reference, U>>
+    template <class U, class = cc::Assignable<reference, U>>
     void operator =(const U& value)
     {
         static_assert(!std::is_const_v<T>, "array_view: cannot assign value to const array");
@@ -130,44 +130,44 @@ public:
         return make_iterator(base_type::end_location(), base_type::volume());
     }
 
-    template <size_t N, size_t Dim = D, CONCEPT = std::enable_if_t<(Dim > 1)>>
+    template <size_t N, size_t Dim = D, class = std::enable_if_t<(Dim > 1)>>
     slice_range_type slice_range() const
     {
         static const size_t dim = D - 1 - N;
         return slice_range<N>(size_value_type(0), base_type::size().template get<dim>());
     }
 
-    template <size_t N, size_t Dim = D, CONCEPT = std::enable_if_t<(Dim > 1)>>
+    template <size_t N, size_t Dim = D, class = std::enable_if_t<(Dim > 1)>>
     slice_type slice(location_value_type index) const
     {
         return slice_range<N>()[index];
     }
 
-    template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
+    template <size_t Dim = D, class = std::enable_if_t<(Dim == 2)>>
     slice_range_type row_range() const
     {
         return slice_range<0>();
     }
 
-    template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
+    template <size_t Dim = D, class = std::enable_if_t<(Dim == 2)>>
     slice_type row(location_value_type index) const
     {
         return slice<0>(index);
     }
 
-    template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
+    template <size_t Dim = D, class = std::enable_if_t<(Dim == 2)>>
     slice_range_type column_range() const
     {
         return slice_range<1>();
     }
 
-    template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim == 2)>>
+    template <size_t Dim = D, class = std::enable_if_t<(Dim == 2)>>
     slice_type column(location_value_type index) const
     {
         return slice<1>(index);
     }
 
-    template <size_t Dim = D, CONCEPT = std::enable_if_t<(Dim > 1)>>
+    template <size_t Dim = D, class = std::enable_if_t<(Dim > 1)>>
     slice_type operator [](location_value_type index) const
     {
         return slice<0>(index);
@@ -214,7 +214,7 @@ public:
     }
 
 private:
-    template <size_t N, size_t Dim = D, CONCEPT = std::enable_if_t<(Dim > 1)>>
+    template <size_t N, size_t Dim = D, class = std::enable_if_t<(Dim > 1)>>
     slice_range_type slice_range(location_value_type begin, location_value_type end) const
     {
         static_assert(N < D, "slice: invalid dimension");

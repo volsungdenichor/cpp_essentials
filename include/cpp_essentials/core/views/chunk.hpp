@@ -26,7 +26,7 @@ struct chunk_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range, int size, int step) const
     {
         return chunk(std::begin(range), std::end(range), size, step);
@@ -37,7 +37,7 @@ struct slide_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range, int size) const
     {
         return chunk(std::begin(range), std::end(range), size, 1);
@@ -48,7 +48,7 @@ struct group_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range, int size) const
     {
         return chunk(std::begin(range), std::end(range), size, size);
@@ -59,7 +59,7 @@ struct pairwise_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range) const
     {
         return chunk(std::begin(range), std::end(range), 2, 2);

@@ -27,8 +27,8 @@ struct append_fn
     template
         < class Range1
         , class Range2
-        , CONCEPT = cc::InputRange<Range1>
-        , CONCEPT = cc::InputRange<Range2>>
+        , class = cc::InputRange<Range1>
+        , class = cc::InputRange<Range2>>
     auto operator ()(Range1&& range1, Range2&& range2) const
     {
         return chain(std::begin(range1), std::end(range1), std::begin(range2), std::end(range2));
@@ -40,8 +40,8 @@ struct prepend_fn
     template
         < class Range1
         , class Range2
-        , CONCEPT = cc::InputRange<Range1>
-        , CONCEPT = cc::InputRange<Range2>>
+        , class = cc::InputRange<Range1>
+        , class = cc::InputRange<Range2>>
     auto operator ()(Range1&& range1, Range2&& range2) const
     {
         return chain(std::begin(range2), std::end(range2), std::begin(range1), std::end(range1));

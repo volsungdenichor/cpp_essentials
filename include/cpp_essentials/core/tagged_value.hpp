@@ -26,7 +26,7 @@ public:
     {
     }
 
-    template <class U, CONCEPT = cc::Convertible<U, value_type>>
+    template <class U, class = cc::Convertible<U, value_type>>
     constexpr tagged_value(const tagged_value<U, tag_type>& other)
         : tagged_value{ static_cast<value_type>(other.get()) }
     {
@@ -38,25 +38,25 @@ public:
         return *this;
     }
 
-    template <class U, CONCEPT = cc::Convertible<U, value_type>>
+    template <class U, class = cc::Convertible<U, value_type>>
     constexpr tagged_value& operator =(const tagged_value<U, tag_type>& other)
     {
         return *this = tagged_value{ other };
     }
 
-    template <class U = T, CONCEPT = cc::Convertible<U, bool>>
+    template <class U = T, class = cc::Convertible<U, bool>>
     constexpr explicit operator bool() const
     {
         return static_cast<bool>(_value);
     }
 
-    template <class U, CONCEPT = cc::Convertible<U, value_type>>
+    template <class U, class = cc::Convertible<U, value_type>>
     constexpr operator tagged_value<U, tag_type>() const
     {
         return *this;
     }
 
-    template <class U, CONCEPT = cc::Convertible<U, value_type>>
+    template <class U, class = cc::Convertible<U, value_type>>
     constexpr tagged_value<U, tag_type> as() const
     {
         return *this;
@@ -88,38 +88,38 @@ std::ostream& operator <<(std::ostream& os, const tagged_value<T, Tag>& item)
 }
 
 
-template <class T, class U, class Tag, CONCEPT = cc::EqualityCompare<T, U>>
+template <class T, class U, class Tag, class = cc::EqualityCompare<T, U>>
 bool operator ==(const tagged_value<T, Tag>& lhs, const tagged_value<U, Tag>& rhs)
 {
     return lhs.get() == rhs.get();
 }
 
-template <class T, class U, class Tag, CONCEPT = cc::EqualityCompare<T, U>>
+template <class T, class U, class Tag, class = cc::EqualityCompare<T, U>>
 bool operator !=(const tagged_value<T, Tag>& lhs, const tagged_value<U, Tag>& rhs)
 {
     return lhs.get() != rhs.get();
 }
 
 
-template <class T, class U, class Tag, CONCEPT = cc::LessThanCompare<T, U>>
+template <class T, class U, class Tag, class = cc::LessThanCompare<T, U>>
 bool operator <(const tagged_value<T, Tag>& lhs, const tagged_value<U, Tag>& rhs)
 {
     return lhs.get() < rhs.get();
 }
 
-template <class T, class U, class Tag, CONCEPT = cc::LessThanCompare<T, U>>
+template <class T, class U, class Tag, class = cc::LessThanCompare<T, U>>
 bool operator >(const tagged_value<T, Tag>& lhs, const tagged_value<U, Tag>& rhs)
 {
     return lhs.get() > rhs.get();
 }
 
-template <class T, class U, class Tag, CONCEPT = cc::LessThanCompare<T, U>>
+template <class T, class U, class Tag, class = cc::LessThanCompare<T, U>>
 bool operator <=(const tagged_value<T, Tag>& lhs, const tagged_value<U, Tag>& rhs)
 {
     return lhs.get() <= rhs.get();
 }
 
-template <class T, class U, class Tag, CONCEPT = cc::LessThanCompare<T, U>>
+template <class T, class U, class Tag, class = cc::LessThanCompare<T, U>>
 bool operator >=(const tagged_value<T, Tag>& lhs, const tagged_value<U, Tag>& rhs)
 {
     return lhs.get() >= rhs.get();
@@ -140,62 +140,62 @@ auto operator -(const tagged_value<T, Tag>& item)
 }
 
 
-template <class T, class U, class Tag, CONCEPT = cc::Add<T, U>>
+template <class T, class U, class Tag, class = cc::Add<T, U>>
 auto operator +(const tagged_value<T, Tag>& lhs, const tagged_value<U, Tag>& rhs)
 {
     using return_type = tagged_value<cc::Add<T, U>, Tag>;
     return return_type{ lhs.get() + rhs.get() };
 }
 
-template <class T, class U, class Tag, CONCEPT = cc::Subtract<T, U>>
+template <class T, class U, class Tag, class = cc::Subtract<T, U>>
 auto operator -(const tagged_value<T, Tag>& lhs, const tagged_value<U, Tag>& rhs)
 {
     using return_type = tagged_value<cc::Subtract<T, U>, Tag>;
     return return_type{ lhs.get() - rhs.get() };
 }
 
-template <class T, class U, class Tag, CONCEPT = cc::Multiply<T, U>, CONCEPT = cc::Arithmetic<T>>
+template <class T, class U, class Tag, class = cc::Multiply<T, U>, class = cc::Arithmetic<T>>
 auto operator *(const tagged_value<T, Tag>& lhs, const U& rhs)
 {
     using return_type = tagged_value<cc::Multiply<T, U>, Tag>;
     return return_type{ lhs.get() * rhs };
 }
 
-template <class T, class U, class Tag, CONCEPT = cc::Multiply<T, U>, CONCEPT = cc::Arithmetic<T>>
+template <class T, class U, class Tag, class = cc::Multiply<T, U>, class = cc::Arithmetic<T>>
 auto operator *(const T& lhs, const tagged_value<U, Tag>& rhs)
 {
     return rhs * lhs;
 }
 
-template <class T, class U, class Tag1, class Tag2, CONCEPT = cc::Multiply<T, U>, CONCEPT = cc::Multiply<Tag1, Tag2>>
+template <class T, class U, class Tag1, class Tag2, class = cc::Multiply<T, U>, class = cc::Multiply<Tag1, Tag2>>
 auto operator *(const tagged_value<T, Tag1>& lhs, const tagged_value<U, Tag2>& rhs)
 {
     using return_type = tagged_value<cc::Multiply<T, U>, cc::Multiply<Tag1, Tag2>>;
     return return_type{ lhs.get() * rhs.get() };
 }
 
-template <class T, class U, class Tag, CONCEPT = cc::Divide<T, U>, CONCEPT = cc::Arithmetic<U>>
+template <class T, class U, class Tag, class = cc::Divide<T, U>, class = cc::Arithmetic<U>>
 auto operator /(const tagged_value<T, Tag>& lhs, const U& rhs)
 {
     using return_type = tagged_value<cc::Divide<T, U>, Tag>;
     return return_type{ lhs.get() / rhs };
 }
 
-template <class T, class U, class Tag, CONCEPT = cc::Divide<T, U>, CONCEPT = cc::Divide<int, Tag>, CONCEPT = cc::Arithmetic<T>>
+template <class T, class U, class Tag, class = cc::Divide<T, U>, class = cc::Divide<int, Tag>, class = cc::Arithmetic<T>>
 auto operator /(const T& lhs, const tagged_value<U, Tag>& rhs)
 {
     using return_type = tagged_value<cc::Divide<T, U>, cc::Divide<int, Tag>>;
     return return_type{ lhs / rhs.get() };
 }
 
-template <class T, class U, class Tag1, class Tag2, CONCEPT = cc::Divide<T, U>, CONCEPT = cc::Divide<Tag1, Tag2>>
+template <class T, class U, class Tag1, class Tag2, class = cc::Divide<T, U>, class = cc::Divide<Tag1, Tag2>>
 auto operator /(const tagged_value<T, Tag1>& lhs, const tagged_value<U, Tag2>& rhs)
 {
     using return_type = tagged_value<cc::Divide<T, U>, cc::Divide<Tag1, Tag2>>;
     return return_type{ lhs.get() / rhs.get() };
 }
 
-template <class T, class U, class Tag, CONCEPT = cc::Divide<T, U>>
+template <class T, class U, class Tag, class = cc::Divide<T, U>>
 auto operator /(const tagged_value<T, Tag>& lhs, const tagged_value<U, Tag>& rhs)
 {
     using return_type = cc::Divide<T, U>;
@@ -203,35 +203,35 @@ auto operator /(const tagged_value<T, Tag>& lhs, const tagged_value<U, Tag>& rhs
 }
 
 
-template <class T, class U, class Tag, CONCEPT = cc::Add<T, U>>
+template <class T, class U, class Tag, class = cc::Add<T, U>>
 auto& operator +=(tagged_value<T, Tag>& lhs, const tagged_value<U, Tag>& rhs)
 {
     lhs = lhs + rhs;
     return lhs;
 }
 
-template <class T, class U, class Tag, CONCEPT = cc::Subtract<T, U>>
+template <class T, class U, class Tag, class = cc::Subtract<T, U>>
 auto& operator -=(tagged_value<T, Tag>& lhs, const tagged_value<U, Tag>& rhs)
 {
     lhs = lhs - rhs;
     return lhs;
 }
 
-template <class T, class U, class Tag, CONCEPT = cc::Multiply<T, U>, CONCEPT = cc::Arithmetic<U>>
+template <class T, class U, class Tag, class = cc::Multiply<T, U>, class = cc::Arithmetic<U>>
 auto& operator *=(tagged_value<T, Tag>& lhs, const U& rhs)
 {
     lhs = lhs * rhs;
     return lhs;
 }
 
-template <class T, class U, class Tag, CONCEPT = cc::Divide<T, U>, CONCEPT = cc::Arithmetic<U>>
+template <class T, class U, class Tag, class = cc::Divide<T, U>, class = cc::Arithmetic<U>>
 auto& operator /=(tagged_value<T, Tag>& lhs, const U& rhs)
 {
     lhs = lhs / rhs;
     return lhs;
 }
 
-template <class T, class Tag, CONCEPT = cc::Increment<T>>
+template <class T, class Tag, class = cc::Increment<T>>
 auto& operator ++(tagged_value<T, Tag>& item)
 {
     auto val = item.get();
@@ -240,7 +240,7 @@ auto& operator ++(tagged_value<T, Tag>& item)
     return item;
 }
 
-template <class T, class Tag, CONCEPT = cc::Decrement<T>>
+template <class T, class Tag, class = cc::Decrement<T>>
 auto& operator --(tagged_value<T, Tag>& item)
 {
     auto val = item.get();
@@ -249,7 +249,7 @@ auto& operator --(tagged_value<T, Tag>& item)
     return item;
 }
 
-template <class T, class Tag, CONCEPT = cc::Increment<T>>
+template <class T, class Tag, class = cc::Increment<T>>
 auto operator ++(tagged_value<T, Tag>& item, int)
 {
     auto temp = item;
@@ -257,7 +257,7 @@ auto operator ++(tagged_value<T, Tag>& item, int)
     return temp;
 }
 
-template <class T, class Tag, CONCEPT = cc::Decrement<T>>
+template <class T, class Tag, class = cc::Decrement<T>>
 auto operator --(tagged_value<T, Tag>& item, int)
 {
     auto temp = item;

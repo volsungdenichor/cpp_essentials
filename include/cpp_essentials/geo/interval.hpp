@@ -106,7 +106,7 @@ public:
 template
     < class T
     , class U
-    , CONCEPT = cc::Add<T, U>>
+    , class = cc::Add<T, U>>
 auto& operator +=(interval<T>& lhs, U rhs)
 {
     core::transform(lhs._data, lhs._data.begin(), core::plus(rhs));
@@ -116,7 +116,7 @@ auto& operator +=(interval<T>& lhs, U rhs)
 template
     < class T
     , class U
-    , CONCEPT = cc::Add<T, U>>
+    , class = cc::Add<T, U>>
 auto operator +(const interval<T>& lhs, U rhs) -> interval<cc::Add<T, U>>
 {
     interval<cc::Add<T, U>> result;
@@ -127,7 +127,7 @@ auto operator +(const interval<T>& lhs, U rhs) -> interval<cc::Add<T, U>>
 template
     < class T
     , class U
-    , CONCEPT = cc::Add<T, U>>
+    , class = cc::Add<T, U>>
 auto operator +(T lhs, const interval<U>& rhs) -> interval<cc::Add<T, U>>
 {
     return rhs + lhs;
@@ -136,7 +136,7 @@ auto operator +(T lhs, const interval<U>& rhs) -> interval<cc::Add<T, U>>
 template
     < class T
     , class U
-    , CONCEPT = cc::Subtract<T, U>>
+    , class = cc::Subtract<T, U>>
 auto& operator -=(interval<T>& lhs, U rhs)
 {
     core::transform(lhs._data, lhs._data.begin(), core::minus(rhs));
@@ -146,7 +146,7 @@ auto& operator -=(interval<T>& lhs, U rhs)
 template
     < class T
     , class U
-    , CONCEPT = cc::Subtract<T, U>>
+    , class = cc::Subtract<T, U>>
 auto operator -(const interval<T>& lhs, U rhs) -> interval<cc::Subtract<T, U>>
 {
     interval<cc::Subtract<T, U>> result;
@@ -157,7 +157,7 @@ auto operator -(const interval<T>& lhs, U rhs) -> interval<cc::Subtract<T, U>>
 template
     < class T
     , class U
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto& operator *=(interval<T>& lhs, U rhs)
 {
     core::transform(lhs._data, lhs._data.begin(), core::multiplies(rhs));
@@ -167,7 +167,7 @@ auto& operator *=(interval<T>& lhs, U rhs)
 template
     < class T
     , class U
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto operator *(const interval<T>& lhs, U rhs) -> interval<cc::Multiply<T, U>>
 {
     interval<cc::Multiply<T, U>> result;
@@ -178,7 +178,7 @@ auto operator *(const interval<T>& lhs, U rhs) -> interval<cc::Multiply<T, U>>
 template
     < class T
     , class U
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto operator *(T lhs, const interval<U>& rhs) -> interval<cc::Multiply<T, U>>
 {
     return rhs * lhs;
@@ -187,7 +187,7 @@ auto operator *(T lhs, const interval<U>& rhs) -> interval<cc::Multiply<T, U>>
 template
     < class T
     , class U
-    , CONCEPT = cc::Divide<T, U>>
+    , class = cc::Divide<T, U>>
 auto& operator /=(interval<T>& lhs, U rhs)
 {
     core::transform(lhs._data, lhs._data.begin(), core::divides(rhs));
@@ -197,7 +197,7 @@ auto& operator /=(interval<T>& lhs, U rhs)
 template
     < class T
     , class U
-    , CONCEPT = cc::Divide<T, U>>
+    , class = cc::Divide<T, U>>
 auto operator /(const interval<T>& lhs, U rhs) -> interval<cc::Divide<T, U>>
 {
     interval<cc::Divide<T, U>> result;

@@ -44,7 +44,7 @@ public:
         initialize(init);
     }
 
-    template <class U, CONCEPT = cc::Convertible<U, value_type>>
+    template <class U, class = cc::Convertible<U, value_type>>
     matrix(std::initializer_list<U> init)
     {
         initialize(init);
@@ -55,13 +55,13 @@ public:
         initialize(init);
     }
 
-    template <class U, CONCEPT = cc::Convertible<U, value_type>>
+    template <class U, class = cc::Convertible<U, value_type>>
     matrix(std::initializer_list<std::initializer_list<U>> init)
     {
         initialize(init);
     }
 
-    template <size_t Row = R, size_t Col = C, CONCEPT = std::enable_if_t<(Row == 1 && Col == 1)>>
+    template <size_t Row = R, size_t Col = C, class = std::enable_if_t<(Row == 1 && Col == 1)>>
     matrix(value_type value)
     {
         (*this)[0] = value;
@@ -72,13 +72,13 @@ public:
         core::copy(other._data, _data.begin());
     }
 
-    template <class U, CONCEPT = cc::Convertible<U, value_type>>
+    template <class U, class = cc::Convertible<U, value_type>>
     matrix(const matrix<U, R, C>& other)
     {
         initialize(other);
     }
 
-    template <class Iter, CONCEPT = cc::Convertible<cc::iter_val<Iter>, value_type>>
+    template <class Iter, class = cc::Convertible<cc::iter_val<Iter>, value_type>>
     matrix(const core::iterator_range<Iter> range)
     {
         core::transform(range, _data.begin(), core::cast<value_type>);
@@ -108,7 +108,7 @@ public:
     }
 
 
-    template <class U, CONCEPT = cc::Convertible<U, value_type>>
+    template <class U, class = cc::Convertible<U, value_type>>
     matrix<U, R, C> as() const
     {
         return *this;
@@ -137,52 +137,52 @@ public:
     }
 
 
-    template <size_t Index, size_t Row = R, CONCEPT = std::enable_if_t<(Row == 1 && Index < C)>>
+    template <size_t Index, size_t Row = R, class = std::enable_if_t<(Row == 1 && Index < C)>>
     const_reference get() const
     {
         return std::get<Index>(_data);
     }
 
-    template <size_t Index, size_t Row = R, CONCEPT = std::enable_if_t<(Row == 1 && Index < C)>>
+    template <size_t Index, size_t Row = R, class = std::enable_if_t<(Row == 1 && Index < C)>>
     reference get()
     {
         return std::get<Index>(_data);
     }
 
 
-    template <size_t Row = R, size_t Col = C, CONCEPT = std::enable_if_t<(Row == 1 && Col >= 1)>>
+    template <size_t Row = R, size_t Col = C, class = std::enable_if_t<(Row == 1 && Col >= 1)>>
     const_reference x() const
     {
         return get<0>();
     }
 
-    template <size_t Row = R, size_t Col = C, CONCEPT = std::enable_if_t<(Row == 1 && Col >= 1)>>
+    template <size_t Row = R, size_t Col = C, class = std::enable_if_t<(Row == 1 && Col >= 1)>>
     reference x()
     {
         return get<0>();
     }
 
 
-    template <size_t Row = R, size_t Col = C, CONCEPT = std::enable_if_t<(Row == 1 && Col >= 2)>>
+    template <size_t Row = R, size_t Col = C, class = std::enable_if_t<(Row == 1 && Col >= 2)>>
     const_reference y() const
     {
         return get<1>();
     }
 
-    template <size_t Row = R, size_t Col = C, CONCEPT = std::enable_if_t<(Row == 1 && Col >= 2)>>
+    template <size_t Row = R, size_t Col = C, class = std::enable_if_t<(Row == 1 && Col >= 2)>>
     reference y()
     {
         return get<1>();
     }
 
 
-    template <size_t Row = R, size_t Col = C, CONCEPT = std::enable_if_t<(Row == 1 && Col >= 3)>>
+    template <size_t Row = R, size_t Col = C, class = std::enable_if_t<(Row == 1 && Col >= 3)>>
     const_reference z() const
     {
         return get<2>();
     }
 
-    template <size_t Row = R, size_t Col = C, CONCEPT = std::enable_if_t<(Row == 1 && Col >= 3)>>
+    template <size_t Row = R, size_t Col = C, class = std::enable_if_t<(Row == 1 && Col >= 3)>>
     reference z()
     {
         return get<2>();
@@ -191,13 +191,13 @@ public:
     data_type _data;
 
 private:
-    template <class U, CONCEPT = cc::Convertible<U, value_type>>
+    template <class U, class = cc::Convertible<U, value_type>>
     void initialize(const matrix<U, R, C>& other)
     {
         core::transform(other._data, _data.begin(), core::cast<value_type>);
     }
 
-    template <class U, CONCEPT = cc::Convertible<U, value_type>>
+    template <class U, class = cc::Convertible<U, value_type>>
     void initialize(std::initializer_list<U> init)
     {
         EXPECTS(init.size() == size());
@@ -205,7 +205,7 @@ private:
         core::transform(init, _data.begin(), core::cast<value_type>);
     }
 
-    template <class U, CONCEPT = cc::Convertible<U, value_type>>
+    template <class U, class = cc::Convertible<U, value_type>>
     void initialize(std::initializer_list<std::initializer_list<U>> init)
     {
         EXPECTS(init.size() == row_count());

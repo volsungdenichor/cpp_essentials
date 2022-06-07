@@ -17,7 +17,7 @@ struct stride_fn
 {    
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range, int step) const
     {
         using cpp_essentials::core::detail::stride_iterator;

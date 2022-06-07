@@ -15,7 +15,7 @@ namespace cpp_essentials::core::views
 template
     < class Iter1
     , class Iter2
-    , CONCEPT = cc::Add<cc::iter_ref<Iter1>, cc::iter_ref<Iter2>>>
+    , class = cc::Add<cc::iter_ref<Iter1>, cc::iter_ref<Iter2>>>
 auto operator +(const iterator_range<Iter1>& lhs, const iterator_range<Iter2>& rhs)
 {
     return zip(lhs, rhs, plus());
@@ -24,7 +24,7 @@ auto operator +(const iterator_range<Iter1>& lhs, const iterator_range<Iter2>& r
 template
     < class Iter1
     , class Iter2
-    , CONCEPT = cc::Subtract<cc::iter_ref<Iter1>, cc::iter_ref<Iter2>>>
+    , class = cc::Subtract<cc::iter_ref<Iter1>, cc::iter_ref<Iter2>>>
 auto operator -(const iterator_range<Iter1>& lhs, const iterator_range<Iter2>& rhs)
 {
     return zip(lhs, rhs, minus());
@@ -33,7 +33,7 @@ auto operator -(const iterator_range<Iter1>& lhs, const iterator_range<Iter2>& r
 template
 < class Iter1
     , class Iter2
-    , CONCEPT = cc::Multiply<cc::iter_ref<Iter1>, cc::iter_ref<Iter2>>>
+    , class = cc::Multiply<cc::iter_ref<Iter1>, cc::iter_ref<Iter2>>>
 auto operator *(const iterator_range<Iter1>& lhs, const iterator_range<Iter2>& rhs)
 {
     return zip(lhs, rhs, multiplies());
@@ -42,7 +42,7 @@ auto operator *(const iterator_range<Iter1>& lhs, const iterator_range<Iter2>& r
 template
     < class Iter1
     , class Iter2
-    , CONCEPT = cc::Divide<cc::iter_ref<Iter1>, cc::iter_ref<Iter2>>>
+    , class = cc::Divide<cc::iter_ref<Iter1>, cc::iter_ref<Iter2>>>
 auto operator /(const iterator_range<Iter1>& lhs, const iterator_range<Iter2>& rhs)
 {
     return zip(lhs, rhs, divides());
@@ -52,7 +52,7 @@ auto operator /(const iterator_range<Iter1>& lhs, const iterator_range<Iter2>& r
 template
     < class Iter
     , class T
-    , CONCEPT = cc::Add<cc::iter_ref<Iter>, T>>
+    , class = cc::Add<cc::iter_ref<Iter>, T>>
 auto operator +(const iterator_range<Iter>& lhs, T rhs)
 {
     return map(lhs, plus(rhs));
@@ -61,7 +61,7 @@ auto operator +(const iterator_range<Iter>& lhs, T rhs)
 template
     < class T
     , class Iter
-    , CONCEPT = cc::Add<T, cc::iter_ref<Iter>>>
+    , class = cc::Add<T, cc::iter_ref<Iter>>>
 auto operator +(T lhs, const iterator_range<Iter>& rhs)
 {
     return rhs + lhs;
@@ -71,7 +71,7 @@ auto operator +(T lhs, const iterator_range<Iter>& rhs)
 template
     < class Iter
     , class T
-    , CONCEPT = cc::Subtract<cc::iter_ref<Iter>, T>>
+    , class = cc::Subtract<cc::iter_ref<Iter>, T>>
 auto operator -(const iterator_range<Iter>& lhs, T rhs)
 {
     return map(lhs, minus(rhs));
@@ -80,7 +80,7 @@ auto operator -(const iterator_range<Iter>& lhs, T rhs)
 template
     < class T
     , class Iter
-    , CONCEPT = cc::Subtract<T, cc::iter_ref<Iter>>>
+    , class = cc::Subtract<T, cc::iter_ref<Iter>>>
 auto operator -(T lhs, const iterator_range<Iter>& rhs)
 {
     return map(rhs, minus.bind_left(lhs));
@@ -90,7 +90,7 @@ auto operator -(T lhs, const iterator_range<Iter>& rhs)
 template
     < class Iter
     , class T
-    , CONCEPT = cc::Multiply<cc::iter_ref<Iter>, T>>
+    , class = cc::Multiply<cc::iter_ref<Iter>, T>>
 auto operator *(const iterator_range<Iter>& lhs, T rhs)
 {
     return map(lhs, multiplies(rhs));
@@ -99,7 +99,7 @@ auto operator *(const iterator_range<Iter>& lhs, T rhs)
 template
     < class T
     , class Iter
-    , CONCEPT = cc::Multiply<T, cc::iter_ref<Iter>>>
+    , class = cc::Multiply<T, cc::iter_ref<Iter>>>
 auto operator *(T lhs, const iterator_range<Iter>& rhs)
 {
     return rhs * lhs;
@@ -109,7 +109,7 @@ auto operator *(T lhs, const iterator_range<Iter>& rhs)
 template
     < class Iter
     , class T
-    , CONCEPT = cc::Divide<cc::iter_ref<Iter>, T>>
+    , class = cc::Divide<cc::iter_ref<Iter>, T>>
 auto operator /(const iterator_range<Iter>& lhs, T rhs)
 {
     return map(lhs, divides(rhs));
@@ -118,7 +118,7 @@ auto operator /(const iterator_range<Iter>& lhs, T rhs)
 template
     < class T
     , class Iter
-    , CONCEPT = cc::Divide<T, cc::iter_ref<Iter>>>
+    , class = cc::Divide<T, cc::iter_ref<Iter>>>
 auto operator /(T lhs, const iterator_range<Iter>& rhs)
 {
     return map(rhs, divides.bind_left(lhs));

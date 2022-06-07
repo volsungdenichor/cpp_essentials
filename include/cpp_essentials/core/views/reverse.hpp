@@ -28,7 +28,7 @@ struct reverse_fn
 
     template
         < class Range
-        , CONCEPT = cc::BidirectionalRange<Range>>
+        , class = cc::BidirectionalRange<Range>>
     auto operator ()(Range&& range) const
     {
         return make_range(

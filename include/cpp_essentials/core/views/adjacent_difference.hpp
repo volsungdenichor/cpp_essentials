@@ -17,8 +17,8 @@ struct adjacent_difference_fn
     template
         < class Range
         , class BinaryFunc = std::minus<>
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::BinaryFunction<BinaryFunc, cc::range_ref<Range>, cc::range_ref<Range>>>
+        , class = cc::InputRange<Range>
+        , class = cc::BinaryFunction<BinaryFunc, cc::range_ref<Range>, cc::range_ref<Range>>>
     auto operator ()(Range&& range, BinaryFunc func = {}) const
     {
         const auto b = std::begin(range);

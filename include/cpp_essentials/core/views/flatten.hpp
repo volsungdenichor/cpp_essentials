@@ -15,7 +15,7 @@ struct flatten_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range) const
     {
         using cpp_essentials::core::detail::flatten_iterator;

@@ -23,7 +23,7 @@ struct slice_fn
 
     template
         < class Range
-        , CONCEPT = cc::ForwardRange<Range>>
+        , class = cc::ForwardRange<Range>>
     auto operator ()(Range&& range, nil_t /* begin_index */, nil_t /* end_index */) const
     {
         return make_range(range);
@@ -31,7 +31,7 @@ struct slice_fn
 
     template
         < class Range
-        , CONCEPT = cc::ForwardRange<Range>>
+        , class = cc::ForwardRange<Range>>
     auto operator ()(Range&& range, std::ptrdiff_t begin_index, nil_t /* end_index */) const
     {
         const auto r = make_range(range);
@@ -52,7 +52,7 @@ struct slice_fn
 
     template
         < class Range
-        , CONCEPT = cc::ForwardRange<Range>>
+        , class = cc::ForwardRange<Range>>
     auto operator ()(Range&& range, nil_t /* begin_index */, std::ptrdiff_t end_index) const
     {
         const auto r = make_range(range);
@@ -73,7 +73,7 @@ struct slice_fn
 
     template
         < class Range
-        , CONCEPT = cc::ForwardRange<Range>>
+        , class = cc::ForwardRange<Range>>
     auto operator ()(Range&& range, std::ptrdiff_t begin_index, std::ptrdiff_t end_index) const
     {
         const auto r = make_range(range);
@@ -105,7 +105,7 @@ struct take_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
         auto[b, e] = make_range(range);
@@ -117,7 +117,7 @@ struct drop_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
         auto[b, e] = make_range(range);
@@ -129,7 +129,7 @@ struct take_back_fn
 {
     template
         < class Range
-        , CONCEPT = cc::BidirectionalRange<Range>>
+        , class = cc::BidirectionalRange<Range>>
     auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
         auto[b, e] = make_range(range);
@@ -141,7 +141,7 @@ struct drop_back_fn
 {
     template
         < class Range
-        , CONCEPT = cc::BidirectionalRange<Range>>
+        , class = cc::BidirectionalRange<Range>>
     auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
         auto[b, e] = make_range(range);
@@ -153,7 +153,7 @@ struct take_exactly_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
         auto[b, e] = make_range(range);
@@ -165,7 +165,7 @@ struct drop_exactly_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
         auto[b, e] = make_range(range);
@@ -177,7 +177,7 @@ struct take_back_exactly_fn
 {
     template
         < class Range
-        , CONCEPT = cc::BidirectionalRange<Range>>
+        , class = cc::BidirectionalRange<Range>>
     auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
         auto[b, e] = make_range(range);
@@ -189,7 +189,7 @@ struct drop_back_exactly_fn
 {
     template
         < class Range
-        , CONCEPT = cc::BidirectionalRange<Range>>
+        , class = cc::BidirectionalRange<Range>>
     auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
         auto[b, e] = make_range(range);
@@ -201,7 +201,7 @@ struct split_before_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range, cc::range_iter<Range> it) const
     {
         return make_range(std::begin(range), it);
@@ -212,7 +212,7 @@ struct split_after_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range, cc::range_iter<Range> it) const
     {
         return make_range(it, std::end(range));
@@ -223,7 +223,7 @@ struct split_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range, cc::range_iter<Range> it) const
     {
         return make_range_pair(FORWARD(range), it);
@@ -231,7 +231,7 @@ struct split_fn
 
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range, std::ptrdiff_t count) const
     {
         auto[b, e] = make_range(range);

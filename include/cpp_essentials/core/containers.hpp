@@ -27,7 +27,7 @@ struct to_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range) const -> C
     {
         return { std::begin(range), std::end(range) };
@@ -39,7 +39,7 @@ struct to_container_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range) const -> Container<cc::range_val<Range>>
     {        
         return { std::begin(range), std::end(range) };
@@ -50,7 +50,7 @@ struct to_string_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range) const -> std::string
     {
         return { std::begin(range), std::end(range) };
@@ -61,7 +61,7 @@ struct to_string_view_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range) const -> std::string_view
     {
         auto b = std::begin(range);
@@ -76,7 +76,7 @@ struct to_ref_vector_fn
 {
     template
         < class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     auto operator ()(Range&& range) const -> core::ref_vector<std::remove_reference_t<cc::range_ref<Range>>>
     {
 

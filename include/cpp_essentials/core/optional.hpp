@@ -121,7 +121,7 @@ public:
 
     template
         < class Exception
-        , CONCEPT = cc::BaseOf<std::exception, Exception>>
+        , class = cc::BaseOf<std::exception, Exception>>
     decltype(auto) value_or_throw(const Exception& exception) const
     {
         if (!self().has_value())

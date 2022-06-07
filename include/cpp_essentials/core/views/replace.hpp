@@ -17,9 +17,9 @@ struct replace_if_fn
         < class Range
         , class UnaryPred
         , class T
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::UnaryFunction<UnaryPred, cc::range_ref<Range>>
-        , CONCEPT = cc::Convertible<T, cc::range_val<Range>>>
+        , class = cc::InputRange<Range>
+        , class = cc::UnaryFunction<UnaryPred, cc::range_ref<Range>>
+        , class = cc::Convertible<T, cc::range_val<Range>>>
     auto operator ()(Range&& range, UnaryPred pred, const T& new_value) const
     {
         return map(range, [=](auto&& item) { return pred(item) ? new_value : item; });
@@ -32,9 +32,9 @@ struct replace_fn
         < class Range
         , class T
         , class U
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::EqualityCompare<cc::range_val<Range>, T>
-        , CONCEPT = cc::Convertible<U, cc::range_val<Range>>>
+        , class = cc::InputRange<Range>
+        , class = cc::EqualityCompare<cc::range_val<Range>, T>
+        , class = cc::Convertible<U, cc::range_val<Range>>>
     auto operator ()(Range&& range, const T& old_value, const U& new_value) const
     {
         static constexpr auto _replace_if = replace_if_fn{};

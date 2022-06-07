@@ -18,8 +18,8 @@ struct map_fn
     template
         < class Range
         , class UnaryFunc
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::UnaryFunction<UnaryFunc, cc::range_ref<Range>>>
+        , class = cc::InputRange<Range>
+        , class = cc::UnaryFunction<UnaryFunc, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryFunc&& func) const
     {
         using cpp_essentials::core::detail::map_iterator;

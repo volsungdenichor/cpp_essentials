@@ -18,7 +18,7 @@ struct insert_fn
     template
         < class Container
         , class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     Container& operator ()(Container& container, cc::range_iter<Container> iter, Range&& range) const
     {
         container.insert(iter, std::begin(range), std::end(range));
@@ -28,7 +28,7 @@ struct insert_fn
     template
         < class Container
         , class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     Container& operator ()(Container& container, Range&& range) const
     {
         container.insert(std::begin(range), std::end(range));
@@ -41,7 +41,7 @@ struct push_front_fn
     template
         < class Container
         , class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     Container& operator ()(Container& container, Range&& range) const
     {
         static constexpr auto _insert = insert_fn{};
@@ -54,7 +54,7 @@ struct push_back_fn
     template
         < class Container
         , class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     Container& operator ()(Container& container, Range&& range) const
     {
         static constexpr auto _insert = insert_fn{};
@@ -67,7 +67,7 @@ struct erase_fn
     template
         < class Container
         , class Range
-        , CONCEPT = cc::InputRange<Range>>
+        , class = cc::InputRange<Range>>
     void operator ()(Container& container, Range&& range) const
     {
         container.erase(std::begin(range), std::end(range));
@@ -79,7 +79,7 @@ struct erase_if_fn
     template
         < class Container
         , class Pred
-        , CONCEPT = cc::UnaryPredicate<Pred, cc::range_ref<Container>>>
+        , class = cc::UnaryPredicate<Pred, cc::range_ref<Container>>>
     void operator ()(Container& container, Pred&& pred) const
     {
         if constexpr (is_associative_container_v<Container>)

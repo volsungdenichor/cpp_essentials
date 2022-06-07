@@ -29,7 +29,7 @@ template
     , class U
     , size_t R
     , size_t C
-    , CONCEPT = cc::Add<T, U>>
+    , class = cc::Add<T, U>>
 auto& operator +=(matrix<T, R, C>& lhs, const matrix<U, R, C>& rhs)
 {
     core::transform(lhs._data, rhs._data, lhs._data.begin(), core::plus);
@@ -41,7 +41,7 @@ template
     , class U
     , size_t R
     , size_t C
-    , CONCEPT = cc::Add<T, U>>
+    , class = cc::Add<T, U>>
 auto operator +(const matrix<T, R, C>& lhs, const matrix<U, R, C>& rhs) -> matrix<cc::Add<T, U>, R, C>
 {
     matrix<cc::Add<T, U>, R, C> result;
@@ -55,7 +55,7 @@ template
     , class U
     , size_t R
     , size_t C
-    , CONCEPT = cc::Subtract<T, U>>
+    , class = cc::Subtract<T, U>>
 auto& operator -=(matrix<T, R, C>& lhs, const matrix<U, R, C>& rhs)
 {
     core::transform(lhs._data, rhs._data, lhs._data.begin(), core::minus);
@@ -67,7 +67,7 @@ template
     , class U
     , size_t R
     , size_t C
-    , CONCEPT = cc::Subtract<T, U>>
+    , class = cc::Subtract<T, U>>
 auto operator -(const matrix<T, R, C>& lhs, const matrix<U, R, C>& rhs) -> matrix<cc::Subtract<T, U>, R, C>
 {
     matrix<cc::Subtract<T, U>, R, C> result;
@@ -81,7 +81,7 @@ template
     , class U
     , size_t R
     , size_t C
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto& operator *=(matrix<T, R, C>& lhs, U rhs)
 {
     core::transform(lhs._data, lhs._data.begin(), core::multiplies(rhs));
@@ -93,7 +93,7 @@ template
     , class U
     , size_t R
     , size_t C
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto operator *(const matrix<T, R, C>& lhs, U rhs) -> matrix<cc::Multiply<T, U>, R, C>
 {
     matrix<cc::Multiply<T, U>, R, C> result;
@@ -106,7 +106,7 @@ template
     , class U
     , size_t R
     , size_t C
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto operator *(T lhs, const matrix<U, R, C>& rhs) -> matrix<cc::Multiply<U, T>, R, C>
 {
     return rhs * lhs;
@@ -118,7 +118,7 @@ template
     , class U
     , size_t R
     , size_t C
-    , CONCEPT = cc::Divide<T, U>>
+    , class = cc::Divide<T, U>>
 auto& operator /=(matrix<T, R, C>& lhs, U rhs)
 {
     core::transform(lhs._data, lhs._data.begin(), core::divides(rhs));
@@ -130,7 +130,7 @@ template
     , class U
     , size_t R
     , size_t C
-    , CONCEPT = cc::Divide<T, U>>
+    , class = cc::Divide<T, U>>
 auto operator /(const matrix<T, R, C>& lhs, U rhs) -> matrix<cc::Divide<T, U>, R, C>
 {
     matrix<cc::Divide<T, U>, R, C> result;
@@ -145,7 +145,7 @@ template
     , size_t R
     , size_t D
     , size_t C
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto operator *(const matrix<T, R, D>& lhs, const matrix<U, D, C>& rhs) -> matrix<cc::Multiply<T, U>, R, C>
 {
     using result_type = matrix<cc::Multiply<T, U>, R, C>;
@@ -174,7 +174,7 @@ template
     < class T
     , class U
     , size_t D
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto operator *(const vector<T, D>& lhs, const square_matrix<U, D + 1>& rhs) -> vector<cc::Multiply<T, U>, D>
 {
     using result_type = vector<cc::Multiply<T, U>, D>;
@@ -200,7 +200,7 @@ template
     < class T
     , class U
     , size_t D
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto operator *(const square_matrix<T, D + 1>& lhs, const vector<U, D>& rhs) -> vector<cc::Multiply<T, U>, D>
 {
     return rhs * lhs;
@@ -210,7 +210,7 @@ template
     < class T
     , class U
     , size_t D
-    , CONCEPT = cc::Multiply<T, U>>
+    , class = cc::Multiply<T, U>>
 auto& operator *=(vector<T, D>& lhs, const square_matrix<U, D + 1>& rhs)
 {
     return lhs = lhs * rhs;   
@@ -239,7 +239,7 @@ struct elementwise_multiply_fn
         , class U
         , size_t R
         , size_t C
-        , CONCEPT = cc::Multiply<T, U>>
+        , class = cc::Multiply<T, U>>
     auto operator ()(const matrix<T, R, C>& lhs, const matrix<U, R, C>& rhs) const -> matrix<cc::Multiply<T, U>, R, C>
     {
         matrix<cc::Multiply<T, U>, R, C> result;
@@ -255,7 +255,7 @@ struct elementwise_divide_fn
         , class U
         , size_t R
         , size_t C
-        , CONCEPT = cc::Divide<T, U>>
+        , class = cc::Divide<T, U>>
     auto operator ()(const matrix<T, R, C>& lhs, const matrix<U, R, C>& rhs) const -> matrix<cc::Divide<T, U>, R, C>
     {
         matrix<cc::Divide<T, U>, R, C> result;

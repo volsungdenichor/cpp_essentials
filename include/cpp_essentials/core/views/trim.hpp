@@ -70,8 +70,8 @@ struct take_while_fn
     template
         < class Range
         , class UnaryPred
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , class = cc::InputRange<Range>
+        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const
     {
         return take_while(std::begin(range), std::end(range), make_func(pred));
@@ -83,8 +83,8 @@ struct drop_while_fn
     template
         < class Range
         , class UnaryPred
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , class = cc::InputRange<Range>
+        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const
     {
         return drop_while(std::begin(range), std::end(range), make_func(pred));
@@ -96,8 +96,8 @@ struct take_until_fn
     template
         < class Range
         , class UnaryPred
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , class = cc::InputRange<Range>
+        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const
     {
         return take_while(std::begin(range), std::end(range), logical_negation(make_func(pred)));
@@ -109,8 +109,8 @@ struct drop_until_fn
     template
         < class Range
         , class UnaryPred
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , class = cc::InputRange<Range>
+        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const
     {
         return drop_while(std::begin(range), std::end(range), logical_negation(make_func(pred)));
@@ -122,8 +122,8 @@ struct take_back_while_fn
     template
         < class Range
         , class UnaryPred
-        , CONCEPT = cc::BidirectionalRange<Range>
-        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , class = cc::BidirectionalRange<Range>
+        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const
     {
         return take_back_while(std::begin(range), std::end(range), make_func(pred));
@@ -135,8 +135,8 @@ struct drop_back_while_fn
     template
         < class Range
         , class UnaryPred
-        , CONCEPT = cc::BidirectionalRange<Range>
-        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , class = cc::BidirectionalRange<Range>
+        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const
     {
         return drop_back_while(std::begin(range), std::end(range), make_func(pred));
@@ -148,8 +148,8 @@ struct take_back_until_fn
     template
         < class Range
         , class UnaryPred
-        , CONCEPT = cc::BidirectionalRange<Range>
-        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , class = cc::BidirectionalRange<Range>
+        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const
     {
         return take_back_while(std::begin(range), std::end(range), logical_negation(make_func(pred)));
@@ -161,8 +161,8 @@ struct drop_back_until_fn
     template
         < class Range
         , class UnaryPred
-        , CONCEPT = cc::BidirectionalRange<Range>
-        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , class = cc::BidirectionalRange<Range>
+        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const
     {
         return drop_back_while(std::begin(range), std::end(range), logical_negation(make_func(pred)));
@@ -174,8 +174,8 @@ struct trim_while_fn
     template
         < class Range
         , class UnaryPred
-        , CONCEPT = cc::BidirectionalRange<Range>
-        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , class = cc::BidirectionalRange<Range>
+        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const
     {
         return trim_while(std::begin(range), std::end(range), make_func(pred));
@@ -187,8 +187,8 @@ struct trim_until_fn
     template
         < class Range
         , class UnaryPred
-        , CONCEPT = cc::BidirectionalRange<Range>
-        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , class = cc::BidirectionalRange<Range>
+        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const
     {
         return trim_while(std::begin(range), std::end(range), logical_negation(make_func(pred)));
@@ -200,8 +200,8 @@ struct split_while_fn
     template
         < class Range
         , class UnaryPred
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , class = cc::InputRange<Range>
+        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const
     {
         auto[b, e] = make_range(range);
@@ -215,8 +215,8 @@ struct split_until_fn
     template
         < class Range
         , class UnaryPred
-        , CONCEPT = cc::InputRange<Range>
-        , CONCEPT = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
+        , class = cc::InputRange<Range>
+        , class = cc::UnaryPredicate<UnaryPred, cc::range_ref<Range>>>
     auto operator ()(Range&& range, UnaryPred&& pred) const
     {
         auto[b, e] = make_range(range);

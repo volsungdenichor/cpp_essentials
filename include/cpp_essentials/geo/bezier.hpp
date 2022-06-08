@@ -81,4 +81,5 @@ static constexpr auto make_bezier_polyline = detail::make_bezier_fn::polyline_fn
 
 } /* namespace cpp_essentials::geo */
 
-#endif CPP_ESSENTIALS_GEO_BEZIER_HPP_
+#endif /* CPP_ESSENTIALS_GEO_BEZIER_HPP_ */
+

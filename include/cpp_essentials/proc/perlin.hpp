@@ -150,11 +150,11 @@ private:
     permutation _permutation;
 };
 
-template <class T>
+template <class Type>
 class perlin_noise_ext
 {
 public:
-    perlin_noise_ext(perlin_noise inner, int octaves, T persistence, T frequency)
+    perlin_noise_ext(perlin_noise inner, int octaves, Type persistence, Type frequency)
         : _inner{ std::move(inner) }
         , _octaves{ octaves }
         , _persistence{ persistence }
@@ -162,7 +162,7 @@ public:
     {
     }
 
-    perlin_noise_ext(permutation permutation, int octaves, T persistence, T frequency)
+    perlin_noise_ext(permutation permutation, int octaves, Type persistence, Type frequency)
         : perlin_noise_ext{ perlin_noise{ std::move(permutation) }, octaves, persistence, frequency }
     {
     }
@@ -196,8 +196,8 @@ public:
 private:
     perlin_noise _inner;
     int _octaves;
-    T _persistence;
-    T _frequency;
+    Type _persistence;
+    Type _frequency;
 };
 
 } /* namespace cpp_essentials::proc */

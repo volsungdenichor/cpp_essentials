@@ -81,10 +81,20 @@ struct voronoi_fn
         return result;
     }
 
-    static triangle_2d<float> as_triangle(const dcel<float>::face& f)
+    template <class T>
+    static triangle_2d<T> make_triangle(
+        const vector_2d<T>& a,
+        const vector_2d<T>& b,
+        const vector_2d<T>& c)
+    {
+        return { a, b, c };
+    }
+
+    template <class Face>
+    static auto as_triangle(const Face& f)
     {
         const auto p = f.as_polygon();
-        return { p._data.at(0), p._data.at(1), p._data.at(2) };
+        return make_triangle(p._data.at(0), p._data.at(1), p._data.at(2));
     }
 };
 

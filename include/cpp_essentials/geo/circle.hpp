@@ -36,7 +36,7 @@ struct circumcircle_fn
         auto center = circumcenter(triangle);
         auto radius = distance(center, get_vertex(triangle, 0));
 
-        return circle<T> { center, radius };
+        return circle<T> { center, static_cast<T>(radius) };
     }
 };
 

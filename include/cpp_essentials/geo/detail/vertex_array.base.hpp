@@ -70,12 +70,12 @@ public:
         core::copy(other._data, _data.begin());
     }
 
-    // template <class U, size_t M, class = std::enable_if_t<N == 0>>
-    // vertex_array(const vertex_array<U, D, M, Tag>& other)
-    // {
-    //     resize(other.size());
-    //     core::copy(other._data, _data.begin());
-    // }
+    template <class U, size_t M, size_t N_ = N, class = std::enable_if_t<N_ == 0>>
+    vertex_array(const vertex_array<U, D, M, Tag>& other)
+    {
+        resize(other.size());
+        core::copy(other._data, _data.begin());
+    }
 
 
     template <class U>
